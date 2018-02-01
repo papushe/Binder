@@ -1,0 +1,8 @@
+{
+  "name": "Binder",
+  "app_id": "bd95e705",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
