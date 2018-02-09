@@ -1,0 +1,76 @@
+<form #profileForm="ngForm" novalidate>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label floating>First Name</ion-label>
+        <ion-input [(ngModel)]="profile.firstName"
+                   type="text"
+                   name="firstName"
+                   #firstName="ngModel"
+                   clearInput
+                   required></ion-input>
+      </ion-item>
+      <div padding *ngIf="firstName.invalid && firstName.dirty">
+        <span class="global__input-error">Must enter First Name</span>
+      </div>
+      <ion-item>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input [(ngModel)]="profile.lastName"
+                   type="text"
+                   name="lastName"
+                   #lastName="ngModel"
+                   clearInput
+                   required></ion-input>
+      </ion-item>
+      <div padding *ngIf="lastName.invalid && lastName.dirty">
+        <span class="global__input-error">Must enter Last Name</span>
+      </div>
+      <ion-item>
+        <ion-label floating>Location</ion-label>
+        <ion-input [(ngModel)]="profile.location"
+                   type="text"
+                   name="location"
+                   #location="ngModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Phone Number</ion-label>
+        <ion-input [(ngModel)]="profile.phoneNumber"
+                   type="number"
+                   name="phoneNumber"
+                   #phoneNumber="ngModel"
+                   required></ion-input>
+      </ion-item>
+      <div padding *ngIf="phoneNumber.invalid && phoneNumber.dirty">
+        <span class="global__input-error">Must enter Phone Number</span>
+      </div>
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-input [(ngModel)]="profile.description"
+                   type="text"
+                   name="description"
+                   #description="ngModel"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Date of Birth</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY"
+                      [(ngModel)]="profile.dateOfBirth"
+                      #dateOfBirth="ngModel"
+                      [ngModelOptions]="{standalone: true}"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Type</ion-label>
+        <ion-select [(ngModel)]="profile.type"
+                    #type="ngModel"
+                    required
+                    [ngModelOptions]="{standalone: true}">
+          <ion-option value="consumer">Consumer</ion-option>
+          <ion-option value="provider">Provider</ion-option>
+        </ion-select>
+      </ion-item>
+      <div padding *ngIf="type.invalid && type.dirty">
+        <span class="global__input-error">Must Choose Type</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button (click)="saveProfile()" [disabled]="profileForm.invalid">Save / Update</button>
+</form>
