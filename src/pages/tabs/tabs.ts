@@ -22,7 +22,7 @@ export class TabsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
 
-    this.tab1Root = 'InboxPage';
+    this.tab1Root = 'CommunitiesPage';
     this.tab2Root = 'ChannelsPage';
     this.tab3Root = 'ProfilePage';
 

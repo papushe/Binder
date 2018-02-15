@@ -8,4 +8,6 @@ export interface Profile{
   type:string;
   dateOfBirth:Date;
   $key:string;
+  skills?:[string]
+  keyForFirebase:string;
 }

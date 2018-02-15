@@ -4,6 +4,7 @@
       <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input [(ngModel)]="profile.firstName"
+                   [value]="profile.firstName"
                    type="text"
                    name="firstName"
                    #firstName="ngModel"
@@ -16,6 +17,7 @@
       <ion-item>
         <ion-label floating>Last Name</ion-label>
         <ion-input [(ngModel)]="profile.lastName"
+                   [value]="profile.lastName"
                    type="text"
                    name="lastName"
                    #lastName="ngModel"
@@ -28,6 +30,7 @@
       <ion-item>
         <ion-label floating>Location</ion-label>
         <ion-input [(ngModel)]="profile.location"
+                   [value]="profile.location"
                    type="text"
                    name="location"
                    #location="ngModel"></ion-input>
@@ -35,7 +38,9 @@
       <ion-item>
         <ion-label floating>Phone Number</ion-label>
         <ion-input [(ngModel)]="profile.phoneNumber"
+                   [value]="profile.phoneNumber"
                    type="number"
+                   min="0"
                    name="phoneNumber"
                    #phoneNumber="ngModel"
                    required></ion-input>
@@ -46,6 +51,7 @@
       <ion-item>
         <ion-label floating>Description</ion-label>
         <ion-input [(ngModel)]="profile.description"
+                   [value]="profile.description"
                    type="text"
                    name="description"
                    #description="ngModel"></ion-input>
@@ -54,6 +60,7 @@
         <ion-label floating>Date of Birth</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY"
                       [(ngModel)]="profile.dateOfBirth"
+                      [pickerOptions]="dateOfBirthOptions"
                       #dateOfBirth="ngModel"
                       [ngModelOptions]="{standalone: true}"></ion-datetime>
       </ion-item>
@@ -65,12 +72,36 @@
                     [ngModelOptions]="{standalone: true}">
           <ion-option value="consumer">Consumer</ion-option>
           <ion-option value="provider">Provider</ion-option>
+          <ion-option value="both">Provider & Consumer</ion-option>
         </ion-select>
       </ion-item>
       <div padding *ngIf="type.invalid && type.dirty">
         <span class="global__input-error">Must Choose Type</span>
       </div>
+      <span *ngIf="profile.type == 'provider' || profile.type == 'both' ">
+        <ion-item>
+          <ion-label floating>Skills</ion-label>
+          <ion-input [(ngModel)]="skill"
+                     type="text"
+                     name="skill"></ion-input>
+        </ion-item>
+        <button clear [disabled]="skill == ''" ion-button (click)="cancelNew()">Clear</button>
+        <button clear [disabled]="skill == ''" ion-button (click)="addItem(skill)">
+          <ion-icon name="add"> Add skill</ion-icon>
+        </button>
+        <ion-list>
+          <ion-item *ngFor="let item of skills; let i = index">
+            <span>
+              <button clear (click)="remove(i)">
+                <ion-icon class="removeRed" name="remove"></ion-icon>
+              </button>
+              {{item}}
+            </span>
+          </ion-item>
+        </ion-list>
+      </span>
     </ion-card-content>
   </ion-card>
-  <button ion-button (click)="saveProfile()" [disabled]="profileForm.invalid">Save / Update</button>
+  <button *ngIf="!noProfile" block ion-button (click)="saveProfile()" [disabled]="profileForm.invalid">Save</button>
+  <button *ngIf="noProfile" block ion-button (click)="updateProfile()" [disabled]="profileForm.invalid">Update</button>
 </form>

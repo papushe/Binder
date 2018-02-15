@@ -15,7 +15,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController) {
+  }
+
+
+  saveProfileResult(event){
+    event ? this.navCtrl.setRoot('TabsPage') : console.log("Not authenticated or saved")
   }
 
   ionViewDidLoad() {

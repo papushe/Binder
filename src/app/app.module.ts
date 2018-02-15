@@ -8,6 +8,9 @@ import { MyApp } from './app.component';
 import {FIREBASE_CONFIG} from "./app.firebase.config";
 import {UserService} from "../providers/user-service/user.service";
 import {AngularFireAuthModule} from "angularfire2/auth";
+import {AngularFireDatabaseModule} from "angularfire2/database";
+import {HttpClientModule} from "@angular/common/http";
+import { CommunityService } from '../providers/community-service/community.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import {AngularFireAuthModule} from "angularfire2/auth";
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    HttpClientModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -27,7 +32,8 @@ import {AngularFireAuthModule} from "angularfire2/auth";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserService
+    UserService,
+    CommunityService
   ]
 })
 export class AppModule {}

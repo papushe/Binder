@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import {MESSAGE_LIST} from "../../mocks/messages/messages";
 import {Message} from "../../models/messages/message.interface";
+import {CreateCommunityPage} from "../create-community/create-community";
 
 /**
  * Generated class for the InboxPage page.
@@ -12,18 +13,22 @@ import {Message} from "../../models/messages/message.interface";
 
 @IonicPage()
 @Component({
-  selector: 'page-inbox',
-  templateUrl: 'inbox.html',
+  selector: 'page-communities',
+  templateUrl: 'communities.html',
 })
-export class InboxPage {
+export class CommunitiesPage {
 
   // messageList:Message[] = MESSAGE_LIST;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
 
+  }
+
+  createCommunity(){
+    this.navCtrl.push('CreateCommunityPage');
   }
 
 }
