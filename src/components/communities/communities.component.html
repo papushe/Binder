@@ -1,7 +1,7 @@
 <ion-list>
-  <ion-item *ngFor="let community of communities">
-    <h2>Community Name: {{community.communityName}}</h2>
-    <p>Community Description: {{community.communityDescription}}</p>
-    <p>Community Type: {{community.type}}</p>
+  <ion-item *ngFor="let community of communities" (click)="openCommunity(community)">
+    <h2 class="communityName">{{community.communityName}}</h2>
+    <p>Description: {{community.communityDescription}}</p>
+    <p>Type: {{community.type}}</p>
   </ion-item>
 </ion-list>
