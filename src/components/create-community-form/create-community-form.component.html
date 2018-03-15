@@ -2,32 +2,6 @@
   <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label floating>Community Name</ion-label>
-        <ion-input [(ngModel)]="community.communityName"
-                   [value]="community.communityName"
-                   type="text"
-                   name="communityName"
-                   #communityName="ngModel"
-                   clearInput
-                   required></ion-input>
-      </ion-item>
-      <div padding *ngIf="communityName.invalid && communityName.dirty">
-        <span class="global__input-error">Must enter Community Name</span>
-      </div>
-      <ion-item>
-        <ion-label floating>Community Description</ion-label>
-        <ion-input [(ngModel)]="community.communityDescription"
-                   [value]="community.communityDescription"
-                   type="text"
-                   name="communityDescription"
-                   #communityDescription="ngModel"
-                   clearInput
-                   required></ion-input>
-      </ion-item>
-      <div padding *ngIf="communityDescription.invalid && communityDescription.dirty">
-        <span class="global__input-error">Must enter Community Description</span>
-      </div>
-      <ion-item>
         <ion-label>Type</ion-label>
         <ion-select [(ngModel)]="community.type"
                     #type="ngModel"
@@ -41,7 +15,32 @@
       <div padding *ngIf="type.invalid && type.dirty">
         <span class="global__input-error">Must Choose Type</span>
       </div>
+      <ion-item>
+        <ion-label floating>Community Name</ion-label>
+        <ion-input [(ngModel)]="community.communityName"
+                   type="text"
+                   name="communityName"
+                   #communityName="ngModel"
+                   clearInput
+                   required></ion-input>
+      </ion-item>
+      <div padding *ngIf="communityName.invalid && communityName.dirty">
+        <span class="global__input-error">Must enter Community Name</span>
+      </div>
+      <ion-item>
+        <ion-label floating>Community Description</ion-label>
+        <ion-input [(ngModel)]="community.communityDescription"
+                   type="text"
+                   name="communityDescription"
+                   #communityDescription="ngModel"
+                   clearInput
+                   required></ion-input>
+      </ion-item>
+      <div padding *ngIf="communityDescription.invalid && communityDescription.dirty">
+        <span class="global__input-error">Must enter Community Description</span>
+      </div>
     </ion-card-content>
   </ion-card>
+  <!--<button block ion-button (click)="createCommunity()" [disabled]="checkType(communityForm)">Create Community</button>-->
   <button block ion-button (click)="createCommunity()" [disabled]="communityForm.invalid">Create Community</button>
 </form>
