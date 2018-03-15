@@ -21,7 +21,7 @@ export class CommunitiesComponent {
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe((user: User) => {
         this.authenticatedUser = user;
-        this.getCommunities(user);
+        user ? this.getCommunities(user): '';
       });
   }
 

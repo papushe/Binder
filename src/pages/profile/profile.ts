@@ -31,7 +31,7 @@ export class ProfilePage {
 
   signOut(){
     this.userService.signOut();
-    // this.navCtrl.push('LoginPage');
+    // this.navCtrl.setRoot('LoginPage');
   }
 
 }

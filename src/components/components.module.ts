@@ -4,14 +4,15 @@ import {IonicModule} from "ionic-angular";
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateCommunityFormComponent } from './create-community-form/create-community-form.component';
-import { CommunitiesComponent } from './communities/communities.component';
+import {CommunitiesComponent} from "./communities/communities.component";
+
 @NgModule({
 	declarations: [
 	  LoginFormComponent,
     RegisterFormComponent,
     ProfileComponent,
     CreateCommunityFormComponent,
-    CommunitiesComponent,
+    CommunitiesComponent
   ],
 	imports: [IonicModule],
 	exports: [
@@ -19,7 +20,7 @@ import { CommunitiesComponent } from './communities/communities.component';
     RegisterFormComponent,
     ProfileComponent,
     CreateCommunityFormComponent,
-    CommunitiesComponent,
+    CommunitiesComponent
   ]
 })
 export class ComponentsModule {}

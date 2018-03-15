@@ -12,32 +12,34 @@ import {Loading, LoadingController, ModalController, ToastController} from "ioni
 export class ProfileComponent implements OnDestroy, OnInit {
 
   profile = {} as Profile;
-  skill:string="";
-  skills:any = [];
-  noProfile:boolean = false;
-  authenticatedUser:User;
-  authenticatedUser$:Subscription;
+  skill: string = "";
+  skills: any = [];
+  noProfile: boolean = false;
+  authenticatedUser: User;
+  authenticatedUser$: Subscription;
   @Output() saveProfileResult: EventEmitter<any>;
-  loader:Loading;
+  loader: Loading;
 
   constructor(private loading: LoadingController,
-              private toast:ToastController,
+              private toast: ToastController,
               private userService: UserService,
-              private modalCtrl:ModalController) {
+              private modalCtrl: ModalController) {
     this.saveProfileResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
-      .subscribe((user:User)=>{
+      .subscribe((user: User) => {
         this.authenticatedUser = user;
         this.getProfile(user);
       });
 
   }
-  createLoader(){
-    this.loader=this.loading.create({
-      content:`Loading profile...`
+
+  createLoader() {
+    this.loader = this.loading.create({
+      content: `Loading profile...`
     });
   }
-  showAddressModal () {
+
+  showAddressModal() {
     let modal = this.modalCtrl.create('AutocompletePage');
     let me = this;
     modal.onDidDismiss(data => {
@@ -47,34 +49,36 @@ export class ProfileComponent implements OnDestroy, OnInit {
     modal.present();
   }
 
-  getProfile(user){
-    this.createLoader();
-    this.loader.present().then(()=>{
-      this.userService.getProfile(user)
-        .subscribe(
-          data => {
-            if(data){
-              this.profile = <Profile>data;
-              this.skills = this.profile.skills;
-              console.log(`data: ${data}`);
-              this.noProfile = true;
-            }else{
-              console.log('no');
-              this.noProfile = false;
+  getProfile(user) {
+    if (user) {
+      this.createLoader();
+      this.loader.present().then(() => {
+        this.userService.getProfile(user)
+          .subscribe(
+            data => {
+              if (data) {
+                this.profile = <Profile>data;
+                this.skills = this.profile.skills;
+                console.log(`data: ${data}`);
+                this.noProfile = true;
+              } else {
+                console.log('no');
+                this.noProfile = false;
+              }
+            },
+            err => {
+              console.log(`error: ${err}`);
+            },
+            () => {
+              console.log('done');
+              this.loader.dismiss();
             }
-          },
-          err => {
-            console.log(`error: ${err}`);
-          },
-          () => {
-            console.log('done');
-            this.loader.dismiss();
-          }
-        );
-    });
+          );
+      });
+    }
   }
 
-  updateProfile(){
+  updateProfile() {
     this.userService.updateProfile(this.profile)
       .subscribe(
         data => {
@@ -82,14 +86,14 @@ export class ProfileComponent implements OnDestroy, OnInit {
         },
         err => {
           this.toast.create({
-            message:`Error: ${err}`,
-            duration:3000
+            message: `Error: ${err}`,
+            duration: 3000
           }).present();
         },
         () => {
           this.toast.create({
-            message:`Profile updated successfully`,
-            duration:3000
+            message: `Profile updated successfully`,
+            duration: 3000
           }).present();
         }
       );
@@ -103,11 +107,13 @@ export class ProfileComponent implements OnDestroy, OnInit {
       }
     }]
   };
+
   ngOnInit(): void {
 
   }
-  saveProfile(){
-    if(this.authenticatedUser){
+
+  saveProfile() {
+    if (this.authenticatedUser) {
       this.profile.email = this.authenticatedUser.email;
       this.profile.keyForFirebase = this.authenticatedUser.uid;
       this.profile.skills = this.skills;
@@ -120,34 +126,37 @@ export class ProfileComponent implements OnDestroy, OnInit {
           },
           err => {
             this.toast.create({
-              message:`Error: ${err}`,
-              duration:3000
+              message: `Error: ${err}`,
+              duration: 3000
             }).present();
           },
           () => {
             this.toast.create({
-              message:`Profile saved successfully`,
-              duration:3000
+              message: `Profile saved successfully`,
+              duration: 3000
             }).present();
           }
         );
-    }else{
+    } else {
       this.noProfile = false;
     }
   }
+
   cancelNew() {
     this.skill = "";
   }
 
-  addItem(newItem:string){
-    if(newItem){
+  addItem(newItem: string) {
+    if (newItem) {
       this.skills.push(newItem);
       this.skill = "";
     }
   }
-  remove(removeItem){
+
+  remove(removeItem) {
     this.skills.splice(removeItem, 1);
   }
+
   ngOnDestroy(): void {
     this.authenticatedUser$.unsubscribe();
   }
