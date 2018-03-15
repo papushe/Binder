@@ -2,6 +2,9 @@
   <ion-navbar>
     <ion-title>Communities</ion-title>
     <ion-buttons end>
+      <button ion-button icon-only (click)="searchCommunity()">
+        <ion-icon name="search" color="dark"></ion-icon>
+      </button>
       <button ion-button icon-only (click)="createCommunity()">
         <ion-icon name="add" color="dark"></ion-icon>
       </button>
@@ -11,13 +14,7 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let message of messageList">
-      <ion-avatar item-left>
-        <img [src]="message.user.avatar" alt="Avatar">
-      </ion-avatar>
-      <h2>{{message.user.firstName + ' ' + message.user.lastName}}</h2>
-      <p>{{message.lastMessage}}</p>
-    </ion-item>
-  </ion-list>
+
+  <communities-component></communities-component>
+
 </ion-content>

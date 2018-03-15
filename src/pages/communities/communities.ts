@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 // import {MESSAGE_LIST} from "../../mocks/messages/messages";
 import {Message} from "../../models/messages/message.interface";
 import {CreateCommunityPage} from "../create-community/create-community";
+import {SearchCommunityPage} from "../search-community/search-community";
 
 /**
  * Generated class for the InboxPage page.
@@ -29,6 +30,10 @@ export class CommunitiesPage {
 
   createCommunity(){
     this.navCtrl.push('CreateCommunityPage');
+  }
+
+  searchCommunity(){
+    this.navCtrl.push('SearchCommunityPage');
   }
 
 }

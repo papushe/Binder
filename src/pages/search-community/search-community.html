@@ -1,0 +1,43 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Search Community</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #searchCommunityForm="ngForm" novalidate>
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label floating>Search for community</ion-label>
+          <ion-input [(ngModel)]="search"
+                     type="text"
+                     name="search"
+                     required></ion-input>
+        </ion-item>
+      </ion-card-content>
+      <ion-row class="register-form__button">
+        <ion-col col-8>
+          <code>Search with comma <,> for multiple results. example: dog walker, dog keeper</code>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button (click)="searchCommunity()" [disabled]="searchCommunityForm.invalid">Search</button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </form>
+  <hr>
+  <ion-list *ngIf="hasCommunity">
+    <ion-item *ngFor="let community of communities">
+      <h2>Community Name: {{community.communityName}}</h2>
+      <p>Community Description: {{community.communityDescription}}</p>
+      <p>Community Type: {{community.type}}</p>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <span>{{noCommunityFound}}</span>
+  </ion-row>
+</ion-content>

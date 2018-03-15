@@ -18,7 +18,7 @@ import {ToastController} from "ionic-angular";
 })
 export class CreateCommunityFormComponent {
 
-community={} as Community;
+  community={} as Community;
   authenticatedUser:User;
   authenticatedUser$:Subscription;
   @Output() saveCommunityResult: EventEmitter<any>;
@@ -26,7 +26,9 @@ community={} as Community;
   constructor(private toast: ToastController,
               private userService: UserService,
               private communityService: CommunityService) {
+
     this.saveCommunityResult = new EventEmitter<any>();
+
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe((user:User)=>{
         this.authenticatedUser = user;
@@ -57,5 +59,16 @@ community={} as Community;
         );
     }
   }
+
+  checkType(communityForm){
+
+    if (this.community.type){
+      if(communityForm.valid){
+        return false;
+      }
+    }
+    return true;
+  }
+
 
 }
