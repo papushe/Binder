@@ -1,4 +1,4 @@
-import {Profile} from "../user/profile.interface";
+import {Profile} from "../profile/profile.interface";
 
 export interface Message{
   user:Profile;

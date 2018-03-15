@@ -1,4 +1,4 @@
-import {Profile} from "../../models/user/profile.interface";
+import {Profile} from "../../models/profile/profile.interface";
 
 // const userList:Profile[] =[
 //   {firstName:'Naor', lastName:'Haimov', email: 'naor@haimov.com', avatar:'assets/imgs/avatar.png'},

@@ -1,9 +1,9 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {Profile} from "../../models/user/profile.interface";
+import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {User} from "firebase/app";
 import {Subscription} from 'rxjs/Subscription';
-import {Loading, LoadingController, ToastController} from "ionic-angular";
+import {Loading, LoadingController, ModalController, ToastController} from "ionic-angular";
 
 @Component({
   selector: 'app-profile',
@@ -22,42 +22,58 @@ export class ProfileComponent implements OnDestroy, OnInit {
 
   constructor(private loading: LoadingController,
               private toast:ToastController,
-              private userService: UserService) {
+              private userService: UserService,
+              private modalCtrl:ModalController) {
     this.saveProfileResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe((user:User)=>{
         this.authenticatedUser = user;
         this.getProfile(user);
       });
+
+  }
+  createLoader(){
     this.loader=this.loading.create({
       content:`Loading profile...`
     });
   }
-
+  showAddressModal () {
+    let modal = this.modalCtrl.create('AutocompletePage');
+    let me = this;
+    modal.onDidDismiss(data => {
+      this.profile.location = data;
+      console.log(data);
+    });
+    modal.present();
+  }
 
   getProfile(user){
-    this.loader.present();
-    this.userService.getProfile(user)
-      .subscribe(
-        data => {
-          if(data){
-            this.profile = <Profile>data;
-            this.skills = this.profile.skills;
-            console.log(`data: ${data}`);
-            this.noProfile = true;
-          }else{
-            console.log('no');
-            this.noProfile = false;
+    this.createLoader();
+    this.loader.present().then(()=>{
+      this.userService.getProfile(user)
+        .subscribe(
+          data => {
+            if(data){
+              this.profile = <Profile>data;
+              this.skills = this.profile.skills;
+              console.log(`data: ${data}`);
+              this.noProfile = true;
+            }else{
+              console.log('no');
+              this.noProfile = false;
+            }
+          },
+          err => {
+            console.log(`error: ${err}`);
+          },
+          () => {
+            console.log('done');
+            this.loader.dismiss();
           }
-        },
-        err => {
-          console.log(`error: ${err}`);
-        },
-        () => {
-          this.loader.dismiss();
-        }
-      );
+        );
+    });
   }
+
   updateProfile(){
     this.userService.updateProfile(this.profile)
       .subscribe(

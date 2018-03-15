@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {UserService} from "../../providers/user-service/user.service";
 
 /**
  * Generated class for the ProfilePage page.
@@ -15,7 +16,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  constructor(private navCtrl: NavController) {
+  constructor(private userService:UserService,
+              private navCtrl: NavController) {
   }
 
 
@@ -25,6 +27,11 @@ export class ProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
+  }
+
+  signOut(){
+    this.userService.signOut();
+    // this.navCtrl.push('LoginPage');
   }
 
 }

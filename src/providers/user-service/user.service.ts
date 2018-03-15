@@ -46,6 +46,11 @@ export class UserService {
     }
   }
 
+  signOut(){
+    this.auth.auth.signOut();
+  }
+
+
   saveProfile(profile){
     const obj = {
       firstName:profile.firstName,

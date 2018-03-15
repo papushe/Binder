@@ -4,7 +4,6 @@
       <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input [(ngModel)]="profile.firstName"
-                   [value]="profile.firstName"
                    type="text"
                    name="firstName"
                    #firstName="ngModel"
@@ -17,7 +16,6 @@
       <ion-item>
         <ion-label floating>Last Name</ion-label>
         <ion-input [(ngModel)]="profile.lastName"
-                   [value]="profile.lastName"
                    type="text"
                    name="lastName"
                    #lastName="ngModel"
@@ -30,7 +28,7 @@
       <ion-item>
         <ion-label floating>Location</ion-label>
         <ion-input [(ngModel)]="profile.location"
-                   [value]="profile.location"
+                   (click)="showAddressModal()"
                    type="text"
                    name="location"
                    #location="ngModel"></ion-input>
@@ -38,7 +36,6 @@
       <ion-item>
         <ion-label floating>Phone Number</ion-label>
         <ion-input [(ngModel)]="profile.phoneNumber"
-                   [value]="profile.phoneNumber"
                    type="number"
                    min="0"
                    name="phoneNumber"
@@ -51,7 +48,6 @@
       <ion-item>
         <ion-label floating>Description</ion-label>
         <ion-input [(ngModel)]="profile.description"
-                   [value]="profile.description"
                    type="text"
                    name="description"
                    #description="ngModel"></ion-input>

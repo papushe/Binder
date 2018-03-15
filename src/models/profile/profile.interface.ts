@@ -10,4 +10,9 @@ export interface Profile{
   $key:string;
   skills?:[string]
   keyForFirebase:string;
+  rank?:string;
+  communities?:[{
+    communityId?:string,
+    role?:string
+  }]
 }
