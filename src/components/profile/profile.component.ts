@@ -14,7 +14,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
   profile = {} as Profile;
   skill: string = "";
   skills: any = [];
-  noProfile: boolean = false;
+  hasProfile: boolean = false;
   authenticatedUser: User;
   authenticatedUser$: Subscription;
   @Output() saveProfileResult: EventEmitter<any>;
@@ -60,10 +60,10 @@ export class ProfileComponent implements OnDestroy, OnInit {
                 this.profile = <Profile>data;
                 this.skills = this.profile.skills;
                 console.log(`data: ${data}`);
-                this.noProfile = true;
+                this.hasProfile = true;
               } else {
                 console.log('no');
-                this.noProfile = false;
+                this.hasProfile = false;
               }
             },
             err => {
@@ -120,7 +120,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
       this.userService.saveProfile(this.profile)
         .subscribe(
           data => {
-            this.noProfile = true;
+            this.hasProfile = true;
             this.saveProfileResult.emit(data);
             console.log(`data: ${data}`);
           },
@@ -138,7 +138,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
           }
         );
     } else {
-      this.noProfile = false;
+      this.hasProfile = false;
     }
   }
 
