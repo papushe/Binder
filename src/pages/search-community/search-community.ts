@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, Loading, LoadingController} from 'ionic-angular';
+import {IonicPage, Loading, LoadingController, NavController} from 'ionic-angular';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
 
@@ -17,10 +17,12 @@ export class SearchCommunityPage {
   loader: Loading;
 
   constructor(private communityService: CommunityService,
-              private loading: LoadingController) {
+              private loading: LoadingController,
+              private navCtrl: NavController) {
 
   }
-  createLoader(){
+
+  createLoader() {
     this.loader = null;
     this.loader = this.loading.create({
       content: `Searching Communities...`
@@ -30,7 +32,7 @@ export class SearchCommunityPage {
   searchCommunity() {
     this.createLoader();
     this.loader.present().then(
-      ()=>{
+      () => {
         this.communityService.searchCommunity(this.search)
           .subscribe(
             data => {
@@ -53,6 +55,10 @@ export class SearchCommunityPage {
             }
           );
       });
+  }
+
+  openCommunity(community) {
+    this.navCtrl.push('CommunityDetailsPage', {community: community})
   }
 
 }

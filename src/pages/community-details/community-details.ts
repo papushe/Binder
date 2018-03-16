@@ -15,7 +15,7 @@ import {Community} from "../../models/community/community.interface";
   templateUrl: 'community-details.html',
 })
 export class CommunityDetailsPage {
-  community: [Community];
+  community: Community;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.community = navParams.get('community');

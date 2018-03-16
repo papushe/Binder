@@ -7,23 +7,19 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Community Details</ion-title>
+    <ion-title>{{community.communityName | uppercase}} Community</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="more" color="dark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <h2>{{community.communityName}}</h2>
+  <!--<h2>{{community.communityName}}</h2>-->
   <p>Description: {{community.communityDescription}}</p>
   <p>Type: {{community.type}}</p>
 </ion-content>
-
-
-
-
-<!--<ion-item *ngFor="let community of communities" (click)="openCommunity(community)">-->
-  <!--<h2>Community Name: {{community.communityName}}</h2>-->
-  <!--<p>Community Description: {{community.communityDescription}}</p>-->
-  <!--<p>Community Type: {{community.type}}</p>-->
-<!--</ion-item>-->
