@@ -3,7 +3,7 @@ import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {User} from "firebase/app";
 import {Subscription} from 'rxjs/Subscription';
-import {Loading, LoadingController, ModalController, ToastController} from "ionic-angular";
+import {Loading, LoadingController, ModalController, NavParams, ToastController} from "ionic-angular";
 
 @Component({
   selector: 'app-profile',
@@ -17,20 +17,23 @@ export class ProfileComponent implements OnDestroy, OnInit {
   hasProfile: boolean = false;
   authenticatedUser: User;
   authenticatedUser$: Subscription;
-  @Output() saveProfileResult: EventEmitter<any>;
+  // @Output() saveProfileResult: EventEmitter<any>;
+  @Output() fromLoginPageEvent: EventEmitter<boolean>;
   loader: Loading;
-
+  fromLoginPage:boolean;
   constructor(private loading: LoadingController,
               private toast: ToastController,
               private userService: UserService,
-              private modalCtrl: ModalController) {
-    this.saveProfileResult = new EventEmitter<any>();
+              private modalCtrl: ModalController,
+              private navParams: NavParams) {
+    // this.saveProfileResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe((user: User) => {
         this.authenticatedUser = user;
         this.getProfile(user);
       });
-
+    this.fromLoginPageEvent = new EventEmitter<boolean>();
+    this.fromLoginPage = this.navParams.get('where');
   }
 
   createLoader() {
@@ -121,7 +124,8 @@ export class ProfileComponent implements OnDestroy, OnInit {
         .subscribe(
           data => {
             this.hasProfile = true;
-            this.saveProfileResult.emit(data);
+            this.fromLoginPageEvent.emit(this.fromLoginPage);
+            // this.saveProfileResult.emit(data);
             console.log(`data: ${data}`);
           },
           err => {

@@ -22,7 +22,7 @@ export class ProfilePage {
 
 
   saveProfileResult(event){
-    event ? this.navCtrl.setRoot('TabsPage') : console.log("Not authenticated or saved")
+    event ? this.navCtrl.setRoot('TabsPage') : console.log("Not authenticated or saved");
   }
 
   ionViewDidLoad() {

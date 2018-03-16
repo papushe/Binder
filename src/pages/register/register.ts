@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {IonicPage, ToastController} from 'ionic-angular';
 import {LoginResponse} from "../../models/login/login-response.interface";
-import {LoginPage} from "../login/login";
+
 
 /**
  * Generated class for the RegisterPage page.
@@ -17,8 +17,7 @@ import {LoginPage} from "../login/login";
 })
 export class RegisterPage {
 
-  constructor(private toast: ToastController,
-              private navCtrl: NavController) {
+  constructor(private toast: ToastController) {
   }
 
 

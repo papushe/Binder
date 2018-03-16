@@ -27,7 +27,7 @@ export class LoginPage {
       this.userService.getProfile(<User>event.result)
         .subscribe(profile=>{
           console.log(profile);
-          profile ? this.navCtrl.setRoot("TabsPage") : this.navCtrl.setRoot('ProfilePage');
+          profile ? this.navCtrl.setRoot("TabsPage") : this.navCtrl.setRoot('ProfilePage',{where:true});
         });
 
 
