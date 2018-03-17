@@ -48,6 +48,6 @@ export class CommunitiesComponent {
   }
 
   openCommunity(community) {
-    this.navCtrl.push('CommunityDetailsPage', {community: community})
+    this.navCtrl.push('CommunityDetailsPage', {community: community, isUserJoined: true})
   }
 }

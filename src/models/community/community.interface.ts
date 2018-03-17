@@ -1,4 +1,5 @@
 export interface Community{
+  _id: string,
   communityName: string,
   communityDescription: string,
   creationDate: string,

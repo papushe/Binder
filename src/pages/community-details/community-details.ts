@@ -20,6 +20,7 @@ import {User} from "firebase/app";
 export class CommunityDetailsPage {
   community: Community;
   authenticatedUser: User;
+  isJoined: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private communityService: CommunityService,
@@ -27,6 +28,7 @@ export class CommunityDetailsPage {
               private toast: ToastController) {
 
     this.community = navParams.get('community');
+    this.isJoined = navParams.get('isUserJoined');
 
     this.userService.getAuthenticatedUser()
       .subscribe((user: User) => {
@@ -38,26 +40,47 @@ export class CommunityDetailsPage {
     console.log('ionViewDidLoad CommunityDetailsPage');
   }
 
-  leaveCommunity(community) {
-    this.communityService.leaveCommunity(community._id, this.authenticatedUser.uid)
+  leaveCommunity() {
+    this.communityService.leaveCommunity(this.community._id, this.authenticatedUser.uid)
       .subscribe(
         res => {
-            console.log(`removed user from community success: ${res}`);
+            console.log(`user was removed from community success? : ${res}`);
         },
         err => {
           this.toast.create({
-            message:`Error: ${err}`,
+            message:`Failed to leave ${this.community.communityName}`,
             duration:3000
           }).present();
         },
         () => {
           this.navCtrl.setRoot('CommunitiesPage');
           this.toast.create({
-            message:`You left ${community.communityName}`,
+            message:`You left ${this.community.communityName}`,
             duration:3000
           }).present();
         }
       );
   }
 
+  joinCommunity() {
+    this.communityService.joinCommunity(this.community._id, this.authenticatedUser.uid)
+      .subscribe(
+        res => {
+          console.log(`user was joined from community success? : ${res}`);
+        },
+        err => {
+          this.toast.create({
+            message:`Failed to join  ${this.community.communityName}`,
+            duration:3000
+          }).present();
+        },
+        () => {
+          this.navCtrl.setRoot('CommunitiesPage');
+          this.toast.create({
+            message:`You joined ${this.community.communityName}`,
+            duration:3000
+          }).present();
+        }
+      );
+  }
 }

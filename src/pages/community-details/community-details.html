@@ -23,7 +23,8 @@
   <p>Description: {{community.communityDescription}}</p>
   <p>Type: {{community.type}}</p>
   <ion-row>
-    <button block ion-button class="leaveBtn" (click)="leaveCommunity(community)">Leave</button>
+    <button block ion-button class="leave btn" *ngIf="isJoined" (click)="leaveCommunity()">Leave</button>
+    <button block ion-button class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
   </ion-row>
 </ion-content>
 

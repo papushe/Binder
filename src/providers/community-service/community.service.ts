@@ -52,4 +52,13 @@ export class CommunityService {
       .post(`${this.baseUrl}/leaveCommunity/`, obj)
   }
 
+  joinCommunity(communityId: string, uid: string){
+    const obj = {
+      communityId: communityId,
+      uid: uid,
+    };
+    return this._http
+      .post(`${this.baseUrl}/joinCommunity/`, obj)
+  }
+
 }
