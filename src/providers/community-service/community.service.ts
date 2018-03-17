@@ -43,4 +43,13 @@ export class CommunityService {
       .get(`${this.baseUrl}/searchCommunity/${type}`)
   }
 
+  leaveCommunity(communityId: string, uid: string){
+    const obj = {
+      communityId: communityId,
+      uid: uid,
+    };
+    return this._http
+      .post(`${this.baseUrl}/leaveCommunity/`, obj)
+  }
+
 }

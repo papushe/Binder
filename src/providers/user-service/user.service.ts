@@ -5,6 +5,7 @@ import {LoginResponse} from "../../models/login/login-response.interface";
 import {AngularFireDatabase} from "angularfire2/database";
 import {User} from 'firebase/app'
 import {HttpClient} from "@angular/common/http";
+import {Response} from "@angular/http";
 
 @Injectable()
 export class UserService {

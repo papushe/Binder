@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{community.communityName | uppercase}} Community</ion-title>
+    <ion-title>{{community.communityName | uppercase}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only>
         <ion-icon name="more" color="dark"></ion-icon>
@@ -22,4 +22,9 @@
   <!--<h2>{{community.communityName}}</h2>-->
   <p>Description: {{community.communityDescription}}</p>
   <p>Type: {{community.type}}</p>
+  <ion-row>
+    <button block ion-button class="leaveBtn" (click)="leaveCommunity(community)">Leave Community</button>
+  </ion-row>
 </ion-content>
+
+
