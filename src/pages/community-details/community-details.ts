@@ -45,17 +45,23 @@ export class CommunityDetailsPage {
       .subscribe(
         res => {
             console.log(`user was removed from community success? : ${res}`);
+            if (res == true) {
+              this.navCtrl.setRoot('CommunitiesPage');
+              this.toast.create({
+                message:`You left ${this.community.communityName}`,
+                duration:3000
+              }).present();
+            }
+            else {
+              this.toast.create({
+                message:`Something went wrong, please try later`,
+                duration:3000
+              }).present();
+            }
         },
         err => {
           this.toast.create({
             message:`Failed to leave ${this.community.communityName}`,
-            duration:3000
-          }).present();
-        },
-        () => {
-          this.navCtrl.setRoot('CommunitiesPage');
-          this.toast.create({
-            message:`You left ${this.community.communityName}`,
             duration:3000
           }).present();
         }
@@ -67,17 +73,23 @@ export class CommunityDetailsPage {
       .subscribe(
         res => {
           console.log(`user was joined from community success? : ${res}`);
+          if (res == true) {
+            this.navCtrl.setRoot('CommunitiesPage');
+            this.toast.create({
+              message:`You joined ${this.community.communityName}`,
+              duration:3000
+            }).present();
+          }
+          else {
+            this.toast.create({
+              message:`You are not allowed to join  ${this.community.communityName}`,
+              duration:3000
+            }).present();
+          }
         },
         err => {
           this.toast.create({
             message:`Failed to join  ${this.community.communityName}`,
-            duration:3000
-          }).present();
-        },
-        () => {
-          this.navCtrl.setRoot('CommunitiesPage');
-          this.toast.create({
-            message:`You joined ${this.community.communityName}`,
             duration:3000
           }).present();
         }
