@@ -44,7 +44,7 @@ export class CommunityDetailsPage {
     this.communityService.leaveCommunity(this.community._id, this.authenticatedUser.uid)
       .subscribe(
         res => {
-            console.log(`user was removed from community success? : ${res}`);
+            console.log(`user was removed from community success? : ${res == true}`);
             if (res == true) {
               this.navCtrl.setRoot('CommunitiesPage');
               this.toast.create({
@@ -64,6 +64,9 @@ export class CommunityDetailsPage {
             message:`Failed to leave ${this.community.communityName}`,
             duration:3000
           }).present();
+        },
+        () => {
+        //done
         }
       );
   }
@@ -72,7 +75,7 @@ export class CommunityDetailsPage {
     this.communityService.joinCommunity(this.community._id, this.authenticatedUser.uid)
       .subscribe(
         res => {
-          console.log(`user was joined from community success? : ${res}`);
+          console.log(`user was joined from community success? : ${res == true}`);
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage');
             this.toast.create({
@@ -88,11 +91,14 @@ export class CommunityDetailsPage {
           }
         },
         err => {
+          console.debug(`Failed to join ${this.community.communityName} due to: ${err}`);
           this.toast.create({
             message:`Failed to join  ${this.community.communityName}`,
             duration:3000
           }).present();
-        }
-      );
+        },
+      () => {
+      //done
+      });
   }
 }

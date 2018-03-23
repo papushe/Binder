@@ -52,7 +52,7 @@ export class CreateCommunityFormComponent {
           },
           () => {
             this.toast.create({
-              message:`Community created successfully`,
+              message:`Community was created successfully`,
               duration:3000
             }).present();
           }
