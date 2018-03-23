@@ -27,7 +27,6 @@ export class MembersComponent {
           res => {
             if (res) {
               console.log(`get community members success? : ${res != null}`);
-              console.log(JSON.stringify(res));
               this.members = res;
             }
             else {

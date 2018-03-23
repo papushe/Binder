@@ -1,6 +1,5 @@
-<div *ngFor="let member of members">
-  <hr>
-  <span>{{member.firstName}}</span>
-  <span>{{member.lastName}}</span>
-  <p>{{member.description}}</p>
-</div>
+<p>Members:</p>
+<ion-item block class="members" *ngFor="let member of members">
+  <p class="memberName">{{member.firstName}} {{member.lastName}}</p>
+  <p class="memberDescription">{{member.description}}</p>
+</ion-item>
