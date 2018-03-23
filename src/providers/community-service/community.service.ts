@@ -17,7 +17,6 @@ export class CommunityService {
 
 
   constructor(private _http: HttpClient) {
-    console.log('Hello CommunityService Provider');
   }
 
 
@@ -60,5 +59,14 @@ export class CommunityService {
     return this._http
       .post(`${this.baseUrl}/joinCommunity/`, obj)
   }
+
+  getCommunityMembers(communityId: string){
+    const obj = {
+      communityId: communityId,
+    };
+    return this._http
+      .post(`${this.baseUrl}/getCommunityMembers/`, obj)
+  }
+
 
 }

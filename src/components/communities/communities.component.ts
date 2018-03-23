@@ -33,13 +33,11 @@ export class CommunitiesComponent {
         data => {
           if (data) {
             this.communities = <Community>data;
-            console.log(`data: ${data}`);
-          } else {
-            console.log('no');
+            console.log(`get communities success? : ${data != null}`);
           }
         },
         err => {
-          console.log(`error: ${err}`);
+          console.log(`fail to get user communities: ${err}`);
         },
         () => {
           //done
