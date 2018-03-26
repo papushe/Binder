@@ -3,7 +3,7 @@ import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {User} from "firebase/app";
 import {Subscription} from 'rxjs/Subscription';
-import {Loading, LoadingController, ModalController, NavParams, ToastController} from "ionic-angular";
+import {AlertController, Loading, LoadingController, ModalController, NavParams, ToastController} from "ionic-angular";
 
 @Component({
   selector: 'app-profile',
@@ -20,12 +20,14 @@ export class ProfileComponent implements OnDestroy, OnInit {
   // @Output() saveProfileResult: EventEmitter<any>;
   @Output() fromLoginPageEvent: EventEmitter<boolean>;
   loader: Loading;
-  fromLoginPage:boolean;
+  fromLoginPage: boolean;
+
   constructor(private loading: LoadingController,
               private toast: ToastController,
               private userService: UserService,
               private modalCtrl: ModalController,
-              private navParams: NavParams) {
+              private navParams: NavParams,
+              private alertCtrl: AlertController) {
     // this.saveProfileResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe((user: User) => {
@@ -145,6 +147,41 @@ export class ProfileComponent implements OnDestroy, OnInit {
       this.hasProfile = false;
     }
   }
+
+  signOut() {
+    this.userService.signOut();
+  }
+
+  deleteProfilePopup() {
+    let alert = this.alertCtrl.create({
+      title: 'Delete Account',
+      message: 'Do you Really want to delete your Account? Enter your password first',
+      inputs: [
+        {
+          name: 'password',
+          placeholder: 'Password',
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: data => {
+            this.userService.deleteFromFirebase(this.authenticatedUser, data.password);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   cancelNew() {
     this.skill = "";

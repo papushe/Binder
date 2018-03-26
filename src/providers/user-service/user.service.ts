@@ -1,99 +1,151 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
 import {Account} from "../../models/account/account.interface";
 import {LoginResponse} from "../../models/login/login-response.interface";
 import {AngularFireDatabase} from "angularfire2/database";
 import {User} from 'firebase/app'
 import {HttpClient} from "@angular/common/http";
-import {Response} from "@angular/http";
+
+import * as firebase from 'firebase';
+import {ToastController} from "ionic-angular";
 
 @Injectable()
 export class UserService {
 
-  // baseUrl:string = 'https://appbinder.herokuapp.com';
-  baseUrl:string = 'http://localhost:4300';
+  baseUrl: string = 'http://localhost:4300';
 
   constructor(private _http: HttpClient,
               private database: AngularFireDatabase,
-              private auth: AngularFireAuth) {
+              private auth: AngularFireAuth,
+              private toast: ToastController) {
 
   }
 
-  getAuthenticatedUser(){
+  getAuthenticatedUser() {
     return this.auth.authState;
   }
 
-  async createUserWithEmailAndPassword(account:Account){
+  async createUserWithEmailAndPassword(account: Account) {
     try {
       return <LoginResponse> {
-        result: await this.auth.auth.createUserWithEmailAndPassword(account.email,account.password)
+        result: await this.auth.auth.createUserWithEmailAndPassword(account.email, account.password)
       }
-    }catch (e){
+    } catch (e) {
       return <LoginResponse> {
         error: e
       }
     }
   }
 
-  async signInWithEmailAndPassword(account:Account){
-    try{
+  async signInWithEmailAndPassword(account: Account) {
+    try {
       return <LoginResponse> {
-        result: await this.auth.auth.signInWithEmailAndPassword(account.email,account.password)
+        result: await this.auth.auth.signInWithEmailAndPassword(account.email, account.password)
       }
-    }catch (e){
+    } catch (e) {
       return <LoginResponse> {
         error: e
       }
     }
   }
 
-  signOut(){
+  signOut() {
     this.auth.auth.signOut();
   }
 
 
-  saveProfile(profile){
+  saveProfile(profile) {
     const obj = {
-      firstName:profile.firstName,
-      lastName:profile.lastName,
-      location:profile.location,
-      phoneNumber:profile.phoneNumber,
-      description:profile.description,
-      dateOfBirth:profile.dateOfBirth,
-      type:profile.type,
-      skills:profile.skills,
-      email:profile.email,
-      keyForFirebase:profile.keyForFirebase
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      location: profile.location,
+      phoneNumber: profile.phoneNumber,
+      description: profile.description,
+      dateOfBirth: profile.dateOfBirth,
+      type: profile.type,
+      skills: profile.skills,
+      email: profile.email,
+      keyForFirebase: profile.keyForFirebase
     };
-      return this._http
-        .post(`${this.baseUrl}/createNewUser/`, obj)
+    return this._http
+      .post(`${this.baseUrl}/createNewUser/`, obj)
   }
 
-  getProfile(user:User){
+  getProfile(user: User) {
     return this._http
       .get(`${this.baseUrl}/getProfile/${user.uid}`)
 
   }
 
-  updateProfile(profile){
+  updateProfile(profile) {
     const obj = {
-      firstName:profile.firstName,
-      lastName:profile.lastName,
-      location:profile.location,
-      phoneNumber:profile.phoneNumber,
-      description:profile.description,
-      dateOfBirth:profile.dateOfBirth,
-      type:profile.type,
-      skills:profile.skills,
-      email:profile.email,
-      keyForFirebase:profile.keyForFirebase
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      location: profile.location,
+      phoneNumber: profile.phoneNumber,
+      description: profile.description,
+      dateOfBirth: profile.dateOfBirth,
+      type: profile.type,
+      skills: profile.skills,
+      email: profile.email,
+      keyForFirebase: profile.keyForFirebase
     };
     return this._http
       .post(`${this.baseUrl}/updateProfile/`, obj)
   }
 
+  deleteProfile(user: User) {
+    return this._http
+      .get(`${this.baseUrl}/deleteProfile/${user.uid}`).subscribe(
+        data => {
+          console.log(`data: ${data}`);
+        },
+        err => {
+          this.toast.create({
+            message: `Error: ${err}`,
+            duration: 3000
+          }).present();
+        },
+        () => {
+          this.toast.create({
+            message: `Profile Deleted successfully`,
+            duration: 3000
+          }).present();
+        }
+      );
+  }
 
-  private extractData(response: Response) {
-    return response;
+  deleteFromFirebase(user: User, password: string) {
+
+    const me = this;
+    const userToDelete = user;
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      password
+    );
+
+    user.reauthenticateWithCredential(credential).then(function () {
+
+      user.delete().then(function () {
+        console.log(user);
+        me.deleteProfile(userToDelete);
+
+      }).catch(function (error) {
+        me.toast.create({
+          message: `Error: ${error}`,
+          duration: 3000
+        }).present();
+
+      });
+
+    }).catch(function (error) {
+
+      me.toast.create({
+        message: `Error: ${error}`,
+        duration: 3000
+      }).present();
+
+    });
+
   }
 }

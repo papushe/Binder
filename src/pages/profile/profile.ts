@@ -29,9 +29,5 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
 
-  signOut(){
-    this.userService.signOut();
-    // this.navCtrl.setRoot('LoginPage');
-  }
 
 }

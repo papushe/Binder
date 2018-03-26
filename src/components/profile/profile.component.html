@@ -100,4 +100,6 @@
   </ion-card>
   <button *ngIf="!hasProfile" block ion-button (click)="saveProfile()" [disabled]="profileForm.invalid">Save</button>
   <button *ngIf="hasProfile" block ion-button (click)="updateProfile()" [disabled]="profileForm.invalid">Update</button>
+  <button color="lightDanger" block ion-button (click)="signOut()">Logout</button>
+  <button color="danger" ion-button block (click)="deleteProfilePopup()">Delete Account</button>
 </form>
