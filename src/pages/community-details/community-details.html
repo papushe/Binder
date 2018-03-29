@@ -27,7 +27,7 @@
   <ion-row>
     <button block ion-button class="leave btn" *ngIf="isJoined" (click)="leaveCommunity()">Leave</button>
     <button block ion-button class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
-    <button block ion-button class="btn leave" *ngIf="isJoined && community.managerId == authenticatedUser.uid">Delete</button>
+    <button block ion-button class="btn" (click)="deleteCommunity()" *ngIf="isJoined && community.managerId == authenticatedUser.uid">Delete</button>
   </ion-row>
 </ion-content>
 

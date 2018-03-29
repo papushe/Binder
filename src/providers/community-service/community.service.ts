@@ -51,6 +51,14 @@ export class CommunityService {
       .post(`${this.baseUrl}/leaveCommunity/`, obj)
   }
 
+  deleteCommunity(communityId: string){
+    const obj = {
+      communityId: communityId
+    };
+    return this._http
+      .post(`${this.baseUrl}/deleteCommunity/`, obj)
+  }
+
   joinCommunity(communityId: string, uid: string){
     const obj = {
       communityId: communityId,

@@ -44,7 +44,7 @@ export class CommunityDetailsPage {
     this.communityService.leaveCommunity(this.community._id, this.authenticatedUser.uid)
       .subscribe(
         res => {
-            console.log(`user was removed from community success? : ${res == true}`);
+            console.log(`user  ${this.authenticatedUser.uid} was removed from community ${this.community._id}  success? : ${res == true}`);
             if (res == true) {
               this.navCtrl.setRoot('CommunitiesPage');
               this.toast.create({
@@ -60,6 +60,7 @@ export class CommunityDetailsPage {
             }
         },
         err => {
+          console.debug(`Failed to leave ${this.community.communityName} due to: ${err}`);
           this.toast.create({
             message:`Failed to leave ${this.community.communityName}`,
             duration:3000
@@ -75,7 +76,7 @@ export class CommunityDetailsPage {
     this.communityService.joinCommunity(this.community._id, this.authenticatedUser.uid)
       .subscribe(
         res => {
-          console.log(`user was joined from community success? : ${res == true}`);
+          console.log(`user ${this.authenticatedUser.uid} was joined from community ${this.community._id} success? : ${res == true}`);
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage');
             this.toast.create({
@@ -94,6 +95,37 @@ export class CommunityDetailsPage {
           console.debug(`Failed to join ${this.community.communityName} due to: ${err}`);
           this.toast.create({
             message:`Failed to join  ${this.community.communityName}`,
+            duration:3000
+          }).present();
+        },
+      () => {
+      //done
+      });
+  }
+
+  deleteCommunity() {
+    this.communityService.deleteCommunity(this.community._id)
+      .subscribe(
+        res => {
+          console.log(`community ${this.community._id} was deleted success? : ${res == true}`);
+          if (res == true) {
+            this.navCtrl.setRoot('CommunitiesPage');
+            this.toast.create({
+              message:`You deleted ${this.community.communityName}`,
+              duration:3000
+            }).present();
+          }
+          else {
+            this.toast.create({
+              message:`You are not allowed to delete  ${this.community.communityName}`,
+              duration:3000
+            }).present();
+          }
+        },
+        err => {
+          console.debug(`Failed to delete ${this.community.communityName} due to: ${err}`);
+          this.toast.create({
+            message:`Failed to delete ${this.community.communityName}`,
             duration:3000
           }).present();
         },
