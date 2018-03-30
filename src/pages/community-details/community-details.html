@@ -21,11 +21,13 @@
 <ion-content padding>
   <p>Description: {{community.communityDescription}}</p>
   <p>Type: {{community.type}}</p>
-    <members-component [community]="community" *ngIf="isJoined"></members-component>
+  <members-component [community]="community" *ngIf="isJoined"></members-component>
   <ion-row>
-    <button block ion-button class="leave btn" *ngIf="isJoined" (click)="leaveCommunity()">Leave</button>
-    <button block ion-button class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
-    <button block ion-button class="btn" (click)="deleteCommunity()" *ngIf="isJoined && community.managerId == authenticatedUser.uid">Delete</button>
+    <button block ion-button color="lightDanger" class="btn" *ngIf="isJoined" (click)="leaveCommunity()">Leave</button>
+    <button block ion-button color="primary" class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
+    <button block color="danger" ion-button class="btn" (click)="deleteProfilePopup()"
+            *ngIf="isJoined && community.managerId == authenticatedUser.uid">Delete
+    </button>
   </ion-row>
 </ion-content>
 

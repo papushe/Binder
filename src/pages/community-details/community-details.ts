@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
@@ -25,7 +25,8 @@ export class CommunityDetailsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private communityService: CommunityService,
               private userService: UserService,
-              private toast: ToastController) {
+              private toast: ToastController,
+              private alertCtrl: AlertController) {
 
     this.community = navParams.get('community');
     this.isJoined = navParams.get('isUserJoined');
@@ -44,30 +45,30 @@ export class CommunityDetailsPage {
     this.communityService.leaveCommunity(this.community._id, this.authenticatedUser.uid)
       .subscribe(
         res => {
-            console.log(`user  ${this.authenticatedUser.uid} was removed from community ${this.community._id}  success? : ${res == true}`);
-            if (res == true) {
-              this.navCtrl.setRoot('CommunitiesPage');
-              this.toast.create({
-                message:`You left ${this.community.communityName}`,
-                duration:3000
-              }).present();
-            }
-            else {
-              this.toast.create({
-                message:`Something went wrong, please try later`,
-                duration:3000
-              }).present();
-            }
+          console.log(`user  ${this.authenticatedUser.uid} was removed from community ${this.community._id}  success? : ${res == true}`);
+          if (res == true) {
+            this.navCtrl.setRoot('CommunitiesPage');
+            this.toast.create({
+              message: `You left ${this.community.communityName}`,
+              duration: 3000
+            }).present();
+          }
+          else {
+            this.toast.create({
+              message: `Something went wrong, please try later`,
+              duration: 3000
+            }).present();
+          }
         },
         err => {
           console.debug(`Failed to leave ${this.community.communityName} due to: ${err}`);
           this.toast.create({
-            message:`Failed to leave ${this.community.communityName}`,
-            duration:3000
+            message: `Failed to leave ${this.community.communityName}`,
+            duration: 3000
           }).present();
         },
         () => {
-        //done
+          //done
         }
       );
   }
@@ -80,28 +81,52 @@ export class CommunityDetailsPage {
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage');
             this.toast.create({
-              message:`You joined ${this.community.communityName}`,
-              duration:3000
+              message: `You joined ${this.community.communityName}`,
+              duration: 3000
             }).present();
           }
           else {
             this.toast.create({
-              message:`You are not allowed to join  ${this.community.communityName}`,
-              duration:3000
+              message: `You are not allowed to join  ${this.community.communityName}`,
+              duration: 3000
             }).present();
           }
         },
         err => {
           console.debug(`Failed to join ${this.community.communityName} due to: ${err}`);
           this.toast.create({
-            message:`Failed to join  ${this.community.communityName}`,
-            duration:3000
+            message: `Failed to join  ${this.community.communityName}`,
+            duration: 3000
           }).present();
         },
-      () => {
-      //done
-      });
+        () => {
+          //done
+        });
   }
+
+  deleteProfilePopup() {
+    let alert = this.alertCtrl.create({
+      title: 'Delete Community',
+      message: 'Do you Really want to delete your Community?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: data => {
+            this.deleteCommunity();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   deleteCommunity() {
     this.communityService.deleteCommunity(this.community._id)
@@ -111,26 +136,26 @@ export class CommunityDetailsPage {
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage');
             this.toast.create({
-              message:`You deleted ${this.community.communityName}`,
-              duration:3000
+              message: `You deleted ${this.community.communityName}`,
+              duration: 3000
             }).present();
           }
           else {
             this.toast.create({
-              message:`You are not allowed to delete  ${this.community.communityName}`,
-              duration:3000
+              message: `You are not allowed to delete  ${this.community.communityName}`,
+              duration: 3000
             }).present();
           }
         },
         err => {
           console.debug(`Failed to delete ${this.community.communityName} due to: ${err}`);
           this.toast.create({
-            message:`Failed to delete ${this.community.communityName}`,
-            duration:3000
+            message: `Failed to delete ${this.community.communityName}`,
+            duration: 3000
           }).present();
         },
-      () => {
-      //done
-      });
+        () => {
+          //done
+        });
   }
 }
