@@ -22,6 +22,12 @@
   <p>Description: {{community.communityDescription}}</p>
   <p>Type: {{community.type}}</p>
   <members-component [community]="community" *ngIf="isJoined"></members-component>
+  <activities-component></activities-component>
+  <ion-buttons end>
+    <button ion-button icon-only (click)="createNewActivity()">
+      <ion-icon name="add" color="dark"></ion-icon>
+    </button>
+  </ion-buttons>
   <ion-row>
     <button block ion-button color="lightDanger" class="btn" *ngIf="isJoined" (click)="leaveCommunity()">Leave</button>
     <button block ion-button color="primary" class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>

@@ -15,6 +15,7 @@ import { CommunityService } from '../providers/community-service/community.servi
 import {FormsModule} from "@angular/forms";
 
 import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
 const config: SocketIoConfig = { url: 'http://localhost:4300', options: {} };
 
 @NgModule({
@@ -41,7 +42,8 @@ const config: SocketIoConfig = { url: 'http://localhost:4300', options: {} };
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
-    CommunityService
+    CommunityService,
+    ActivityServiceProvider
   ]
 })
 export class AppModule {}

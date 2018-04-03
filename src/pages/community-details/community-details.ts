@@ -4,6 +4,7 @@ import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {User} from "firebase/app";
+import {CreateActivityPage} from "../create-activity/create-activity"
 
 /**
  * Generated class for the CommunityDetailsPage page.
@@ -158,4 +159,10 @@ export class CommunityDetailsPage {
           //done
         });
   }
+
+  createNewActivity() {
+    console.log('TEST');
+    this.navCtrl.push('CreateActivityPage');
+  }
+
 }

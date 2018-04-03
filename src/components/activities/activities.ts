@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'activities',
+  selector: 'activities-component',
   templateUrl: 'activities.html'
 })
 export class ActivitiesComponent {

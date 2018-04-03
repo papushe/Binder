@@ -38,7 +38,7 @@ export class ActivityServiceProvider {
     const activityIdObj = {
       activityId: activityId
     };
-
+    return this._http.post(`${this.baseUrl}/deleteActivityById/`, activityIdObj)
   }
 
 }

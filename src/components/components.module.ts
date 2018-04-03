@@ -6,6 +6,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateCommunityFormComponent } from './create-community-form/create-community-form.component';
 import {CommunitiesComponent} from "./communities/communities.component";
 import {MembersComponent} from "./members/members-component";
+import { ActivitiesComponent } from './activities/activities';
+import { ActivityCreationFormComponent } from './activity-creation-form/activity-creation-form';
 
 @NgModule({
 	declarations: [
@@ -14,7 +16,9 @@ import {MembersComponent} from "./members/members-component";
     ProfileComponent,
     CreateCommunityFormComponent,
     CommunitiesComponent,
-    MembersComponent
+    MembersComponent,
+    ActivitiesComponent,
+    ActivityCreationFormComponent
   ],
 	imports: [IonicModule],
 	exports: [
@@ -23,7 +27,9 @@ import {MembersComponent} from "./members/members-component";
     ProfileComponent,
     CreateCommunityFormComponent,
     CommunitiesComponent,
-    MembersComponent
+    MembersComponent,
+    ActivitiesComponent,
+    ActivityCreationFormComponent
   ]
 })
 export class ComponentsModule {}

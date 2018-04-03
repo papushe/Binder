@@ -1,4 +1,60 @@
-<!-- Generated template for the ActivityCreationFormComponent component -->
-<div>
-  {{text}}
-</div>
+<form #activityForm="ngForm" novalidate>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Name:</ion-label>
+        <ion-input [(ngModel)]="activity.activity_name"
+                   type = "text"
+                   name = "acitivityName"
+                   #activityName="ngModel"
+                   clearInput
+                   required>
+        </ion-input>
+      </ion-item>
+      <div padding *ngIf="activityName.invalid && activityName.dirty">
+        <span class="global__input-error">Must enter an activity name</span>
+      </div>
+      <ion-item>
+        <ion-label>Description:</ion-label>
+        <ion-input [(ngModel)]="activity.activity_description"
+                   type = "text"
+                   name = "activityDescription"
+                   #activityDescription="ngModel"
+                   clearInput
+                   required>
+        </ion-input>
+      </ion-item>
+      <div padding *ngIf="activityDescription.invalid && activityDescription.dirty">
+        <span class="global__input-error">Must enter an activity description!</span>
+      </div>
+      <ion-item>
+        <ion-label>Type</ion-label>
+        <ion-select [(ngModel)]="activity.type"
+                    #type="ngModel"
+                    required
+                    [ngModelOptions]="{standalone: true}">
+          <ion-option value="Dog Walking">Dog Walking</ion-option>
+          <ion-option value="Baby Sitting">Baby Sitting</ion-option>
+          <ion-option value="Delivery">Delivery</ion-option>
+        </ion-select>
+      </ion-item>
+      <div padding *ngIf="type.invalid && type.dirty">
+        <span class="global__input-error">Must choose a type!</span>
+      </div>
+      <ion-item>
+        <ion-label>Special Notes:</ion-label>
+        <ion-input [(ngModel)]="activity.notes"
+                   type = "text"
+                   name = "notes"
+                   #notes="ngModel"
+                   clearInput
+                   required>
+        </ion-input>
+      </ion-item>
+      <div padding *ngIf="activityName.invalid && activityName.dirty">
+        <span class="global__input-error">Must enter an activity name</span>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button (click)="createActivity()" [disabled]="activityForm.invalid">Create Activity</button>
+</form>
