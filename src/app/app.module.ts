@@ -1,22 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import {BrowserModule} from '@angular/platform-browser';
+import {ErrorHandler, NgModule} from '@angular/core';
+import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {SplashScreen} from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
 import {AngularFireModule} from 'angularfire2'
-import { MyApp } from './app.component';
-import { Geolocation } from '@ionic-native/geolocation';
+import {MyApp} from './app.component';
+import {Geolocation} from '@ionic-native/geolocation';
 import {FIREBASE_CONFIG} from "./app.firebase.config";
 import {UserService} from "../providers/user-service/user.service";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {HttpClientModule} from "@angular/common/http";
-import { CommunityService } from '../providers/community-service/community.service';
+import {CommunityService} from '../providers/community-service/community.service';
 import {FormsModule} from "@angular/forms";
+import {ActivityServiceProvider} from '../providers/activity-service/activity-service';
+import {Camera} from '@ionic-native/camera';
 
-import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
-import { ActivityServiceProvider } from '../providers/activity-service/activity-service';
-const config: SocketIoConfig = { url: 'http://localhost:4300', options: {} };
+import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
+const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
 
 @NgModule({
   declarations: [
@@ -43,7 +44,9 @@ const config: SocketIoConfig = { url: 'http://localhost:4300', options: {} };
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
     CommunityService,
-    ActivityServiceProvider
+    ActivityServiceProvider,
+    Camera
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
