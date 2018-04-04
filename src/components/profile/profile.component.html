@@ -1,6 +1,34 @@
 <form #profileForm="ngForm" novalidate>
   <ion-card>
     <ion-card-content>
+
+      <ion-item>
+        <ion-label>Add your profile pic</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-row>
+          <ion-col>
+            <button ion-button color="danger" block (click)="takePhoto()">
+              <ion-icon name="md-camera"></ion-icon>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button block (click)="selectPhoto()">
+              <ion-icon name="md-image"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+
+      <ion-item *ngIf="myPhotosRef">
+        <img class="img-responsive" src="{{ myPhotoURL }}">
+      </ion-item>
+      <ion-item *ngIf="showLoader">
+        <div class="loader"></div>
+        <div class="pleaseComplete">Please complete the form</div>
+      </ion-item>
+
       <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input [(ngModel)]="profile.firstName"

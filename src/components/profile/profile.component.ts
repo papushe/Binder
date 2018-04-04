@@ -4,6 +4,8 @@ import {UserService} from "../../providers/user-service/user.service";
 import {User} from "firebase/app";
 import {Subscription} from 'rxjs/Subscription';
 import {AlertController, Loading, LoadingController, ModalController, NavParams, ToastController} from "ionic-angular";
+import {Camera, CameraOptions} from '@ionic-native/camera';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-profile',
@@ -22,20 +24,57 @@ export class ProfileComponent implements OnDestroy, OnInit {
   loader: Loading;
   fromLoginPage: boolean;
 
+  myPhotosRef: any;
+  myPhoto: any;
+  myPhotoURL: any;
+  showLoader:boolean=false;
+
   constructor(private loading: LoadingController,
               private toast: ToastController,
               private userService: UserService,
               private modalCtrl: ModalController,
               private navParams: NavParams,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private camera: Camera) {
     // this.saveProfileResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe((user: User) => {
         this.authenticatedUser = user;
         this.getProfile(user);
+        this.loadAndInitPhoto();
       });
     this.fromLoginPageEvent = new EventEmitter<boolean>();
     this.fromLoginPage = this.navParams.get('where');
+  }
+
+  loadAndInitPhoto() {
+    this.myPhotosRef = firebase.storage().ref(`/Photos/`);
+
+    this.myPhotosRef.child(`${this.authenticatedUser.uid}.png`).getDownloadURL().then((url) => {
+
+      console.log(url);
+      this.myPhotoURL = url
+
+    }).catch((error) => {
+      switch (error.code) {
+        case 'storage/object_not_found':
+          // File doesn't exist
+          break;
+
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+
+
+        case 'storage/unknown':
+          // Unknown error occurred, inspect the server response
+          break;
+      }
+    })
   }
 
   createLoader() {
@@ -182,7 +221,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
     alert.present();
   }
 
-
   cancelNew() {
     this.skill = "";
   }
@@ -201,4 +239,55 @@ export class ProfileComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.authenticatedUser$.unsubscribe();
   }
+
+
+  // ************************ Add picture ************************
+
+  takePhoto() {
+    const options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.PNG,
+      correctOrientation: true,
+      saveToPhotoAlbum: true,
+      allowEdit: true
+    };
+
+    this.camera.getPicture(options).then(imageData => {
+      this.myPhoto = imageData;
+      this.uploadPhoto();
+    }, error => {
+      console.log("ERROR -> " + JSON.stringify(error));
+    });
+  }
+
+  selectPhoto() {
+    const options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      encodingType: this.camera.EncodingType.PNG,
+      correctOrientation: true,
+      allowEdit: true
+    };
+    this.camera.getPicture(options)
+      .then(imageData => {
+        this.myPhoto = imageData;
+        this.uploadPhoto();
+      }, error => {
+        console.log("ERROR -> " + JSON.stringify(error));
+      });
+  }
+
+  uploadPhoto(): void {
+    this.showLoader = true;
+    this.myPhotosRef.child(`${this.authenticatedUser.uid}.png`)
+      .putString(this.myPhoto, 'base64', {contentType: 'image/png'})
+      .then((savedPicture) => {
+        this.showLoader = false;
+        this.myPhotoURL = savedPicture.downloadURL;
+      });
+  }
+
 }
