@@ -24,7 +24,7 @@
   <members-component [community]="community" *ngIf="isJoined"></members-component>
   <activities-component></activities-component>
   <ion-buttons end>
-    <button ion-button icon-only (click)="createNewActivity()">
+    <button ion-button icon-only  *ngIf="isJoined" (click)="createNewActivity()">
       <ion-icon name="add" color="dark"></ion-icon>
     </button>
   </ion-buttons>
