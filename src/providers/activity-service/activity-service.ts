@@ -31,14 +31,16 @@ export class ActivityServiceProvider {
       source: activity.source,
       destination: activity.destination
     };
-    return this._http.post(`${this.baseUrl}/createNewActivity/`, activityObj)
+    return this._http
+      .post(`${this.baseUrl}/createNewActivity/`, activityObj)
   }
 
   deleteActivity(activityId: string) {
     const activityIdObj = {
       activityId: activityId
     };
-    return this._http.post(`${this.baseUrl}/deleteActivityById/`, activityIdObj)
+    return this._http
+      .post(`${this.baseUrl}/deleteActivityById/`, activityIdObj)
   }
 
 }
