@@ -51,9 +51,10 @@ export class CommunityService {
       .post(`${this.baseUrl}/leaveCommunity/`, obj)
   }
 
-  deleteCommunity(communityId: string){
+  deleteCommunity(communityId: string, userId: string){
     const obj = {
-      communityId: communityId
+      communityId: communityId,
+      uid: userId
     };
     return this._http
       .post(`${this.baseUrl}/deleteCommunity/`, obj)

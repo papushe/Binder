@@ -130,7 +130,7 @@ export class CommunityDetailsPage {
 
 
   deleteCommunity() {
-    this.communityService.deleteCommunity(this.community._id)
+    this.communityService.deleteCommunity(this.community._id, this.authenticatedUser.uid)
       .subscribe(
         res => {
           console.log(`community ${this.community._id} was deleted success? : ${res == true}`);
