@@ -44,19 +44,30 @@ export class ActivityCreationFormComponent {
         .subscribe(
           data => {
             this.saveActivityResult.emit(data);
-            console.log(`activity data: ${data}`);
+            console.log(data);
+            console.log(`create activity success? : ${data != null}`);
+            //noinspection TypeScriptUnresolvedVariable
+            if (data && data._id) {
+              this.toast.create({
+                message: `Activity was created successfully`,
+                duration: 3000
+              }).present();
+            }
+            else {
+              this.toast.create({
+                message: `Something went wrong, please try again`,
+                duration: 3000
+              }).present();
+            }
           },
           err => {
             this.toast.create({
-              message: `Error while creating activity: ${err}`,
+              message: `Error occurred while creating activity: ${err}`,
               duration: 3000
             }).present();
           },
           () => {
-            this.toast.create({
-              message: `Activity was created successfully`,
-              duration: 3000
-            }).present();
+           //done
           }
         )
     }

@@ -56,7 +56,7 @@ export class CommunityDetailsPage {
           }
           else {
             this.toast.create({
-              message: `Something went wrong, please try later`,
+              message: `Something went wrong, please try again`,
               duration: 3000
             }).present();
           }

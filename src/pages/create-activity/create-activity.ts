@@ -23,7 +23,7 @@ export class CreateActivityPage {
   }
 
   saveActivityResult(event) {
-    event ? this.navCtrl.setRoot('community-details') : console.log('No Activity was created')
+    event ? this.navCtrl.popToRoot() : console.log('No Activity was created')
   }
 
 }
