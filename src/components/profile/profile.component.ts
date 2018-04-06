@@ -1,8 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
-import {User} from "firebase/app";
-import {Subscription} from 'rxjs/Subscription';
 import {AlertController, Loading, LoadingController, ModalController, NavParams, ToastController} from "ionic-angular";
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import firebase from 'firebase';
@@ -17,9 +15,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
   skill: string = "";
   skills: any = [];
   hasProfile: boolean = false;
-  authenticatedUser: User;
-  authenticatedUser$: Subscription;
-  // @Output() saveProfileResult: EventEmitter<any>;
   @Output() fromLoginPageEvent: EventEmitter<boolean>;
   loader: Loading;
   fromLoginPage: boolean;
@@ -27,7 +22,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
   myPhotosRef: any;
   myPhoto: any;
   myPhotoURL: any;
-  showLoader:boolean=false;
+  showLoader: boolean = false;
 
   constructor(private loading: LoadingController,
               private toast: ToastController,
@@ -36,50 +31,24 @@ export class ProfileComponent implements OnDestroy, OnInit {
               private navParams: NavParams,
               private alertCtrl: AlertController,
               private camera: Camera) {
-    // this.saveProfileResult = new EventEmitter<any>();
-    this.authenticatedUser$ = this.userService.getAuthenticatedUser()
-      .subscribe((user: User) => {
-        this.authenticatedUser = user;
-        this.getProfile(user);
-        this.loadAndInitPhoto();
-      });
+
+    if (this.userService.thisProfile) {
+      this.myPhotoURL = this.userService.thisProfile.profilePic;
+      this.profile = this.userService.thisProfile;
+      this.skills = this.userService.thisProfile.skills;
+      this.hasProfile = true;
+      this.myPhotosRef = firebase.storage().ref(`/Photos/`);
+    } else {
+      this.hasProfile = false;
+    }
+
     this.fromLoginPageEvent = new EventEmitter<boolean>();
     this.fromLoginPage = this.navParams.get('where');
   }
 
-  loadAndInitPhoto() {
-    this.myPhotosRef = firebase.storage().ref(`/Photos/`);
-
-    this.myPhotosRef.child(`${this.authenticatedUser.uid}.png`).getDownloadURL().then((url) => {
-
-      console.log(url);
-      this.myPhotoURL = url
-
-    }).catch((error) => {
-      switch (error.code) {
-        case 'storage/object_not_found':
-          // File doesn't exist
-          break;
-
-        case 'storage/unauthorized':
-          // User doesn't have permission to access the object
-          break;
-
-        case 'storage/canceled':
-          // User canceled the upload
-          break;
-
-
-        case 'storage/unknown':
-          // Unknown error occurred, inspect the server response
-          break;
-      }
-    })
-  }
-
-  createLoader() {
+  createLoader(massage) {
     this.loader = this.loading.create({
-      content: `Loading profile...`
+      content: massage
     });
   }
 
@@ -93,54 +62,31 @@ export class ProfileComponent implements OnDestroy, OnInit {
     modal.present();
   }
 
-  getProfile(user) {
-    if (user) {
-      this.createLoader();
-      this.loader.present().then(() => {
-        this.userService.getProfile(user)
-          .subscribe(
-            data => {
-              if (data) {
-                this.profile = <Profile>data;
-                this.skills = this.profile.skills;
-                console.log(`data: ${data}`);
-                this.hasProfile = true;
-              } else {
-                console.log('no');
-                this.hasProfile = false;
-              }
-            },
-            err => {
-              console.log(`error: ${err}`);
-            },
-            () => {
-              console.log('done');
-              this.loader.dismiss();
-            }
-          );
-      });
-    }
-  }
-
   updateProfile() {
-    this.userService.updateProfile(this.profile)
-      .subscribe(
-        data => {
-          console.log(`data: ${data}`);
-        },
-        err => {
-          this.toast.create({
-            message: `Error: ${err}`,
-            duration: 3000
-          }).present();
-        },
-        () => {
-          this.toast.create({
-            message: `Profile updated successfully`,
-            duration: 3000
-          }).present();
-        }
-      );
+    this.createLoader('Updating profile..');
+    this.loader.present().then(() => {
+      this.userService.updateProfile(this.profile)
+        .subscribe(
+          data => {
+            console.log(`data: ${data}`);
+            this.userService.thisProfile = <Profile>data;
+            this.userService.thisHasProfile = true;
+          },
+          err => {
+            this.toast.create({
+              message: `Error: ${err}`,
+              duration: 3000
+            }).present();
+          },
+          () => {
+            this.loader.dismiss();
+            this.toast.create({
+              message: `Profile updated successfully`,
+              duration: 3000
+            }).present();
+          }
+        );
+    })
   }
 
   dateOfBirthOptions: any = {
@@ -157,31 +103,36 @@ export class ProfileComponent implements OnDestroy, OnInit {
   }
 
   saveProfile() {
-    if (this.authenticatedUser) {
-      this.profile.email = this.authenticatedUser.email;
-      this.profile.keyForFirebase = this.authenticatedUser.uid;
+    if (this.userService.thisAuthenticatedUser) {
+      this.profile.email = this.userService.thisAuthenticatedUser.email;
+      this.profile.keyForFirebase = this.userService.thisAuthenticatedUser.uid;
       this.profile.skills = this.skills;
-      this.userService.saveProfile(this.profile)
-        .subscribe(
-          data => {
-            this.hasProfile = true;
-            this.fromLoginPageEvent.emit(this.fromLoginPage);
-            // this.saveProfileResult.emit(data);
-            console.log(`data: ${data}`);
-          },
-          err => {
-            this.toast.create({
-              message: `Error: ${err}`,
-              duration: 3000
-            }).present();
-          },
-          () => {
-            this.toast.create({
-              message: `Profile saved successfully`,
-              duration: 3000
-            }).present();
-          }
-        );
+      this.createLoader('Saving profile..');
+      this.loader.present().then(() => {
+        this.userService.saveProfile(this.profile)
+          .subscribe(
+            data => {
+              this.hasProfile = true;
+              this.userService.thisProfile = <Profile>data;
+              this.userService.thisHasProfile = true;
+              this.fromLoginPageEvent.emit(this.fromLoginPage);
+            },
+            err => {
+              this.toast.create({
+                message: `Error: ${err}`,
+                duration: 3000
+              }).present();
+              this.userService.thisHasProfile = false;
+            },
+            () => {
+              this.loader.dismiss();
+              this.toast.create({
+                message: `Profile saved successfully`,
+                duration: 3000
+              }).present();
+            }
+          );
+      });
     } else {
       this.hasProfile = false;
     }
@@ -213,7 +164,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
         {
           text: 'Delete',
           handler: data => {
-            this.userService.deleteFromFirebase(this.authenticatedUser, data.password);
+            this.userService.deleteFromFirebase(this.userService.thisAuthenticatedUser, data.password);
           }
         }
       ]
@@ -237,7 +188,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.authenticatedUser$.unsubscribe();
+    this.userService.thisAuthenticatedUser$.unsubscribe();
   }
 
 
@@ -282,12 +233,42 @@ export class ProfileComponent implements OnDestroy, OnInit {
 
   uploadPhoto(): void {
     this.showLoader = true;
-    this.myPhotosRef.child(`${this.authenticatedUser.uid}.png`)
+    this.myPhotosRef.child(`${this.userService.thisAuthenticatedUser.uid}.png`)
       .putString(this.myPhoto, 'base64', {contentType: 'image/png'})
       .then((savedPicture) => {
         this.showLoader = false;
-        this.myPhotoURL = savedPicture.downloadURL;
+        this.userService.thisProfile.profilePic = savedPicture.downloadURL;
+        this.myPhotoURL = this.userService.thisProfile.profilePic;
       });
   }
+
+  // loadAndInitPhoto() {
+  //   this.myPhotosRef.child(`${this.userService.thisAuthenticatedUser.uid}.png`).getDownloadURL().then((url) => {
+  //
+  //     console.log(url);
+  //     this.userService.thisProfile = url;
+  //     this.myPhotoURL = this.userService.thisProfile.profilePic;
+  //
+  //   }).catch((error) => {
+  //     switch (error.code) {
+  //       case 'storage/object_not_found':
+  //         // File doesn't exist
+  //         break;
+  //
+  //       case 'storage/unauthorized':
+  //         // User doesn't have permission to access the object
+  //         break;
+  //
+  //       case 'storage/canceled':
+  //         // User canceled the upload
+  //         break;
+  //
+  //
+  //       case 'storage/unknown':
+  //         // Unknown error occurred, inspect the server response
+  //         break;
+  //     }
+  //   })
+  // }
 
 }

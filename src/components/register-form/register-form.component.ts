@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {AngularFireAuth} from "angularfire2/auth";
 import {Account} from "../../models/account/account.interface";
 import {ToastController} from "ionic-angular";
 import {UserService} from "../../providers/user-service/user.service";
@@ -19,26 +18,27 @@ export class RegisterFormComponent {
 
   account = {} as Account;
   @Output() registerStatus: EventEmitter<LoginResponse>;
+
   constructor(private userService: UserService,
-              private toast:ToastController) {
+              private toast: ToastController) {
     this.registerStatus = new EventEmitter<LoginResponse>();
   }
 
-  async register(){
-    if(this.account.password === this.account.passwordAgain){
-      try{
+  async register() {
+    if (this.account.password === this.account.passwordAgain) {
+      try {
         const result = await
           this.userService.createUserWithEmailAndPassword(this.account);
         this.registerStatus.emit(result);
         console.log(result);
-      }catch (e){
+      } catch (e) {
         console.error(e);
         this.registerStatus.emit(e);
       }
-    }else{
+    } else {
       this.toast.create({
-        message:"Passwords do not match, try again",
-        duration:3000
+        message: "Passwords do not match, try again",
+        duration: 3000
       }).present();
     }
   }

@@ -8,11 +8,19 @@ import {HttpClient} from "@angular/common/http";
 
 import * as firebase from 'firebase';
 import {ToastController} from "ionic-angular";
+import {Profile} from "../../models/profile/profile.interface";
+import {Subscription} from "rxjs/Subscription";
 
 @Injectable()
 export class UserService {
 
+  // baseUrl: string = 'https://appbinder.herokuapp.com';
   baseUrl: string = 'http://localhost:4300';
+
+  thisProfile = {} as Profile;
+  thisAuthenticatedUser: User;
+  thisAuthenticatedUser$: Subscription;
+  thisHasProfile:boolean = false;
 
   constructor(private _http: HttpClient,
               private database: AngularFireDatabase,
@@ -99,6 +107,8 @@ export class UserService {
       .get(`${this.baseUrl}/deleteProfile/${user.uid}`).subscribe(
         data => {
           console.log(`data: ${data}`);
+          this.thisProfile = <Profile>data;
+          this.thisHasProfile = false;
         },
         err => {
           this.toast.create({

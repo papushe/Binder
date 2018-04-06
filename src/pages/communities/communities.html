@@ -2,10 +2,10 @@
   <ion-navbar>
     <ion-title>Communities</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="searchCommunity()">
+      <button [disabled]="!hasProfile" ion-button icon-only (click)="searchCommunity()">
         <ion-icon name="search" color="dark"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="createCommunity()">
+      <button [disabled]="!hasProfile" ion-button icon-only (click)="createCommunity()">
         <ion-icon name="add" color="dark"></ion-icon>
       </button>
     </ion-buttons>
@@ -15,6 +15,6 @@
 
 <ion-content padding>
 
-  <communities-component></communities-component>
+  <communities-component #child (hasProfileEvent)="updateHasProfile($event)"></communities-component>
 
 </ion-content>

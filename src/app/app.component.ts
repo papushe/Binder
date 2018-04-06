@@ -16,7 +16,8 @@ export class MyApp {
               statusBar: StatusBar,
               splashScreen: SplashScreen) {
 
-    this.userService.getAuthenticatedUser().subscribe(auth => {
+    this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser().subscribe(auth => {
+      this.userService.thisAuthenticatedUser = auth;
       auth ? this.rootPage = 'TabsPage' : this.rootPage = 'LoginPage';
     });
 

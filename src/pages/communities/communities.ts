@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import {MESSAGE_LIST} from "../../mocks/messages/messages";
-import {Message} from "../../models/messages/message.interface";
+import {Component, ViewChild} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {CreateCommunityPage} from "../create-community/create-community";
 import {SearchCommunityPage} from "../search-community/search-community";
+import {UserService} from "../../providers/user-service/user.service";
 
 /**
  * Generated class for the InboxPage page.
@@ -19,21 +18,29 @@ import {SearchCommunityPage} from "../search-community/search-community";
 })
 export class CommunitiesPage {
 
-  // messageList:Message[] = MESSAGE_LIST;
+  hasProfile: boolean;
+  @ViewChild('child') child;
 
-  constructor(private navCtrl: NavController, public navParams: NavParams) {
+  constructor(private navCtrl: NavController,
+              public navParams: NavParams,
+              private userService: UserService) {
   }
 
-  ionViewDidLoad() {
-
+  updateHasProfile(hasProfile) {
+    if (hasProfile) {
+      this.hasProfile = this.userService.thisHasProfile;
+    }
   }
 
-  createCommunity(){
+  createCommunity() {
     this.navCtrl.push('CreateCommunityPage');
   }
 
-  searchCommunity(){
+  searchCommunity() {
     this.navCtrl.push('SearchCommunityPage');
   }
 
+  ionViewWillEnter() {
+    this.hasProfile = this.userService.thisHasProfile;
+  }
 }

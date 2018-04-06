@@ -14,5 +14,6 @@ export interface Profile{
   communities?:[{
     communityId?:string,
     role?:string
-  }]
+  }],
+  profilePic:string
 }

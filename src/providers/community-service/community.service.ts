@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {User} from "firebase/app";
 
@@ -12,15 +12,16 @@ import {User} from "firebase/app";
 @Injectable()
 export class CommunityService {
 
-  // baseUrl:string = 'https://appbinder.herokuapp.com';
+  // baseUrl: string = 'https://appbinder.herokuapp.com';
   baseUrl:string = 'http://localhost:4300';
 
+  thisCommunity = {} as Community;
 
   constructor(private _http: HttpClient) {
   }
 
 
-  createCommunity(community: Community){
+  createCommunity(community: Community) {
     const obj = {
       communityName: community.communityName,
       communityDescription: community.communityDescription,
@@ -31,18 +32,18 @@ export class CommunityService {
       .post(`${this.baseUrl}/createNewCommunity/`, obj)
   }
 
-  getCommunities(user:User){
+  getCommunities(user: User) {
     return this._http
       .get(`${this.baseUrl}/getCommunities/${user.uid}`)
 
   }
 
-  searchCommunity(type:string){
+  searchCommunity(type: string) {
     return this._http
       .get(`${this.baseUrl}/searchCommunity/${type}`)
   }
 
-  leaveCommunity(communityId: string, uid: string){
+  leaveCommunity(communityId: string, uid: string) {
     const obj = {
       communityId: communityId,
       uid: uid,
@@ -51,7 +52,7 @@ export class CommunityService {
       .post(`${this.baseUrl}/leaveCommunity/`, obj)
   }
 
-  deleteCommunity(communityId: string, userId: string){
+  deleteCommunity(communityId: string, userId: string) {
     const obj = {
       communityId: communityId,
       uid: userId
@@ -60,7 +61,7 @@ export class CommunityService {
       .post(`${this.baseUrl}/deleteCommunity/`, obj)
   }
 
-  joinCommunity(communityId: string, uid: string){
+  joinCommunity(communityId: string, uid: string) {
     const obj = {
       communityId: communityId,
       uid: uid,
@@ -69,7 +70,7 @@ export class CommunityService {
       .post(`${this.baseUrl}/joinCommunity/`, obj)
   }
 
-  getCommunityMembers(communityId: string){
+  getCommunityMembers(communityId: string) {
     const obj = {
       communityId: communityId,
     };
