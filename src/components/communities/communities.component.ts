@@ -2,8 +2,9 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {UserService} from "../../providers/user-service/user.service";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
-import {Loading, LoadingController, NavController} from "ionic-angular";
+import {NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
+import {SharedService} from "../../providers/shared/shared";
 
 @Component({
   selector: 'communities-component',
@@ -12,24 +13,17 @@ import {Profile} from "../../models/profile/profile.interface";
 export class CommunitiesComponent {
 
   communities: Community;
-  loader: Loading;
   @Output() hasProfileEvent: EventEmitter<boolean>;
 
   constructor(private userService: UserService,
               private communityService: CommunityService,
               public navCtrl: NavController,
-              private loading: LoadingController) {
+              private shared: SharedService) {
     this.hasProfileEvent = new EventEmitter<boolean>();
 
     if (this.userService.thisAuthenticatedUser) {
       this.getProfile(this.userService.thisAuthenticatedUser)
     }
-  }
-
-  createLoader() {
-    this.loader = this.loading.create({
-      content: `Loading communities...`
-    });
   }
 
   getProfile(user) {
@@ -66,8 +60,8 @@ export class CommunitiesComponent {
   }
 
   getCommunities(user) {
-    this.createLoader();
-    this.loader.present().then(() => {
+    this.shared.createLoader('Loading communities...');
+    this.shared.loader.present().then(() => {
       this.communityService.getCommunities(user)
         .subscribe(
           data => {
@@ -82,7 +76,7 @@ export class CommunitiesComponent {
           },
           () => {
             //done
-            this.loader.dismiss();
+            this.shared.loader.dismiss();
           }
         );
     })

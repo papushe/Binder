@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
-import {AlertController, Loading, LoadingController, ModalController, NavParams, ToastController} from "ionic-angular";
+import {AlertController, ModalController, NavParams, ToastController} from "ionic-angular";
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import firebase from 'firebase';
+import {SharedService} from "../../providers/shared/shared";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
   skills: any = [];
   hasProfile: boolean = false;
   @Output() fromLoginPageEvent: EventEmitter<boolean>;
-  loader: Loading;
   fromLoginPage: boolean;
 
   myPhotosRef: any;
@@ -24,13 +24,13 @@ export class ProfileComponent implements OnDestroy, OnInit {
   myPhotoURL: any;
   showLoader: boolean = false;
 
-  constructor(private loading: LoadingController,
-              private toast: ToastController,
+  constructor(private toast: ToastController,
               private userService: UserService,
               private modalCtrl: ModalController,
               private navParams: NavParams,
               private alertCtrl: AlertController,
-              private camera: Camera) {
+              private camera: Camera,
+              private shared: SharedService) {
 
     if (this.userService.thisProfile) {
       this.myPhotoURL = this.userService.thisProfile.profilePic;
@@ -46,12 +46,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
     this.fromLoginPage = this.navParams.get('where');
   }
 
-  createLoader(massage) {
-    this.loader = this.loading.create({
-      content: massage
-    });
-  }
-
   showAddressModal() {
     let modal = this.modalCtrl.create('AutocompletePage');
     let me = this;
@@ -63,8 +57,8 @@ export class ProfileComponent implements OnDestroy, OnInit {
   }
 
   updateProfile() {
-    this.createLoader('Updating profile..');
-    this.loader.present().then(() => {
+    this.shared.createLoader('Updating profile..');
+    this.shared.loader.present().then(() => {
       this.userService.updateProfile(this.profile)
         .subscribe(
           data => {
@@ -79,7 +73,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
             }).present();
           },
           () => {
-            this.loader.dismiss();
+            this.shared.loader.dismiss();
             this.toast.create({
               message: `Profile updated successfully`,
               duration: 3000
@@ -107,8 +101,8 @@ export class ProfileComponent implements OnDestroy, OnInit {
       this.profile.email = this.userService.thisAuthenticatedUser.email;
       this.profile.keyForFirebase = this.userService.thisAuthenticatedUser.uid;
       this.profile.skills = this.skills;
-      this.createLoader('Saving profile..');
-      this.loader.present().then(() => {
+      this.shared.createLoader('Saving profile..');
+      this.shared.loader.present().then(() => {
         this.userService.saveProfile(this.profile)
           .subscribe(
             data => {
@@ -125,7 +119,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
               this.userService.thisHasProfile = false;
             },
             () => {
-              this.loader.dismiss();
+              this.shared.loader.dismiss();
               this.toast.create({
                 message: `Profile saved successfully`,
                 duration: 3000

@@ -15,6 +15,7 @@ import {CommunityService} from '../providers/community-service/community.service
 import {FormsModule} from "@angular/forms";
 import {ActivityServiceProvider} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
+import {SharedService} from '../providers/shared/shared';
 
 import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
@@ -45,7 +46,8 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     UserService,
     CommunityService,
     ActivityServiceProvider,
-    Camera
+    Camera,
+    SharedService
   ]
 })
 export class AppModule {

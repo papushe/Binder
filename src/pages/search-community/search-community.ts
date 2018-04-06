@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {IonicPage, Loading, LoadingController, NavController} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
+import {SharedService} from "../../providers/shared/shared";
 
 @IonicPage()
 @Component({
@@ -14,24 +15,16 @@ export class SearchCommunityPage {
   communities: Community[] = [];
   hasCommunity: boolean = false;
   noCommunityFound: string = '';
-  loader: Loading;
 
   constructor(private communityService: CommunityService,
-              private loading: LoadingController,
-              private navCtrl: NavController) {
+              private navCtrl: NavController,
+              private shared: SharedService) {
 
-  }
-
-  createLoader() {
-    this.loader = null;
-    this.loader = this.loading.create({
-      content: `Searching Communities...`
-    });
   }
 
   searchCommunity() {
-    this.createLoader();
-    this.loader.present().then(
+    this.shared.createLoader('Searching Communities...');
+    this.shared.loader.present().then(
       () => {
         this.communityService.searchCommunity(this.search)
           .subscribe(
@@ -51,7 +44,7 @@ export class SearchCommunityPage {
             },
             () => {
               console.log('done');
-              this.loader.dismiss();
+              this.shared.loader.dismiss();
             }
           );
       });
@@ -60,5 +53,4 @@ export class SearchCommunityPage {
   openCommunity(community) {
     this.navCtrl.push('CommunityDetailsPage', {community: community})
   }
-
 }
