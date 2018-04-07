@@ -18,11 +18,11 @@
       </ion-item>
 
       <ion-item *ngIf="myPhotosRef">
-        <img class="img-responsive" src="{{ myPhotoURL }}">
+        <img class="profilePic" src="{{ myPhotoURL }}">
       </ion-item>
       <ion-item *ngIf="showLoader">
         <div class="loader"></div>
-        <div class="pleaseComplete">Please complete the form</div>
+        <div class="pleaseComplete">Uploading..</div>
       </ion-item>
 
       <ion-item>

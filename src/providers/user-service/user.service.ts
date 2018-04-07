@@ -14,8 +14,8 @@ import {Subscription} from "rxjs/Subscription";
 @Injectable()
 export class UserService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl: string = 'http://localhost:4300';
+  baseUrl: string = 'https://appbinder.herokuapp.com';
+  // baseUrl: string = 'http://localhost:4300';
 
   thisProfile = {} as Profile;
   thisAuthenticatedUser: User;
@@ -73,7 +73,8 @@ export class UserService {
       type: profile.type,
       skills: profile.skills,
       email: profile.email,
-      keyForFirebase: profile.keyForFirebase
+      keyForFirebase: profile.keyForFirebase,
+      profilePic: profile.profilePic
     };
     return this._http
       .post(`${this.baseUrl}/createNewUser/`, obj)
@@ -96,7 +97,8 @@ export class UserService {
       type: profile.type,
       skills: profile.skills,
       email: profile.email,
-      keyForFirebase: profile.keyForFirebase
+      keyForFirebase: profile.keyForFirebase,
+      profilePic: profile.profilePic
     };
     return this._http
       .post(`${this.baseUrl}/updateProfile/`, obj)
