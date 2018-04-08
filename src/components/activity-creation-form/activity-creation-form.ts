@@ -47,7 +47,7 @@ export class ActivityCreationFormComponent {
             console.log(data);
             console.log(`create activity success? : ${data != null}`);
             //noinspection TypeScriptUnresolvedVariable
-            if (data && data._id) {
+            if (data) {
               this.toast.create({
                 message: `Activity was created successfully`,
                 duration: 3000
