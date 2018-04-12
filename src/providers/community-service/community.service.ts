@@ -12,8 +12,8 @@ import {User} from "firebase/app";
 @Injectable()
 export class CommunityService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl:string = 'http://localhost:4300';
+  baseUrl: string = 'https://appbinder.herokuapp.com';
+  // baseUrl:string = 'http://localhost:4300';
 
   thisCommunity = {} as Community;
 

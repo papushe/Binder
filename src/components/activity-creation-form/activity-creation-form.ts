@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
-import { Activity } from '../../models/activity/activity.interface';
-import { ActivityServiceProvider } from '../../providers/activity-service/activity-service';
-import { CommunityService } from '../../providers/community-service/community.service';
-import { UserService } from '../../providers/user-service/user.service';
-import { User } from 'firebase/app';
-import { ToastController } from 'ionic-angular';
-import { Community } from "../../models/community/community.interface";
+import {Activity} from '../../models/activity/activity.interface';
+import {ActivityServiceProvider} from '../../providers/activity-service/activity-service';
+import {CommunityService} from '../../providers/community-service/community.service';
+import {UserService} from '../../providers/user-service/user.service';
+import {User} from 'firebase/app';
+import {ToastController} from 'ionic-angular';
+import {Community} from "../../models/community/community.interface";
 
 /**
  * Generated class for the ActivityCreationFormComponent component.
@@ -67,7 +67,7 @@ export class ActivityCreationFormComponent {
             }).present();
           },
           () => {
-           //done
+            //done
           }
         )
     }
