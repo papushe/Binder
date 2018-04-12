@@ -12,8 +12,8 @@ export interface Profile{
   keyForFirebase:string;
   rank?:string;
   communities?:[{
-    communityId?:string,
-    role?:string
+    communityId:string,
+    role:string
   }],
   profilePic:string
 }

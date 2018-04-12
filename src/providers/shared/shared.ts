@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Loading, LoadingController} from "ionic-angular";
+import * as _ from 'lodash';
+
 
 /*
   Generated class for the SharedService provider.
@@ -20,5 +22,8 @@ export class SharedService {
     this.loader = this.loading.create({
       content: massage
     });
+  }
+  lodash() {
+    return _;
   }
 }

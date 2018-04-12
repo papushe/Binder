@@ -32,7 +32,7 @@
     <button block ion-button color="lightDanger" class="btn" *ngIf="isJoined" (click)="leaveCommunity()">Leave</button>
     <button block ion-button color="primary" class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
     <button block color="danger" ion-button class="btn" (click)="deleteProfilePopup()"
-            *ngIf="isJoined && community.managerId == authenticatedUser.uid">Delete
+            *ngIf="isJoined && community.managerId == profile.keyForFirebase">Delete
     </button>
   </ion-row>
 </ion-content>

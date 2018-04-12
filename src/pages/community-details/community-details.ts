@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
-import {User} from "firebase/app";
 import {CreateActivityPage} from "../create-activity/create-activity"
+import {Profile} from "../../models/profile/profile.interface";
 
 /**
  * Generated class for the CommunityDetailsPage page.
@@ -18,9 +18,10 @@ import {CreateActivityPage} from "../create-activity/create-activity"
   selector: 'page-community-details',
   templateUrl: 'community-details.html',
 })
-export class CommunityDetailsPage {
+export class CommunityDetailsPage implements OnInit{
+
   community: Community;
-  authenticatedUser: User;
+  profile: Profile;
   isJoined: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -28,25 +29,23 @@ export class CommunityDetailsPage {
               private userService: UserService,
               private toast: ToastController,
               private alertCtrl: AlertController) {
-
-    this.community = navParams.get('community');
-    this.isJoined = navParams.get('isUserJoined');
-
-    this.userService.getAuthenticatedUser()
-      .subscribe((user: User) => {
-        this.authenticatedUser = user;
-      });
   }
 
+
+  ngOnInit(): void {
+    this.community = this.navParams.get('community');
+    this.profile = this.userService.thisProfile;
+    this.isUserJoined(this.community);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommunityDetailsPage');
   }
 
   leaveCommunity() {
-    this.communityService.leaveCommunity(this.community._id, this.authenticatedUser.uid)
+    this.communityService.leaveCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user  ${this.authenticatedUser.uid} was removed from community ${this.community._id}  success? : ${res == true}`);
+          console.log(`user  ${this.profile.keyForFirebase} was removed from community ${this.community._id}  success? : ${res == true}`);
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage');
             this.toast.create({
@@ -75,10 +74,10 @@ export class CommunityDetailsPage {
   }
 
   joinCommunity() {
-    this.communityService.joinCommunity(this.community._id, this.authenticatedUser.uid)
+    this.communityService.joinCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user ${this.authenticatedUser.uid} was joined from community ${this.community._id} success? : ${res == true}`);
+          console.log(`user ${this.profile.keyForFirebase} was joined from community ${this.community._id} success? : ${res == true}`);
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage');
             this.toast.create({
@@ -130,7 +129,7 @@ export class CommunityDetailsPage {
 
 
   deleteCommunity() {
-    this.communityService.deleteCommunity(this.community._id, this.authenticatedUser.uid)
+    this.communityService.deleteCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
           console.log(`community ${this.community._id} was deleted success? : ${res == true}`);
@@ -160,8 +159,16 @@ export class CommunityDetailsPage {
         });
   }
 
+  isUserJoined(community) {
+    this.isJoined =  false;
+    this.profile.communities.forEach((userCommunity) => {
+      if (community._id == userCommunity.communityId) {
+        this.isJoined =  true;
+      }
+    });
+  }
+
   createNewActivity() {
-    console.log('TEST');
     this.navCtrl.push('CreateActivityPage');
   }
 
