@@ -46,6 +46,37 @@ export class ProfileComponent implements OnDestroy, OnInit {
     this.fromLoginPage = this.navParams.get('where');
   }
 
+  getProfile(user) {
+    if (user) {
+      this.shared.createLoader('Loading Profile..');
+      this.shared.loader.present().then(() => {
+        this.userService.getProfile(user)
+          .subscribe(
+            data => {
+              if (data) {
+                this.userService.thisProfile = <Profile>data;
+                this.profile = this.userService.thisProfile;
+                this.skills = this.userService.thisProfile.skills;
+                this.myPhotoURL = this.userService.thisProfile.profilePic;
+                this.hasProfile = true;
+                this.fromLoginPageEvent = new EventEmitter<boolean>();
+                this.fromLoginPage = this.navParams.get('where');
+              } else {
+                this.hasProfile = false;
+              }
+            },
+            err => {
+              console.log(`error: ${err}`);
+            },
+            () => {
+              console.log('done');
+              this.shared.loader.dismiss();
+            }
+          );
+      });
+    }
+  }
+
   showAddressModal() {
     let modal = this.modalCtrl.create('AutocompletePage');
     let me = this;
@@ -55,6 +86,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
     });
     modal.present();
   }
+
 
   updateProfile() {
     this.shared.createLoader('Updating profile..');

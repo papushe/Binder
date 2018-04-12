@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 
@@ -16,6 +16,8 @@ import {UserService} from "../../providers/user-service/user.service";
 })
 export class ProfilePage {
 
+  @ViewChild('child') child;
+
   constructor(private userService:UserService,
               private navCtrl: NavController) {
   }
@@ -29,5 +31,15 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
 
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      this.child.getProfile(this.userService.thisAuthenticatedUser);
+      refresher.complete();
+    }, 2000);
+  }
 
 }

@@ -15,10 +15,11 @@
 
 <ion-content padding>
 
-  <app-profile (fromLoginPageEvent)="saveProfileResult($event)"></app-profile>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-
-
+  <app-profile #child (fromLoginPageEvent)="saveProfileResult($event)"></app-profile>
 
 
 </ion-content>

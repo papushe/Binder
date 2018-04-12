@@ -43,4 +43,15 @@ export class CommunitiesPage {
   ionViewWillEnter() {
     this.hasProfile = this.userService.thisHasProfile;
   }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      this.child.getProfile(this.userService.thisAuthenticatedUser);
+      refresher.complete();
+    }, 2000);
+  }
+
 }
