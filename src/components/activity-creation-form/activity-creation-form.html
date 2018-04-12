@@ -47,13 +47,32 @@
                    type = "text"
                    name = "notes"
                    #notes="ngModel"
+                   clearInput>
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Source:</ion-label>
+        <ion-input [(ngModel)]="activity.source"
+                   type = "text"
+                   name = "source"
+                   #source="ngModel"
                    clearInput
                    required>
         </ion-input>
       </ion-item>
-      <div padding *ngIf="activityName.invalid && activityName.dirty">
+      <div padding *ngIf="source.invalid && source.dirty">
         <span class="global__input-error">Must enter an activity name</span>
       </div>
+      <ion-item>
+        <ion-label>Desination:</ion-label>
+        <ion-input [(ngModel)]="activity.destination"
+                   type = "text"
+                   name = "destination"
+                   #notes="ngModel"
+                   clearInput
+                   required>
+        </ion-input>
+      </ion-item>
     </ion-card-content>
   </ion-card>
   <button ion-button (click)="createActivity()" [disabled]="activityForm.invalid">Create Activity</button>

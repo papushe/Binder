@@ -8,14 +8,6 @@ export interface Activity {
   provider_id: string,
   community_id: string,
   notes: string,
-  source: {
-    city: string,
-    street: string,
-    number: string
-  },
-  destination: {
-    city: string,
-    street: string,
-    number: string
-  }
+  source: string,
+  destination: string
 }
