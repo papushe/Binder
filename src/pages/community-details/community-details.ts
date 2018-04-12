@@ -169,7 +169,7 @@ export class CommunityDetailsPage implements OnInit{
   }
 
   createNewActivity() {
-    this.navCtrl.push('CreateActivityPage');
+    this.navCtrl.push('CreateActivityPage', {community: this.community});
   }
 
 }

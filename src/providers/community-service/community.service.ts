@@ -78,5 +78,4 @@ export class CommunityService {
       .post(`${this.baseUrl}/getCommunityMembers/`, obj)
   }
 
-
 }
