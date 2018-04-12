@@ -13,6 +13,7 @@ import {SharedService} from "../../providers/shared/shared";
 export class CommunitiesComponent {
 
   communities: Community;
+  sharedCommunityId: string;
   @Output() hasProfileEvent: EventEmitter<boolean>;
 
   constructor(private userService: UserService,

@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityServiceProvider} from '../../providers/activity-service/activity-service';
 import {CommunityService} from '../../providers/community-service/community.service';
 import {UserService} from '../../providers/user-service/user.service';
 import {User} from 'firebase/app';
-import {ToastController} from 'ionic-angular';
+import {ToastController, ModalController} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 
 /**
@@ -24,11 +24,13 @@ export class ActivityCreationFormComponent {
   authenticatedUser: User;
   authenticatedUser$: Subscription;
   @Output() saveActivityResult: EventEmitter<any>;
+  @Input() currentCommunity: Community;
 
   constructor(private toast: ToastController,
               private activityService: ActivityServiceProvider,
               private userService: UserService,
-              private communityService: CommunityService) {
+              private communityService: CommunityService,
+              private modalCtrl: ModalController) {
 
     this.saveActivityResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
@@ -40,6 +42,8 @@ export class ActivityCreationFormComponent {
 
   createActivity() {
     if (this.authenticatedUser) {
+      this.activity.consumer_id = this.authenticatedUser.uid;
+      this.activity.community_id = this.currentCommunity._id;
       this.activityService.createActivity(this.activity)
         .subscribe(
           data => {
@@ -72,5 +76,18 @@ export class ActivityCreationFormComponent {
         )
     }
   }
+
+  showAddressModal(name) {
+    let modal = this.modalCtrl.create('AutocompletePage');
+    modal.onDidDismiss(data => {
+      if(name == 'source')
+        this.activity.source = data;
+      else if (name == 'destination')
+        this.activity.destination = data;
+      console.log(data);
+    });
+    modal.present();
+  }
+
 
 }

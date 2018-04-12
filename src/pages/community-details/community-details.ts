@@ -161,8 +161,7 @@ export class CommunityDetailsPage {
   }
 
   createNewActivity() {
-    console.log('TEST');
-    this.navCtrl.push('CreateActivityPage');
+    this.navCtrl.push('CreateActivityPage', {community: this.community});
   }
 
 }

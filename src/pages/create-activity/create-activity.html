@@ -14,5 +14,5 @@
 
 
 <ion-content padding>
-  <activity-creation-form (saveActivityResult)="saveActivityResult($event)"></activity-creation-form>
+  <activity-creation-form (saveActivityResult)="saveActivityResult($event)" [currentCommunity]='community'></activity-creation-form>
 </ion-content>

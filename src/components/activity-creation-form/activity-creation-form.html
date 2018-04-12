@@ -51,8 +51,9 @@
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Source:</ion-label>
+        <ion-label floating>Source:</ion-label>
         <ion-input [(ngModel)]="activity.source"
+                   (click)="showAddressModal('source')"
                    type = "text"
                    name = "source"
                    #source="ngModel"
@@ -64,13 +65,13 @@
         <span class="global__input-error">Must enter an activity name</span>
       </div>
       <ion-item>
-        <ion-label>Desination:</ion-label>
+        <ion-label floating>Destination:</ion-label>
         <ion-input [(ngModel)]="activity.destination"
+                   (click)="showAddressModal('destination')"
                    type = "text"
                    name = "destination"
                    #notes="ngModel"
-                   clearInput
-                   required>
+                   clearInput>
         </ion-input>
       </ion-item>
     </ion-card-content>
