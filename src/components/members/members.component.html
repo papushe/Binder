@@ -1,5 +1,5 @@
 <p>Members:</p>
-<ion-item class="members" *ngFor="let member of members">
+<ion-item class="members" *ngFor="let member of members" (click)="openOptions(member)">
   <div class="memberName">{{member.firstName}} {{member.lastName}}</div>
   <div class="memberDescription">{{member.description}}</div>
 </ion-item>

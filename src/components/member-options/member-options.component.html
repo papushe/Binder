@@ -1,0 +1,22 @@
+<form #memberOptions="ngForm" novalidate>
+  <ion-card>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label>Type</ion-label>
+        <ion-select [(ngModel)]="memberToRole"
+                    #type="ngModel"
+                    required
+                    [ngModelOptions]="{standalone: true}">
+          <ion-option value="AuthorizedMember">Authorized Member</ion-option>
+          <ion-option value="Member">Member</ion-option>
+        </ion-select>
+      </ion-item>
+      <div padding *ngIf="type.invalid && type.dirty">
+        <span class="global__input-error">Must Choose Type</span>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+  <button block ion-button (click)="setNewRole()" [disabled]="!memberToRole">Set as {{memberToRole}}</button>
+</form>

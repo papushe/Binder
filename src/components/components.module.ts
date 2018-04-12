@@ -5,9 +5,10 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateCommunityFormComponent } from './create-community-form/create-community-form.component';
 import {CommunitiesComponent} from "./communities/communities.component";
-import {MembersComponent} from "./members/members-component";
+import {MembersComponent} from "./members/members.component";
 import { ActivitiesComponent } from './activities/activities';
 import { ActivityCreationFormComponent } from './activity-creation-form/activity-creation-form';
+import { MemberOptionsComponent } from './member-options/member-options.component';
 
 @NgModule({
 	declarations: [
@@ -18,7 +19,8 @@ import { ActivityCreationFormComponent } from './activity-creation-form/activity
     CommunitiesComponent,
     MembersComponent,
     ActivitiesComponent,
-    ActivityCreationFormComponent
+    ActivityCreationFormComponent,
+    MemberOptionsComponent
   ],
 	imports: [IonicModule],
 	exports: [
@@ -29,7 +31,8 @@ import { ActivityCreationFormComponent } from './activity-creation-form/activity
     CommunitiesComponent,
     MembersComponent,
     ActivitiesComponent,
-    ActivityCreationFormComponent
+    ActivityCreationFormComponent,
+    MemberOptionsComponent
   ]
 })
 export class ComponentsModule {}
