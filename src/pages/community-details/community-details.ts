@@ -5,8 +5,6 @@ import {CommunityService} from "../../providers/community-service/community.serv
 import {UserService} from "../../providers/user-service/user.service";
 import {CreateActivityPage} from "../create-activity/create-activity"
 import {Profile} from "../../models/profile/profile.interface";
-import {CommunityPopoverComponent} from '../../components/community-popover/community-popover'
-import {CommunityPopoverPage} from "../community-popover/community-popover";
 
 /**
  * Generated class for the CommunityDetailsPage page.
@@ -50,7 +48,7 @@ export class CommunityDetailsPage implements OnInit{
         res => {
           console.log(`user  ${this.profile.keyForFirebase} was removed from community ${this.community._id}  success? : ${res == true}`);
           if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage');
+            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails:true});
             this.toast.create({
               message: `You left ${this.community.communityName}`,
               duration: 3000
@@ -82,7 +80,7 @@ export class CommunityDetailsPage implements OnInit{
         res => {
           console.log(`user ${this.profile.keyForFirebase} was joined from community ${this.community._id} success? : ${res == true}`);
           if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage');
+            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails:true});
             this.toast.create({
               message: `You joined ${this.community.communityName}`,
               duration: 3000
@@ -137,7 +135,7 @@ export class CommunityDetailsPage implements OnInit{
         res => {
           console.log(`community ${this.community._id} was deleted success? : ${res == true}`);
           if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage');
+            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails:true});
             this.toast.create({
               message: `You deleted ${this.community.communityName}`,
               duration: 3000

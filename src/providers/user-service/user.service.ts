@@ -20,7 +20,8 @@ export class UserService {
   thisProfile = {} as Profile;
   thisAuthenticatedUser: User;
   thisAuthenticatedUser$: Subscription;
-  thisHasProfile:boolean = false;
+  thisHasProfile: boolean = false;
+  thisFromCommunityDetails: boolean;
 
   constructor(private _http: HttpClient,
               private database: AngularFireDatabase,

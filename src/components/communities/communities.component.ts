@@ -28,7 +28,8 @@ export class CommunitiesComponent {
   }
 
   getProfile(user) {
-    if (Object.keys(this.userService.thisProfile).length === 0) {
+    if (Object.keys(this.userService.thisProfile).length === 0 || this.userService.thisFromCommunityDetails) {
+      this.userService.thisFromCommunityDetails = false;
       if (user) {
         this.userService.getProfile(user)
           .subscribe(

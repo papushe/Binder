@@ -9,7 +9,6 @@ import {MembersComponent} from "./members/members.component";
 import { ActivitiesComponent } from './activities/activities';
 import { ActivityCreationFormComponent } from './activity-creation-form/activity-creation-form';
 import { MemberOptionsComponent } from './member-options/member-options.component';
-import { CommunityPopoverComponent } from './community-popover/community-popover';
 
 @NgModule({
 	declarations: [
@@ -22,7 +21,7 @@ import { CommunityPopoverComponent } from './community-popover/community-popover
     ActivitiesComponent,
     ActivityCreationFormComponent,
     MemberOptionsComponent,
-    CommunityPopoverComponent
+
   ],
 	imports: [IonicModule],
 	exports: [
@@ -35,7 +34,7 @@ import { CommunityPopoverComponent } from './community-popover/community-popover
     ActivitiesComponent,
     ActivityCreationFormComponent,
     MemberOptionsComponent,
-    CommunityPopoverComponent
+
   ]
 })
 export class ComponentsModule {}

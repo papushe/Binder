@@ -24,6 +24,7 @@ export class CommunitiesPage {
   constructor(private navCtrl: NavController,
               public navParams: NavParams,
               private userService: UserService) {
+    this.userService.thisFromCommunityDetails = this.navParams.get('fromCommunityDetails')
   }
 
   updateHasProfile(hasProfile) {

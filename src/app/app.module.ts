@@ -18,8 +18,8 @@ import {Camera} from '@ionic-native/camera';
 import {SharedService} from '../providers/shared/shared';
 
 import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
-import {PopoverComponent} from "../components/popover/popover";
-import {PopoverComponentModule} from "../components/popover/popover.module";
+import {ProfilePopoverComponent} from "../components/profile-popover/profile-popover.component";
+import {ProfilePopoverComponentModule} from "../components/profile-popover/profile-popover.component.module";
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
 
 @NgModule({
@@ -35,12 +35,12 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     HttpClientModule,
-    PopoverComponentModule
+    ProfilePopoverComponentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    PopoverComponent
+    ProfilePopoverComponent
   ],
   providers: [
     StatusBar,

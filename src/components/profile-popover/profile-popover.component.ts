@@ -3,16 +3,16 @@ import {AlertController, ViewController} from "ionic-angular";
 import {UserService} from "../../providers/user-service/user.service";
 
 /**
- * Generated class for the PopoverComponent component.
+ * Generated class for the ProfilePopoverComponent component.
  *
  * See https://angular.io/api/core/Component for more info on Angular
  * Components.
  */
 @Component({
   selector: 'popover',
-  templateUrl: 'popover.html'
+  templateUrl: 'profile-popover.component.html'
 })
-export class PopoverComponent {
+export class ProfilePopoverComponent {
 
   constructor(private viewCtrl: ViewController,
               private userService: UserService,

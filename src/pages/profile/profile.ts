@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
-import {PopoverComponent} from "../../components/popover/popover";
+import {ProfilePopoverComponent} from "../../components/profile-popover/profile-popover.component";
 
 /**
  * Generated class for the ProfilePage page.
@@ -34,7 +34,7 @@ export class ProfilePage {
   }
 
   presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(PopoverComponent);
+    let popover = this.popoverCtrl.create(ProfilePopoverComponent);
     popover.present({
       ev: myEvent
     });
