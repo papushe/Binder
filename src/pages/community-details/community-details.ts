@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {PopoverController, AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {CreateActivityPage} from "../create-activity/create-activity"
 import {Profile} from "../../models/profile/profile.interface";
+import {CommunityPopoverComponent} from '../../components/community-popover/community-popover'
+import {CommunityPopoverPage} from "../community-popover/community-popover";
 
 /**
  * Generated class for the CommunityDetailsPage page.
@@ -24,7 +26,8 @@ export class CommunityDetailsPage implements OnInit{
   profile: Profile;
   isJoined: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(private navCtrl: NavController, private navParams: NavParams,
+              private popoverCtrl: PopoverController,
               private communityService: CommunityService,
               private userService: UserService,
               private toast: ToastController,
@@ -170,6 +173,14 @@ export class CommunityDetailsPage implements OnInit{
 
   createNewActivity() {
     this.navCtrl.push('CreateActivityPage', {community: this.community});
+  }
+
+  showCommunityMenu(event) {
+    // let popover = this.popoverCtrl.create(CommunityPopoverComponent);
+    let popover = this.popoverCtrl.create(CommunityDetailsPage);
+    popover.present({
+      ev: event
+    });
   }
 
 }

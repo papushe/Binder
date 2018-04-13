@@ -47,7 +47,6 @@ export class ActivityCreationFormComponent {
       this.activityService.createActivity(this.activity)
         .subscribe(
           data => {
-            this.saveActivityResult.emit(data);
             console.log(data);
             console.log(`create activity success? : ${data != null}`);
             //noinspection TypeScriptUnresolvedVariable
@@ -56,6 +55,7 @@ export class ActivityCreationFormComponent {
                 message: `Activity was created successfully`,
                 duration: 3000
               }).present();
+            this.saveActivityResult.emit(data);
             }
             else {
               this.toast.create({

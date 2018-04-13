@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
-import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {PopoverController, IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {StatusBar} from '@ionic-native/status-bar';
 import {AngularFireModule} from 'angularfire2'
@@ -16,6 +16,8 @@ import {FormsModule} from "@angular/forms";
 import {ActivityServiceProvider} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
 import {SharedService} from '../providers/shared/shared';
+import { CommunityPopoverComponent } from '../components/community-popover/community-popover'
+import { CommunityPopoverPage } from '../pages/community-popover/community-popover'
 
 import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
@@ -32,11 +34,14 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    HttpClientModule,
+    HttpClientModule
+    // PopoverController
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    // PopoverController,
+    // CommunityPopoverPage
   ],
   providers: [
     StatusBar,

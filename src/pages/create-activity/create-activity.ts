@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 
 /**
@@ -27,7 +27,6 @@ export class CreateActivityPage {
   }
 
   saveActivityResult(event) {
-    event ? this.navCtrl.popToRoot() : console.log('No Activity was created')
+    event ? this.navCtrl.push('CommunityDetailsPage', {community: this.community}) : console.log('No Activity was created')
   }
-
 }

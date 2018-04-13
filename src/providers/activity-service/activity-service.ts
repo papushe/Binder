@@ -22,7 +22,7 @@ export class ActivityServiceProvider {
   createActivity(activity: Activity) {
     const activityObj = {
       activityName: activity.activity_name,
-      activityDesc: activity.activity_description,
+      activityDescription: activity.activity_description,
       providerId: activity.provider_id,
       consumerId: activity.consumer_id,
       communityId: activity.community_id,
