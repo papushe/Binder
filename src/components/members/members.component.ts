@@ -4,6 +4,7 @@ import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Profile} from "../../models/profile/profile.interface";
 import {MemberOptionsComponent} from "../member-options/member-options.component";
+import {SharedService} from "../../providers/shared/shared";
 
 /**
  * Generated class for the MembersComponent component.
@@ -24,6 +25,10 @@ export class MembersComponent {
   }
 
   ngOnInit() {
+    this.getCommunityMembers();
+  }
+
+  getCommunityMembers() {
     this.communityService.getCommunityMembers(this.community._id)
       .subscribe(
         res => {
@@ -43,8 +48,7 @@ export class MembersComponent {
         });
   }
 
-
-  openOptions(member: Profile){
+  openOptions(member: Profile) {
     this.navCtrl.push('MemberOptionsPage', {member})
   }
 
