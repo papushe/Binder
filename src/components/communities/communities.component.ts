@@ -68,8 +68,8 @@ export class CommunitiesComponent {
         .subscribe(
           data => {
             if (Object.keys(data).length != 0) {
-              this.communityService.thisCommunity = <Community>data;
-              this.communities = this.communityService.thisCommunity;
+              this.communityService.thisCommunities = <Community>data;
+              this.communities = this.communityService.thisCommunities;
               console.log(`get communities success? : ${data != null}`);
             }
           },

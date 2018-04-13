@@ -16,10 +16,11 @@ import {FormsModule} from "@angular/forms";
 import {ActivityServiceProvider} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
 import {SharedService} from '../providers/shared/shared';
-
-import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
 import {ProfilePopoverComponent} from "../components/profile-popover/profile-popover.component";
 import {ProfilePopoverComponentModule} from "../components/profile-popover/profile-popover.component.module";
+import {CommunityPopoverComponentModule} from "../components/community-popover/community-popover.component.module";
+
+import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
 
 @NgModule({
@@ -35,7 +36,8 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     HttpClientModule,
-    ProfilePopoverComponentModule
+    ProfilePopoverComponentModule,
+    CommunityPopoverComponentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

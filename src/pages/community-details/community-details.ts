@@ -5,6 +5,7 @@ import {CommunityService} from "../../providers/community-service/community.serv
 import {UserService} from "../../providers/user-service/user.service";
 import {CreateActivityPage} from "../create-activity/create-activity"
 import {Profile} from "../../models/profile/profile.interface";
+import {CommunityPopoverComponent} from "../../components/community-popover/community-popover.component";
 
 /**
  * Generated class for the CommunityDetailsPage page.
@@ -18,7 +19,7 @@ import {Profile} from "../../models/profile/profile.interface";
   selector: 'page-community-details',
   templateUrl: 'community-details.html',
 })
-export class CommunityDetailsPage implements OnInit{
+export class CommunityDetailsPage implements OnInit {
 
   community: Community;
   profile: Profile;
@@ -34,124 +35,39 @@ export class CommunityDetailsPage implements OnInit{
 
 
   ngOnInit(): void {
-    this.community = this.navParams.get('community');
+    this.communityService.thisSelectedCommunity = this.navParams.get('community');
+    this.community = this.communityService.thisSelectedCommunity;
     this.profile = this.userService.thisProfile;
-    this.isUserJoined(this.community);
+    this.isUserJoined(this.communityService.thisSelectedCommunity);
   }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CommunityDetailsPage');
   }
 
-  leaveCommunity() {
-    this.communityService.leaveCommunity(this.community._id, this.profile.keyForFirebase)
-      .subscribe(
-        res => {
-          console.log(`user  ${this.profile.keyForFirebase} was removed from community ${this.community._id}  success? : ${res == true}`);
-          if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails:true});
-            this.toast.create({
-              message: `You left ${this.community.communityName}`,
-              duration: 3000
-            }).present();
-          }
-          else {
-            this.toast.create({
-              message: `Something went wrong, please try again`,
-              duration: 3000
-            }).present();
-          }
-        },
-        err => {
-          console.debug(`Failed to leave ${this.community.communityName} due to: ${err}`);
-          this.toast.create({
-            message: `Failed to leave ${this.community.communityName}`,
-            duration: 3000
-          }).present();
-        },
-        () => {
-          //done
-        }
-      );
-  }
-
   joinCommunity() {
-    this.communityService.joinCommunity(this.community._id, this.profile.keyForFirebase)
+    this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user ${this.profile.keyForFirebase} was joined from community ${this.community._id} success? : ${res == true}`);
+          console.log(`user ${this.profile.keyForFirebase} was joined from community ${this.communityService.thisSelectedCommunity._id} success? : ${res == true}`);
           if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails:true});
+            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
             this.toast.create({
-              message: `You joined ${this.community.communityName}`,
+              message: `You joined ${this.communityService.thisSelectedCommunity.communityName}`,
               duration: 3000
             }).present();
           }
           else {
             this.toast.create({
-              message: `You are not allowed to join  ${this.community.communityName}`,
+              message: `You are not allowed to join  ${this.communityService.thisSelectedCommunity.communityName}`,
               duration: 3000
             }).present();
           }
         },
         err => {
-          console.debug(`Failed to join ${this.community.communityName} due to: ${err}`);
+          console.debug(`Failed to join ${this.communityService.thisSelectedCommunity.communityName} due to: ${err}`);
           this.toast.create({
-            message: `Failed to join  ${this.community.communityName}`,
-            duration: 3000
-          }).present();
-        },
-        () => {
-          //done
-        });
-  }
-
-  deleteProfilePopup() {
-    let alert = this.alertCtrl.create({
-      title: 'Delete Community',
-      message: 'Do you Really want to delete your Community?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Delete',
-          handler: data => {
-            this.deleteCommunity();
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-
-  deleteCommunity() {
-    this.communityService.deleteCommunity(this.community._id, this.profile.keyForFirebase)
-      .subscribe(
-        res => {
-          console.log(`community ${this.community._id} was deleted success? : ${res == true}`);
-          if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails:true});
-            this.toast.create({
-              message: `You deleted ${this.community.communityName}`,
-              duration: 3000
-            }).present();
-          }
-          else {
-            this.toast.create({
-              message: `You are not allowed to delete  ${this.community.communityName}`,
-              duration: 3000
-            }).present();
-          }
-        },
-        err => {
-          console.debug(`Failed to delete ${this.community.communityName} due to: ${err}`);
-          this.toast.create({
-            message: `Failed to delete ${this.community.communityName}`,
+            message: `Failed to join  ${this.communityService.thisSelectedCommunity.communityName}`,
             duration: 3000
           }).present();
         },
@@ -161,24 +77,23 @@ export class CommunityDetailsPage implements OnInit{
   }
 
   isUserJoined(community) {
-    this.isJoined =  false;
+    this.isJoined = false;
     this.profile.communities.forEach((userCommunity) => {
       if (community._id == userCommunity.communityId) {
-        this.isJoined =  true;
+        this.isJoined = true;
       }
     });
   }
 
   createNewActivity() {
-    this.navCtrl.push('CreateActivityPage', {community: this.community});
+    this.navCtrl.push('CreateActivityPage', {community: this.communityService.thisSelectedCommunity});
   }
 
-  showCommunityMenu(event) {
-    // let popover = this.popoverCtrl.create(CommunityPopoverComponent);
-    let popover = this.popoverCtrl.create(CommunityDetailsPage);
+  presentPopover(myEvent, isJoined) {
+    const IsJoined = {IsJoined:isJoined};
+    let popover = this.popoverCtrl.create(CommunityPopoverComponent, IsJoined);
     popover.present({
-      ev: event
+      ev: myEvent
     });
   }
-
 }

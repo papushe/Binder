@@ -20,8 +20,7 @@ import { MemberOptionsComponent } from './member-options/member-options.componen
     MembersComponent,
     ActivitiesComponent,
     ActivityCreationFormComponent,
-    MemberOptionsComponent,
-
+    MemberOptionsComponent
   ],
 	imports: [IonicModule],
 	exports: [
@@ -34,7 +33,6 @@ import { MemberOptionsComponent } from './member-options/member-options.componen
     ActivitiesComponent,
     ActivityCreationFormComponent,
     MemberOptionsComponent,
-
   ]
 })
 export class ComponentsModule {}

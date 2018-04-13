@@ -15,7 +15,8 @@ export class CommunityService {
   baseUrl: string = 'https://appbinder.herokuapp.com';
   // baseUrl:string = 'http://localhost:4300';
 
-  thisCommunity = {} as Community;
+  thisCommunities = {} as Community;
+  thisSelectedCommunity: Community;
 
   constructor(private _http: HttpClient) {
   }
@@ -78,7 +79,7 @@ export class CommunityService {
       .post(`${this.baseUrl}/getCommunityMembers/`, obj)
   }
 
-  updateCommunityUserRole (communityId: string, uid: string, role: string) {
+  updateCommunityUserRole(communityId: string, uid: string, role: string) {
     const obj = {
       communityId: communityId,
       uid: uid,
