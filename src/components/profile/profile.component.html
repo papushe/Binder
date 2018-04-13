@@ -17,8 +17,8 @@
         </ion-row>
       </ion-item>
 
-      <ion-item *ngIf="myPhotosRef">
-        <img class="profilePic" src="{{ myPhotoURL }}">
+      <ion-item *ngIf="profile.profilePic && !hasProfilePicAbdUploadNew">
+        <img class="profilePic" src="{{ profile.profilePic }}">
       </ion-item>
       <ion-item *ngIf="showLoader">
         <div class="loader"></div>
@@ -124,6 +124,4 @@
   </ion-card>
   <button *ngIf="!hasProfile" block ion-button (click)="saveProfile()" [disabled]="profileForm.invalid">Save</button>
   <button *ngIf="hasProfile" block ion-button (click)="updateProfile()" [disabled]="profileForm.invalid">Update</button>
-  <button color="lightDanger" block ion-button (click)="signOut()">Logout</button>
-  <button color="danger" ion-button block (click)="deleteProfilePopup()">Delete Account</button>
 </form>

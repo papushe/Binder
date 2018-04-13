@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>Profile</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more" color="dark"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -20,6 +25,5 @@
   </ion-refresher>
 
   <app-profile #child (fromLoginPageEvent)="saveProfileResult($event)"></app-profile>
-
 
 </ion-content>

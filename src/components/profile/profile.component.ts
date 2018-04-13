@@ -21,8 +21,8 @@ export class ProfileComponent implements OnDestroy, OnInit {
 
   myPhotosRef: any;
   myPhoto: any;
-  myPhotoURL: any;
   showLoader: boolean = false;
+  hasProfilePicAbdUploadNew: boolean = false;
 
   constructor(private toast: ToastController,
               private userService: UserService,
@@ -33,7 +33,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
               private shared: SharedService) {
 
     if (this.userService.thisProfile) {
-      this.myPhotoURL = this.userService.thisProfile.profilePic;
       this.profile = this.userService.thisProfile;
       this.skills = this.userService.thisProfile.skills;
       this.hasProfile = true;
@@ -57,7 +56,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
                 this.userService.thisProfile = <Profile>data;
                 this.profile = this.userService.thisProfile;
                 this.skills = this.userService.thisProfile.skills;
-                this.myPhotoURL = this.userService.thisProfile.profilePic;
                 this.hasProfile = true;
                 this.fromLoginPageEvent = new EventEmitter<boolean>();
                 this.fromLoginPage = this.navParams.get('where');
@@ -164,40 +162,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
     }
   }
 
-  signOut() {
-    this.userService.signOut();
-  }
-
-  deleteProfilePopup() {
-    let alert = this.alertCtrl.create({
-      title: 'Delete Account',
-      message: 'Do you Really want to delete your Account? Enter your password first',
-      inputs: [
-        {
-          name: 'password',
-          placeholder: 'Password',
-          type: 'password'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Delete',
-          handler: data => {
-            this.userService.deleteFromFirebase(this.userService.thisAuthenticatedUser, data.password);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
   cancelNew() {
     this.skill = "";
   }
@@ -258,43 +222,17 @@ export class ProfileComponent implements OnDestroy, OnInit {
   }
 
   uploadPhoto(): void {
+    if (this.profile.profilePic) {
+      this.hasProfilePicAbdUploadNew = true;
+    }
     this.showLoader = true;
     this.myPhotosRef.child(`${this.userService.thisAuthenticatedUser.uid}.png`)
       .putString(this.myPhoto, 'base64', {contentType: 'image/png'})
       .then((savedPicture) => {
+        this.hasProfilePicAbdUploadNew = false;
         this.showLoader = false;
         this.userService.thisProfile.profilePic = savedPicture.downloadURL;
-        this.myPhotoURL = this.userService.thisProfile.profilePic;
+        this.profile.profilePic = this.userService.thisProfile.profilePic;
       });
   }
-
-  // loadAndInitPhoto() {
-  //   this.myPhotosRef.child(`${this.userService.thisAuthenticatedUser.uid}.png`).getDownloadURL().then((url) => {
-  //
-  //     console.log(url);
-  //     this.userService.thisProfile = url;
-  //     this.myPhotoURL = this.userService.thisProfile.profilePic;
-  //
-  //   }).catch((error) => {
-  //     switch (error.code) {
-  //       case 'storage/object_not_found':
-  //         // File doesn't exist
-  //         break;
-  //
-  //       case 'storage/unauthorized':
-  //         // User doesn't have permission to access the object
-  //         break;
-  //
-  //       case 'storage/canceled':
-  //         // User canceled the upload
-  //         break;
-  //
-  //
-  //       case 'storage/unknown':
-  //         // Unknown error occurred, inspect the server response
-  //         break;
-  //     }
-  //   })
-  // }
-
 }

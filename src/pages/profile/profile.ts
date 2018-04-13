@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
+import {PopoverComponent} from "../../components/popover/popover";
 
 /**
  * Generated class for the ProfilePage page.
@@ -18,12 +19,13 @@ export class ProfilePage {
 
   @ViewChild('child') child;
 
-  constructor(private userService:UserService,
-              private navCtrl: NavController) {
+  constructor(private userService: UserService,
+              private navCtrl: NavController,
+              private popoverCtrl: PopoverController) {
   }
 
 
-  saveProfileResult(event){
+  saveProfileResult(event) {
     event ? this.navCtrl.setRoot('TabsPage') : console.log("Not authenticated or saved");
   }
 
@@ -31,6 +33,12 @@ export class ProfilePage {
     console.log('ionViewDidLoad ProfilePage');
   }
 
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverComponent);
+    popover.present({
+      ev: myEvent
+    });
+  }
 
   doRefresh(refresher) {
     console.log('Begin async operation', refresher);
