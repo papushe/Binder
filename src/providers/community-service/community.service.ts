@@ -78,4 +78,13 @@ export class CommunityService {
       .post(`${this.baseUrl}/getCommunityMembers/`, obj)
   }
 
+  updateCommunityUserRole (communityId: string, uid: string, role: string) {
+    const obj = {
+      communityId: communityId,
+      uid: uid,
+      role: role
+    };
+    return this._http
+      .post(`${this.baseUrl}/updateCommunityUserRole/`, obj)
+  }
 }
