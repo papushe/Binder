@@ -1,6 +1,12 @@
 .members {
-  margin: 0 10px 10px 0;
-  .memberName {
-    font-weight: bold;
+
+  ion-item ion-label, ion-item .label-md {
+    margin: 0;
+  }
+  ion-item {
+    background: cornsilk;
+  }
+  hr {
+    margin: 1px;
   }
 }

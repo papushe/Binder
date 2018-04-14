@@ -1,5 +1,10 @@
-<p>Members:</p>
-<ion-item class="members" *ngFor="let member of members" (click)="openOptions(member)">
-  <div class="memberName">{{member.firstName}} {{member.lastName}}</div>
-  <div class="memberDescription">{{member.description}}</div>
-</ion-item>
+<ion-card class="members">
+  <ion-item>Members:</ion-item>
+  <hr>
+  <ion-list>
+    <ion-item *ngFor="let member of members" (click)="openOptions(member)">
+      <strong>{{member.firstName}} {{member.lastName}}</strong>
+      <p>{{member.description}}</p>
+    </ion-item>
+  </ion-list>
+</ion-card>
