@@ -43,4 +43,11 @@ export class ActivityServiceProvider {
       .post(`${this.baseUrl}/deleteActivityById/`, activityIdObj)
   }
 
+
+  getActivitiesByCommunityId(activity: Activity) {
+    return this._http
+      .get(`${this.baseUrl}/getActivitiesByCommunityId/${activity._id}`)
+  }
+
+
 }
