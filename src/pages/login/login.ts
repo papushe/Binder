@@ -4,6 +4,7 @@ import {LoginResponse} from "../../models/login/login-response.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {User} from "firebase/app";
 import {Profile} from "../../models/profile/profile.interface";
+import {SocketService} from "../../providers/socket/socket.service";
 
 @IonicPage()
 @Component({
@@ -14,7 +15,8 @@ export class LoginPage {
 
   constructor(private userService: UserService,
               private toast: ToastController,
-              private navCtrl: NavController) {
+              private navCtrl: NavController,
+              private socketService: SocketService) {
   }
 
   login(event: LoginResponse) {
@@ -28,6 +30,7 @@ export class LoginPage {
         .subscribe(
           profile => {
             this.userService.thisProfile = <Profile>profile;
+            this.socketService.socketConnect();
             this.userService.thisHasProfile = true;
           },
           err => {

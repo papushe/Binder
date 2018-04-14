@@ -4,7 +4,7 @@ import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Profile} from "../../models/profile/profile.interface";
 import {MemberOptionsComponent} from "../member-options/member-options.component";
-import {SharedService} from "../../providers/shared/shared";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the MembersComponent component.

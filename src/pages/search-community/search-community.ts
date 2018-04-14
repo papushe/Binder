@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {IonicPage, NavController} from 'ionic-angular';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
-import {SharedService} from "../../providers/shared/shared";
+import {SharedService} from "../../providers/shared/shared.service";
 
 @IonicPage()
 @Component({
@@ -51,6 +51,6 @@ export class SearchCommunityPage {
   }
 
   openCommunity(community) {
-    this.navCtrl.push('CommunityDetailsPage', {community: community})
+    this.navCtrl.push('CommunityDetailsPage', {community: community, from:'searchPage'})
   }
 }

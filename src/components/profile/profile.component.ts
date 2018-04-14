@@ -4,7 +4,7 @@ import {UserService} from "../../providers/user-service/user.service";
 import {AlertController, ModalController, NavParams, ToastController} from "ionic-angular";
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import firebase from 'firebase';
-import {SharedService} from "../../providers/shared/shared";
+import {SharedService} from "../../providers/shared/shared.service";
 
 @Component({
   selector: 'app-profile',

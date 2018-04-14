@@ -51,7 +51,7 @@ export class ChatRoomPage {
 
   getUsers() {
     let observable = new Observable(observer => {
-      this.socket.on('users-changed', (data) => {
+      this.socket.on('connect', (data) => {
         observer.next(data);
       });
     });
