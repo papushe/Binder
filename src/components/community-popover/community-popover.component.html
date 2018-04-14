@@ -1,11 +1,11 @@
 <ion-list class="popoverProfile">
-  <ion-item>
-    <h6>Community Description</h6>
-  </ion-item>
-  <ion-item>
-    <p>Description: {{community.communityDescription}}</p>
-    <p>Type: {{community.type}}</p>
-  </ion-item>
+  <!--<ion-item>-->
+    <!--<h6>Community Description</h6>-->
+  <!--</ion-item>-->
+  <!--<ion-item>-->
+    <!--<p>Description: {{community.communityDescription}}</p>-->
+    <!--<p>Type: {{community.type}}</p>-->
+  <!--</ion-item>-->
   <ion-item *ngIf="isJoined">
     <span (click)="leaveCommunity()">Leave Community</span>
   </ion-item>
