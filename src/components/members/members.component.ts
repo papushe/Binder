@@ -49,7 +49,7 @@ export class MembersComponent {
   }
 
   openOptions(member: Profile) {
-    this.navCtrl.push('MemberOptionsPage', {member})
+    this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community})
   }
 
 

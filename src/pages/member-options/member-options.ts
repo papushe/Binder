@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Profile} from "../../models/profile/profile.interface";
+import {Community} from "../../models/community/community.interface";
 
 /**
  * Generated class for the MemberOptionsPage page.
@@ -17,10 +18,12 @@ import {Profile} from "../../models/profile/profile.interface";
 export class MemberOptionsPage {
 
   member: Profile;
+  community: Community;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
 
     this.member = navParams.get('member');
+    this.community = navParams.get('community');
 
   }
 
