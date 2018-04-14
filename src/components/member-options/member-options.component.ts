@@ -20,18 +20,16 @@ export class MemberOptionsComponent {
   text: string;
   @Input() member: Profile;
   @Input() community: Community;
-  memberToRole: string;
   loggedInUser: Profile;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private communityService:CommunityService,
-              private userService:UserService) {
+              private communityService: CommunityService,
+              private userService: UserService) {
     this.loggedInUser = this.userService.thisProfile;
   }
 
-
-  updateUserRole() {
-    this.communityService.updateCommunityUserRole(this.community._id, this.member.keyForFirebase, this.memberToRole)
+  updateUserRole(role: string) {
+    this.communityService.updateCommunityUserRole(this.community._id, this.member.keyForFirebase, role)
       .subscribe(
         res => {
           if (res) {
@@ -39,11 +37,10 @@ export class MemberOptionsComponent {
           }
         },
         err => {
-          console.debug(`Failed to update ${this.member.keyForFirebase} role to: ${this.memberToRole} at community: ${this.community._id} m due to: ${err}`);
+          console.debug(`Failed to update ${this.member.keyForFirebase} role to: ${role} at community: ${this.community._id} m due to: ${err}`);
         },
         () => {
           this.navCtrl.push('CommunityDetailsPage', {community: this.community})
         });
   }
-
 }
