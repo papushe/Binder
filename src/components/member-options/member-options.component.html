@@ -1,6 +1,6 @@
 <form #memberOptions="ngForm" novalidate *ngIf="loggedInUser.keyForFirebase == community.managerId">
   <ion-card>
-    <ion-card-content >
+    <ion-card-content>
 
       <ion-item>
         <ion-label>Type</ion-label>
@@ -18,5 +18,21 @@
 
     </ion-card-content>
   </ion-card>
+
   <button block ion-button (click)="updateUserRole()" [disabled]="!memberToRole">Set as {{memberToRole}}</button>
 </form>
+
+<ion-card>
+  <ion-item *ngIf="member.profilePic"><img class="profilePic" src="{{ member.profilePic }}"></ion-item>
+  <ion-item><strong>Name: </strong>{{member.firstName + ' ' + member.lastName}}</ion-item>
+  <ion-item><strong>Description: </strong>{{member.description}}</ion-item>
+  <ion-item><strong>Location: </strong>{{member.location}}</ion-item>
+  <ion-item><strong>Rank: </strong>{{member.rank != '' ? 'Not ranked yet': member.rank}}</ion-item>
+  <ion-item><strong>Type: </strong>{{member.type == 'both' ? 'Consumer and Provider': member.type}}</ion-item>
+  <ion-item><strong>Date of birth: </strong>{{member.dateOfBirth}}</ion-item>
+  <ion-item *ngIf="member.skills.length>0"><strong>skills:</strong>
+    <ion-list *ngFor="let skill of member.skills; let i = index">
+      <ion-item>{{'['+i+'] '+ skill}}</ion-item>
+    </ion-list>
+  </ion-item>
+</ion-card>
