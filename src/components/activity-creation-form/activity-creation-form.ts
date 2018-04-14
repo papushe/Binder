@@ -7,6 +7,7 @@ import {UserService} from '../../providers/user-service/user.service';
 import {User} from 'firebase/app';
 import {ToastController, ModalController} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
+import {SocketService} from "../../providers/socket/socket.service";
 
 /**
  * Generated class for the ActivityCreationFormComponent component.
@@ -30,7 +31,8 @@ export class ActivityCreationFormComponent {
               private activityService: ActivityServiceProvider,
               private userService: UserService,
               private communityService: CommunityService,
-              private modalCtrl: ModalController) {
+              private modalCtrl: ModalController,
+              private socketService: SocketService) {
 
     this.saveActivityResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()
@@ -50,12 +52,13 @@ export class ActivityCreationFormComponent {
             console.log(data);
             console.log(`create activity success? : ${data != null}`);
             //noinspection TypeScriptUnresolvedVariable
+            this.socketService.communityNewActivity(data, this.activity.community_id);
             if (data) {
               this.toast.create({
                 message: `Activity was created successfully`,
                 duration: 3000
               }).present();
-            this.saveActivityResult.emit(data);
+              this.saveActivityResult.emit(data);
             }
             else {
               this.toast.create({
@@ -80,7 +83,7 @@ export class ActivityCreationFormComponent {
   showAddressModal(name) {
     let modal = this.modalCtrl.create('AutocompletePage');
     modal.onDidDismiss(data => {
-      if(name == 'source')
+      if (name == 'source')
         this.activity.source = data;
       else if (name == 'destination')
         this.activity.destination = data;

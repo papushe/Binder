@@ -19,19 +19,13 @@
 
 
 <ion-content padding>
-  <!--<p>Description: {{community.communityDescription}}</p>-->
-  <!--<p>Type: {{community.type}}</p>-->
   <members-component [community]="community" *ngIf="isJoined"></members-component>
   <activities-component></activities-component>
   <ion-row>
     <button ion-button block color="primary" class="btn" *ngIf="isJoined" (click)="createNewActivity()">
       Create New Activity
     </button>
-    <!--<button block ion-button color="lightDanger" class="btn" *ngIf="isJoined" (click)="leaveCommunity()">Leave</button>-->
     <button block ion-button color="primary" class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
-    <!--<button block color="danger" ion-button class="btn" (click)="deleteProfilePopup()"-->
-            <!--*ngIf="isJoined && community.managerId == profile.keyForFirebase">Delete-->
-    <!--</button>-->
   </ion-row>
 </ion-content>
 

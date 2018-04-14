@@ -15,12 +15,13 @@ import {CommunityService} from '../providers/community-service/community.service
 import {FormsModule} from "@angular/forms";
 import {ActivityServiceProvider} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
-import {SharedService} from '../providers/shared/shared';
+import {SharedService} from '../providers/shared/shared.service';
 import {ProfilePopoverComponent} from "../components/profile-popover/profile-popover.component";
 import {ProfilePopoverComponentModule} from "../components/profile-popover/profile-popover.component.module";
 import {CommunityPopoverComponentModule} from "../components/community-popover/community-popover.component.module";
 
 import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
+import { SocketService } from '../providers/socket/socket.service';
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
 
 @NgModule({
@@ -53,7 +54,8 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     CommunityService,
     ActivityServiceProvider,
     Camera,
-    SharedService
+    SharedService,
+    SocketService
   ]
 })
 export class AppModule {

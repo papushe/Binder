@@ -4,7 +4,8 @@ import {CommunityService} from "../../providers/community-service/community.serv
 import {Community} from "../../models/community/community.interface";
 import {NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
-import {SharedService} from "../../providers/shared/shared";
+import {SharedService} from "../../providers/shared/shared.service";
+import {SocketService} from "../../providers/socket/socket.service";
 
 @Component({
   selector: 'communities-component',
@@ -19,12 +20,14 @@ export class CommunitiesComponent {
   constructor(private userService: UserService,
               private communityService: CommunityService,
               public navCtrl: NavController,
-              private shared: SharedService) {
+              private shared: SharedService,
+              private socketService: SocketService) {
     this.hasProfileEvent = new EventEmitter<boolean>();
 
     if (this.userService.thisAuthenticatedUser) {
       this.getProfile(this.userService.thisAuthenticatedUser)
     }
+
   }
 
   getProfile(user) {
@@ -36,6 +39,7 @@ export class CommunitiesComponent {
             data => {
               this.userService.thisProfile = <Profile>data;
               if (this.userService.thisProfile) {
+                this.socketService.socketConnect();
                 this.userService.thisHasProfile = true;
                 this.hasProfileEvent.emit(true);
                 if (this.userService.thisProfile.communities.length > 0) {
@@ -85,6 +89,6 @@ export class CommunitiesComponent {
   }
 
   openCommunity(community) {
-    this.navCtrl.push('CommunityDetailsPage', {community: community})
+    this.navCtrl.push('CommunityDetailsPage', {community: community, from: 'communitiesComponent'})
   }
 }

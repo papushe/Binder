@@ -6,6 +6,7 @@ import {UserService} from "../../providers/user-service/user.service";
 import {CreateActivityPage} from "../create-activity/create-activity"
 import {Profile} from "../../models/profile/profile.interface";
 import {CommunityPopoverComponent} from "../../components/community-popover/community-popover.component";
+import {SocketService} from "../../providers/socket/socket.service";
 
 /**
  * Generated class for the CommunityDetailsPage page.
@@ -24,19 +25,23 @@ export class CommunityDetailsPage implements OnInit {
   community: Community;
   profile: Profile;
   isJoined: boolean;
+  cameFrom: string;
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
               private popoverCtrl: PopoverController,
               private communityService: CommunityService,
               private userService: UserService,
               private toast: ToastController,
-              private alertCtrl: AlertController) {
+              private socketService: SocketService) {
   }
-
 
   ngOnInit(): void {
     this.communityService.thisSelectedCommunity = this.navParams.get('community');
+    this.cameFrom = this.navParams.get('from');
     this.community = this.communityService.thisSelectedCommunity;
+    if (this.cameFrom == 'communitiesComponent') {
+      this.socketService.communityChat(this.community.communityName);
+    }
     this.profile = this.userService.thisProfile;
     this.isUserJoined(this.communityService.thisSelectedCommunity);
   }
@@ -90,7 +95,7 @@ export class CommunityDetailsPage implements OnInit {
   }
 
   presentPopover(myEvent, isJoined) {
-    const IsJoined = {IsJoined:isJoined};
+    const IsJoined = {IsJoined: isJoined};
     let popover = this.popoverCtrl.create(CommunityPopoverComponent, IsJoined);
     popover.present({
       ev: myEvent
