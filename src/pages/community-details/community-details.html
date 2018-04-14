@@ -20,7 +20,7 @@
 
 <ion-content padding>
   <members-component [community]="community" *ngIf="isJoined"></members-component>
-  <activities-component></activities-component>
+  <activities-component [currentCommunity]="community"></activities-component>
   <ion-row>
     <button ion-button block color="primary" class="btn" *ngIf="isJoined" (click)="createNewActivity()">
       Create New Activity

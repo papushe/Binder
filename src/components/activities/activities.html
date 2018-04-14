@@ -1,2 +1,9 @@
 <!-- Generated template for the ActivitiesComponent component -->
 <h3>Community Activities: </h3>
+<ion-list>
+  <ion-item *ngFor="let activity of activities">
+    <h2>{{activity.activity_name}}</h2>
+    <p>Description: {{activity.activity_description}}</p>
+    <p>Type: {{activity.type}}</p>
+  </ion-item>
+</ion-list>

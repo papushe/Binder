@@ -44,9 +44,9 @@ export class ActivityServiceProvider {
   }
 
 
-  getActivitiesByCommunityId(activity: Activity) {
+  getActivitiesByCommunityId(community: Community) {
     return this._http
-      .get(`${this.baseUrl}/getActivitiesByCommunityId/${activity._id}`)
+      .get(`${this.baseUrl}/getActivitiesByCommunityId/${community._id}`)
   }
 
 
