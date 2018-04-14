@@ -54,7 +54,7 @@ export class CommunitiesComponent {
               console.log(`error: ${err}`);
             },
             () => {
-              console.log('done');
+              //done
             }
           );
       }

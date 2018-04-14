@@ -30,7 +30,6 @@ export class RegisterFormComponent {
         const result = await
           this.userService.createUserWithEmailAndPassword(this.account);
         this.registerStatus.emit(result);
-        console.log(result);
       } catch (e) {
         console.error(e);
         this.registerStatus.emit(e);

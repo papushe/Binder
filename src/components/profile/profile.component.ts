@@ -67,7 +67,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
               console.log(`error: ${err}`);
             },
             () => {
-              console.log('done');
+              //done
               this.shared.loader.dismiss();
             }
           );
@@ -80,7 +80,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
     let me = this;
     modal.onDidDismiss(data => {
       this.profile.location = data;
-      console.log(data);
     });
     modal.present();
   }
@@ -92,7 +91,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
       this.userService.updateProfile(this.profile)
         .subscribe(
           data => {
-            console.log(`data: ${data}`);
             this.userService.thisProfile = <Profile>data;
             this.userService.thisHasProfile = true;
           },

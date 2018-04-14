@@ -41,7 +41,6 @@ export class ActivitiesComponent implements OnInit{
       this.activityService.getActivitiesByCommunityId(this.currentCommunity)
         .subscribe(
           data => {
-            console.log(data);
             console.log(`got all activities successfully? : ${data != null}`);
             if (data) {
               this.activities = <Activity>data;

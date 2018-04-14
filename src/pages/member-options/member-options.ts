@@ -28,7 +28,6 @@ export class MemberOptionsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MemberOptionsPage');
   }
 
 }

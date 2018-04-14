@@ -60,12 +60,9 @@ export class AutocompletePage {
     geocoder.geocode({'address': address}, (results, status) => {
       this.latitude = results[0].geometry.location.lat();
       this.longitude = results[0].geometry.location.lng();
-      console.log(results);
-      // alert("lat: " + this.latitude + ", long: " + this.longitude);
     });
   }
   ionViewDidLoad() {
-    // console.log('ionViewDidLoad AutocompletePage');
   }
 
 }

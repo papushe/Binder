@@ -43,7 +43,7 @@ export class SearchCommunityPage {
               console.log(`error: ${err}`);
             },
             () => {
-              console.log('done');
+              //done
               this.shared.loader.dismiss();
             }
           );

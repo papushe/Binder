@@ -109,7 +109,6 @@ export class UserService {
     return this._http
       .get(`${this.baseUrl}/deleteProfile/${user.uid}`).subscribe(
         data => {
-          console.log(`data: ${data}`);
           this.thisProfile = <Profile>data;
           this.thisHasProfile = false;
         },
@@ -140,7 +139,6 @@ export class UserService {
     user.reauthenticateWithCredential(credential).then(function () {
 
       user.delete().then(function () {
-        console.log(user);
         me.deleteProfile(userToDelete);
 
       }).catch(function (error) {

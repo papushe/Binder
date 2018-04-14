@@ -38,7 +38,7 @@ export class LoginPage {
             this.userService.thisHasProfile = false;
           },
           () => {
-            console.log('done');
+            //done
             this.userService.thisProfile ? this.navCtrl.setRoot("TabsPage") : this.navCtrl.setRoot('ProfilePage', {where: true});
           }
         );

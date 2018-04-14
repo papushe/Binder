@@ -14,7 +14,6 @@ export class SharedService {
   loader: Loading;
 
   constructor(private loading: LoadingController) {
-    console.log('Hello SharedService Provider');
   }
 
   createLoader(massage) {

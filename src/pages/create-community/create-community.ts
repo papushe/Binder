@@ -19,7 +19,6 @@ export class CreateCommunityPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateCommunityPage');
   }
 
   saveCommunityResult(event){

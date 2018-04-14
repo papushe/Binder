@@ -42,7 +42,6 @@ export class CreateCommunityFormComponent {
         .subscribe(
           data => {
             this.saveCommunityResult.emit(data);
-            console.log(`data: ${data}`);
           },
           err => {
             this.toast.create({

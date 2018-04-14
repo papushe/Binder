@@ -44,13 +44,10 @@ export class ActivityCreationFormComponent {
     if (this.authenticatedUser) {
       this.activity.consumer_id = this.authenticatedUser.uid;
       this.activity.community_id = this.currentCommunity._id;
-      console.log(`ACTIVITY TO CREATE: ${this.activity.activity_name}`);
       this.activityService.createActivity(this.activity)
         .subscribe(
           data => {
-            console.log(data);
             console.log(`create activity success? : ${data != null}`);
-            //noinspection TypeScriptUnresolvedVariable
             this.socketService.communityNewActivity(data, this.activity.community_id);
             if (data) {
               this.toast.create({
@@ -86,7 +83,6 @@ export class ActivityCreationFormComponent {
         this.activity.source = data;
       else if (name == 'destination')
         this.activity.destination = data;
-      console.log(data);
     });
     modal.present();
   }

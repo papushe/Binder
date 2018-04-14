@@ -23,7 +23,6 @@ export class CreateActivityPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateActivityPage');
   }
 
   saveActivityResult(event) {

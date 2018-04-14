@@ -47,7 +47,6 @@ export class CommunityDetailsPage implements OnInit {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CommunityDetailsPage');
   }
 
   joinCommunity() {
