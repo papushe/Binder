@@ -1,11 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from "../../providers/user-service/user.service";
-import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
-import {ModalController, NavController, ToastController} from "ionic-angular";
-// import {Profile} from "../../models/profile/profile.interface";
-// import {SharedService} from "../../providers/shared/shared.service";
-import {SocketService} from "../../providers/socket/socket.service";
+import {ToastController} from "ionic-angular";
 import { Activity } from '../../models/activity/activity.interface';
 import { ActivityServiceProvider } from '../../providers/activity-service/activity-service'
 import {User} from "firebase";
@@ -26,10 +22,7 @@ export class ActivitiesComponent implements OnInit{
 
   constructor(private toast: ToastController,
               private activityService: ActivityServiceProvider,
-              private userService: UserService,
-              private communityService: CommunityService,
-              private modalCtrl: ModalController,
-              private socketService: SocketService) {
+              private userService: UserService) {
 
     this.saveActivityResult = new EventEmitter<any>();
     this.authenticatedUser$ = this.userService.getAuthenticatedUser()

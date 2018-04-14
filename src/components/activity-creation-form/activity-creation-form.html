@@ -5,15 +5,15 @@
         <ion-label>Name:</ion-label>
         <ion-input [(ngModel)]="activity.activity_name"
                    type = "text"
-                   name = "acitivityName"
-                   #activityName="ngModel"
+                   name = "activityName"
+                   #activityDescription="ngModel"
                    clearInput
                    required>
         </ion-input>
       </ion-item>
-      <div padding *ngIf="activityName.invalid && activityName.dirty">
-        <span class="global__input-error">Must enter an activity name</span>
-      </div>
+      <!--<div padding *ngIf="activityName.invalid && activityName.dirty">-->
+        <!--<span class="global__input-error">Must enter an activity name</span>-->
+      <!--</div>-->
       <ion-item>
         <ion-label>Description:</ion-label>
         <ion-input [(ngModel)]="activity.activity_description"

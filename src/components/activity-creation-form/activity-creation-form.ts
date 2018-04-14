@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityServiceProvider} from '../../providers/activity-service/activity-service';
-import {CommunityService} from '../../providers/community-service/community.service';
 import {UserService} from '../../providers/user-service/user.service';
 import {User} from 'firebase/app';
 import {ToastController, ModalController} from 'ionic-angular';
@@ -30,7 +29,6 @@ export class ActivityCreationFormComponent {
   constructor(private toast: ToastController,
               private activityService: ActivityServiceProvider,
               private userService: UserService,
-              private communityService: CommunityService,
               private modalCtrl: ModalController,
               private socketService: SocketService) {
 
@@ -46,6 +44,7 @@ export class ActivityCreationFormComponent {
     if (this.authenticatedUser) {
       this.activity.consumer_id = this.authenticatedUser.uid;
       this.activity.community_id = this.currentCommunity._id;
+      console.log(`ACTIVITY TO CREATE: ${this.activity.activity_name}`);
       this.activityService.createActivity(this.activity)
         .subscribe(
           data => {
