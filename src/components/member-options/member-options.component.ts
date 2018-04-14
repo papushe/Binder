@@ -3,6 +3,7 @@ import {Profile} from "../../models/profile/profile.interface";
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {NavParams, NavController} from "ionic-angular";
+import {UserService} from "../../providers/user-service/user.service";
 
 /**
  * Generated class for the MemberOptionsComponent component.
@@ -20,11 +21,12 @@ export class MemberOptionsComponent {
   @Input() member: Profile;
   @Input() community: Community;
   memberToRole: string;
+  loggedInUser: Profile;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private communityService:CommunityService) {
-    console.log('Hello MemberOptionsComponent Component');
-    this.text = 'Hello World';
+              private communityService:CommunityService,
+              private userService:UserService) {
+    this.loggedInUser = this.userService.thisProfile;
   }
 
 

@@ -42,7 +42,7 @@ export class CommunityPopoverComponent {
     this.communityService.leaveCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user  ${this.profile.keyForFirebase} was removed from community ${this.community._id}  success? : ${res == true}`);
+          console.log(`user was removed from community success? : ${res == true}`);
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
             this.toast.create({

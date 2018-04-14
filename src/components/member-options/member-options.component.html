@@ -1,6 +1,6 @@
-<form #memberOptions="ngForm" novalidate>
+<form #memberOptions="ngForm" novalidate *ngIf="loggedInUser.keyForFirebase == community.managerId">
   <ion-card>
-    <ion-card-content>
+    <ion-card-content >
 
       <ion-item>
         <ion-label>Type</ion-label>

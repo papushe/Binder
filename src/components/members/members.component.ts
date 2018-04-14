@@ -5,6 +5,7 @@ import {CommunityService} from "../../providers/community-service/community.serv
 import {Profile} from "../../models/profile/profile.interface";
 import {MemberOptionsComponent} from "../member-options/member-options.component";
 import {SharedService} from "../../providers/shared/shared";
+import {UserService} from "../../providers/user-service/user.service";
 
 /**
  * Generated class for the MembersComponent component.
@@ -19,13 +20,16 @@ import {SharedService} from "../../providers/shared/shared";
 export class MembersComponent {
   @Input() community: Community;
   members: any;
+  profile: Profile;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private communityService: CommunityService) {
+              private communityService: CommunityService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
     this.getCommunityMembers();
+    this.profile = this.userService.thisProfile;
   }
 
   getCommunityMembers() {
@@ -49,8 +53,8 @@ export class MembersComponent {
   }
 
   openOptions(member: Profile) {
-    this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community})
+    if (member.keyForFirebase != this.profile.keyForFirebase){
+      this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community})
+    }
   }
-
-
 }
