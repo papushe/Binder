@@ -40,7 +40,7 @@ export class CommunityDetailsPage implements OnInit {
     this.cameFrom = this.navParams.get('from');
     this.community = this.communityService.thisSelectedCommunity;
     if (this.cameFrom == 'communitiesComponent') {
-      this.socketService.communityChat(this.community.communityName);
+      this.socketService.communityChat(this.community._id);
     }
     this.profile = this.userService.thisProfile;
     this.isUserJoined(this.communityService.thisSelectedCommunity);

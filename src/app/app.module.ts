@@ -13,7 +13,7 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {HttpClientModule} from "@angular/common/http";
 import {CommunityService} from '../providers/community-service/community.service';
 import {FormsModule} from "@angular/forms";
-import {ActivityServiceProvider} from '../providers/activity-service/activity-service';
+import {ActivityService} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
 import {SharedService} from '../providers/shared/shared.service';
 import {ProfilePopoverComponent} from "../components/profile-popover/profile-popover.component";
@@ -52,7 +52,7 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
     CommunityService,
-    ActivityServiceProvider,
+    ActivityService,
     Camera,
     SharedService,
     SocketService

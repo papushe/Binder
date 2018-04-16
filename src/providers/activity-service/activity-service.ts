@@ -1,17 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Activity } from '../../models/activity/activity.interface';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Activity} from '../../models/activity/activity.interface';
 import {Community} from "../../models/community/community.interface";
-import {User} from "firebase/app";
 
 /*
-  Generated class for the ActivityServiceProvider provider.
+  Generated class for the ActivityService provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class ActivityServiceProvider {
+export class ActivityService {
 
   baseUrl: string = 'http://localhost:4300';
 

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Subscription} from "rxjs/Subscription";
 import {Activity} from '../../models/activity/activity.interface';
-import {ActivityServiceProvider} from '../../providers/activity-service/activity-service';
+import {ActivityService} from '../../providers/activity-service/activity-service';
 import {UserService} from '../../providers/user-service/user.service';
 import {User} from 'firebase/app';
 import {ToastController, ModalController} from 'ionic-angular';
@@ -27,7 +27,7 @@ export class ActivityCreationFormComponent {
   @Input() currentCommunity: Community;
 
   constructor(private toast: ToastController,
-              private activityService: ActivityServiceProvider,
+              private activityService: ActivityService,
               private userService: UserService,
               private modalCtrl: ModalController,
               private socketService: SocketService) {

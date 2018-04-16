@@ -1,4 +1,3 @@
-import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Socket} from "ng-socket-io";
 import {UserService} from "../user-service/user.service";
@@ -11,8 +10,7 @@ export class SocketService {
 
   isUserConnected: boolean = false;
 
-  constructor(public http: HttpClient,
-              private socket: Socket,
+  constructor(private socket: Socket,
               private userService: UserService,
               private toastCtrl: ToastController) {
 
@@ -35,8 +33,6 @@ export class SocketService {
         }
       });
     }
-    // this.navCtrl.push('ChatRoomPage', {nickname: this.nickname});
-
   }
 
   getUsers() {
@@ -48,21 +44,32 @@ export class SocketService {
     return observable;
   }
 
-  communityChat(communityName) {
+  communityChat(communityId) {
     let params = {
-      room: communityName
+      room: communityId
     };
     this.socket.emit('join', params, () => {
-      console.log(`User has joined ${communityName} group`)
+      console.log(`User has joined ${communityId} group`)
     });
   }
 
   communityNewActivity(activity, communityId) {
     this.socket.emit('add-activity', {
       activity: activity,
-      communityId: communityId
+      communityId: communityId,
+      room: communityId
     });
   }
+
+  getCommunityNewActivity() {
+    let observable = new Observable(observer => {
+      this.socket.on('new-add-activity', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
 
   showToast(msg) {
     let toast = this.toastCtrl.create({
