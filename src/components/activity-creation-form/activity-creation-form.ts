@@ -59,7 +59,7 @@ export class ActivityCreationFormComponent {
           },
           err => {
             this.toast.create({
-              message: `Error occurred while creating activity: ${err}`,
+              message: `Error occurred while creating activity: ${err.message}`,
               duration: 3000
             }).present();
           },

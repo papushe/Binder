@@ -38,7 +38,7 @@ export class CreateCommunityFormComponent {
           },
           err => {
             this.toast.create({
-              message: `Error: ${err}`,
+              message: `Error: ${err.message}`,
               duration: 3000
             }).present();
           },

@@ -51,7 +51,7 @@ export class CommunitiesComponent {
               }
             },
             err => {
-              console.log(`error: ${err}`);
+              console.log(`error: ${err.message}`);
             },
             () => {
               //done
@@ -78,7 +78,7 @@ export class CommunitiesComponent {
             }
           },
           err => {
-            console.log(`fail to get user communities: ${err}`);
+            console.log(`fail to get user communities: ${err.message}`);
           },
           () => {
             //done

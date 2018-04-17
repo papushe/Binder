@@ -64,7 +64,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
               }
             },
             err => {
-              console.log(`error: ${err}`);
+              console.log(`error: ${err.message}`);
             },
             () => {
               //done
@@ -96,7 +96,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
           },
           err => {
             this.toast.create({
-              message: `Error: ${err}`,
+              message: `Error: ${err.message}`,
               duration: 3000
             }).present();
           },
@@ -141,7 +141,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
             },
             err => {
               this.toast.create({
-                message: `Error: ${err}`,
+                message: `Error: ${err.message}`,
                 duration: 3000
               }).present();
               this.userService.thisHasProfile = false;

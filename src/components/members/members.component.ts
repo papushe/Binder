@@ -45,7 +45,7 @@ export class MembersComponent {
           }
         },
         err => {
-          console.debug(`Failed to get ${this.community._id} members due to: ${err}`);
+          console.debug(`Failed to get ${this.community._id} members due to: ${err.message}`);
         },
         () => {
           //done

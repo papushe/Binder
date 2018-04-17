@@ -69,7 +69,7 @@ export class CommunityDetailsPage implements OnInit {
           }
         },
         err => {
-          console.debug(`Failed to join ${this.communityService.thisSelectedCommunity.communityName} due to: ${err}`);
+          console.debug(`Failed to join ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
           this.toast.create({
             message: `Failed to join  ${this.communityService.thisSelectedCommunity.communityName}`,
             duration: 3000

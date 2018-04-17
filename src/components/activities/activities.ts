@@ -61,7 +61,7 @@ export class ActivitiesComponent implements OnInit {
         },
         err => {
           this.toast.create({
-            message: `Error occurred while fetching activities: ${err}`,
+            message: `Error occurred while fetching activities: ${err.message}`,
             duration: 3000
           }).present();
         },
