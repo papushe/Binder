@@ -9,12 +9,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
   }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(`Set authorization headers...`);
-    console.log(this.sharedService.getToken());
-    req = req.clone({
-      setHeaders: {
-        Authorization: this.sharedService.getToken()}
-    });
+      req = req.clone({
+        setHeaders: {
+          Authorization: this.sharedService.getToken()}
+      });
     return next.handle(req);
   }
 }
