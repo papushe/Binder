@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
-import {Subscription} from "rxjs/Subscription";
-import {User} from "firebase/app";
 import {UserService} from "../../providers/user-service/user.service";
 import {ToastController} from "ionic-angular";
 
@@ -38,8 +36,8 @@ export class CreateCommunityFormComponent {
           },
           err => {
             this.toast.create({
-              message: `Error: ${err}`,
-              duration: 3000
+              message:`Error: ${err.message}`,
+              duration:3000
             }).present();
           },
           () => {
@@ -61,6 +59,4 @@ export class CreateCommunityFormComponent {
     }
     return true;
   }
-
-
 }

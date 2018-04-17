@@ -37,7 +37,7 @@ export class MemberOptionsComponent {
           }
         },
         err => {
-          console.debug(`Failed to update ${this.member.keyForFirebase} role to: ${role} at community: ${this.community._id} m due to: ${err}`);
+          console.debug(`Failed to update ${this.member.keyForFirebase} role to: ${role} at community: ${this.community._id} m due to: ${err.message}`);
         },
         () => {
           this.navCtrl.push('CommunityDetailsPage', {community: this.community})

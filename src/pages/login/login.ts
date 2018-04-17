@@ -34,7 +34,7 @@ export class LoginPage {
             this.userService.thisHasProfile = true;
           },
           err => {
-            console.log(`error: ${err}`);
+            console.log(`error: ${err.message}`);
             this.userService.thisHasProfile = false;
           },
           () => {

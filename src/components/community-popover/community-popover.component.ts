@@ -58,7 +58,7 @@ export class CommunityPopoverComponent {
           }
         },
         err => {
-          console.debug(`Failed to leave ${this.community.communityName} due to: ${err}`);
+          console.debug(`Failed to leave ${this.community.communityName} due to: ${err.message}`);
           this.toast.create({
             message: `Failed to leave ${this.community.communityName}`,
             duration: 3000
@@ -115,7 +115,7 @@ export class CommunityPopoverComponent {
           }
         },
         err => {
-          console.debug(`Failed to delete ${this.community.communityName} due to: ${err}`);
+          console.debug(`Failed to delete ${this.community.communityName} due to: ${err.message}`);
           this.toast.create({
             message: `Failed to delete ${this.community.communityName}`,
             duration: 3000

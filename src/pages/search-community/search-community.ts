@@ -40,7 +40,7 @@ export class SearchCommunityPage {
               }
             },
             err => {
-              console.log(`error: ${err}`);
+              console.log(`error: ${err.message}`);
             },
             () => {
               //done

@@ -31,7 +31,7 @@ export class CommunitiesComponent {
   }
 
   getProfile(user) {
-    if (Object.keys(this.userService.thisProfile).length === 0 || this.userService.thisFromCommunityDetails) {
+    if (!Object.keys(this.userService.thisProfile) || this.userService.thisFromCommunityDetails) {
       this.userService.thisFromCommunityDetails = false;
       if (user) {
         this.userService.getProfile(user)
@@ -51,7 +51,7 @@ export class CommunitiesComponent {
               }
             },
             err => {
-              console.log(`error: ${err}`);
+              console.log(`error: ${err.message}`);
             },
             () => {
               //done
@@ -78,7 +78,7 @@ export class CommunitiesComponent {
             }
           },
           err => {
-            console.log(`fail to get user communities: ${err}`);
+            console.log(`fail to get user communities: ${err.message}`);
           },
           () => {
             //done

@@ -12,6 +12,7 @@ import * as _ from 'lodash';
 @Injectable()
 export class SharedService {
   loader: Loading;
+  token: string;
 
   constructor(private loading: LoadingController) {
   }
@@ -22,7 +23,16 @@ export class SharedService {
       content: massage
     });
   }
-  lodash() {
+
+  _() {
     return _;
+  }
+
+  storeToken(token){
+    this.token = token;
+  }
+
+  getToken() {
+    return this.token;
   }
 }
