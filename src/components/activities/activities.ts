@@ -15,9 +15,7 @@ import {SocketService} from "../../providers/socket/socket.service";
 })
 export class ActivitiesComponent implements OnInit {
 
-  activities: Activity[];
-  authenticatedUser: User;
-  authenticatedUser$: Subscription;
+  activities: Activity[] = [];
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
 
@@ -27,10 +25,6 @@ export class ActivitiesComponent implements OnInit {
               private socketService: SocketService) {
 
     this.saveActivityResult = new EventEmitter<any>();
-    this.authenticatedUser$ = this.userService.getAuthenticatedUser()
-      .subscribe((user: User) => {
-        this.authenticatedUser = user;
-      });
   }
 
   ngOnInit() {

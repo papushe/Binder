@@ -18,9 +18,7 @@ import {ToastController} from "ionic-angular";
 })
 export class CreateCommunityFormComponent {
 
-  community={} as Community;
-  authenticatedUser:User;
-  authenticatedUser$:Subscription;
+  community = {} as Community;
   @Output() saveCommunityResult: EventEmitter<any>;
 
   constructor(private toast: ToastController,
@@ -28,16 +26,11 @@ export class CreateCommunityFormComponent {
               private communityService: CommunityService) {
 
     this.saveCommunityResult = new EventEmitter<any>();
-
-    this.authenticatedUser$ = this.userService.getAuthenticatedUser()
-      .subscribe((user:User)=>{
-        this.authenticatedUser = user;
-      });
   }
 
-  createCommunity(){
-    if(this.authenticatedUser){
-      this.community.managerId = this.authenticatedUser.uid;
+  createCommunity() {
+    if (this.userService.thisAuthenticatedUser) {
+      this.community.managerId = this.userService.thisAuthenticatedUser.uid;
       this.communityService.createCommunity(this.community)
         .subscribe(
           data => {
@@ -45,24 +38,24 @@ export class CreateCommunityFormComponent {
           },
           err => {
             this.toast.create({
-              message:`Error: ${err}`,
-              duration:3000
+              message: `Error: ${err}`,
+              duration: 3000
             }).present();
           },
           () => {
             this.toast.create({
-              message:`Community was created successfully`,
-              duration:3000
+              message: `Community was created successfully`,
+              duration: 3000
             }).present();
           }
         );
     }
   }
 
-  checkType(communityForm){
+  checkType(communityForm) {
 
-    if (this.community.type){
-      if(communityForm.valid){
+    if (this.community.type) {
+      if (communityForm.valid) {
         return false;
       }
     }

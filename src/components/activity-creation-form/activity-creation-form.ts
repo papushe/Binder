@@ -21,8 +21,7 @@ import {SocketService} from "../../providers/socket/socket.service";
 export class ActivityCreationFormComponent {
 
   activity = {} as Activity;
-  authenticatedUser: User;
-  authenticatedUser$: Subscription;
+
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
 
@@ -33,16 +32,11 @@ export class ActivityCreationFormComponent {
               private socketService: SocketService) {
 
     this.saveActivityResult = new EventEmitter<any>();
-    this.authenticatedUser$ = this.userService.getAuthenticatedUser()
-      .subscribe((user: User) => {
-        this.authenticatedUser = user;
-      });
-
   }
 
   createActivity() {
-    if (this.authenticatedUser) {
-      this.activity.consumer_id = this.authenticatedUser.uid;
+    if (this.userService.thisAuthenticatedUser) {
+      this.activity.consumer_id = this.userService.thisAuthenticatedUser.uid;
       this.activity.community_id = this.currentCommunity._id;
       this.activityService.createActivity(this.activity)
         .subscribe(
