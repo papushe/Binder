@@ -20,7 +20,7 @@ export class MyApp {
 
     this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser().subscribe(auth => {
       if (!auth) {
-        this.rootPage =  'LoginPage';
+        this.rootPage = 'LoginPage';
       }
       else {
         this.userService.thisAuthenticatedUser = auth;
