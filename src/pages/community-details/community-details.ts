@@ -53,7 +53,7 @@ export class CommunityDetailsPage implements OnInit {
     this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user ${this.profile.keyForFirebase} was joined from community ${this.communityService.thisSelectedCommunity._id} success? : ${res == true}`);
+          console.log(`user has joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${res == true}`);
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
             this.toast.create({
