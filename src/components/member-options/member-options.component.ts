@@ -64,7 +64,38 @@ export class MemberOptionsComponent implements OnInit{
           }).present();
         },
         () => {
-          this.navCtrl.push('CommunityDetailsPage', {community: this.community})
+          this.navCtrl.pop();
         });
+  }
+
+  removeUser() {
+    this.communityService.leaveCommunity(this.community._id, this.member.keyForFirebase)
+      .subscribe(
+        res => {
+          console.log(`user was removed from community success? : ${res == true}`);
+          if (res == true) {
+            this.toast.create({
+              message: `You removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}`,
+              duration: 3000
+            }).present();
+          }
+          else {
+            this.toast.create({
+              message: `Something went wrong, please try again`,
+              duration: 3000
+            }).present();
+          }
+        },
+        err => {
+          console.debug(`Failed to removed ${this.member.keyForFirebase}, due to: ${err.message}`);
+          this.toast.create({
+            message: `Failed to removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}, due to: ${err.message}`,
+            duration: 3000
+          }).present();
+        },
+        () => {
+          this.navCtrl.pop();
+        }
+      );
   }
 }

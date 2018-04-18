@@ -44,7 +44,6 @@ export class CommunityPopoverComponent {
         res => {
           console.log(`user was removed from community success? : ${res == true}`);
           if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
             this.toast.create({
               message: `You left ${this.community.communityName}`,
               duration: 3000
@@ -65,7 +64,7 @@ export class CommunityPopoverComponent {
           }).present();
         },
         () => {
-          //done
+          this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
         }
       );
   }
@@ -101,7 +100,6 @@ export class CommunityPopoverComponent {
         res => {
           console.log(`community ${this.community._id} was deleted success? : ${res == true}`);
           if (res == true) {
-            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
             this.toast.create({
               message: `You deleted ${this.community.communityName}`,
               duration: 3000
@@ -122,7 +120,7 @@ export class CommunityPopoverComponent {
           }).present();
         },
         () => {
-          //done
+          this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
         });
   }
 
