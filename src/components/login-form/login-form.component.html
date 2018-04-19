@@ -28,8 +28,8 @@
     </ion-card-content>
     <ion-row class="login-form__buttons">
       <div>
-        <button ion-button color="secondary" (click)="navigateToRegisterPage()">Register</button>
-        <button ion-button (click)="login()" [disabled]="loginForm.invalid">Login</button>
+        <button ion-button color="secondary" outline (click)="navigateToRegisterPage()">Register</button>
+        <button ion-button (click)="login()" outline [disabled]="loginForm.invalid">Login</button>
       </div>
     </ion-row>
   </ion-card>
