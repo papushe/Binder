@@ -1,10 +1,3 @@
-<span *ngIf="loggedInUser.keyForFirebase == community.managerId">
-
-  <button block ion-button (click)="updateUserRole()">Set as {{isAuthorizedMember ? roles.member : roles.auth}}</button>
-  <button block ion-button color="danger" *ngIf="loggedInUser.keyForFirebase===community.managerId" (click)="removeUser()">Remove user</button>
-
-</span>
-
 <ion-card>
   <ion-item *ngIf="member.profilePic"><img class="profilePic" src="{{ member.profilePic }}"></ion-item>
   <ion-item><strong>Name: </strong>{{member.firstName + ' ' + member.lastName}}</ion-item>
@@ -19,3 +12,8 @@
     </ion-list>
   </ion-item>
 </ion-card>
+<span *ngIf="loggedInUser.keyForFirebase == community.managerId">
+  <button block ion-button (click)="updateUserRole()" outline>Make {{isAuthorizedMember ? roles.member : roles.auth}}</button>
+  <button block ion-button color="danger" outline *ngIf="loggedInUser.keyForFirebase===community.managerId" (click)="removeUser()">Remove</button>
+  <button block ion-button color="success" outline>Call</button>
+</span>

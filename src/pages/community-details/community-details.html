@@ -28,10 +28,10 @@
   <members-component [community]="community" *ngIf="isJoined"></members-component>
   <activities-component [currentCommunity]="community"></activities-component>
   <ion-row>
-    <button ion-button block color="primary" class="btn" *ngIf="isJoined" (click)="createNewActivity()">
+    <button ion-button block color="primary" outline class="btn" *ngIf="isJoined" (click)="createNewActivity()">
       Create New Activity
     </button>
-    <button block ion-button color="primary" class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
+    <button block ion-button color="primary" outline class="btn" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
   </ion-row>
 </ion-content>
 
