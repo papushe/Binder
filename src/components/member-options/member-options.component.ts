@@ -4,6 +4,7 @@ import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {NavParams, NavController, ToastController} from "ionic-angular";
 import {UserService} from "../../providers/user-service/user.service";
+import {error} from "util";
 
 /**
  * Generated class for the MemberOptionsComponent component.
@@ -48,10 +49,17 @@ export class MemberOptionsComponent implements OnInit{
       this.member.keyForFirebase, role)
       .subscribe(
         res => {
-          if (res) {
-            console.log(`update user role success? : ${res != null}`);
+          console.log(`update user role success? : ${res == true}`);
+          if (res === true) {
             this.toast.create({
               message: `New Role has been updated for ${this.member.firstName} ${this.member.lastName}`,
+              duration: 3000
+            }).present();
+          }
+          else {
+            console.debug(`operation failed in the server`);
+            this.toast.create({
+              message: `Failed to update ${this.member.firstName} ${this.member.lastName} role`,
               duration: 3000
             }).present();
           }
