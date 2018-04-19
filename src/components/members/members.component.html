@@ -1,5 +1,9 @@
 <ion-card class="members">
-  <ion-item (click)="showMembers = !showMembers">Members:</ion-item>
+  <ion-item (click)="showMembers = !showMembers">
+    <span>Members:</span>
+    <ion-icon *ngIf="!showMembers" class="arrows" name="ios-arrow-down"></ion-icon>
+    <ion-icon *ngIf="showMembers" class="arrows" name="ios-arrow-up"></ion-icon>
+  </ion-item>
   <hr>
   <ion-list *ngIf="showMembers">
     <ion-item *ngFor="let member of members" (click)="openOptions(member)">

@@ -16,7 +16,7 @@ export class ActivitiesComponent implements OnInit {
   activities: Activity[] = [];
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
-  showActivities:boolean = false;
+  showActivities:boolean = true;
   constructor(private toast: ToastController,
               private activityService: ActivityService,
               private userService: UserService,

@@ -1,5 +1,9 @@
 <ion-card class="activities" *ngIf="activities.length>0">
-  <ion-item (click)="showActivities = !showActivities">Community Activities:</ion-item>
+  <ion-item (click)="showActivities = !showActivities">
+    Community Activities:
+    <ion-icon *ngIf="!showActivities" class="arrows" name="ios-arrow-down"></ion-icon>
+    <ion-icon *ngIf="showActivities" class="arrows" name="ios-arrow-up"></ion-icon>
+  </ion-item>
   <hr>
   <ion-list *ngIf="showActivities">
     <ion-item *ngFor="let activity of activities"

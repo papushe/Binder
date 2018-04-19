@@ -54,6 +54,15 @@ ion-app .scroll-content{
   padding: 0 !important;
 }
 
+.highLight{
+  //background: lightyellow !important;
+  border: 5px solid yellow !important;
+}
+.arrows{
+  float: right;
+  margin-right: 10px;
+}
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

@@ -21,7 +21,7 @@ export class MembersComponent {
   @Input() community: Community;
   members: any;
   profile: Profile;
-  showMembers: boolean = false;
+  showMembers: boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private communityService: CommunityService,
