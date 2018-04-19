@@ -25,12 +25,7 @@ export class SocketService {
       this.socket.emit('set-nickname', userName);
 
       this.getUsers().subscribe(data => {
-        let user = data['user'];
-        if (data['event'] === 'left') {
-          this.showToast('User left: ' + user);
-        } else {
-          this.showToast('User joined: ' + user);
-        }
+        console.log(data);
       });
     }
   }
@@ -62,8 +57,10 @@ export class SocketService {
   }
 
   getCommunityNewActivity() {
+    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
     let observable = new Observable(observer => {
       this.socket.on('new-add-activity', (data) => {
+        this.showToast(`${thisUserName == data['from'] ? 'You' : thisUserName} created new activity - ${data['activity'].activity_name}`);
         observer.next(data);
       });
     });

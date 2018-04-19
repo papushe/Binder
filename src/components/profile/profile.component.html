@@ -5,26 +5,20 @@
       <ion-item>
         <ion-row>
           <ion-col>
-            <button ion-button color="danger" block (click)="takePhoto()">
-              <ion-icon name="md-camera"></ion-icon>
-            </button>
+            <ion-item *ngIf="profile.profilePic && !hasProfilePicAbdUploadNew">
+              <img class="profilePic" src="{{ profile.profilePic }}">
+            </ion-item>
+            <ion-item *ngIf="showLoader">
+              <div class="loader"></div>
+              <div class="pleaseComplete">Uploading..</div>
+            </ion-item>
           </ion-col>
           <ion-col>
-            <button ion-button block (click)="selectPhoto()">
-              <ion-icon name="md-image"></ion-icon>
-            </button>
+            <ion-icon class="takePicture" name="md-camera" (click)="takePhoto()"></ion-icon>
+            <ion-icon class="uploadPicture" name="md-image" (click)="selectPhoto()"></ion-icon>
           </ion-col>
         </ion-row>
       </ion-item>
-
-      <ion-item *ngIf="profile.profilePic && !hasProfilePicAbdUploadNew">
-        <img class="profilePic" src="{{ profile.profilePic }}">
-      </ion-item>
-      <ion-item *ngIf="showLoader">
-        <div class="loader"></div>
-        <div class="pleaseComplete">Uploading..</div>
-      </ion-item>
-
       <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input [(ngModel)]="profile.firstName"

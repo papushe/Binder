@@ -1,7 +1,7 @@
 <ion-card class="members">
-  <ion-item>Members:</ion-item>
+  <ion-item (click)="showMembers = !showMembers">Members:</ion-item>
   <hr>
-  <ion-list>
+  <ion-list *ngIf="showMembers">
     <ion-item *ngFor="let member of members" (click)="openOptions(member)">
       <strong>{{member.firstName}} {{member.lastName}}</strong>
       <p>{{member.description}}</p>

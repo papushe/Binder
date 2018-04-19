@@ -44,10 +44,6 @@ export class ActivityCreationFormComponent {
             console.log(`create activity success? : ${data != null}`);
             this.socketService.communityNewActivity(data, this.activity.community_id);
             if (data) {
-              this.toast.create({
-                message: `Activity was created successfully`,
-                duration: 3000
-              }).present();
               this.saveActivityResult.emit(data);
             }
             else {

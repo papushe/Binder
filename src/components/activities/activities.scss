@@ -1,11 +1,18 @@
 .activities {
   ion-item ion-label, ion-item .label-md {
-    margin: 0;
+    margin: 2px 0;
   }
   ion-item {
-    background: antiquewhite;
+    //background: antiquewhite;
+    //background: aliceblue;
+    background: azure;
   }
   hr {
     margin: 1px;
   }
+}
+
+.highLight{
+  //background: lightyellow !important;
+  border: 5px solid yellow !important;
 }

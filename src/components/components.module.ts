@@ -9,6 +9,7 @@ import {MembersComponent} from "./members/members.component";
 import { ActivitiesComponent } from './activities/activities';
 import { ActivityCreationFormComponent } from './activity-creation-form/activity-creation-form';
 import { MemberOptionsComponent } from './member-options/member-options.component';
+import {DirectivesModule} from "../directives/directives.module";
 
 @NgModule({
 	declarations: [
@@ -22,7 +23,7 @@ import { MemberOptionsComponent } from './member-options/member-options.componen
     ActivityCreationFormComponent,
     MemberOptionsComponent
   ],
-	imports: [IonicModule],
+	imports: [IonicModule,DirectivesModule],
 	exports: [
 	  LoginFormComponent,
     RegisterFormComponent,

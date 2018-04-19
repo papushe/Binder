@@ -21,6 +21,7 @@ export class MembersComponent {
   @Input() community: Community;
   members: any;
   profile: Profile;
+  showMembers: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private communityService: CommunityService,
@@ -53,7 +54,7 @@ export class MembersComponent {
   }
 
   openOptions(member: Profile) {
-    if (member.keyForFirebase != this.profile.keyForFirebase){
+    if (member.keyForFirebase != this.profile.keyForFirebase) {
       this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community})
     }
   }

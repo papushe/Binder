@@ -42,6 +42,16 @@ $colors: (
   dark:       #222
 );
 
+ion-app .scroll-content{
+  padding: 0 !important;
+}
+
+.button{
+  border-radius: 0 !important;
+}
+.card-content{
+  padding: 0 !important;
+}
 
 // App iOS Variables
 // --------------------------------------------------

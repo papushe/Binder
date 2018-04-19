@@ -4,8 +4,6 @@ import {Community} from "../../models/community/community.interface";
 import {ToastController} from "ionic-angular";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityService} from '../../providers/activity-service/activity-service'
-import {User} from "firebase";
-import {Subscription} from "rxjs/Subscription";
 import {SocketService} from "../../providers/socket/socket.service";
 
 
@@ -18,7 +16,7 @@ export class ActivitiesComponent implements OnInit {
   activities: Activity[] = [];
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
-
+  showActivities:boolean = false;
   constructor(private toast: ToastController,
               private activityService: ActivityService,
               private userService: UserService,
