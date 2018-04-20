@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Activity} from '../../models/activity/activity.interface';
-import {Community} from "../../models/community/community.interface";
 
 /*
   Generated class for the ActivityService provider.
@@ -14,6 +13,7 @@ export class ActivityService {
 
   baseUrl: string = 'https://appbinder.herokuapp.com';
   // baseUrl: string = 'http://localhost:4300';
+  context: string = 'activity';
 
   constructor(public _http: HttpClient,) {
 
@@ -32,7 +32,7 @@ export class ActivityService {
       destination: activity.destination
     };
     return this._http
-      .post(`${this.baseUrl}/createNewActivity/`, activityObj)
+      .post(`${this.baseUrl}/${this.context}/create`, activityObj)
   }
 
   deleteActivity(activityId: string) {
@@ -40,13 +40,18 @@ export class ActivityService {
       activityId: activityId
     };
     return this._http
-      .post(`${this.baseUrl}/deleteActivityById/`, activityIdObj)
+      .post(`${this.baseUrl}/${this.context}/delete`, activityIdObj)
   }
 
 
-  getActivitiesByCommunityId(community: Community) {
+  getActivitiesByCommunityId(communityId: string) {
     return this._http
-      .get(`${this.baseUrl}/getActivitiesByCommunityId/${community._id}`)
+      .get(`${this.baseUrl}/${this.context}/getByCommunityId/${communityId}`)
+  }
+
+  getActivitiesByUserId(userId: string) {
+    return this._http
+      .get(`${this.baseUrl}/${this.context}/getByUserId/${userId}`)
   }
 
 

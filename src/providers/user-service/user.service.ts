@@ -22,6 +22,7 @@ export class UserService {
   thisAuthenticatedUser$: Subscription;
   thisHasProfile: boolean = false;
   thisFromCommunityDetails: boolean;
+  context: string = 'user';
 
   constructor(private _http: HttpClient,
               private database: AngularFireDatabase,
@@ -78,12 +79,12 @@ export class UserService {
       profilePic: profile.profilePic
     };
     return this._http
-      .post(`${this.baseUrl}/createNewUser/`, obj)
+      .post(`${this.baseUrl}/${this.context}/create`, obj)
   }
 
   getProfile(user: User) {
     return this._http
-      .get(`${this.baseUrl}/getProfile/${user.uid}`)
+      .get(`${this.baseUrl}/${this.context}/get/${user.uid}`)
 
   }
 
@@ -102,12 +103,12 @@ export class UserService {
       profilePic: profile.profilePic
     };
     return this._http
-      .post(`${this.baseUrl}/updateProfile/`, obj)
+      .post(`${this.baseUrl}/${this.context}/update`, obj)
   }
 
   deleteProfile(user: User) {
     return this._http
-      .get(`${this.baseUrl}/deleteProfile/${user.uid}`).subscribe(
+      .get(`${this.baseUrl}/${this.context}/delete/${user.uid}`).subscribe(
         data => {
           this.thisProfile = <Profile>data;
           this.thisHasProfile = false;
@@ -129,7 +130,7 @@ export class UserService {
 
   deleteFromFirebase(user: User, password: string) {
 
-    const me = this;
+    const self = this;
     const userToDelete = user;
     const credential = firebase.auth.EmailAuthProvider.credential(
       user.email,
@@ -139,10 +140,10 @@ export class UserService {
     user.reauthenticateWithCredential(credential).then(function () {
 
       user.delete().then(function () {
-        me.deleteProfile(userToDelete);
+        self.deleteProfile(userToDelete);
 
       }).catch(function (error) {
-        me.toast.create({
+        self.toast.create({
           message: `Error: ${error}`,
           duration: 3000
         }).present();
@@ -151,12 +152,11 @@ export class UserService {
 
     }).catch(function (error) {
 
-      me.toast.create({
+      self.toast.create({
         message: `Error: ${error}`,
         duration: 3000
       }).present();
 
     });
-
   }
 }

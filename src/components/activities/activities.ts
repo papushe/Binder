@@ -31,7 +31,7 @@ export class ActivitiesComponent implements OnInit {
       .subscribe(data => {
         me.addNewActivity(data['activity']);
       });
-    this.getActivitiesByCommunityId(this.currentCommunity)
+    this.getActivitiesByCommunityId(this.currentCommunity._id)
   }
 
 
@@ -41,9 +41,8 @@ export class ActivitiesComponent implements OnInit {
     }
   }
 
-  getActivitiesByCommunityId(currentCommunity: Community) {
-    console.log(`community name: ${currentCommunity.communityName}`);
-    this.activityService.getActivitiesByCommunityId(this.currentCommunity)
+  getActivitiesByCommunityId(communityId: string) {
+    this.activityService.getActivitiesByCommunityId(communityId)
       .subscribe(
         data => {
           console.log(`got all activities successfully? : ${data != null}`);

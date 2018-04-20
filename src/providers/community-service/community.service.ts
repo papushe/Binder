@@ -17,6 +17,7 @@ export class CommunityService {
 
   thisCommunities = {} as Community;
   thisSelectedCommunity: Community;
+  context: string = 'community';
 
   constructor(private _http: HttpClient) {
   }
@@ -30,18 +31,18 @@ export class CommunityService {
       type: community.type
     };
     return this._http
-      .post(`${this.baseUrl}/createNewCommunity/`, obj)
+      .post(`${this.baseUrl}/createNewCommunity`, obj)
   }
 
-  getCommunities(user: User) {
+  getCommunities(userId: string) {
     return this._http
-      .get(`${this.baseUrl}/getCommunities/${user.uid}`)
+      .get(`${this.baseUrl}/${this.context}/get/${userId}`)
 
   }
 
-  searchCommunity(type: string) {
+  searchCommunity(query: string) {
     return this._http
-      .get(`${this.baseUrl}/searchCommunity/${type}`)
+      .get(`${this.baseUrl}/${this.context}/search/${query}`)
   }
 
   leaveCommunity(communityId: string, uid: string) {
@@ -50,7 +51,7 @@ export class CommunityService {
       uid: uid,
     };
     return this._http
-      .post(`${this.baseUrl}/leaveCommunity/`, obj)
+      .post(`${this.baseUrl}/${this.context}/leave`, obj)
   }
 
   deleteCommunity(communityId: string, userId: string) {
@@ -59,7 +60,7 @@ export class CommunityService {
       uid: userId
     };
     return this._http
-      .post(`${this.baseUrl}/deleteCommunity/`, obj)
+      .post(`${this.baseUrl}/${this.context}/delete`, obj)
   }
 
   joinCommunity(communityId: string, uid: string) {
@@ -68,7 +69,7 @@ export class CommunityService {
       uid: uid,
     };
     return this._http
-      .post(`${this.baseUrl}/joinCommunity/`, obj)
+      .post(`${this.baseUrl}/${this.context}/join`, obj)
   }
 
   getCommunityMembers(communityId: string) {
@@ -76,7 +77,7 @@ export class CommunityService {
       communityId: communityId,
     };
     return this._http
-      .post(`${this.baseUrl}/getCommunityMembers/`, obj)
+      .post(`${this.baseUrl}/${this.context}/members`, obj)
   }
 
   updateCommunityUserRole(communityId: string, uid: string, role: string) {
@@ -86,6 +87,6 @@ export class CommunityService {
       role: role
     };
     return this._http
-      .post(`${this.baseUrl}/updateCommunityUserRole/`, obj)
+      .post(`${this.baseUrl}/${this.context}/updateRole`, obj)
   }
 }

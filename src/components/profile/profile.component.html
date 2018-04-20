@@ -116,6 +116,6 @@
       </span>
     </ion-card-content>
   </ion-card>
-  <button *ngIf="!hasProfile" block ion-button (click)="saveProfile()" [disabled]="profileForm.invalid">Save</button>
-  <button *ngIf="hasProfile" block ion-button (click)="updateProfile()" [disabled]="profileForm.invalid">Update</button>
+  <button *ngIf="!hasProfile" block ion-button outline (click)="saveProfile()" [disabled]="profileForm.invalid">Save</button>
+  <button *ngIf="hasProfile" block ion-button  outline (click)="updateProfile()" [disabled]="profileForm.invalid">Update</button>
 </form>

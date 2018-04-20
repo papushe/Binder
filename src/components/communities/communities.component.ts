@@ -42,8 +42,8 @@ export class CommunitiesComponent {
                 this.socketService.socketConnect();
                 this.userService.thisHasProfile = true;
                 this.hasProfileEvent.emit(true);
-                if (this.userService.thisProfile.communities.length > 0) {
-                  this.getCommunities(user);
+                if (this.userService.thisProfile.communities && this.userService.thisProfile.communities.length > 0) {
+                  this.getCommunities(user.keyForFirebase);
                 }
               } else {
                 this.hasProfileEvent.emit(false);
@@ -59,7 +59,7 @@ export class CommunitiesComponent {
           );
       }
     } else {
-      this.getCommunities(this.userService.thisAuthenticatedUser);
+      this.getCommunities(this.userService.thisProfile.keyForFirebase);
       this.userService.thisHasProfile = true;
       this.hasProfileEvent.emit(true);
     }
@@ -68,7 +68,7 @@ export class CommunitiesComponent {
   getCommunities(user) {
     this.shared.createLoader('Loading communities...');
     this.shared.loader.present().then(() => {
-      this.communityService.getCommunities(user)
+      this.communityService.getCommunities(user.keyForFirebase)
         .subscribe(
           data => {
             if (Object.keys(data).length != 0) {
