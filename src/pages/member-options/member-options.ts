@@ -19,11 +19,13 @@ export class MemberOptionsPage{
 
   member: Profile;
   community: Community;
+  isJoined: boolean;
   title: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.member = navParams.get('member');
     this.community = navParams.get('community');
+    this.isJoined = navParams.get('isJoined');
     this.title = this.member ? `${this.member.firstName} ${this.member.lastName}` : `User Options`;
   }
 

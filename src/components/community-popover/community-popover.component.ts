@@ -69,7 +69,7 @@ export class CommunityPopoverComponent {
       );
   }
 
-  deleteProfilePopup() {
+  deletePopup() {
     this.close();
     let alert = this.alertCtrl.create({
       title: 'Delete Community',
@@ -92,7 +92,6 @@ export class CommunityPopoverComponent {
     });
     alert.present();
   }
-
 
   deleteCommunity() {
     this.communityService.deleteCommunity(this.community._id, this.profile.keyForFirebase)
@@ -122,6 +121,10 @@ export class CommunityPopoverComponent {
         () => {
           this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
         });
+  }
+
+  addMembers() {
+    this.navCtrl.push('SearchUsersPage', {community: this.community, profile: this.profile});
   }
 
 

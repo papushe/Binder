@@ -14,8 +14,8 @@ import {Subscription} from "rxjs/Subscription";
 @Injectable()
 export class UserService {
 
-  baseUrl: string = 'https://appbinder.herokuapp.com';
-  // baseUrl: string = 'http://localhost:4300';
+  // baseUrl: string = 'https://appbinder.herokuapp.com';
+  baseUrl: string = 'http://localhost:4300';
 
   thisProfile = {} as Profile;
   thisAuthenticatedUser: User;
@@ -79,12 +79,12 @@ export class UserService {
       profilePic: profile.profilePic
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/create`, obj)
+      .post(`${this.baseUrl}/${this.context}/create`, obj);
   }
 
   getProfile(user: User) {
     return this._http
-      .get(`${this.baseUrl}/${this.context}/get/${user.uid}`)
+      .get(`${this.baseUrl}/${this.context}/get/${user.uid}`);
 
   }
 
@@ -103,7 +103,7 @@ export class UserService {
       profilePic: profile.profilePic
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/update`, obj)
+      .post(`${this.baseUrl}/${this.context}/update`, obj);
   }
 
   deleteProfile(user: User) {
@@ -129,7 +129,6 @@ export class UserService {
   }
 
   deleteFromFirebase(user: User, password: string) {
-
     const self = this;
     const userToDelete = user;
     const credential = firebase.auth.EmailAuthProvider.credential(
@@ -158,5 +157,10 @@ export class UserService {
       }).present();
 
     });
+  }
+
+  searchUsers(query: string) {
+    return this._http
+      .get(`${this.baseUrl}/${this.context}/search/${query}`);
   }
 }

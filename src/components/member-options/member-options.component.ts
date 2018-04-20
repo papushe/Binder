@@ -22,6 +22,7 @@ export class MemberOptionsComponent implements OnInit{
   @Input() member: Profile;
   @Input() community: Community;
   loggedInUser: Profile;
+  isJoined: boolean;
   isAuthorizedMember: boolean;
   roles = {
     auth:'Authorized Member',
@@ -33,6 +34,7 @@ export class MemberOptionsComponent implements OnInit{
               private toast: ToastController,
               private userService: UserService) {
     this.loggedInUser = this.userService.thisProfile;
+    this.isJoined = navParams.get('isJoined');
   }
 
   ngOnInit() {

@@ -55,7 +55,7 @@ export class MembersComponent {
 
   openOptions(member: Profile) {
     if (member.keyForFirebase != this.profile.keyForFirebase) {
-      this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community})
+      this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community, isJoined: true})
     }
   }
 }

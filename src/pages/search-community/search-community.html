@@ -32,10 +32,10 @@
   </form>
   <hr>
   <ion-list *ngIf="hasCommunity">
-    <ion-item class="communityPointer" *ngFor="let community of communities" (click)="openCommunity(community)">
-      <h2>Community Name: {{community.communityName}}</h2>
-      <p>Community Description: {{community.communityDescription}}</p>
-      <p>Community Type: {{community.type}}</p>
+    <ion-item class="pointer" *ngFor="let community of communities" (click)="openCommunity(community)">
+      <h2>{{community.communityName}}</h2>
+      <p>{{community.communityDescription}}</p>
+      <p>{{community.type}}</p>
     </ion-item>
   </ion-list>
   <ion-row>

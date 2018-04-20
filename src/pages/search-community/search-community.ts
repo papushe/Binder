@@ -29,9 +29,9 @@ export class SearchCommunityPage {
         this.communityService.searchCommunity(this.search)
           .subscribe(
             data => {
-              if (data == 0) {
+              if (!data || data == 0) {
                 this.hasCommunity = false;
-                this.noCommunityFound = 'no communities found, try again..';
+                this.noCommunityFound = 'No communities found, try again';
               } else {
                 this.communities = <Community[]>data;
                 this.hasCommunity = true;
