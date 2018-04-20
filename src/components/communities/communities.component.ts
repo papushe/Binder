@@ -43,7 +43,7 @@ export class CommunitiesComponent {
                 this.userService.thisHasProfile = true;
                 this.hasProfileEvent.emit(true);
                 if (this.userService.thisProfile.communities && this.userService.thisProfile.communities.length > 0) {
-                  this.getCommunities(user.keyForFirebase);
+                  this.getCommunities(user.uid);
                 }
               } else {
                 this.hasProfileEvent.emit(false);
@@ -65,10 +65,10 @@ export class CommunitiesComponent {
     }
   }
 
-  getCommunities(user) {
+  getCommunities(userId) {
     this.shared.createLoader('Loading communities...');
     this.shared.loader.present().then(() => {
-      this.communityService.getCommunities(user.keyForFirebase)
+      this.communityService.getCommunities(userId)
         .subscribe(
           data => {
             if (Object.keys(data).length != 0) {
