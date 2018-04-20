@@ -41,6 +41,5 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <!--<button block ion-button (click)="createCommunity()" [disabled]="checkType(communityForm)">Create Community</button>-->
-  <button block ion-button (click)="createCommunity()" outline [disabled]="communityForm.invalid">Create</button>
+  <button class="createNewCommunityButton" ion-button (click)="createCommunity()" outline [disabled]="communityForm.invalid">Create</button>
 </form>
