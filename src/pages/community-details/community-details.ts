@@ -53,7 +53,7 @@ export class CommunityDetailsPage implements OnInit {
     this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase, false)
       .subscribe(
         res => {
-          console.log(`user has joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${res == true}`);
+          console.debug(`You joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${res == true}`);
           if (res == true) {
             this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
             this.toast.create({
@@ -63,20 +63,20 @@ export class CommunityDetailsPage implements OnInit {
           }
           else {
             this.toast.create({
-              message: `You are not allowed to join  ${this.communityService.thisSelectedCommunity.communityName}`,
+              message: `Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`,
               duration: 3000
             }).present();
           }
         },
         err => {
-          console.debug(`Failed to join ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
+          console.debug(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
           this.toast.create({
-            message: `Failed to join  ${this.communityService.thisSelectedCommunity.communityName}`,
+            message: `Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`,
             duration: 3000
           }).present();
         },
         () => {
-          //done
+          this.navCtrl.setRoot('TabsPage')
         });
   }
 

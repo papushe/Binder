@@ -2,7 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
-import {ToastController} from "ionic-angular";
+import {ToastController, NavController, NavParams} from "ionic-angular";
 
 /**
  * Generated class for the CreateCommunityFormComponent component.
@@ -33,6 +33,19 @@ export class CreateCommunityFormComponent {
         .subscribe(
           data => {
             this.saveCommunityResult.emit(data);
+            this.userService.thisProfile = data;
+            if (data) {
+              this.toast.create({
+                message: `Community was created successfully`,
+                duration: 3000
+              }).present();
+            }
+            else {
+              this.toast.create({
+                message: `Failed to create community`,
+                duration: 3000
+              }).present();
+            }
           },
           err => {
             this.toast.create({
@@ -41,10 +54,7 @@ export class CreateCommunityFormComponent {
             }).present();
           },
           () => {
-            this.toast.create({
-              message: `Community was created successfully`,
-              duration: 3000
-            }).present();
+            //done
           }
         );
     }

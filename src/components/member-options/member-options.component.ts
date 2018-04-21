@@ -116,7 +116,7 @@ export class MemberOptionsComponent implements OnInit{
           console.log(`user has joined community ${this.community.communityName} success? : ${res == true}`);
           if (res == true) {
             this.toast.create({
-              message: `You joined ${this.community.communityName}`,
+              message: `User joined ${this.community.communityName}`,
               duration: 3000
             }).present();
           }
