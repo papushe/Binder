@@ -9,10 +9,12 @@
     <ion-item *ngFor="let activity of activities"
               paintAfterChange
               [changer]="activity"
-              [activityLength]="activities.length">
+              [activityLength]="activities.length"
+              (click)="openActivity(activity)">
       <strong>{{activity.activity_name}}</strong>
       <p>Description: {{activity.activity_description}}</p>
-      <p>Creation date: {{activity.created_at|date:'short'}}</p>
+      <p>Activity date: {{activity.activity_date|date:'short'}}</p>
+      <p>Type: {{activity.type}}</p>
     </ion-item>
   </ion-list>
 </ion-card>

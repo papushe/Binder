@@ -11,9 +11,9 @@
                    required>
         </ion-input>
       </ion-item>
-      <!--<div padding *ngIf="activityName.invalid && activityName.dirty">-->
-        <!--<span class="global__input-error">Must enter an activity name</span>-->
-      <!--</div>-->
+      <div padding *ngIf="activityName.invalid && activityName.dirty">
+        <span class="global__input-error">Must enter an activity name</span>
+      </div>
       <ion-item>
         <ion-label>Description:</ion-label>
         <ion-input [(ngModel)]="activity.activity_description"
@@ -27,6 +27,19 @@
       <div padding *ngIf="activityDescription.invalid && activityDescription.dirty">
         <span class="global__input-error">Must enter an activity description!</span>
       </div>
+      <ion-item>
+        <ion-label>Date:</ion-label>
+        <ion-datetime [(ngModel)]="activity.activity_date"
+                      [min]="now"
+                      max="2025"
+                      displayFormat="DD/MM/YYYY HH:mm"
+                      name = "activity_date"
+                      [pickerOptions]="activityDateOptions"
+                      #activity_date="ngModel"
+                      [ngModelOptions]="{standalone: true}"
+                      required>
+        </ion-datetime>
+      </ion-item>
       <ion-item>
         <ion-label>Type</ion-label>
         <ion-select [(ngModel)]="activity.type"

@@ -2,6 +2,7 @@ export interface Activity {
   _id: string,
   activity_name: string,
   activity_description: string,
+  activity_date: string,
   type: string,
   created_at: string,
   consumer_id: string,

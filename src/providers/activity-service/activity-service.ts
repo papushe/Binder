@@ -11,8 +11,8 @@ import {Activity} from '../../models/activity/activity.interface';
 @Injectable()
 export class ActivityService {
 
-  baseUrl: string = 'https://appbinder.herokuapp.com';
-  // baseUrl: string = 'http://localhost:4300';
+  // baseUrl: string = 'https://appbinder.herokuapp.com';
+  baseUrl: string = 'http://localhost:4300';
   context: string = 'activity';
 
   constructor(public _http: HttpClient,) {
@@ -23,6 +23,7 @@ export class ActivityService {
     const activityObj = {
       activityName: activity.activity_name,
       activityDescription: activity.activity_description,
+      activity_date: activity.activity_date,
       providerId: activity.provider_id,
       consumerId: activity.consumer_id,
       communityId: activity.community_id,

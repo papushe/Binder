@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Subscription} from "rxjs/Subscription";
+// import {Subscription} from "rxjs/Subscription";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityService} from '../../providers/activity-service/activity-service';
 import {UserService} from '../../providers/user-service/user.service';
-import {User} from 'firebase/app';
+// import {User} from 'firebase/app';
 import {ToastController, ModalController} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {SocketService} from "../../providers/socket/socket.service";
@@ -24,6 +24,7 @@ export class ActivityCreationFormComponent {
 
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
+  now: string = new Date().toISOString();
 
   constructor(private toast: ToastController,
               private activityService: ActivityService,
@@ -32,6 +33,9 @@ export class ActivityCreationFormComponent {
               private socketService: SocketService) {
 
     this.saveActivityResult = new EventEmitter<any>();
+    console.log(this.now);
+
+
   }
 
   createActivity() {
@@ -77,5 +81,14 @@ export class ActivityCreationFormComponent {
     modal.present();
   }
 
+  activityDateOptions: any = {
+    buttons: [{
+      text: 'Clear',
+      handler: () => {
+        this.activity.activity_date = null;
+      }
+    }]
+  };
 
 }
+

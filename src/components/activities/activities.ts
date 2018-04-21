@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from "../../providers/user-service/user.service";
 import {Community} from "../../models/community/community.interface";
-import {ToastController} from "ionic-angular";
+import {NavController, ToastController} from "ionic-angular";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityService} from '../../providers/activity-service/activity-service'
 import {SocketService} from "../../providers/socket/socket.service";
+import { ActivityInfoPage } from '../../pages/activity-info/activity-info'
 
 
 @Component({
@@ -17,7 +18,9 @@ export class ActivitiesComponent implements OnInit {
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
   showActivities:boolean = true;
+
   constructor(private toast: ToastController,
+              public navCtrl: NavController,
               private activityService: ActivityService,
               private userService: UserService,
               private socketService: SocketService) {
@@ -66,6 +69,10 @@ export class ActivitiesComponent implements OnInit {
 
         }
       )
+  }
+
+  openActivity(activity) {
+    this.navCtrl.push('ActivityInfoPage', {activity});
   }
 
 
