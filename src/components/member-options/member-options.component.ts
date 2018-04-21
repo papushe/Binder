@@ -113,8 +113,9 @@ export class MemberOptionsComponent implements OnInit{
     this.communityService.joinCommunity(this.community._id, this.member.keyForFirebase, true)
       .subscribe(
         res => {
-          console.log(`user has joined community ${this.community.communityName} success? : ${res == true}`);
-          if (res == true) {
+          console.log(`user has joined community ${this.community.communityName} success? : ${!!res}`);
+          if (res) {
+            //todo: send socket event and update the added user profile with res
             this.toast.create({
               message: `User joined ${this.community.communityName}`,
               duration: 3000
