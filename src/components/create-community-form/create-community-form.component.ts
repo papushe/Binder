@@ -3,6 +3,7 @@ import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {ToastController, NavController, NavParams} from "ionic-angular";
+import {Profile} from "../../models/profile/profile.interface";
 
 /**
  * Generated class for the CreateCommunityFormComponent component.
@@ -33,7 +34,7 @@ export class CreateCommunityFormComponent {
         .subscribe(
           data => {
             this.saveCommunityResult.emit(data);
-            this.userService.thisProfile = data;
+            this.userService.thisProfile = <Profile> data;
             if (data) {
               this.toast.create({
                 message: `Community was created successfully`,

@@ -40,7 +40,7 @@ export class ActivityCreationFormComponent {
 
   createActivity() {
     if (this.userService.thisAuthenticatedUser) {
-      this.activity.consumer_id = this.userService.thisAuthenticatedUser.uid;
+      this.activity.consumer = {id: this.userService.thisProfile.keyForFirebase, name:`${this.userService.thisProfile.firstName} ${this.userService.thisProfile.lastName}`};
       this.activity.community_id = this.currentCommunity._id;
       this.activityService.createActivity(this.activity)
         .subscribe(

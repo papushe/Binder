@@ -5,8 +5,14 @@ export interface Activity {
   activity_date: string,
   type: string,
   created_at: string,
-  consumer_id: string,
-  provider_id: string,
+  consumer: {
+    name: string,
+    id: string
+  },
+  provider: {
+    name: string,
+    id: string
+  }
   community_id: string,
   notes: string,
   source: string,
