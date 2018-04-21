@@ -1,19 +1,22 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {UserService} from "../providers/user-service/user.service";
 import {LoginPage} from "../pages/login/login";
 import {SharedService} from "../providers/shared/shared.service";
+import {SocketService} from "../providers/socket/socket.service";
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnDestroy {
+
   rootPage: string;
 
   constructor(private userService: UserService,
               private sharedService: SharedService,
+              private socketService: SocketService,
               platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen) {
@@ -43,5 +46,10 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+
+  ngOnDestroy(): void {
+    this.socketService.disconnect();
+  }
+
 }
 

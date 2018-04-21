@@ -1,11 +1,11 @@
 <ion-list class="popoverProfile">
-  <ion-item *ngIf="isJoined && community.managerId == profile.keyForFirebase">
-    <span (click)="addMembers()">Add</span>
+  <ion-item (click)="addMembers()" *ngIf="isJoined && community.managerId == profile.keyForFirebase">
+    <span>Add</span>
   </ion-item>
-  <ion-item *ngIf="isJoined">
-    <span (click)="leaveCommunity()">Leave</span>
+  <ion-item (click)="leaveCommunity()" *ngIf="isJoined">
+    <span>Leave</span>
   </ion-item>
-  <ion-item *ngIf="isJoined && community.managerId == profile.keyForFirebase">
-    <span (click)="deletePopup()">Delete</span>
+  <ion-item (click)="deletePopup()" *ngIf="isJoined && community.managerId == profile.keyForFirebase">
+    <span>Delete</span>
   </ion-item>
 </ion-list>

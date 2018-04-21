@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, ToastController} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {LoginResponse} from "../../models/login/login-response.interface";
+import {SharedService} from "../../providers/shared/shared.service";
 
 
 /**
@@ -17,27 +18,17 @@ import {LoginResponse} from "../../models/login/login-response.interface";
 })
 export class RegisterPage {
 
-  constructor(private toast: ToastController,
-              private navCtrl: NavController) {
+  constructor(private navCtrl: NavController,
+              private sharedService:SharedService) {
   }
 
 
   register(event: LoginResponse) {
     if (!event.error) {
-      this.toast.create({
-        message: `Account created: ${event.result.email}`,
-        duration: 3000
-      }).present();
+      this.sharedService.createToast(`Account created: ${event.result.email}`);
       this.navCtrl.setRoot('TabsPage')
     } else {
-      this.toast.create({
-        message: `Account not created: ${event.error.message}`,
-        duration: 3000
-      }).present();
+      this.sharedService.createToast(`Account not created: ${event.error.message}`);
     }
   }
-
-  ionViewDidLoad() {
-  }
-
 }

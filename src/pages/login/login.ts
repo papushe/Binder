@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, ToastController} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {LoginResponse} from "../../models/login/login-response.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {User} from "firebase/app";
 import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 @IonicPage()
 @Component({
@@ -14,18 +15,14 @@ import {SocketService} from "../../providers/socket/socket.service";
 export class LoginPage {
 
   constructor(private userService: UserService,
-              private toast: ToastController,
+              private sharedService: SharedService,
               private navCtrl: NavController,
               private socketService: SocketService) {
   }
 
   login(event: LoginResponse) {
     if (!event.error) {
-      this.toast.create({
-        message: `Welcome to Binder, ${event.result.email}`,
-        duration: 3000
-      }).present();
-
+      this.sharedService.createToast(`Welcome to Binder, ${event.result.email}`);
       this.userService.getProfile(<User>event.result)
         .subscribe(
           profile => {
@@ -43,10 +40,7 @@ export class LoginPage {
           }
         );
     } else {
-      this.toast.create({
-        message: event.error.message,
-        duration: 3000
-      }).present();
+      this.sharedService.createToast(event.error.message);
     }
   }
 

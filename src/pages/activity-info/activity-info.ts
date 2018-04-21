@@ -1,10 +1,7 @@
-import {PopoverController, AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserService} from "../../providers/user-service/user.service";
+import {PopoverController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Component} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {Activity} from '../../models/activity/activity.interface';
-import {ActivityService} from '../../providers/activity-service/activity-service'
-import {SocketService} from "../../providers/socket/socket.service";
 import {Profile} from "../../models/profile/profile.interface";
 
 
@@ -29,9 +26,7 @@ export class ActivityInfoPage {
 
   constructor(private navCtrl: NavController,
               private popoverCtrl: PopoverController,
-              private toast: ToastController,
-              private navParams: NavParams,
-              private socketService: SocketService) {
+              private navParams: NavParams) {
 
     this.activity = this.navParams.get('activity');
 

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
@@ -30,8 +30,7 @@ export class SearchUsersPage {
   constructor(private navParams: NavParams,
               private shared: SharedService,
               private userService: UserService,
-              private navCtrl: NavController,
-              private toast: ToastController) {
+              private navCtrl: NavController) {
     this.community = this.navParams.get('community');
     this.profile = this.navParams.get('profile');
   }

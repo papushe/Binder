@@ -21,11 +21,12 @@ import {ProfilePopoverComponentModule} from "../components/profile-popover/profi
 import {CommunityPopoverComponentModule} from "../components/community-popover/community-popover.component.module";
 
 import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
-import { SocketService } from '../providers/socket/socket.service';
 import {AuthInterceptor} from '../providers/interceptors-auth/interceptors-auth';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
-// const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
-const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
+
+import {SocketService} from '../providers/socket/socket.service';
+const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
+// const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Loading, LoadingController} from "ionic-angular";
+import {Loading, LoadingController, ToastController} from "ionic-angular";
 import * as _ from 'lodash';
 
 
@@ -14,7 +14,8 @@ export class SharedService {
   loader: Loading;
   token: string;
 
-  constructor(private loading: LoadingController) {
+  constructor(private loading: LoadingController,
+              private toast: ToastController) {
   }
 
   createLoader(massage) {
@@ -24,11 +25,20 @@ export class SharedService {
     });
   }
 
+  createToast(msg) {
+    let toast = this.toast.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
+  }
+
+
   _() {
     return _;
   }
 
-  storeToken(token){
+  storeToken(token) {
     this.token = token;
   }
 

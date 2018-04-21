@@ -2,20 +2,19 @@ import {Injectable} from '@angular/core';
 import {Socket} from "ng-socket-io";
 import {UserService} from "../user-service/user.service";
 import {Observable} from "rxjs/Observable";
-import {ToastController} from "ionic-angular";
+import {Subscription} from "rxjs/Subscription";
 
 @Injectable()
 export class SocketService {
 
 
   isUserConnected: boolean = false;
+  socketCommunityObserv: Subscription;
 
   constructor(private socket: Socket,
-              private userService: UserService,
-              private toastCtrl: ToastController) {
+              private userService: UserService) {
 
   }
-
 
   socketConnect() {
     if (!this.isUserConnected) {
@@ -39,14 +38,31 @@ export class SocketService {
     return observable;
   }
 
-  communityChat(communityId) {
+  joinCommunity(communityId) {
     let params = {
-      room: communityId
+      room: communityId._id,
+      roomName: communityId.communityName
     };
-    this.socket.emit('join', params, () => {
-      console.log(`User has joined ${communityId} group`)
-    });
+    this.socket.emit('join-community', params)
   }
+
+  leftCommunity(communityId) {
+    let params = {
+      room: communityId._id,
+      roomName: communityId.communityName
+    };
+    this.socket.emit('left-community', params)
+  }
+
+  getMembersChangedEvents() {
+    let observable = new Observable(observer => {
+      this.socket.on('members-changed', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
 
   communityNewActivity(activity, communityId) {
     this.socket.emit('add-activity', {
@@ -60,20 +76,14 @@ export class SocketService {
     let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
     let observable = new Observable(observer => {
       this.socket.on('new-add-activity', (data) => {
-        this.showToast(`${thisUserName == data['from'] ? 'You' : thisUserName} created new activity - ${data['activity'].activity_name}`);
         observer.next(data);
       });
     });
     return observable;
   }
 
-
-  showToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
+  disconnect() {
+    this.socket.disconnect();
   }
 
 }

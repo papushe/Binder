@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NavController, NavParams} from "ionic-angular";
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Profile} from "../../models/profile/profile.interface";
-import {MemberOptionsComponent} from "../member-options/member-options.component";
 import {SharedService} from "../../providers/shared/shared.service";
 import {UserService} from "../../providers/user-service/user.service";
+import {SocketService} from "../../providers/socket/socket.service";
 
 /**
  * Generated class for the MembersComponent component.
@@ -17,20 +17,34 @@ import {UserService} from "../../providers/user-service/user.service";
   selector: 'members-component',
   templateUrl: 'members.component.html'
 })
-export class MembersComponent {
+export class MembersComponent implements OnInit, OnDestroy {
+
   @Input() community: Community;
   members: any;
   profile: Profile;
   showMembers: boolean = true;
+  communitySocketConnection: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private communityService: CommunityService,
-              private userService: UserService) {
+              private userService: UserService,
+              private socketService: SocketService,
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {
     this.getCommunityMembers();
     this.profile = this.userService.thisProfile;
+    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
+    this.communitySocketConnection = this.socketService.getMembersChangedEvents()
+      .subscribe(data => {
+        if (thisUserName != data['from']) {
+          this.sharedService.createToast(`${data['from']} ${data['event']} ${data['communityName']} community`);
+        }
+        console.log(data);
+      });
+
+
   }
 
   getCommunityMembers() {
@@ -58,4 +72,9 @@ export class MembersComponent {
       this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community, isJoined: true})
     }
   }
+
+  ngOnDestroy() {
+    this.communitySocketConnection.unsubscribe();
+  }
+
 }

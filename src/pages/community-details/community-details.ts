@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {PopoverController, AlertController, IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {PopoverController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
@@ -7,6 +7,7 @@ import {CreateActivityPage} from "../create-activity/create-activity"
 import {Profile} from "../../models/profile/profile.interface";
 import {CommunityPopoverComponent} from "../../components/community-popover/community-popover.component";
 import {SocketService} from "../../providers/socket/socket.service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the CommunityDetailsPage page.
@@ -20,18 +21,19 @@ import {SocketService} from "../../providers/socket/socket.service";
   selector: 'page-community-details',
   templateUrl: 'community-details.html',
 })
-export class CommunityDetailsPage implements OnInit {
+export class CommunityDetailsPage implements OnInit, OnDestroy {
 
   community: Community;
   profile: Profile;
   isJoined: boolean;
   cameFrom: string;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams,
+  constructor(private navCtrl: NavController,
+              private navParams: NavParams,
               private popoverCtrl: PopoverController,
               private communityService: CommunityService,
               private userService: UserService,
-              private toast: ToastController,
+              private sharedService: SharedService,
               private socketService: SocketService) {
   }
 
@@ -40,7 +42,7 @@ export class CommunityDetailsPage implements OnInit {
     this.cameFrom = this.navParams.get('from');
     this.community = this.communityService.thisSelectedCommunity;
     if (this.cameFrom == 'communitiesComponent') {
-      this.socketService.communityChat(this.community._id);
+      this.socketService.joinCommunity(this.community);
     }
     this.profile = this.userService.thisProfile;
     this.isUserJoined(this.communityService.thisSelectedCommunity);
@@ -57,24 +59,15 @@ export class CommunityDetailsPage implements OnInit {
           if (res) {
             this.userService.thisProfile = <Profile> res;
             this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
-            this.toast.create({
-              message: `You joined ${this.communityService.thisSelectedCommunity.communityName}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`You joined ${this.communityService.thisSelectedCommunity.communityName}`);
           }
           else {
-            this.toast.create({
-              message: `Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`);
           }
         },
         err => {
           console.debug(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
-          this.toast.create({
-            message: `Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`);
         },
         () => {
           this.navCtrl.setRoot('TabsPage')
@@ -101,4 +94,10 @@ export class CommunityDetailsPage implements OnInit {
       ev: myEvent
     });
   }
+
+  ngOnDestroy() {
+    this.socketService.leftCommunity(this.community);
+  }
+
+
 }
