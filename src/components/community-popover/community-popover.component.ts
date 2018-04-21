@@ -42,8 +42,9 @@ export class CommunityPopoverComponent {
     this.communityService.leaveCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user was removed from community success? : ${res == true}`);
-          if (res == true) {
+          console.log(`user was removed from community success? : ${!!res}`);
+          if (res) {
+            this.userService.thisProfile = <Profile> res;
             this.toast.create({
               message: `You left ${this.community.communityName}`,
               duration: 3000
@@ -97,8 +98,9 @@ export class CommunityPopoverComponent {
     this.communityService.deleteCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`community ${this.community._id} was deleted success? : ${res == true}`);
-          if (res == true) {
+          console.log(`community ${this.community._id} was deleted success? : ${!!res}`);
+          if (res) {
+            this.userService.thisProfile = <Profile> res;
             this.toast.create({
               message: `You deleted ${this.community.communityName}`,
               duration: 3000
@@ -126,6 +128,4 @@ export class CommunityPopoverComponent {
   addMembers() {
     this.navCtrl.push('SearchUsersPage', {community: this.community, profile: this.profile});
   }
-
-
 }

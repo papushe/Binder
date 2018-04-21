@@ -82,8 +82,8 @@ export class MemberOptionsComponent implements OnInit{
     this.communityService.leaveCommunity(this.community._id, this.member.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user was removed from community success? : ${res == true}`);
-          if (res == true) {
+          console.log(`user was removed from community success? : ${!!res}`);
+          if (res) {
             this.toast.create({
               message: `You removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}`,
               duration: 3000
@@ -107,5 +107,36 @@ export class MemberOptionsComponent implements OnInit{
           this.navCtrl.pop();
         }
       );
+  }
+
+  addUser() {
+    this.communityService.joinCommunity(this.community._id, this.member.keyForFirebase, true)
+      .subscribe(
+        res => {
+          console.log(`user has joined community ${this.community.communityName} success? : ${!!res}`);
+          if (res) {
+            //todo: send socket event and update the added user profile with res
+            this.toast.create({
+              message: `User joined ${this.community.communityName}`,
+              duration: 3000
+            }).present();
+          }
+          else {
+            this.toast.create({
+              message: `Failed to join ${this.community.communityName}`,
+              duration: 3000
+            }).present();
+          }
+        },
+        err => {
+          console.debug(`Failed to join ${this.community.communityName} due to: ${err.message}`);
+          this.toast.create({
+            message: `Failed to join  ${this.community.communityName}`,
+            duration: 3000
+          }).present();
+        },
+        () => {
+          this.navCtrl.pop();
+        });
   }
 }

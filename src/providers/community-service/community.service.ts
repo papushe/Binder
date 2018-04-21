@@ -31,7 +31,7 @@ export class CommunityService {
       type: community.type
     };
     return this._http
-      .post(`${this.baseUrl}/create`, obj)
+      .post(`${this.baseUrl}/${this.context}/create`, obj)
   }
 
   getCommunities(userId: string) {
@@ -63,10 +63,11 @@ export class CommunityService {
       .post(`${this.baseUrl}/${this.context}/delete`, obj)
   }
 
-  joinCommunity(communityId: string, uid: string) {
+  joinCommunity(communityId: string, uid: string, isPrivileged: boolean) {
     const obj = {
-      communityId: communityId,
-      uid: uid,
+      communityId,
+      uid,
+      isPrivileged
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/join`, obj)
