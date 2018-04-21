@@ -126,6 +126,4 @@ export class CommunityPopoverComponent {
   addMembers() {
     this.navCtrl.push('SearchUsersPage', {community: this.community, profile: this.profile});
   }
-
-
 }

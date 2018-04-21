@@ -108,4 +108,34 @@ export class MemberOptionsComponent implements OnInit{
         }
       );
   }
+
+  addUser() {
+    this.communityService.joinCommunity(this.community._id, this.member.keyForFirebase, true)
+      .subscribe(
+        res => {
+          console.log(`user has joined community ${this.community.communityName} success? : ${res == true}`);
+          if (res == true) {
+            this.toast.create({
+              message: `You joined ${this.community.communityName}`,
+              duration: 3000
+            }).present();
+          }
+          else {
+            this.toast.create({
+              message: `Failed to join ${this.community.communityName}`,
+              duration: 3000
+            }).present();
+          }
+        },
+        err => {
+          console.debug(`Failed to join ${this.community.communityName} due to: ${err.message}`);
+          this.toast.create({
+            message: `Failed to join  ${this.community.communityName}`,
+            duration: 3000
+          }).present();
+        },
+        () => {
+          this.navCtrl.pop();
+        });
+  }
 }

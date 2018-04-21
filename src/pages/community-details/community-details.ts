@@ -50,7 +50,7 @@ export class CommunityDetailsPage implements OnInit {
   }
 
   joinCommunity() {
-    this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase)
+    this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase, false)
       .subscribe(
         res => {
           console.log(`user has joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${res == true}`);
