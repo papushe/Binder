@@ -36,7 +36,14 @@ export class LoginPage {
           },
           () => {
             //done
-            this.userService.thisProfile ? this.navCtrl.setRoot("TabsPage") : this.navCtrl.setRoot('ProfilePage', {where: true});
+            if (this.userService.thisProfile) {
+              if (this.navCtrl.getActive().name == 'LoginPage') {
+                this.navCtrl.setRoot("TabsPage");
+              }
+            } else {
+              this.navCtrl.setRoot('ProfilePage', {where: true});
+            }
+
           }
         );
     } else {

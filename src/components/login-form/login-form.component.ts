@@ -21,20 +21,16 @@ export class LoginFormComponent {
 
   async login() {
     const loginResponse = await this.userService.signInWithEmailAndPassword(this.account);
-    if (!this.userService.thisAuthenticatedUser) {
 
-      this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser().subscribe(auth => {
-        this.userService.thisAuthenticatedUser = auth;
-        if (auth) {
-          this.loginStatus.emit(loginResponse);
-        } else {
-          this.userService.thisAuthenticatedUser$.unsubscribe();
-          this.navCtrl.setRoot('LoginPage')
-        }
-      });
-    } else {
-      this.loginStatus.emit(loginResponse);
-    }
+    this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser().subscribe(auth => {
+      this.userService.thisAuthenticatedUser = auth;
+      if (auth) {
+        this.loginStatus.emit(loginResponse);
+      } else {
+        this.userService.thisAuthenticatedUser$.unsubscribe();
+        this.navCtrl.setRoot('LoginPage')
+      }
+    });
   }
 
   navigateToRegisterPage() {
