@@ -26,7 +26,6 @@ export class CreateActivityPage {
   }
 
   saveActivityResult(event) {
-    // event ? this.navCtrl.push('CommunityDetailsPage', {community: this.community}) : console.log('No Activity was created')
     event ? this.navCtrl.pop() : '';
   }
 }

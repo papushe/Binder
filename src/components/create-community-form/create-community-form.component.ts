@@ -2,8 +2,8 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
-import {ToastController, NavController, NavParams} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the CreateCommunityFormComponent component.
@@ -20,9 +20,9 @@ export class CreateCommunityFormComponent {
   community = {} as Community;
   @Output() saveCommunityResult: EventEmitter<any>;
 
-  constructor(private toast: ToastController,
-              private userService: UserService,
-              private communityService: CommunityService) {
+  constructor(private userService: UserService,
+              private communityService: CommunityService,
+              private sharedService: SharedService) {
 
     this.saveCommunityResult = new EventEmitter<any>();
   }
@@ -36,23 +36,14 @@ export class CreateCommunityFormComponent {
             this.saveCommunityResult.emit(data);
             this.userService.thisProfile = <Profile> data;
             if (data) {
-              this.toast.create({
-                message: `Community was created successfully`,
-                duration: 3000
-              }).present();
+              this.sharedService.createToast('Community was created successfully');
             }
             else {
-              this.toast.create({
-                message: `Failed to create community`,
-                duration: 3000
-              }).present();
+              this.sharedService.createToast('Failed to create community');
             }
           },
           err => {
-            this.toast.create({
-              message: `Error: ${err.message}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Error: ${err.message}`);
           },
           () => {
             //done

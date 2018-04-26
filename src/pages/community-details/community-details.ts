@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {PopoverController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
@@ -27,6 +27,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
   profile: Profile;
   isJoined: boolean;
   cameFrom: string;
+  @ViewChild('child') activitiesComponent: any;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
@@ -48,7 +49,8 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     this.isUserJoined(this.communityService.thisSelectedCommunity);
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    this.activitiesComponent.getActivitiesByCommunityId(this.community._id)
   }
 
   joinCommunity() {

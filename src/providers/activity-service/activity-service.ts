@@ -36,9 +36,10 @@ export class ActivityService {
       .post(`${this.baseUrl}/${this.context}/create`, activityObj)
   }
 
-  deleteActivity(activityId: string) {
+  deleteActivity(activityId: string, communityId: string) {
     const activityIdObj = {
-      activityId: activityId
+      activityId: activityId,
+      communityId: communityId
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/delete`, activityIdObj)

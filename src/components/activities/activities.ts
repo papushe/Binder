@@ -41,8 +41,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
           this.sharedService.createToast(`${data['from']} created new activity - ${data['activity'].activity_name}`);
         }
       });
-    this.getActivitiesByCommunityId(this.currentCommunity._id)
   }
+
 
   getActivitiesByCommunityId(communityId: string) {
     this.activityService.getActivitiesByCommunityId(communityId)
@@ -72,7 +72,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   openActivity(activity) {
-    this.navCtrl.push('ActivityInfoPage', {activity});
+    this.navCtrl.push('ActivityInfoPage', {activity: activity, community: this.currentCommunity});
   }
 
   ngOnDestroy() {

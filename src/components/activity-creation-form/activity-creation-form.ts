@@ -1,12 +1,11 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-// import {Subscription} from "rxjs/Subscription";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityService} from '../../providers/activity-service/activity-service';
 import {UserService} from '../../providers/user-service/user.service';
-// import {User} from 'firebase/app';
-import {ToastController, ModalController} from 'ionic-angular';
+import {ModalController} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {SocketService} from "../../providers/socket/socket.service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the ActivityCreationFormComponent component.
@@ -26,7 +25,7 @@ export class ActivityCreationFormComponent {
   @Input() currentCommunity: Community;
   now: string = new Date().toISOString();
 
-  constructor(private toast: ToastController,
+  constructor(private sharedService: SharedService,
               private activityService: ActivityService,
               private userService: UserService,
               private modalCtrl: ModalController,
@@ -48,20 +47,15 @@ export class ActivityCreationFormComponent {
             console.log(`create activity success? : ${data != null}`);
             this.socketService.communityNewActivity(data, this.activity.community_id);
             if (data) {
+              this.sharedService.createToast(`${this.activity.activity_name} was created successfully`);
               this.saveActivityResult.emit(data);
             }
             else {
-              this.toast.create({
-                message: `Something went wrong, please try again`,
-                duration: 3000
-              }).present();
+              this.sharedService.createToast('Something went wrong, please try again');
             }
           },
           err => {
-            this.toast.create({
-              message: `Error occurred while creating activity: ${err.message}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Error occurred while creating activity: ${err.message}`);
           },
           () => {
             //done
