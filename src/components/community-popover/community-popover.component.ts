@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
-import {AlertController, NavController, NavParams, ToastController, ViewController} from "ionic-angular";
+import {AlertController, NavController, NavParams, ViewController} from "ionic-angular";
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
+import {SocketService} from "../../providers/socket/socket.service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the CommunityPopoverComponent component.
@@ -26,8 +28,9 @@ export class CommunityPopoverComponent {
               private communityService: CommunityService,
               private userService: UserService,
               private navCtrl: NavController,
-              private toast: ToastController,
-              private alertCtrl: AlertController) {
+              private sharedService: SharedService,
+              private alertCtrl: AlertController,
+              private socketService: SocketService) {
     this.isJoined = this.navParams.get('IsJoined');
     this.community = this.communityService.thisSelectedCommunity;
     this.profile = this.userService.thisProfile;
@@ -45,27 +48,21 @@ export class CommunityPopoverComponent {
           console.log(`user was removed from community success? : ${!!res}`);
           if (res) {
             this.userService.thisProfile = <Profile> res;
-            this.toast.create({
-              message: `You left ${this.community.communityName}`,
-              duration: 3000
-            }).present();
+
+            this.socketService.deleteFromCommunity(this.community, res);
+
+            this.sharedService.createToast(`You left ${this.community.communityName}`);
           }
           else {
-            this.toast.create({
-              message: `Something went wrong, please try again`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Something went wrong, please try again`);
           }
         },
         err => {
           console.debug(`Failed to leave ${this.community.communityName} due to: ${err.message}`);
-          this.toast.create({
-            message: `Failed to leave ${this.community.communityName}`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Failed to leave ${this.community.communityName}`);
         },
         () => {
-          this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
+          //done
         }
       );
   }
@@ -95,30 +92,22 @@ export class CommunityPopoverComponent {
   }
 
   deleteCommunity() {
+    this.close();
     this.communityService.deleteCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
           console.log(`community ${this.community._id} was deleted success? : ${!!res}`);
           if (res) {
             this.userService.thisProfile = <Profile> res;
-            this.toast.create({
-              message: `You deleted ${this.community.communityName}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`You deleted ${this.community.communityName}`);
           }
           else {
-            this.toast.create({
-              message: `You are not allowed to delete  ${this.community.communityName}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`You are not allowed to delete  ${this.community.communityName}`);
           }
         },
         err => {
           console.debug(`Failed to delete ${this.community.communityName} due to: ${err.message}`);
-          this.toast.create({
-            message: `Failed to delete ${this.community.communityName}`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Failed to delete ${this.community.communityName}`);
         },
         () => {
           this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
@@ -126,6 +115,9 @@ export class CommunityPopoverComponent {
   }
 
   addMembers() {
-    this.navCtrl.push('SearchUsersPage', {community: this.community, profile: this.profile});
+    this.navCtrl.push('SearchUsersPage', {community: this.community, profile: this.profile})
+      .then(() => {
+        this.close();
+      })
   }
 }

@@ -4,8 +4,8 @@
 
       <ion-item>
         <ion-row>
-          <ion-col>
-            <ion-item *ngIf="profile.profilePic && !hasProfilePicAbdUploadNew">
+          <ion-col *ngIf="profile.profilePic && !hasProfilePicAbdUploadNew">
+            <ion-item>
               <img class="profilePic" src="{{ profile.profilePic }}">
             </ion-item>
             <ion-item *ngIf="showLoader">
@@ -19,6 +19,7 @@
           </ion-col>
         </ion-row>
       </ion-item>
+
       <ion-item>
         <ion-label floating>First Name</ion-label>
         <ion-input [(ngModel)]="profile.firstName"
@@ -116,6 +117,10 @@
       </span>
     </ion-card-content>
   </ion-card>
-  <button *ngIf="!hasProfile" class="saveUpdateButtons" outline ion-button (click)="saveProfile()" [disabled]="profileForm.invalid">Save</button>
-  <button *ngIf="hasProfile" class="saveUpdateButtons" outline ion-button (click)="updateProfile()" [disabled]="profileForm.invalid">Update</button>
+  <button *ngIf="!hasProfile" class="saveUpdateButtons" outline ion-button (click)="saveProfile()"
+          [disabled]="profileForm.invalid">Save
+  </button>
+  <button *ngIf="hasProfile" class="saveUpdateButtons" outline ion-button (click)="updateProfile()"
+          [disabled]="profileForm.invalid">Update
+  </button>
 </form>

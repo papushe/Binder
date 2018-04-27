@@ -43,14 +43,16 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     this.cameFrom = this.navParams.get('from');
     this.community = this.communityService.thisSelectedCommunity;
     if (this.cameFrom == 'communitiesComponent') {
-      this.socketService.joinCommunity(this.community);
+      this.socketService.enteredToCommunity(this.community);
     }
     this.profile = this.userService.thisProfile;
     this.isUserJoined(this.communityService.thisSelectedCommunity);
   }
 
   ionViewDidEnter() {
-    this.activitiesComponent.getActivitiesByCommunityId(this.community._id)
+    if (this.community && this.activitiesComponent) {
+      this.activitiesComponent.getActivitiesByCommunityId(this.community._id)
+    }
   }
 
   joinCommunity() {
@@ -60,6 +62,9 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           console.debug(`You joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${!!res}`);
           if (res) {
             this.userService.thisProfile = <Profile> res;
+
+            this.socketService.joinToCommunity(this.communityService.thisSelectedCommunity, res);
+
             this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
             this.sharedService.createToast(`You joined ${this.communityService.thisSelectedCommunity.communityName}`);
           }
@@ -72,7 +77,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           this.sharedService.createToast(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`);
         },
         () => {
-          this.navCtrl.setRoot('TabsPage')
+          //done
         });
   }
 

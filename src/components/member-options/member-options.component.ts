@@ -2,9 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Profile} from "../../models/profile/profile.interface";
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
-import {NavParams, NavController, ToastController} from "ionic-angular";
+import {NavParams, NavController} from "ionic-angular";
 import {UserService} from "../../providers/user-service/user.service";
-import {error} from "util";
+import {SocketService} from "../../providers/socket/socket.service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the MemberOptionsComponent component.
@@ -16,7 +17,7 @@ import {error} from "util";
   selector: 'member-options',
   templateUrl: 'member-options.component.html'
 })
-export class MemberOptionsComponent implements OnInit{
+export class MemberOptionsComponent implements OnInit {
 
   text: string;
   @Input() member: Profile;
@@ -25,14 +26,15 @@ export class MemberOptionsComponent implements OnInit{
   isJoined: boolean;
   isAuthorizedMember: boolean;
   roles = {
-    auth:'Authorized Member',
-    member:'Member'
+    auth: 'Authorized Member',
+    member: 'Member'
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private communityService: CommunityService,
-              private toast: ToastController,
-              private userService: UserService) {
+              private sharedService: SharedService,
+              private userService: UserService,
+              private socketService: SocketService) {
     this.loggedInUser = this.userService.thisProfile;
     this.isJoined = navParams.get('isJoined');
   }
@@ -53,25 +55,16 @@ export class MemberOptionsComponent implements OnInit{
         res => {
           console.log(`update user role success? : ${res == true}`);
           if (res === true) {
-            this.toast.create({
-              message: `New Role has been updated for ${this.member.firstName} ${this.member.lastName}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`New Role has been updated for ${this.member.firstName} ${this.member.lastName}`);
           }
           else {
             console.debug(`operation failed in the server`);
-            this.toast.create({
-              message: `Failed to update ${this.member.firstName} ${this.member.lastName} role`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Failed to update ${this.member.firstName} ${this.member.lastName} role`);
           }
         },
         err => {
           console.debug(`Failed to update role for user due to: ${err.message}`);
-          this.toast.create({
-            message: `Failed to update ${this.member.firstName} ${this.member.lastName} role`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Failed to update ${this.member.firstName} ${this.member.lastName} role`);
         },
         () => {
           this.navCtrl.pop();
@@ -84,24 +77,19 @@ export class MemberOptionsComponent implements OnInit{
         res => {
           console.log(`user was removed from community success? : ${!!res}`);
           if (res) {
-            this.toast.create({
-              message: `You removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}`,
-              duration: 3000
-            }).present();
+
+            //TODO check response - res
+
+            this.socketService.deleteFromCommunity(this.community, res);
+            this.sharedService.createToast(`You removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}`);
           }
           else {
-            this.toast.create({
-              message: `Something went wrong, please try again`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Something went wrong, please try again`);
           }
         },
         err => {
           console.debug(`Failed to removed ${this.member.keyForFirebase}, due to: ${err.message}`);
-          this.toast.create({
-            message: `Failed to removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}, due to: ${err.message}`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Failed to removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}, due to: ${err.message}`);
         },
         () => {
           this.navCtrl.pop();
@@ -115,28 +103,24 @@ export class MemberOptionsComponent implements OnInit{
         res => {
           console.log(`user has joined community ${this.community.communityName} success? : ${!!res}`);
           if (res) {
+
             //todo: send socket event and update the added user profile with res
-            this.toast.create({
-              message: `User joined ${this.community.communityName}`,
-              duration: 3000
-            }).present();
+
+            this.socketService.joinToCommunity(this.community, res);
+            this.sharedService.createToast(`User joined ${this.community.communityName}`);
           }
           else {
-            this.toast.create({
-              message: `Failed to join ${this.community.communityName}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Failed to join ${this.community.communityName}`);
           }
         },
         err => {
           console.debug(`Failed to join ${this.community.communityName} due to: ${err.message}`);
-          this.toast.create({
-            message: `Failed to join  ${this.community.communityName}`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Failed to join  ${this.community.communityName}`);
         },
         () => {
-          this.navCtrl.pop();
+          this.navCtrl.pop().then(() => {
+            this.navCtrl.pop()
+          })
         });
   }
 }

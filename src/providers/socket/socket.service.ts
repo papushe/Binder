@@ -9,7 +9,6 @@ export class SocketService {
 
 
   isUserConnected: boolean = false;
-  socketCommunityObserv: Subscription;
 
   constructor(private socket: Socket,
               private userService: UserService) {
@@ -38,20 +37,41 @@ export class SocketService {
     return observable;
   }
 
-  joinCommunity(communityId) {
+  enteredToCommunity(community) {
     let params = {
-      room: communityId._id,
-      roomName: communityId.communityName
+      room: community._id,
+      roomName: community.communityName
     };
     this.socket.emit('join-community', params)
   }
 
-  leftCommunity(communityId) {
+  leftCommunity(community) {
     let params = {
-      room: communityId._id,
-      roomName: communityId.communityName
+      room: community._id,
+      roomName: community.communityName
     };
     this.socket.emit('left-community', params)
+  }
+
+
+  joinToCommunity(community, user) {
+    let params = {
+      room: community._id,
+      roomName: community.communityName,
+      roomId:community._id,
+      user: user
+    };
+    this.socket.emit('add-to-community', params)
+  }
+
+  deleteFromCommunity(community, user) {
+    let params = {
+      room: community._id,
+      roomName: community.communityName,
+      roomId:community._id,
+      user: user
+    };
+    this.socket.emit('delete-from-community', params)
   }
 
   getMembersChangedEvents() {

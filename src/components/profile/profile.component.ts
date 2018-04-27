@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
-import {AlertController, ModalController, NavParams, ToastController} from "ionic-angular";
+import {AlertController, ModalController, NavParams} from "ionic-angular";
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import firebase from 'firebase';
 import {SharedService} from "../../providers/shared/shared.service";
@@ -24,13 +24,12 @@ export class ProfileComponent implements OnDestroy, OnInit {
   showLoader: boolean = false;
   hasProfilePicAbdUploadNew: boolean = false;
 
-  constructor(private toast: ToastController,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private modalCtrl: ModalController,
               private navParams: NavParams,
               private alertCtrl: AlertController,
               private camera: Camera,
-              private shared: SharedService) {
+              private sharedService: SharedService) {
 
     if (this.userService.thisProfile) {
       this.profile = this.userService.thisProfile;
@@ -47,8 +46,8 @@ export class ProfileComponent implements OnDestroy, OnInit {
 
   getProfile(user) {
     if (user) {
-      this.shared.createLoader('Loading Profile..');
-      this.shared.loader.present().then(() => {
+      this.sharedService.createLoader('Loading Profile..');
+      this.sharedService.loader.present().then(() => {
         this.userService.getProfile(user)
           .subscribe(
             data => {
@@ -68,7 +67,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
             },
             () => {
               //done
-              this.shared.loader.dismiss();
+              this.sharedService.loader.dismiss();
             }
           );
       });
@@ -86,8 +85,8 @@ export class ProfileComponent implements OnDestroy, OnInit {
 
 
   updateProfile() {
-    this.shared.createLoader('Updating profile..');
-    this.shared.loader.present().then(() => {
+    this.sharedService.createLoader('Updating profile..');
+    this.sharedService.loader.present().then(() => {
       this.userService.updateProfile(this.profile)
         .subscribe(
           data => {
@@ -95,17 +94,11 @@ export class ProfileComponent implements OnDestroy, OnInit {
             this.userService.thisHasProfile = true;
           },
           err => {
-            this.toast.create({
-              message: `Error: ${err.message}`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Error: ${err.message}`);
           },
           () => {
-            this.shared.loader.dismiss();
-            this.toast.create({
-              message: `Profile updated successfully`,
-              duration: 3000
-            }).present();
+            this.sharedService.loader.dismiss();
+            this.sharedService.createToast(`Profile updated successfully`);
           }
         );
     })
@@ -129,8 +122,8 @@ export class ProfileComponent implements OnDestroy, OnInit {
       this.profile.email = this.userService.thisAuthenticatedUser.email;
       this.profile.keyForFirebase = this.userService.thisAuthenticatedUser.uid;
       this.profile.skills = this.skills;
-      this.shared.createLoader('Saving profile..');
-      this.shared.loader.present().then(() => {
+      this.sharedService.createLoader('Saving profile..');
+      this.sharedService.loader.present().then(() => {
         this.userService.saveProfile(this.profile)
           .subscribe(
             data => {
@@ -140,18 +133,12 @@ export class ProfileComponent implements OnDestroy, OnInit {
               this.fromLoginPageEvent.emit(this.fromLoginPage);
             },
             err => {
-              this.toast.create({
-                message: `Error: ${err.message}`,
-                duration: 3000
-              }).present();
+              this.sharedService.createToast(`Error: ${err.message}`);
               this.userService.thisHasProfile = false;
             },
             () => {
-              this.shared.loader.dismiss();
-              this.toast.create({
-                message: `Profile saved successfully`,
-                duration: 3000
-              }).present();
+              this.sharedService.loader.dismiss();
+              this.sharedService.createToast(`Profile saved successfully`);
             }
           );
       });

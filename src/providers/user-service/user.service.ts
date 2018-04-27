@@ -7,9 +7,9 @@ import {User} from 'firebase/app'
 import {HttpClient} from "@angular/common/http";
 
 import * as firebase from 'firebase';
-import {ToastController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
 import {Subscription} from "rxjs/Subscription";
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class UserService {
@@ -27,7 +27,7 @@ export class UserService {
   constructor(private _http: HttpClient,
               private database: AngularFireDatabase,
               private auth: AngularFireAuth,
-              private toast: ToastController) {
+              private sharedService: SharedService) {
 
   }
 
@@ -114,16 +114,10 @@ export class UserService {
           this.thisHasProfile = false;
         },
         err => {
-          this.toast.create({
-            message: `Error: ${err.message}`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Error: ${err.message}`);
         },
         () => {
-          this.toast.create({
-            message: `Profile Deleted successfully`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Profile Deleted successfully`);
         }
       );
   }
@@ -142,20 +136,11 @@ export class UserService {
         self.deleteProfile(userToDelete);
 
       }).catch(function (error) {
-        self.toast.create({
-          message: `Error: ${error}`,
-          duration: 3000
-        }).present();
-
+        self.sharedService.createToast(`Error: ${error}`);
       });
 
     }).catch(function (error) {
-
-      self.toast.create({
-        message: `Error: ${error}`,
-        duration: 3000
-      }).present();
-
+      self.sharedService.createToast(`Error: ${error}`);
     });
   }
 

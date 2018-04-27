@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Account} from "../../models/account/account.interface";
-import {ToastController} from "ionic-angular";
 import {UserService} from "../../providers/user-service/user.service";
 import {LoginResponse} from "../../models/login/login-response.interface";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the RegisterFormComponent component.
@@ -20,7 +20,7 @@ export class RegisterFormComponent {
   @Output() registerStatus: EventEmitter<LoginResponse>;
 
   constructor(private userService: UserService,
-              private toast: ToastController) {
+              private sharedService: SharedService) {
     this.registerStatus = new EventEmitter<LoginResponse>();
   }
 
@@ -35,10 +35,7 @@ export class RegisterFormComponent {
         this.registerStatus.emit(e);
       }
     } else {
-      this.toast.create({
-        message: "Passwords do not match, try again",
-        duration: 3000
-      }).present();
+      this.sharedService.createToast('Passwords do not match, try again');
     }
   }
 

@@ -7,12 +7,6 @@ import {SharedService} from "../../providers/shared/shared.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 
-/**
- * Generated class for the MembersComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'members-component',
   templateUrl: 'members.component.html'
@@ -20,7 +14,7 @@ import {SocketService} from "../../providers/socket/socket.service";
 export class MembersComponent implements OnInit, OnDestroy {
 
   @Input() community: Community;
-  members: any;
+  members: Profile[] = [];
   profile: Profile;
   showMembers: boolean = true;
   communitySocketConnection: any;
@@ -35,17 +29,65 @@ export class MembersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getCommunityMembers();
     this.profile = this.userService.thisProfile;
-    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
     this.communitySocketConnection = this.socketService.getMembersChangedEvents()
       .subscribe(data => {
-        if (thisUserName != data['from']) {
-          this.sharedService.createToast(`${data['from']} ${data['event']} ${data['communityName']} community`);
-        }
-        console.log(data);
+        this.handleSocket(data);
       });
+  }
 
+  handleSocket(data) {
+    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
+
+    console.log(data);
+    if (data.event == 'deleted') {
+      let userFromServer = data['user'].keyForFirebase;
+
+      this.removeMemberFromMembersObject(data.user);
+
+      if (thisUserName != data.from) {
+        this.sharedService.createToast(`${data.user.firstName} has ${data.event} from ${data.communityName} community`);
+      }
+      if (this.userService.thisProfile.keyForFirebase == userFromServer) {
+
+        // this.updateUserProfile(data.user, data.communityId);
+        this.userService.thisProfile = data.user;
+        this.navCtrl.setRoot('TabsPage')
+      }
+
+    } else if (data.event == 'joined') {
+
+      this.getCommunityMembers();
+
+      if (thisUserName != data.from) {
+
+        this.sharedService.createToast(`${data.user.firstName} has ${data.event} to ${data.communityName} community`);
+
+      }
+    }
 
   }
+
+  removeMemberFromMembersObject(user) {
+
+    const removeIndex = this.members.map(function (item) {
+      return item.keyForFirebase;
+    }).indexOf(user.keyForFirebase);
+    if (removeIndex !== -1) {
+      this.members.splice(removeIndex, 1);
+    }
+    this.getCommunityMembers();
+  }
+
+  // updateUserProfile(user, communityId) {
+  //   const removeIndex = user.communities.map(function (item) {
+  //     return item.communityId;
+  //   }).indexOf(communityId);
+  //   if (removeIndex !== -1) {
+  //     user.communities.splice(removeIndex, 1);
+  //   }
+  //   this.userService.thisProfile = user;
+  // }
+
 
   getCommunityMembers() {
     this.communityService.getCommunityMembers(this.community._id)
@@ -53,7 +95,7 @@ export class MembersComponent implements OnInit, OnDestroy {
         res => {
           if (res) {
             console.log(`get community members success? : ${res != null}`);
-            this.members = res;
+            this.members = <Profile[]>res;
           }
           else {
             this.members = [];

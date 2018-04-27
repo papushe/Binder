@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {UserService} from "../../providers/user-service/user.service";
 import {Community} from "../../models/community/community.interface";
-import {NavController, ToastController} from "ionic-angular";
+import {NavController} from "ionic-angular";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityService} from '../../providers/activity-service/activity-service'
 import {SocketService} from "../../providers/socket/socket.service";
@@ -21,8 +21,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   showActivities: boolean = true;
   activitiesSocketConnection: any;
 
-  constructor(private toast: ToastController,
-              public navCtrl: NavController,
+  constructor(public navCtrl: NavController,
               private activityService: ActivityService,
               private userService: UserService,
               private socketService: SocketService,
@@ -53,17 +52,11 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
             this.activities = <Activity[]>data;
           }
           else {
-            this.toast.create({
-              message: `Couldn't get activities, please try again`,
-              duration: 3000
-            }).present();
+            this.sharedService.createToast(`Couldn't get activities, please try again`);
           }
         },
         err => {
-          this.toast.create({
-            message: `Error occurred while fetching activities: ${err.message}`,
-            duration: 3000
-          }).present();
+          this.sharedService.createToast(`Error occurred while fetching activities: ${err.message}`);
         },
         () => {
 

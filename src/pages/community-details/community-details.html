@@ -29,7 +29,7 @@
     </ion-item>
   </ion-card>
   <members-component [community]="community" *ngIf="isJoined"></members-component>
-  <activities-component #child [currentCommunity]="community"></activities-component>
+  <activities-component #child [currentCommunity]="community" *ngIf="isJoined"></activities-component>
   <ion-row>
     <button outline ion-button color="primary" *ngIf="!isJoined" (click)="joinCommunity()">Join</button>
   </ion-row>
