@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from "../../providers/user-service/user.service";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
@@ -11,17 +11,18 @@ import {SocketService} from "../../providers/socket/socket.service";
   selector: 'communities-component',
   templateUrl: 'communities.component.html'
 })
-export class CommunitiesComponent {
+export class CommunitiesComponent implements OnInit {
 
   communities: Community;
   sharedCommunityId: string;
   @Output() hasProfileEvent: EventEmitter<boolean>;
+  communitySocketConnection: any;
 
   constructor(private userService: UserService,
               private communityService: CommunityService,
               public navCtrl: NavController,
-              private shared: SharedService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private sharedService: SharedService) {
     this.hasProfileEvent = new EventEmitter<boolean>();
 
     if (this.userService.thisAuthenticatedUser) {
@@ -29,6 +30,44 @@ export class CommunitiesComponent {
     }
 
   }
+
+  ngOnInit(): void {
+    this.communitySocketConnection = this.socketService.getMembersChangedEventsPrivate()
+      .subscribe(data => {
+        this.handleSocket(data);
+      });
+  }
+
+  handleSocket(data) {
+    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
+
+    console.log(data);
+    if (data.event == 'deleted') {
+      let userFromServer = data['user'].keyForFirebase;
+
+      if (thisUserName != data.from) {
+        this.sharedService.createToast(`You were ${data.event} from ${data.communityName} community by ${data.from}`);
+      }
+      if (this.userService.thisProfile.keyForFirebase == userFromServer) {
+
+        // this.updateUserProfile(data.user, data.communityId);
+        this.userService.thisProfile = data.user;
+        this.getProfile(this.userService.thisAuthenticatedUser)
+      }
+
+    } else if (data.event == 'joined') {
+
+      this.userService.thisProfile = data.user;
+      this.getProfile(this.userService.thisAuthenticatedUser);
+      if (thisUserName != data.from) {
+
+        this.sharedService.createToast(`You were ${data.event} to ${data.communityName} community by ${data.from}`);
+
+      }
+    }
+
+  }
+
 
   getProfile(user) {
     if ((Object.keys(this.userService.thisProfile) && Object.keys(this.userService.thisProfile).length === 0) || this.userService.thisFromCommunityDetails) {
@@ -66,23 +105,21 @@ export class CommunitiesComponent {
   }
 
   getCommunities(userId) {
-    this.shared.createLoader('Loading communities...');
-    this.shared.loader.present().then(() => {
+    this.sharedService.createLoader('Loading communities...');
+    this.sharedService.loader.present().then(() => {
       this.communityService.getCommunities(userId)
         .subscribe(
           data => {
-            if (Object.keys(data).length != 0) {
-              this.communityService.thisCommunities = <Community>data;
-              this.communities = this.communityService.thisCommunities;
-              console.log(`get communities success? : ${data != null}`);
-            }
+            this.communityService.thisCommunities = <Community>data;
+            this.communities = this.communityService.thisCommunities;
+            console.log(`get communities success? : ${data != null}`);
           },
           err => {
             console.log(`fail to get user communities: ${err.message}`);
           },
           () => {
             //done
-            this.shared.loader.dismiss();
+            this.sharedService.loader.dismiss();
           }
         );
     })
@@ -91,4 +128,9 @@ export class CommunitiesComponent {
   openCommunity(community) {
     this.navCtrl.push('CommunityDetailsPage', {community: community, from: 'communitiesComponent'})
   }
+
+  ngOnDestroy() {
+    this.communitySocketConnection.unsubscribe();
+  }
+
 }

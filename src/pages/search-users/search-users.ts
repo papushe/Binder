@@ -28,7 +28,7 @@ export class SearchUsersPage {
 
 
   constructor(private navParams: NavParams,
-              private shared: SharedService,
+              private sharedService: SharedService,
               private userService: UserService,
               private navCtrl: NavController) {
     this.community = this.navParams.get('community');
@@ -36,8 +36,8 @@ export class SearchUsersPage {
   }
 
   searchUsers() {
-    this.shared.createLoader('Searching Users...');
-    this.shared.loader.present().then(
+    this.sharedService.createLoader('Searching Users...');
+    this.sharedService.loader.present().then(
       () => {
         this.userService.searchUsers(this.query)
           .subscribe(
@@ -58,7 +58,7 @@ export class SearchUsersPage {
             },
             () => {
               //done
-              this.shared.loader.dismiss();
+              this.sharedService.loader.dismiss();
             }
           );
       });

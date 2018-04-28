@@ -106,7 +106,7 @@ export class MemberOptionsComponent implements OnInit {
 
             //todo: send socket event and update the added user profile with res
 
-            this.socketService.joinToCommunity(this.community, res);
+            this.socketService.joinToCommunityByManager(this.community, res);
             this.sharedService.createToast(`User joined ${this.community.communityName}`);
           }
           else {

@@ -18,13 +18,13 @@ export class SearchCommunityPage {
 
   constructor(private communityService: CommunityService,
               private navCtrl: NavController,
-              private shared: SharedService) {
+              private sharedService: SharedService) {
 
   }
 
   searchCommunity() {
-    this.shared.createLoader('Searching Communities...');
-    this.shared.loader.present().then(
+    this.sharedService.createLoader('Searching Communities...');
+    this.sharedService.loader.present().then(
       () => {
         this.communityService.searchCommunity(this.search)
           .subscribe(
@@ -44,7 +44,7 @@ export class SearchCommunityPage {
             },
             () => {
               //done
-              this.shared.loader.dismiss();
+              this.sharedService.loader.dismiss();
             }
           );
       });
