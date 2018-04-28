@@ -123,4 +123,9 @@ export class MemberOptionsComponent implements OnInit {
           })
         });
   }
+
+  talkToUser(member: Profile) {
+    this.navCtrl.push('ChatRoomPage', {member: member});
+  }
+
 }

@@ -1,9 +1,10 @@
 page-chat-room {
   .user_name {
     color: #afafaf;
+    text-align: left;
   }
   .message {
-    padding: 10px !important;
+    //padding: 10px !important;
     transition: all 250ms ease-in-out !important;
     border-radius: 10px !important;
     margin-bottom: 4px !important;
@@ -18,10 +19,14 @@ page-chat-room {
   }
   .time {
     color: #afafaf;
-    float: right;
+    text-align: right;
     font-size: small;
   }
   .message_row {
     background-color: #fff;
+  }
+  .chatText {
+    text-align: left;
+    font-size: 16px;
   }
 }

@@ -1,20 +1,30 @@
 <ion-card>
-  <ion-item *ngIf="member.profilePic"><img class="profilePic" src="{{ member.profilePic }}"></ion-item>
-  <ion-item><strong>Name: </strong>{{member.firstName + ' ' + member.lastName}}</ion-item>
-  <ion-item><strong>Description: </strong>{{member.description}}</ion-item>
-  <ion-item><strong>Location: </strong>{{member.location}}</ion-item>
-  <ion-item><strong>Rank: </strong>{{member.rank != '' ? 'Not ranked yet': member.rank}}</ion-item>
-  <ion-item><strong>Type: </strong>{{member.type == 'both' ? 'Consumer and Provider': member.type}}</ion-item>
-  <ion-item><strong>Date of birth: </strong>{{member.dateOfBirth}}</ion-item>
-  <ion-item *ngIf="member.skills.length>0"><strong>skills:</strong>
-    <ion-list *ngFor="let skill of member.skills">
-      <ion-item>{{skill}}</ion-item>
-    </ion-list>
+  <ion-item>
+    <img *ngIf="member.profilePic" class="profilePic" src="{{ member.profilePic }}">
+    <p><strong>Name: </strong>{{member.firstName + ' ' + member.lastName}}</p>
+    <p><strong>Description: </strong>{{member.description}}</p>
+    <p><strong>Location: </strong>{{member.location}}</p>
+    <p><strong>Rank: </strong>{{member.rank != '' ? 'Not ranked yet': member.rank}}</p>
+    <p><strong>Type: </strong>{{member.type == 'both' ? 'Consumer and Provider': member.type}}</p>
+    <p><strong>Date of birth: </strong>{{member.dateOfBirth}}</p>
+    <p *ngIf="member.skills.length>0"><strong>skills:</strong>
+      <ion-list *ngFor="let skill of member.skills">
+        <span>{{skill}}</span>
+      </ion-list>
+    </p>
+    <span>
+      <button block ion-button outline
+              (click)="talkToUser(member)">Talk to {{member.firstName + ' ' + member.lastName}}</button>
+    </span>
   </ion-item>
 </ion-card>
+
+
 <span *ngIf="(loggedInUser.keyForFirebase == community.managerId) && isJoined">
-  <button block ion-button (click)="updateUserRole()" outline>Make {{isAuthorizedMember ? roles.member : roles.auth}}</button>
-  <button block ion-button color="danger" outline *ngIf="loggedInUser.keyForFirebase===community.managerId" (click)="removeUser()">Remove</button>
+  <button block ion-button (click)="updateUserRole()"
+          outline>Make {{isAuthorizedMember ? roles.member : roles.auth}}</button>
+  <button block ion-button color="danger" outline *ngIf="loggedInUser.keyForFirebase===community.managerId"
+          (click)="removeUser()">Remove</button>
   <button block ion-button color="success" outline>Call</button>
 </span>
 

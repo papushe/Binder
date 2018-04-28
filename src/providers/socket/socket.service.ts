@@ -8,6 +8,7 @@ export class SocketService {
 
 
   isUserConnected: boolean = false;
+  static roomNumber = 0;
 
   constructor(private socket: Socket,
               private userService: UserService) {
@@ -85,6 +86,15 @@ export class SocketService {
     this.socket.emit('add-activity', params);
   }
 
+  enterToChatRoom(currentUser, userToTalk) {
+    let params = {
+      room: SocketService.roomNumber,
+      to: userToTalk
+    };
+    this.socket.emit('enter-to-chat-room', params);
+  }
+
+
   //observable
   getNewSockets() {
     let observable = new Observable(observer => {
@@ -116,6 +126,24 @@ export class SocketService {
   getCommunityNewActivity() {
     let observable = new Observable(observer => {
       this.socket.on('new-add-activity', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  enterToChatRoomPrivate() {
+    let observable = new Observable(observer => {
+      this.socket.on('chat-room', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  getMessages() {
+    let observable = new Observable(observer => {
+      this.socket.on('message', (data) => {
         observer.next(data);
       });
     });

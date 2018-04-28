@@ -1,38 +1,51 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {Socket} from 'ng-socket-io';
-import {Observable} from "rxjs/Observable";
+import {Profile} from "../../models/profile/profile.interface";
+import {SocketService} from "../../providers/socket/socket.service";
+import {UserService} from "../../providers/user-service/user.service";
+import {ChatService} from "../../providers/chat-service/chat-service";
 
 @IonicPage()
 @Component({
   selector: 'page-chat-room',
   templateUrl: 'chat-room.html',
 })
-export class ChatRoomPage {
+export class ChatRoomPage implements OnInit {
 
   messages = [];
   nickname = '';
   message = '';
+  userToTalk: Profile;
+  currentUser: Profile;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
               private socket: Socket,
-              private toastCtrl: ToastController) {
+              private socketService: SocketService,
+              private userService: UserService,
+              private chatService: ChatService) {
+  }
 
-    this.nickname = this.navParams.get('nickname');
+  ngOnInit() {
 
-    this.getMessages().subscribe(message => {
+    this.currentUser = this.userService.thisProfile;
+    this.userToTalk = this.navParams.get('member');
+    this.nickname = this.userToTalk.firstName + ' ' + this.userToTalk.lastName;
+
+    this.socketService.getMessages().subscribe(message => {
       this.messages.push(message);
     });
 
-    this.getUsers().subscribe(data => {
-      let user = data['user'];
-      if (data['event'] === 'left') {
-        this.showToast('User left: ' + user);
-      } else {
-        this.showToast('User joined: ' + user);
-      }
+    this.socketService.enterToChatRoomPrivate().subscribe(message => {
+      console.log(message)
     });
+
+    this.enterToChatRoom();
+  }
+
+  enterToChatRoom() {
+    this.socketService.enterToChatRoom(this.currentUser, this.nickname)
   }
 
   sendMessage() {
@@ -40,34 +53,13 @@ export class ChatRoomPage {
     this.message = '';
   }
 
-  getMessages() {
-    let observable = new Observable(observer => {
-      this.socket.on('message', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
-  }
 
-  getUsers() {
-    let observable = new Observable(observer => {
-      this.socket.on('connect', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
+  saveChat() {
+    // this.chatService.saveChat()
   }
 
   ionViewWillLeave() {
     this.socket.disconnect();
-  }
-
-  showToast(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
 }
