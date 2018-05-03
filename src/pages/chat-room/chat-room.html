@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Chat with {{nickname}}
+      Chat with {{userToTalk.fullName}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,8 +10,8 @@
   <ion-grid>
     <ion-row *ngFor="let message of messages">
 
-      <ion-col col-9 *ngIf="message.from !== nickname" class="message"
-               [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+      <ion-col col-9 *ngIf="message.from !== userToTalk.fullName" class="message"
+               [ngClass]="{'my_message': message.from === userToTalk.fullName, 'other_message': message.from !== userToTalk.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message.from }}:</span>
           <div col-6 class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
@@ -20,8 +20,8 @@
         <div class="chatText">{{ message.text }}</div>
       </ion-col>
 
-      <ion-col offset-3 col-9 *ngIf="message.from === nickname" class="message"
-               [ngClass]="{'my_message': message.from === nickname, 'other_message': message.from !== nickname}">
+      <ion-col offset-3 col-9 *ngIf="message.from === userToTalk.fullName" class="message"
+               [ngClass]="{'my_message': message.from === userToTalk.fullName, 'other_message': message.from !== userToTalk.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message.from }}:</span>
           <div col-6 class="time">{{message.created | date:'dd.MM hh:MM'}}</div>

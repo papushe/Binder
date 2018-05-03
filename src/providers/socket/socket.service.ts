@@ -88,30 +88,32 @@ export class SocketService {
     this.socket.emit('add-activity', params);
   }
 
-  enterToChatRoom(roomNum, userToTalk) {
+  enterToChatRoom(roomNum, userToTalk, from) {
     let params = {
       room: roomNum,
-      to: userToTalk
+      to: userToTalk,
+      from: from
     };
     this.socket.emit('enter-to-chat-room', params);
   }
 
-  joinToChatRoom(roomNum, talkto) {
+  joinToChatRoom(roomNum, userToTalk, from) {
     let params = {
       room: roomNum,
-      to: talkto
+      to: userToTalk,
+      from: from
     };
     this.socket.emit('join-to-chat-room', params);
   }
 
-  leaveFromChatRoom(roomNum, talkto) {
+  leaveFromChatRoom(roomNum, userToTalk, from) {
     let params = {
       room: roomNum,
-      to: talkto
+      to: userToTalk,
+      from: from
     };
     this.socket.emit('left-from-chat-room', params);
   }
-
 
   //observable
   getNewSockets() {
