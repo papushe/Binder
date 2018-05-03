@@ -13,7 +13,7 @@
       <ion-item>
         <p>From: {{notification.from}}</p>
         <p>Event: {{notification.event === 'enter-to-chat-room' ? 'Come to talk to me':''}}</p>
-        <p>[{{i}}]</p>
+        <p>[{{i}}] - {{notification.date|date:'short'}}</p>
       </ion-item>
     </button>
   </ion-card>

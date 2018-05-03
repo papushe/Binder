@@ -20,7 +20,6 @@ export class ChatRoomPage implements OnInit {
   currentUser: Profile;
   paramsFromUserToTalk: any;
   randomNumberRoom = this.sharedService.getRandomString(10);
-  fromUserRoom: any;
   messageSocketConnection: any;
   joinLeaveSocketConnection: any;
   enterToChatRoomSocketConnection: any;
@@ -61,6 +60,7 @@ export class ChatRoomPage implements OnInit {
     } else {
       this.enterToChatRoomSocketConnection = this.socketService.enterToChatRoomPrivate().subscribe(message => {
         console.log(message)
+        // this.handleJoinToRoom(message);
       });
 
       this.enterToChatRoom(this.randomNumberRoom);
@@ -70,7 +70,6 @@ export class ChatRoomPage implements OnInit {
 
   handleJoinToRoom(message) {
     this.randomNumberRoom = message.room;
-    this.fromUserRoom = message.from;
     if (message.event == 'joined') {
 
       this.sharedService.createToast(`${message.from} joined to chat room`);
@@ -109,7 +108,7 @@ export class ChatRoomPage implements OnInit {
     this.joinLeaveSocketConnection.unsubscribe();
     this.messageSocketConnection.unsubscribe();
     this.enterToChatRoomSocketConnection ? this.enterToChatRoomSocketConnection.unsubscribe() : '';
-    this.leftFromChatRoom(this.randomNumberRoom, this.fromUserRoom)
+    this.leftFromChatRoom(this.randomNumberRoom, this.nickname)
   }
 
 }

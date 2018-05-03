@@ -1,6 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {SocketService} from "../../providers/socket/socket.service";
+import {NotificationService} from "../../providers/notitfication/notification";
+import {Notification} from "../../models/notification/notification.interface";
 
 /**
  * Generated class for the TabsPage page.
@@ -26,6 +28,7 @@ export class TabsPage implements OnInit, OnDestroy {
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
               private socketService: SocketService,
+              private notificationsService: NotificationService,
               private events: Events) {
 
 
@@ -40,6 +43,7 @@ export class TabsPage implements OnInit, OnDestroy {
       .subscribe(message => {
         this.newMessage++;
         this.tab2Params = {message: message};
+        // this.notificationsService.createNotification(<Notification>message);
       });
 
     this.events.subscribe('enterToNotificationPage', (data) => {
