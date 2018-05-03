@@ -9,6 +9,10 @@
     <ion-item *ngFor="let member of members" (click)="openOptions(member)">
       <strong>{{member.firstName}} {{member.lastName}}</strong>
       <p>{{member.description}}</p>
+      <img class="profilePic" src="{{ member.profilePic}}">
+      <span *ngIf="!member.profilePic">
+          <ion-icon name="contact"></ion-icon>
+      </span>
     </ion-item>
   </ion-list>
 </ion-card>
