@@ -87,6 +87,6 @@ export class CommunityService {
       role: role
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/updateRole`, obj)
+      .post(`${this.baseUrl}/${this.context}/update-role`, obj)
   }
 }
