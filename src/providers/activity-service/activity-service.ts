@@ -42,7 +42,7 @@ export class ActivityService {
       communityId: communityId
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/delete`, activityIdObj)
+      .post(`${this.baseUrl}/${this.context}/delete/`, activityIdObj)
   }
 
 
@@ -56,5 +56,22 @@ export class ActivityService {
       .get(`${this.baseUrl}/${this.context}/getByUserId/${userId}`)
   }
 
+  updateActivity(activity: Activity) {
+    const activityObj = {
+      activityId: activity._id,
+      activityName: activity.activity_name,
+      activityDescription: activity.activity_description,
+      activity_date: activity.activity_date,
+      provider: activity.provider,
+      consumer: activity.consumer,
+      communityId: activity.community_id,
+      notes: activity.notes,
+      type: activity.type,
+      source: activity.source,
+      destination: activity.destination
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/updateActivity/`, activityObj)
+  }
 
 }

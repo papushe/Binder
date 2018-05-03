@@ -5,6 +5,7 @@ import {Activity} from '../../models/activity/activity.interface';
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {ActivityService} from "../../providers/activity-service/activity-service";
+import {UserService} from "../../providers/user-service/user.service";
 
 
 /**
@@ -24,29 +25,29 @@ export class ActivityInfoPage {
   activity: Activity;
   community: Community;
   profile: Profile;
-  isJoined: boolean;
-
-
 
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
               private sharedService: SharedService,
+              private userService: UserService,
               private alertCtrl: AlertController,
               private navParams: NavParams) {
 
     this.community = this.navParams.get('community');
     this.activity = this.navParams.get('activity');
+    this.profile = this.userService.thisProfile;
 
   }
 
+  isAllowedToEdit() {
+    return (this.profile.keyForFirebase == this.activity.consumer.id) ||
+            (this.profile.keyForFirebase == this.activity.provider.id) ||
+            (this.profile.keyForFirebase == this.community.managerId);
+  }
 
-  isUserJoined(community) {
-    this.isJoined = false;
-    this.profile.communities.forEach((userCommunity) => {
-      if (community._id == userCommunity.communityId) {
-        this.isJoined = true;
-      }
-    });
+  editActivity() {
+    this.activity.activity_date = new Date(this.activity.activity_date).toISOString();
+    this.navCtrl.push('CreateActivityPage', {activity: this.activity, community: this.community});
   }
 
   deleteActivityPopUp() {

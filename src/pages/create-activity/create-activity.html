@@ -7,12 +7,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>create_activity</ion-title>
+    <ion-title *ngIf="!this.activity">Create New Activity</ion-title>
+    <ion-title *ngIf="this.activity">Edit Existing Activity</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <activity-creation-form (saveActivityResult)="saveActivityResult($event)" [currentCommunity]='community'></activity-creation-form>
+  <activity-creation-form (saveActivityResult)="saveActivityResult($event)" [currentCommunity]='community' [currentActivity]="activity"></activity-creation-form>
 </ion-content>

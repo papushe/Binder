@@ -40,6 +40,9 @@
                       required>
         </ion-datetime>
       </ion-item>
+      <div padding *ngIf="activityDateOptions.invalid && activityDateOptions.dirty">
+        <span class="global__input-error">Must enter a valid date!</span>
+      </div>
       <ion-item>
         <ion-label>Type</ion-label>
         <ion-select [(ngModel)]="activity.type"
@@ -75,7 +78,7 @@
         </ion-input>
       </ion-item>
       <div padding *ngIf="source.invalid && source.dirty">
-        <span class="global__input-error">Must enter an activity name</span>
+        <span class="global__input-error">Must enter a source!</span>
       </div>
       <ion-item>
         <ion-label floating>Destination:</ion-label>
@@ -89,5 +92,6 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <button ion-button class="createNewActivityButton" (click)="createActivity()" outline [disabled]="activityForm.invalid">Create Activity</button>
+  <button ion-button class="createNewActivityButton" (click)="createActivity('create')" outline [disabled]="activityForm.invalid" *ngIf='!this.currentActivity'>Create Activity</button>
+  <button ion-button class="createNewActivityButton" (click)="createActivity('update')" outline [disabled]="activityForm.invalid" *ngIf='this.currentActivity'>Update Activity</button>
 </form>

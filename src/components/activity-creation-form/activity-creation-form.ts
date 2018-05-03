@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityService} from '../../providers/activity-service/activity-service';
 import {UserService} from '../../providers/user-service/user.service';
@@ -17,12 +17,13 @@ import {SharedService} from "../../providers/shared/shared.service";
   selector: 'activity-creation-form',
   templateUrl: 'activity-creation-form.html'
 })
-export class ActivityCreationFormComponent {
+export class ActivityCreationFormComponent implements OnInit {
 
   activity = {} as Activity;
 
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
+  @Input() currentActivity: Activity;
   now: string = new Date().toISOString();
 
   constructor(private sharedService: SharedService,
@@ -34,33 +35,71 @@ export class ActivityCreationFormComponent {
     this.saveActivityResult = new EventEmitter<any>();
     console.log(this.now);
 
+  }
+
+  ngOnInit() {
+    if (this.currentActivity) {
+      this.activity = this.currentActivity;
+      // this.activity.activity_date =
+    }
+  }
+
+  enterActivityDetails() {
 
   }
 
-  createActivity() {
+
+  createActivity(actionRequired) {
     if (this.userService.thisAuthenticatedUser) {
-      this.activity.consumer = {id: this.userService.thisProfile.keyForFirebase, name:`${this.userService.thisProfile.firstName} ${this.userService.thisProfile.lastName}`};
+      this.activity.consumer = {
+        id: this.userService.thisProfile.keyForFirebase,
+        name: `${this.userService.thisProfile.firstName} ${this.userService.thisProfile.lastName}`
+      };
       this.activity.community_id = this.currentCommunity._id;
-      this.activityService.createActivity(this.activity)
-        .subscribe(
-          data => {
-            console.log(`create activity success? : ${data != null}`);
-            this.socketService.communityNewActivity(data, this.activity.community_id);
-            if (data) {
-              this.sharedService.createToast(`${this.activity.activity_name} was created successfully`);
-              this.saveActivityResult.emit(data);
+      if (actionRequired == 'create') {
+        this.activityService.createActivity(this.activity)
+          .subscribe(
+            data => {
+              console.log(`create activity success? : ${data != null}`);
+              this.socketService.communityNewActivity(data, this.activity.community_id);
+              if (data) {
+                this.sharedService.createToast(`${this.activity.activity_name} was created successfully`);
+                this.saveActivityResult.emit(data);
+              }
+              else {
+                this.sharedService.createToast('Something went wrong, please try again');
+              }
+            },
+            err => {
+              this.sharedService.createToast(`Error occurred while creating activity: ${err.message}`);
+            },
+            () => {
+              //done
             }
-            else {
-              this.sharedService.createToast('Something went wrong, please try again');
+          )
+      }
+      else if (actionRequired == 'update') {
+        this.activityService.updateActivity(this.activity)
+          .subscribe(
+            data => {
+              console.log(`successfully updated activity? : ${data != null}`);
+              this.socketService.communityNewActivity(data, this.activity.community_id);
+              if (data) {
+                this.sharedService.createToast(`${this.activity.activity_name} was updated successfully`);
+                this.saveActivityResult.emit(data);
+              }
+              else {
+                this.sharedService.createToast('Something went wrong, please try again');
+              }
+            },
+            err => {
+              this.sharedService.createToast(`Error occurred while updating activity: ${err.message}`);
+            },
+            () => {
+              //done
             }
-          },
-          err => {
-            this.sharedService.createToast(`Error occurred while creating activity: ${err.message}`);
-          },
-          () => {
-            //done
-          }
-        )
+          )
+      }
     }
   }
 

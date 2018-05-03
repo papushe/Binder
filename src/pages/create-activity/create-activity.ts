@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
+import {Activity} from "../../models/activity/activity.interface";
 
 /**
  * Generated class for the CreateActivityPage page.
@@ -17,9 +18,11 @@ import {Community} from "../../models/community/community.interface";
 export class CreateActivityPage {
 
   community: Community;
+  activity: Activity;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.community = this.navParams.get('community')
+    this.community = this.navParams.get('community');
+    this.activity = this.navParams.get('activity');
   }
 
   ionViewDidLoad() {
