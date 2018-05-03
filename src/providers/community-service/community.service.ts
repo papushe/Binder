@@ -59,7 +59,7 @@ export class CommunityService {
       uid: userId
     };
     return this._http
-      .delete(`${this.baseUrl}/${this.context}`, obj)
+      .post(`${this.baseUrl}/${this.context}/delete`, obj)
   }
 
   joinCommunity(communityId: string, uid: string, isPrivileged: boolean) {
