@@ -1,4 +1,4 @@
-<ion-tabs>
+<ion-tabs #tabs>
   <ion-tab [tabsHideOnSubPages]="true"
            [root]="tab1Root"
            tabIcon="contacts"
@@ -6,7 +6,6 @@
 
   <ion-tab [tabsHideOnSubPages]="true"
            [root]="tab2Root"
-           [rootParams]="tab2Params"
            tabIcon="mail"
            [tabBadge]="newMessage"
            tabTitle="Notification"></ion-tab>

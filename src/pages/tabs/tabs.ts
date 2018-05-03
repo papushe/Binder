@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams, Tab} from 'ionic-angular';
 import {SocketService} from "../../providers/socket/socket.service";
 import {NotificationService} from "../../providers/notitfication/notification";
 import {Notification} from "../../models/notification/notification.interface";
@@ -21,16 +21,15 @@ export class TabsPage implements OnInit, OnDestroy {
   tab1Root: string;
   tab2Root: string;
   tab3Root: string;
-  tab2Params: any;
   newMessage: number = 0;
   tabsSocketConnection: any;
+  @ViewChild('tabs') tabs;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
               private socketService: SocketService,
-              private notificationsService: NotificationService,
+              private notificationService: NotificationService,
               private events: Events) {
-
 
     this.tab1Root = 'CommunitiesPage';
     this.tab2Root = 'NotificationPage';
@@ -39,15 +38,27 @@ export class TabsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.init();
+  }
+
+  init() {
     this.tabsSocketConnection = this.socketService.enterToChatRoomPrivate()
       .subscribe(message => {
-        this.newMessage++;
-        this.tab2Params = {message: message};
-        // this.notificationsService.createNotification(<Notification>message);
+
+        if (this.tabs._selectHistory[this.tabs._selectHistory.length - 1] !== 't0-1') {
+          this.newMessage++;
+        }
+        this.notificationService.createNotification(<Notification>message)
+          .subscribe(data => {
+            this.notificationService.notifications.push(<Notification>data);
+          }, err => {
+            console.log(`Faild to save notification, ${err}`)
+          }, () => {
+            //done
+          })
       });
 
     this.events.subscribe('enterToNotificationPage', (data) => {
-      // user and time are the same arguments passed in `events.publish(user, time)`
       data ? this.newMessage = 0 : '';
     });
 

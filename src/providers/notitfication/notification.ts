@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Notification} from "../../models/notification/notification.interface";
 
 /*
@@ -12,17 +12,23 @@ import {Notification} from "../../models/notification/notification.interface";
 export class NotificationService {
 
   // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl:string = 'http://localhost:4300';
+  baseUrl: string = 'http://localhost:4300';
   context: string = 'notification';
-
+  notifications: Notification[] = [];
 
   constructor(public _http: HttpClient) {
   }
 
-  createNotification(notification: Notification) {
+  createNotification(notification) {
     const obj = {
-      from: notification.from,
-      to: notification.to,
+      from: {
+        name: notification.from.fullName,
+        id: notification.from.keyForFirebase
+      },
+      to: {
+        name: notification.to.fullName,
+        id: notification.to.keyForFirebase
+      },
       event: notification.event,
       content: notification.content,
       room: notification.room,

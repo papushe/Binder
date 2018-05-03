@@ -3,6 +3,7 @@ import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification";
 import {UserService} from "../../providers/user-service/user.service";
+import {SocketService} from "../../providers/socket/socket.service";
 
 
 /**
@@ -17,29 +18,27 @@ import {UserService} from "../../providers/user-service/user.service";
   selector: 'page-notification',
   templateUrl: 'notification.html'
 })
-export class NotificationPage {
+export class NotificationPage implements OnInit {
+
   notifications: Notification[] = [];
-  @Output() enterToNotificationPage: EventEmitter<boolean>;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
               public events: Events,
               private notificationService: NotificationService,
-              private userService: UserService) {
+              private userService: UserService,
+              private socketService: SocketService) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotificationPage');
-    // this.getNotification();
+  ngOnInit() {
+    this.notifications = this.notificationService.notifications;
   }
 
   ionViewDidEnter() {
-    let message = this.navParams.get('message');
-    if (message) {
-      this.events.publish('enterToNotificationPage', true);
-      this.notifications.push(message);
-      message = undefined;
-    }
+    this.events.publish('enterToNotificationPage', true);
+    // if (JSON.stringify(this.notifications) !== JSON.stringify(this.notificationService.notifications)) {
+      this.notifications = this.notificationService.notifications;
+    // }
   }
 
   handleNotificationEvent(message, from) {
@@ -49,15 +48,4 @@ export class NotificationPage {
     }
   }
 
-  getNotification() {
-    this.notificationService.getUserNotifications(this.userService.thisProfile.keyForFirebase)
-      .subscribe((notification) => {
-          this.notifications = <Notification[]>notification;
-        }, (err) => {
-          console.log(`Failed to get user notifications ${err.message}`)
-        },
-        () => {
-          //done
-        })
-  }
 }

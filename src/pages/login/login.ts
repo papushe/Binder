@@ -6,6 +6,8 @@ import {User} from "firebase/app";
 import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
 import {SharedService} from "../../providers/shared/shared.service";
+import {Notification} from "../../models/notification/notification.interface";
+import {NotificationService} from "../../providers/notitfication/notification";
 
 @IonicPage()
 @Component({
@@ -17,7 +19,8 @@ export class LoginPage {
   constructor(private userService: UserService,
               private sharedService: SharedService,
               private navCtrl: NavController,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private notificationService: NotificationService) {
   }
 
   login(event: LoginResponse) {
@@ -37,6 +40,7 @@ export class LoginPage {
           () => {
             //done
             if (this.userService.thisProfile) {
+              this.getNotification();
               if (this.navCtrl.getActive().name == 'LoginPage') {
                 this.navCtrl.setRoot("TabsPage");
               }
@@ -51,4 +55,15 @@ export class LoginPage {
     }
   }
 
+  getNotification() {
+    this.notificationService.getUserNotifications(this.userService.thisProfile.keyForFirebase)
+      .subscribe((notification) => {
+          this.notificationService.notifications = <Notification[]>notification;
+        }, (err) => {
+          console.log(`Failed to get user notifications ${err.message}`)
+        },
+        () => {
+          //done
+        })
+  }
 }

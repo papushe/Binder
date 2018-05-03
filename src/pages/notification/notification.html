@@ -11,9 +11,9 @@
     <button class="notification" readonly (click)="handleNotificationEvent(notification,i)"
             [disabled]="notification.done">
       <ion-item>
-        <p>From: {{notification.from.fullName}}</p>
+        <p>From: {{notification.from.name}}</p>
         <p>Event: {{notification.event === 'enter-to-chat-room' ? 'Come to talk to me':''}}</p>
-        <p>[{{i}}] - {{notification.date|date:'short'}}</p>
+        <p>[{{i}}] - {{notification.creation_date}}</p>
       </ion-item>
     </button>
   </ion-card>

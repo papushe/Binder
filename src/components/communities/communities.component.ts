@@ -6,6 +6,8 @@ import {NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {SocketService} from "../../providers/socket/socket.service";
+import {NotificationService} from "../../providers/notitfication/notification";
+import {Notification} from "../../models/notification/notification.interface";
 
 @Component({
   selector: 'communities-component',
@@ -22,11 +24,12 @@ export class CommunitiesComponent implements OnInit {
               private communityService: CommunityService,
               public navCtrl: NavController,
               private socketService: SocketService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private notificationService: NotificationService) {
     this.hasProfileEvent = new EventEmitter<boolean>();
 
     if (this.userService.thisAuthenticatedUser) {
-      this.getProfile(this.userService.thisAuthenticatedUser)
+      this.getProfile(this.userService.thisAuthenticatedUser);
     }
 
   }
@@ -68,6 +71,17 @@ export class CommunitiesComponent implements OnInit {
 
   }
 
+  getNotification() {
+    this.notificationService.getUserNotifications(this.userService.thisProfile.keyForFirebase)
+      .subscribe((notification) => {
+          this.notificationService.notifications = <Notification[]>notification;
+        }, (err) => {
+          console.log(`Failed to get user notifications ${err.message}`)
+        },
+        () => {
+          //done
+        })
+  }
 
   getProfile(user) {
     if ((Object.keys(this.userService.thisProfile) && Object.keys(this.userService.thisProfile).length === 0) || this.userService.thisFromCommunityDetails) {
@@ -94,6 +108,7 @@ export class CommunitiesComponent implements OnInit {
             },
             () => {
               //done
+              this.getNotification();
             }
           );
       }
@@ -101,6 +116,7 @@ export class CommunitiesComponent implements OnInit {
       this.getCommunities(this.userService.thisProfile.keyForFirebase);
       this.userService.thisHasProfile = true;
       this.hasProfileEvent.emit(true);
+      this.getNotification();
     }
   }
 
