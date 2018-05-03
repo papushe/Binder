@@ -39,7 +39,7 @@ export class NotificationPage {
   }
 
   handleNotificationEvent(message, from) {
-    this.notifications[from].done = true;
+    this.notifications[from].status = true;
     if (message.event == 'enter-to-chat-room') {
       this.navCtrl.push('ChatRoomPage', {message: message})
     }
