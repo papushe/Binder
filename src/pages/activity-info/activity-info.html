@@ -13,8 +13,7 @@
       <!--<button ion-button icon-only (click)="presentPopover($event, isJoined)">-->
         <!--<ion-icon name="more" color="dark"></ion-icon>-->
       <!--</button>-->
-      <button ion-button icon-only *ngIf="isAllowedToEdit()"
-                                          (click)="editActivity()">
+      <button ion-button icon-only *ngIf="isAllowedToEdit()" (click)="editActivity()">
         <ion-icon name="create" color="dark"></ion-icon>
       </button>
     </ion-buttons>
@@ -33,7 +32,7 @@
     <ion-card-header>Source: {{activity.source}}</ion-card-header>
     <ion-card-header>Destination: {{activity.destination}}</ion-card-header>
   </ion-card>
-  <button ion-button block color="danger" (click)="deleteActivityPopUp()">Delete Activity</button>
+  <button ion-button block color="danger" *ngIf="isAllowedToEdit()" (click)="deleteActivityPopUp()">Delete Activity</button>
 </ion-content>
 
 
