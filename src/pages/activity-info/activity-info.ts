@@ -41,7 +41,6 @@ export class ActivityInfoPage {
 
   isAllowedToEdit() {
     return (this.profile.keyForFirebase == this.activity.consumer.id) ||
-            (this.profile.keyForFirebase == this.activity.provider.id) ||
             (this.profile.keyForFirebase == this.community.managerId);
   }
 
