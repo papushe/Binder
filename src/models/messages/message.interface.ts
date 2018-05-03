@@ -1,7 +1,9 @@
-import {Profile} from "../profile/profile.interface";
-
 export interface Message{
-  user:Profile;
-  date:Date;
-  lastMessage:string;
+  _id: String,
+  from: String,
+  to: String,
+  room: String,
+  status: String,
+  creation_date: String,
+  content: String
 }

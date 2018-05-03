@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {NOTIFICATION} from "../../models/notification/account.interface";
+import {Notification} from "../../models/notification/notification.interface";
 
 
 
@@ -17,7 +17,7 @@ import {NOTIFICATION} from "../../models/notification/account.interface";
   templateUrl: 'notification.html'
 })
 export class NotificationPage {
-  notifications: NOTIFICATION[] = [];
+  notifications: Notification[] = [];
   @Output() enterToNotificationPage: EventEmitter<boolean>;
 
   constructor(private navCtrl: NavController,

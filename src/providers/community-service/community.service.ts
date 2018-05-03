@@ -37,7 +37,6 @@ export class CommunityService {
   getCommunities(userId: string) {
     return this._http
       .get(`${this.baseUrl}/${this.context}/get/${userId}`)
-
   }
 
   searchCommunity(query: string) {
@@ -60,7 +59,7 @@ export class CommunityService {
       uid: userId
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/delete`, obj)
+      .delete(`${this.baseUrl}/${this.context}`, obj)
   }
 
   joinCommunity(communityId: string, uid: string, isPrivileged: boolean) {
@@ -88,6 +87,6 @@ export class CommunityService {
       role: role
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/updateRole`, obj)
+      .post(`${this.baseUrl}/${this.context}/update-role`, obj)
   }
 }
