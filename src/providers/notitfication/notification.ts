@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Notification} from "../../models/notification/notification.interface";
 
 /*
-  Generated class for the NotitficationProvider provider.
+  Generated class for the NotificationProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
@@ -16,15 +17,16 @@ export class NotificationProvider {
 
 
   constructor(public http: HttpClient) {
-    console.log('Hello NotitficationProvider Provider');
   }
 
-  createNotification(community: Community) {
+  createNotification(notification: Notification) {
     const obj = {
-      communityName: community.communityName,
-      communityDescription: community.communityDescription,
-      managerId: community.managerId,
-      type: community.type
+      from: notification.from,
+      to: notification.to,
+      event: notification.event,
+      content: notification.content,
+      room: notification.room,
+      status: notification.status
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/create`, obj)
