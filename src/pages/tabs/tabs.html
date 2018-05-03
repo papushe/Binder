@@ -1,5 +1,18 @@
 <ion-tabs>
-  <ion-tab [tabsHideOnSubPages]="true" [root]="tab1Root" tabIcon="contacts" tabTitle="Communities"></ion-tab>
-  <ion-tab [tabsHideOnSubPages]="true" [root]="tab2Root" tabIcon="mail" tabTitle="Channels"></ion-tab>
-  <ion-tab [tabsHideOnSubPages]="true" [root]="tab3Root" tabIcon="person" tabTitle="Profile"></ion-tab>
+  <ion-tab [tabsHideOnSubPages]="true"
+           [root]="tab1Root"
+           tabIcon="contacts"
+           tabTitle="Communities"></ion-tab>
+
+  <ion-tab [tabsHideOnSubPages]="true"
+           [root]="tab2Root"
+           [rootParams]="tab2Params"
+           tabIcon="mail"
+           [tabBadge]="newMessage"
+           tabTitle="Notification"></ion-tab>
+
+  <ion-tab [tabsHideOnSubPages]="true"
+           [root]="tab3Root"
+           tabIcon="person"
+           tabTitle="Profile"></ion-tab>
 </ion-tabs>

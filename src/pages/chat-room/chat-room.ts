@@ -4,7 +4,7 @@ import {Socket} from 'ng-socket-io';
 import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
 import {UserService} from "../../providers/user-service/user.service";
-import {ChatService} from "../../providers/chat-service/chat-service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 @IonicPage()
 @Component({
@@ -18,34 +18,80 @@ export class ChatRoomPage implements OnInit {
   message = '';
   userToTalk: Profile;
   currentUser: Profile;
+  paramsFromUserToTalk: any;
+  randomNumberRoom = this.sharedService.getRandomString(10);
+  fromUserRoom: any;
+  messageSocketConnection: any;
+  joinLeaveSocketConnection: any;
+  enterToChatRoomSocketConnection: any;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
               private socket: Socket,
               private socketService: SocketService,
               private userService: UserService,
-              private chatService: ChatService) {
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {
+    this.paramsFromUserToTalk = this.navParams.get('message');
 
     this.currentUser = this.userService.thisProfile;
     this.userToTalk = this.navParams.get('member');
-    this.nickname = this.userToTalk.firstName + ' ' + this.userToTalk.lastName;
+    if (this.userToTalk) {
+      this.nickname = this.userToTalk.firstName + ' ' + this.userToTalk.lastName;
+    } else {
+      this.nickname = this.paramsFromUserToTalk.from;
+    }
 
-    this.socketService.getMessages().subscribe(message => {
+
+    this.messageSocketConnection = this.socketService.getMessages().subscribe(message => {
       this.messages.push(message);
     });
 
-    this.socketService.enterToChatRoomPrivate().subscribe(message => {
-      console.log(message)
+    this.joinLeaveSocketConnection = this.socketService.joinedLeaveFromChatRoomPrivate().subscribe(message => {
+      this.handleJoinToRoom(message);
     });
 
-    this.enterToChatRoom();
+
+    if (this.paramsFromUserToTalk) {
+
+      this.joinToChatRoom(this.paramsFromUserToTalk.room, this.paramsFromUserToTalk.from);
+
+    } else {
+      this.enterToChatRoomSocketConnection = this.socketService.enterToChatRoomPrivate().subscribe(message => {
+        console.log(message)
+      });
+
+      this.enterToChatRoom(this.randomNumberRoom);
+
+    }
   }
 
-  enterToChatRoom() {
-    this.socketService.enterToChatRoom(this.currentUser, this.nickname)
+  handleJoinToRoom(message) {
+    this.randomNumberRoom = message.room;
+    this.fromUserRoom = message.from;
+    if (message.event == 'joined') {
+
+      this.sharedService.createToast(`${message.from} joined to chat room`);
+
+    } else if (message.event == 'left') {
+
+      this.sharedService.createToast(`${message.from} left to chat room`);
+
+    }
+  }
+
+  enterToChatRoom(roomNumber) {
+    this.socketService.enterToChatRoom(roomNumber, this.nickname)
+  }
+
+  joinToChatRoom(roomNumber, talkTo) {
+    this.socketService.joinToChatRoom(roomNumber, talkTo)
+  }
+
+  leftFromChatRoom(roomNumber, talkTo) {
+    this.socketService.leaveFromChatRoom(roomNumber, talkTo)
   }
 
   sendMessage() {
@@ -59,7 +105,11 @@ export class ChatRoomPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    this.socket.disconnect();
+
+    this.joinLeaveSocketConnection.unsubscribe();
+    this.messageSocketConnection.unsubscribe();
+    this.enterToChatRoomSocketConnection ? this.enterToChatRoomSocketConnection.unsubscribe() : '';
+    this.leftFromChatRoom(this.randomNumberRoom, this.fromUserRoom)
   }
 
 }

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Socket} from "ng-socket-io";
 import {UserService} from "../user-service/user.service";
 import {Observable} from "rxjs/Observable";
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class SocketService {
@@ -11,7 +12,8 @@ export class SocketService {
   static roomNumber = 0;
 
   constructor(private socket: Socket,
-              private userService: UserService) {
+              private userService: UserService,
+              private sharedService: SharedService) {
 
   }
 
@@ -86,12 +88,28 @@ export class SocketService {
     this.socket.emit('add-activity', params);
   }
 
-  enterToChatRoom(currentUser, userToTalk) {
+  enterToChatRoom(roomNum, userToTalk) {
     let params = {
-      room: SocketService.roomNumber,
+      room: roomNum,
       to: userToTalk
     };
     this.socket.emit('enter-to-chat-room', params);
+  }
+
+  joinToChatRoom(roomNum, talkto) {
+    let params = {
+      room: roomNum,
+      to: talkto
+    };
+    this.socket.emit('join-to-chat-room', params);
+  }
+
+  leaveFromChatRoom(roomNum, talkto) {
+    let params = {
+      room: roomNum,
+      to: talkto
+    };
+    this.socket.emit('left-from-chat-room', params);
   }
 
 
@@ -135,6 +153,15 @@ export class SocketService {
   enterToChatRoomPrivate() {
     let observable = new Observable(observer => {
       this.socket.on('chat-room', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  joinedLeaveFromChatRoomPrivate() {
+    let observable = new Observable(observer => {
+      this.socket.on('change-event-chat-room', (data) => {
         observer.next(data);
       });
     });

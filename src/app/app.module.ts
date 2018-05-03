@@ -25,8 +25,10 @@ import {AuthInterceptor} from '../providers/interceptors-auth/interceptors-auth'
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 
 import {SocketService} from '../providers/socket/socket.service';
-import { ChatService } from '../providers/chat-service/chat-service';
+import {ChatService} from '../providers/chat-service/chat-service';
+
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
+
 // const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
 
 @NgModule({

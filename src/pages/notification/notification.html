@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>notification</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let notification of notifications;let i = index">
+    <button class="notification" readonly (click)="handleNotificationEvent(notification,i)"
+            [disabled]="notification.done">
+      <ion-item>
+        <p>From: {{notification.from}}</p>
+        <p>Event: {{notification.event === 'enter-to-chat-room' ? 'Come to talk to me':''}}</p>
+        <p>[{{i}}]</p>
+      </ion-item>
+    </button>
+  </ion-card>
+</ion-content>
