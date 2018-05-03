@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Notification} from "../../models/notification/account.interface";
+import {Notification} from "../../models/notification/notification.interface";
 
 
 
