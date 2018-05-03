@@ -16,7 +16,7 @@ export class NotificationService {
   context: string = 'notification';
 
 
-  constructor(public http: HttpClient) {
+  constructor(public _http: HttpClient) {
   }
 
   createNotification(notification: Notification) {
