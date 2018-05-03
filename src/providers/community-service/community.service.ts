@@ -37,7 +37,6 @@ export class CommunityService {
   getCommunities(userId: string) {
     return this._http
       .get(`${this.baseUrl}/${this.context}/get/${userId}`)
-
   }
 
   searchCommunity(query: string) {

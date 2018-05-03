@@ -1,6 +1,16 @@
-export interface NOTIFICATION {
-  from: string,
-  to: string,
+export interface Notification {
+  _id: string,
+  from: {
+    id: string,
+    name: string,
+  },
+  to:  {
+    id: string,
+    name: string,
+  },
   room: string,
-  done?: boolean
+  event: string,
+  content: string,
+  creation_date: string,
+  status: string
 }

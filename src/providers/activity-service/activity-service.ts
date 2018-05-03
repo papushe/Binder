@@ -48,13 +48,11 @@ export class ActivityService {
 
   getActivitiesByCommunityId(communityId: string) {
     return this._http
-      .get(`${this.baseUrl}/${this.context}/getByCommunityId/${communityId}`)
+      .get(`${this.baseUrl}/${this.context}/community/get/${communityId}`)
   }
 
   getActivitiesByUserId(userId: string) {
     return this._http
-      .get(`${this.baseUrl}/${this.context}/getByUserId/${userId}`)
+      .get(`${this.baseUrl}/${this.context}/user/get/${userId}`)
   }
-
-
 }
