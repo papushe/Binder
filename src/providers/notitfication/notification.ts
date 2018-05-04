@@ -22,11 +22,11 @@ export class NotificationService {
   createNotification(notification) {
     const obj = {
       from: {
-        name: notification.from.fullName,
+        fullName: notification.from.fullName,
         id: notification.from.keyForFirebase
       },
       to: {
-        name: notification.to.fullName,
+        fullName: notification.to.fullName,
         id: notification.to.keyForFirebase
       },
       event: notification.event,

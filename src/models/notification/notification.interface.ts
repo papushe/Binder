@@ -2,11 +2,11 @@ export interface Notification {
   _id: string,
   from: {
     id: string,
-    name: string,
+    fullName: string,
   },
   to:  {
     id: string,
-    name: string,
+    fullName: string,
   },
   room: string,
   event: string,

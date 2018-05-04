@@ -88,6 +88,14 @@ export class SocketService {
     this.socket.emit('add-activity', params);
   }
 
+  sendMessage(message, room) {
+    let params = {
+      message: message,
+      room: room
+    };
+    this.socket.emit('add-message', params);
+  }
+
   enterToChatRoom(roomNum, userToTalk, from) {
     let params = {
       room: roomNum,
