@@ -1,16 +1,20 @@
 export interface Profile {
-  firstName: string;
-  lastName: string;
-  email: string;
-  location?: string;
-  phoneNumber: string;
-  description?: string;
-  type: string;
-  dateOfBirth: Date;
-  $key: string;
-  skills?: [string]
-  keyForFirebase: string;
-  rank?: string;
+  firstName: string,
+  lastName: string,
+  email: string,
+  location?: string,
+  phoneNumber: string,
+  description?: string,
+  type: string,
+  dateOfBirth: Date,
+  $key: string,
+  skills?: [string],
+  keyForFirebase: string,
+  rank: number;
+  votes: {
+    up: number,
+    down: number
+  },
   communities?: [{
     communityId: string,
     role: string

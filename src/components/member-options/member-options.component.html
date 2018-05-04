@@ -4,7 +4,7 @@
     <p><strong>Name: </strong>{{member.firstName + ' ' + member.lastName}}</p>
     <p><strong>Description: </strong>{{member.description}}</p>
     <p><strong>Location: </strong>{{member.location}}</p>
-    <p><strong>Rank: </strong>{{member.rank != '' ? 'Not ranked yet': member.rank}}</p>
+    <p><strong>Rank: </strong>{{member.rank == -1 ? 'Not ranked yet': member.rank}}</p>
     <p><strong>Type: </strong>{{member.type == 'both' ? 'Consumer and Provider': member.type}}</p>
     <p><strong>Date of birth: </strong>{{member.dateOfBirth}}</p>
     <p *ngIf="member.skills.length>0"><strong>skills:</strong>
