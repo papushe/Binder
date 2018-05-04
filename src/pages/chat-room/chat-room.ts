@@ -35,7 +35,6 @@ export class ChatRoomPage implements OnInit {
     this.paramsFromUserToTalk = this.navParams.get('message');
 
     this.currentUser = this.userService.thisProfile;
-    this.currentUser.fullName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
     this.userToTalk = this.navParams.get('member');
     if (this.userToTalk) {
 
@@ -43,7 +42,7 @@ export class ChatRoomPage implements OnInit {
 
     } else {
 
-      this.userToTalk = this.paramsFromUserToTalk.from;
+      this.userToTalk = this.paramsFromUserToTalk.from.fullName;
 
     }
 
@@ -56,13 +55,13 @@ export class ChatRoomPage implements OnInit {
     });
 
     if (this.paramsFromUserToTalk) {
-
+      this.randomNumberRoom = this.paramsFromUserToTalk.room;
       this.joinToChatRoom(this.paramsFromUserToTalk.room, this.userToTalk, this.currentUser);
 
     } else {
       this.enterToChatRoomSocketConnection = this.socketService.enterToChatRoomPrivate().subscribe(message => {
         console.log(message)
-        // this.handleJoinToRoom(message);
+
       });
 
       this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser);
@@ -78,7 +77,7 @@ export class ChatRoomPage implements OnInit {
 
     } else if (message.event == 'left') {
 
-      this.sharedService.createToast(`${message.from.fullName} left to chat room`);
+      this.sharedService.createToast(`${message.from.fullName} left from chat room`);
 
     }
   }
@@ -96,7 +95,7 @@ export class ChatRoomPage implements OnInit {
   }
 
   sendMessage() {
-    this.socket.emit('add-message', {text: this.message});
+    this.socketService.sendMessage(this.message, this.randomNumberRoom);
     this.message = '';
   }
 
