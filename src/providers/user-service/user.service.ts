@@ -88,7 +88,7 @@ export class UserService {
 
   }
 
-  updateProfile(profile) {
+  updateProfile (profile) {
     const obj = {
       firstName: profile.firstName,
       lastName: profile.lastName,
@@ -104,6 +104,16 @@ export class UserService {
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/update`, obj);
+  }
+
+  vote (vote) {
+    const obj = {
+      up: vote.up || false,
+      down: vote.down || false,
+      userId: this.thisProfile.keyForFirebase
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/vote`, obj);
   }
 
   deleteProfile(user: User) {
