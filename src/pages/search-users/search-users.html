@@ -32,9 +32,16 @@
   <hr>
   <ion-list *ngIf="foundResults">
     <ion-item class="pointer" *ngFor="let user of users" (click)="openOptions(user)">
+      <ion-col class="profile" col-2>
+        <img class="profilePic" src="{{user.profilePic}}">
+        <span *ngIf="!user.profilePic">
+            <ion-icon class="no-pic" name="contact"></ion-icon>
+          </span>
+      </ion-col>
       <h2>{{user.firstName}} {{user.lastName}}</h2>
       <p>{{user.description}}</p>
-      <p>{{user.type}}</p>
+      <p>{{user.location}}</p>
+      <p>{{user.rank != -1 ? user.rank : 'Not ranked yet' }}</p>
     </ion-item>
   </ion-list>
   <ion-row>

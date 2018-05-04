@@ -1,6 +1,9 @@
 <ion-card>
   <ion-item>
     <img *ngIf="member.profilePic" class="profilePic" src="{{ member.profilePic }}">
+          <span *ngIf="!member.profilePic" class="profilePic">
+            <ion-icon class="no-pic" name="contact"></ion-icon>
+          </span>
     <p><strong>Name: </strong>{{member.firstName + ' ' + member.lastName}}</p>
     <p><strong>Description: </strong>{{member.description}}</p>
     <p><strong>Location: </strong>{{member.location}}</p>
