@@ -1,12 +1,11 @@
 page-search-users {
-  .profile{
-    img{
-      display: block;
-      margin-left: 0;
+  .profile {
+    ion-icon {
+      display: inline-block;
+      font-size: 3.5em;
     }
-    .no-pic{
-      font-size: 11em;
-      color: #9D9D9D;
-    }
+  }
+  .content {
+    text-align: left;
   }
 }
