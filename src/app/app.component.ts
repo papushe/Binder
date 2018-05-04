@@ -27,7 +27,7 @@ export class MyApp implements OnDestroy {
       }
       else {
         this.userService.thisAuthenticatedUser = auth;
-        auth.getIdToken()
+        auth.getIdToken(true)
           .then(token => {
             this.sharedService.storeToken(token);
             this.rootPage = 'TabsPage';
