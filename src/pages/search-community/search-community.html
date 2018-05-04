@@ -35,6 +35,12 @@
     <ion-item class="pointer" *ngFor="let community of communities" (click)="openCommunity(community)">
       <h2>{{community.communityName}}</h2>
       <p>{{community.communityDescription}}</p>
+      <p>
+        <span>
+            <ion-icon name="people"></ion-icon>
+        </span>
+        {{community.members.length}}
+      </p>
       <p>{{community.type}}</p>
     </ion-item>
   </ion-list>
