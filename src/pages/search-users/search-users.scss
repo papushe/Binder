@@ -1,4 +1,7 @@
 page-search-users {
+  .results {
+    margin-left: 15px;
+  }
   .profile {
     ion-icon {
       display: block;
@@ -8,5 +11,8 @@ page-search-users {
   }
   .content {
     text-align: left;
+    .description {
+      font-style: italic;
+    }
   }
 }
