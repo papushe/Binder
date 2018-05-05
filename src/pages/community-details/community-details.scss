@@ -1,6 +1,10 @@
-.communityDescriptions ion-item {
-  background-color: lightcyan;
-}
-.communityDescriptions span {
-  font-size: 14px;
+page-community-details {
+  .community-description {
+    ion-item {
+      background-color: aliceblue;
+    }
+    span {
+      font-size: 14px;
+    }
+  }
 }

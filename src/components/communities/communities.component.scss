@@ -1,9 +1,10 @@
-
-.communityName {
-  font-weight: bold;
-}
-
-ion-item {
-  cursor: pointer;
+communities-component {
+  ion-item {
+    cursor: pointer;
+    .communityName {
+      font-weight: bold;
+      color: #2d2d2d;
+    }
+  }
 }
 
