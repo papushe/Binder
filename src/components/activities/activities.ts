@@ -31,17 +31,38 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const self = this;
-    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
-    this.activitiesSocketConnection = this.socketService.getCommunityNewActivity()
+    this.activitiesSocketConnection = this.socketService.getCommunityChangeActivity()
       .subscribe(data => {
-        this.activities.push(data['activity']);
-        if (thisUserName != data['from']) {
-          this.sharedService.createToast(`${data['from']} created new activity - ${data['activity'].activity_name}`);
-        }
+        this.handleActivitySocket(data);
       });
   }
 
+  handleActivitySocket(data) {
+    const EVENT = data.event;
+
+    if (data.event == 'delete-activity') {
+      const removeIndex = this.activities.map(function (item) {
+        return item._id;
+      }).indexOf(data.activity);
+      if (removeIndex !== -1) {
+        this.activities.splice(removeIndex, 1);
+      }
+    } else {
+      const removeIndex = this.activities.map(function (item) {
+        return item._id;
+      }).indexOf(data.activity._id);
+      if (removeIndex !== -1) {
+        this.activities.splice(removeIndex, 1);
+      }
+      this.activities.push(data.activity);
+    }
+
+    if (this.userService.thisProfile.fullName != data.from) {
+      this.sharedService.createToast(`${data['from']} ${EVENT} - ${data['activity'].activity_name}`);
+    }
+
+
+  }
 
   getActivitiesByCommunityId(communityId: string) {
     this.activityService.getActivitiesByCommunityId(communityId)
@@ -59,7 +80,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
           this.sharedService.createToast(`Error occurred while fetching activities: ${err.message}`);
         },
         () => {
-
+          //done
         }
       )
   }

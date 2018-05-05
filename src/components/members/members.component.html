@@ -10,9 +10,7 @@
       <ion-row>
         <ion-col class="profile" col-2>
           <img class="profilePic" src="{{ member.profilePic}}">
-          <span *ngIf="!member.profilePic">
-            <ion-icon name="contact"></ion-icon>
-          </span>
+          <ion-icon *ngIf="!member.profilePic" name="contact"></ion-icon>
         </ion-col>
         <ion-col class="content">
           <strong>{{member.firstName}} {{member.lastName}}</strong>

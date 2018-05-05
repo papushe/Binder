@@ -6,6 +6,7 @@ import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {ActivityService} from "../../providers/activity-service/activity-service";
 import {UserService} from "../../providers/user-service/user.service";
+import {SocketService} from "../../providers/socket/socket.service";
 
 
 /**
@@ -31,7 +32,8 @@ export class ActivityInfoPage {
               private sharedService: SharedService,
               private userService: UserService,
               private alertCtrl: AlertController,
-              private navParams: NavParams) {
+              private navParams: NavParams,
+              private socketService: SocketService) {
 
     this.community = this.navParams.get('community');
     this.activity = this.navParams.get('activity');
@@ -41,7 +43,7 @@ export class ActivityInfoPage {
 
   isAllowedToEdit() {
     return (this.profile.keyForFirebase == this.activity.consumer.id) ||
-            (this.profile.keyForFirebase == this.community.managerId);
+      (this.profile.keyForFirebase == this.community.managerId);
   }
 
   editActivity() {
@@ -75,9 +77,10 @@ export class ActivityInfoPage {
   deleteCurrentActivity() {
     this.activityService.deleteActivity(this.activity._id, this.community._id)
       .subscribe(
-        res => {
-          if (res) {
+        data => {
+          if (data) {
             this.sharedService.createToast(`${this.activity.activity_name} was removed successfully`);
+            this.socketService.communityChangeActivity(this.activity._id, this.activity.community_id, 'delete');
           }
           else {
             this.sharedService.createToast('Something went wrong, Please try again');

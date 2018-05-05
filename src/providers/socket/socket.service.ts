@@ -9,11 +9,9 @@ export class SocketService {
 
 
   isUserConnected: boolean = false;
-  static roomNumber = 0;
 
   constructor(private socket: Socket,
-              private userService: UserService,
-              private sharedService: SharedService) {
+              private userService: UserService) {
 
   }
 
@@ -79,19 +77,21 @@ export class SocketService {
     this.socket.emit('delete-from-community', params)
   }
 
-  communityNewActivity(activity, communityId) {
+  communityChangeActivity(activity, communityId, event) {
     let params = {
       activity: activity,
       communityId: communityId,
-      room: communityId
+      room: communityId,
+      event: event
     };
-    this.socket.emit('add-activity', params);
+    this.socket.emit('activities-change', params);
   }
 
-  sendMessage(message, room) {
+  sendMessage(message, room, userToTalk) {
     let params = {
       message: message,
-      room: room
+      room: room,
+      to: userToTalk
     };
     this.socket.emit('add-message', params);
   }
@@ -151,9 +151,9 @@ export class SocketService {
     return observable;
   }
 
-  getCommunityNewActivity() {
+  getCommunityChangeActivity() {
     let observable = new Observable(observer => {
-      this.socket.on('new-add-activity', (data) => {
+      this.socket.on('activities-change', (data) => {
         observer.next(data);
       });
     });

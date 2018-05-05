@@ -33,7 +33,6 @@ export class ActivityCreationFormComponent implements OnInit {
               private socketService: SocketService) {
 
     this.saveActivityResult = new EventEmitter<any>();
-    console.log(this.now);
 
   }
 
@@ -61,7 +60,7 @@ export class ActivityCreationFormComponent implements OnInit {
           .subscribe(
             data => {
               console.log(`create activity success? : ${data != null}`);
-              this.socketService.communityNewActivity(data, this.activity.community_id);
+              this.socketService.communityChangeActivity(data, this.activity.community_id, 'create');
               if (data) {
                 this.sharedService.createToast(`${this.activity.activity_name} was created successfully`);
                 this.saveActivityResult.emit(data);
@@ -83,7 +82,7 @@ export class ActivityCreationFormComponent implements OnInit {
           .subscribe(
             data => {
               console.log(`successfully updated activity? : ${data != null}`);
-              this.socketService.communityNewActivity(data, this.activity.community_id);
+              this.socketService.communityChangeActivity(data, this.activity.community_id, 'update');
               if (data) {
                 this.sharedService.createToast(`${this.activity.activity_name} was updated successfully`);
                 this.saveActivityResult.emit(data);

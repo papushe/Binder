@@ -36,9 +36,7 @@
       <ion-row>
         <ion-col class="profile" col-2>
           <img class="profilePic" src="{{user.profilePic}}">
-          <span *ngIf="!user.profilePic">
-            <ion-icon name="contact"></ion-icon>
-          </span>
+          <ion-icon *ngIf="!user.profilePic" name="contact"></ion-icon>
         </ion-col>
         <ion-col class="content">
           <h2>{{user.firstName}} {{user.lastName}}</h2>
