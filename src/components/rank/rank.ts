@@ -19,7 +19,8 @@ export class RankComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.stars = Array(this.rank);
+
+    this.stars = (this.rank > -1) ? Array(this.rank) : [];
   }
 
 }
