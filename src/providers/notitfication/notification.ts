@@ -2,12 +2,6 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Notification} from "../../models/notification/notification.interface";
 
-/*
-  Generated class for the NotificationService provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class NotificationService {
 
@@ -15,6 +9,7 @@ export class NotificationService {
   baseUrl: string = 'http://localhost:4300';
   context: string = 'notification';
   notifications: Notification[] = [];
+  notificationNumber: number = 0;
 
   constructor(public _http: HttpClient) {
   }

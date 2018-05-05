@@ -1,25 +1,31 @@
-import {Component, OnDestroy} from '@angular/core';
-import {Platform} from 'ionic-angular';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Events, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {UserService} from "../providers/user-service/user.service";
 import {LoginPage} from "../pages/login/login";
 import {SharedService} from "../providers/shared/shared.service";
 import {SocketService} from "../providers/socket/socket.service";
+import {Notification} from "../models/notification/notification.interface";
+import {NotificationService} from "../providers/notitfication/notification";
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp implements OnDestroy {
+export class MyApp implements OnInit, OnDestroy {
 
   rootPage: string;
+  tabsSocketConnection: any;
+  @ViewChild('child') child;
 
   constructor(private userService: UserService,
               private sharedService: SharedService,
-              private socketService: SocketService,
               platform: Platform,
               statusBar: StatusBar,
-              splashScreen: SplashScreen) {
+              splashScreen: SplashScreen,
+              private socketService: SocketService,
+              private notificationService: NotificationService,
+              private events: Events) {
 
     this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser().subscribe(auth => {
       if (!auth) {
@@ -47,9 +53,32 @@ export class MyApp implements OnDestroy {
     });
   }
 
+  ngOnInit(): void {
+    this.init();
+    console.log(this.child);
+  }
+
+  init() {
+    this.tabsSocketConnection = this.socketService.enterToChatRoomPrivate()
+      .subscribe(message => {
+
+        this.notificationService.notificationNumber++;
+
+        this.events.publish('newNotification', this.notificationService.notificationNumber);
+
+        this.notificationService.createNotification(<Notification>message)
+          .subscribe(data => {
+            this.notificationService.notifications.push(<Notification>data);
+          }, err => {
+            console.log(`Faild to save notification, ${err}`)
+          }, () => {
+            //done
+          })
+      });
+  }
+
   ngOnDestroy(): void {
     this.socketService.disconnect();
   }
-
 }
 

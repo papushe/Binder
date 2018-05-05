@@ -2,14 +2,7 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams, Tab} from 'ionic-angular';
 import {SocketService} from "../../providers/socket/socket.service";
 import {NotificationService} from "../../providers/notitfication/notification";
-import {Notification} from "../../models/notification/notification.interface";
-
-/**
- * Generated class for the TabsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import {SharedService} from "../../providers/shared/shared.service";
 
 @IonicPage()
 @Component({
@@ -29,7 +22,8 @@ export class TabsPage implements OnInit, OnDestroy {
               private navParams: NavParams,
               private socketService: SocketService,
               private notificationService: NotificationService,
-              private events: Events) {
+              private events: Events,
+              private sharedService: SharedService) {
 
     this.tab1Root = 'CommunitiesPage';
     this.tab2Root = 'NotificationPage';
@@ -42,26 +36,27 @@ export class TabsPage implements OnInit, OnDestroy {
   }
 
   init() {
-    this.tabsSocketConnection = this.socketService.enterToChatRoomPrivate()
-      .subscribe(message => {
 
-        if (this.tabs._selectHistory[this.tabs._selectHistory.length - 1] !== 't0-1') {
-          this.newMessage++;
-        }
-        this.notificationService.createNotification(<Notification>message)
-          .subscribe(data => {
-            this.notificationService.notifications.push(<Notification>data);
-          }, err => {
-            console.log(`Faild to save notification, ${err}`)
-          }, () => {
-            //done
-          })
-      });
+    this.events.subscribe('newNotification', (data) => {
 
-    this.events.subscribe('enterToNotificationPage', (data) => {
-      data ? this.newMessage = 0 : '';
+      if (this.tabs._selectHistory[this.tabs._selectHistory.length - 1] !== 't0-1') {
+        this.newMessage = data;
+      } else {
+        this.clearNumbers();
+        this.sharedService.createToast(`You got new notification`)
+      }
     });
 
+    this.events.subscribe('enterToNotificationPage', (data) => {
+
+      data ? this.clearNumbers() : '';
+
+    });
+  }
+
+  clearNumbers() {
+    this.notificationService.notificationNumber = 0;
+    this.newMessage = this.notificationService.notificationNumber;
   }
 
   ngOnDestroy() {
