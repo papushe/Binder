@@ -8,12 +8,20 @@
 
 <ion-content padding>
   <ion-card *ngFor="let notification of notifications;let i = index">
+    <ion-icon class="deleteNotification" name="close" (click)="deleteNotification(notification,i)"></ion-icon>
     <button class="notification" readonly (click)="handleNotificationEvent(notification,i)"
-            [disabled]="notification.done">
+            [disabled]="notification.status ==='done'">
       <ion-item>
-        <p>From: {{notification.from.fullName}}</p>
-        <p>Event: {{notification.event === 'enter-to-chat-room' ? 'Come to talk to me':''}}</p>
-        <p>[{{i}}] - {{notification.creation_date}}</p>
+        <ion-row>
+          <ion-col>
+            <p>From: {{notification.from.fullName}}</p>
+            <p>Event: {{notification.event === 'enter-to-chat-room' ? 'Come to talk to me':''}}</p>
+            <p>[{{i}}] - {{notification.creation_date}}</p>
+          </ion-col>
+          <ion-col>
+            <p>{{notification.status ==='done' ? 'read':'unread'}}</p>
+          </ion-col>
+        </ion-row>
       </ion-item>
     </button>
   </ion-card>

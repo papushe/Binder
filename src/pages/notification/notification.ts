@@ -2,8 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification";
-import {UserService} from "../../providers/user-service/user.service";
-import {SocketService} from "../../providers/socket/socket.service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 
 /**
@@ -26,8 +25,7 @@ export class NotificationPage implements OnInit {
               private navParams: NavParams,
               public events: Events,
               private notificationService: NotificationService,
-              private userService: UserService,
-              private socketService: SocketService) {
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -36,16 +34,47 @@ export class NotificationPage implements OnInit {
 
   ionViewDidEnter() {
     this.events.publish('enterToNotificationPage', true);
-    // if (JSON.stringify(this.notifications) !== JSON.stringify(this.notificationService.notifications)) {
-      this.notifications = this.notificationService.notifications;
-    // }
+    this.notifications = this.notificationService.notifications;
   }
 
   handleNotificationEvent(message, from) {
-    this.notifications[from].status = 'done';
+    let params = {
+      status: 'done',
+      id: message.to.id
+    };
+
+    this.notificationService.updateUserNotification(params)
+      .subscribe(data => {
+        console.log(data);
+        this.notificationService.notifications[from] = <Notification>data;
+        this.notifications = this.notificationService.notifications;
+      }, err => {
+        console.log(`Faild to save notification, ${err}`)
+      }, () => {
+        //done
+      });
+
+
     if (message.event == 'enter-to-chat-room') {
       this.navCtrl.push('ChatRoomPage', {message: message})
     }
   }
+
+  deleteNotification(notification, from) {
+    this.notificationService.deleteNotification(notification._id)
+      .subscribe(data => {
+        if (data === true) {
+          this.notificationService.notifications.splice(from, 1);
+          this.notifications = this.notificationService.notifications;
+          this.sharedService.createToast(`Notification was deleted successfully`);
+        }
+      }, err => {
+        console.log(`Failed to delete notification, ${err}`);
+        this.sharedService.createToast(`Failed to delete notification, ${err}`);
+      }, () => {
+        //done
+      });
+  }
+
 
 }

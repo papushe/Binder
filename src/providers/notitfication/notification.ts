@@ -38,8 +38,25 @@ export class NotificationService {
       .post(`${this.baseUrl}/${this.context}/create`, obj)
   }
 
+  updateUserNotification(params) {
+    const obj = {
+      status: params.status,
+      id: params.id
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/update`, obj)
+  }
+
   getUserNotifications(userId: string) {
     return this._http
       .get(`${this.baseUrl}/${this.context}/get/${userId}`)
+  }
+
+  deleteNotification(notification) {
+    const obj = {
+      id: notification
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/delete`, obj)
   }
 }

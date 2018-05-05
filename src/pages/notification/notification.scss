@@ -4,4 +4,20 @@ page-notification {
     padding: 0;
     width: 100%;
   }
+  .notification {
+    ion-col:first-child {
+      text-align: left;
+    }
+    ion-col:last-child {
+      text-align: right;
+    }
+  }
+  .deleteNotification {
+    font-size: 1.5em;
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    left: 15px;
+    z-index: 1;
+  }
 }
