@@ -24,8 +24,8 @@
 <ion-content padding>
   <ion-card class="community-description">
     <ion-item>
-      <p><strong>Description:</strong> <span>{{community.communityDescription}}</span></p>
-      <p><strong>Type:</strong> <span>{{community.type}}</span></p>
+      <p class="title">Description: <span>{{community.communityDescription}}</span></p>
+      <p class="title">Type: <span>{{community.type}}</span></p>
     </ion-item>
   </ion-card>
   <members-component [community]="community" *ngIf="isJoined"></members-component>
