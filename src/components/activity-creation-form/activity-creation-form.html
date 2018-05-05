@@ -92,6 +92,6 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <button ion-button class="createNewActivityButton" (click)="createActivity('create')" outline [disabled]="activityForm.invalid" *ngIf='!this.currentActivity'>Create Activity</button>
-  <button ion-button class="createNewActivityButton" (click)="createActivity('update')" outline [disabled]="activityForm.invalid" *ngIf='this.currentActivity'>Update Activity</button>
+  <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" outline [disabled]="activityForm.invalid" *ngIf='!this.currentActivity'>Create Activity</button>
+  <button ion-button class="create-new-activity-btn" (click)="createActivity('update')" outline [disabled]="activityForm.invalid" *ngIf='this.currentActivity'>Update Activity</button>
 </form>

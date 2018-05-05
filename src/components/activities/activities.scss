@@ -1,13 +1,18 @@
-.activities {
-  ion-item ion-label, ion-item .label-md {
-    margin: 2px 0;
-  }
-  ion-item {
-    //background: antiquewhite;
-    //background: aliceblue;
-    background: azure;
-  }
-  hr {
-    margin: 1px;
+activities-component {
+  .activities {
+    ion-item ion-label, ion-item .label-md {
+      margin: 2px 0;
+    }
+    ion-item {
+    background: aliceblue;
+      .title {
+        font-weight: bold;
+        color: #8e9093;
+        font-size: 14px;
+      }
+    }
+    hr {
+     margin: 1px;
+    }
   }
 }

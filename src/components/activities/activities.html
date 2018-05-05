@@ -1,6 +1,6 @@
 <ion-card class="activities" *ngIf="activities.length>0">
   <ion-item (click)="showActivities = !showActivities">
-    Community Activities:
+    <span class="title">Activities:</span>
     <ion-icon *ngIf="!showActivities" class="arrows" name="ios-arrow-down"></ion-icon>
     <ion-icon *ngIf="showActivities" class="arrows" name="ios-arrow-up"></ion-icon>
   </ion-item>
