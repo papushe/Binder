@@ -10,6 +10,7 @@ import { ActivitiesComponent } from './activities/activities';
 import { ActivityCreationFormComponent } from './activity-creation-form/activity-creation-form';
 import { MemberOptionsComponent } from './member-options/member-options.component';
 import {DirectivesModule} from "../directives/directives.module";
+import { RankComponent } from './rank/rank';
 
 @NgModule({
 	declarations: [
@@ -21,7 +22,8 @@ import {DirectivesModule} from "../directives/directives.module";
     MembersComponent,
     ActivitiesComponent,
     ActivityCreationFormComponent,
-    MemberOptionsComponent
+    MemberOptionsComponent,
+    RankComponent
   ],
 	imports: [IonicModule,DirectivesModule],
 	exports: [
@@ -34,6 +36,7 @@ import {DirectivesModule} from "../directives/directives.module";
     ActivitiesComponent,
     ActivityCreationFormComponent,
     MemberOptionsComponent,
+    RankComponent,
   ]
 })
 export class ComponentsModule {}
