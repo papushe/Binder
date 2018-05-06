@@ -1,4 +1,12 @@
 page-notification {
+  ion-card{
+    width: 100% !important;
+    margin: 0 !important;;
+    padding: 0 !important;;
+  }
+  ion-item{
+    padding: 1px 0 0 1px !important;;
+  }
   .notification {
     border: none;
     padding: 0;
@@ -17,7 +25,7 @@ page-notification {
     color: red;
     font-weight: bold;
     position: absolute;
-    left: 15px;
+    left: 5px;
     z-index: 1;
   }
 }

@@ -40,7 +40,6 @@ export class LoginPage {
           () => {
             //done
             if (this.userService.thisProfile) {
-              this.getNotification();
               if (this.navCtrl.getActive().name == 'LoginPage') {
                 this.navCtrl.setRoot("TabsPage");
               }
@@ -53,17 +52,5 @@ export class LoginPage {
     } else {
       this.sharedService.createToast(event.error.message);
     }
-  }
-
-  getNotification() {
-    this.notificationService.getUserNotifications(this.userService.thisProfile.keyForFirebase)
-      .subscribe((notification) => {
-          this.notificationService.notifications = <Notification[]>notification;
-        }, (err) => {
-          console.log(`Failed to get user notifications ${err.message}`)
-        },
-        () => {
-          //done
-        })
   }
 }

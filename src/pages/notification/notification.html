@@ -13,9 +13,10 @@
             [disabled]="notification.status ==='done'">
       <ion-item>
         <ion-row>
-          <ion-col>
+          <ion-col col-9>
             <p>From: {{notification.from.fullName}}</p>
-            <p>Event: {{notification.event === 'enter-to-chat-room' ? 'Come to talk to me':''}}</p>
+            <p>Event: {{notification.event}}</p>
+            <p *ngIf="notification,content">Content: {{notification.content}}</p>
             <p>[{{i}}] - {{notification.creation_date}}</p>
           </ion-col>
           <ion-col>

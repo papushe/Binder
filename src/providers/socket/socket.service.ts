@@ -57,22 +57,24 @@ export class SocketService {
     this.socket.emit('join-to-community', params)
   }
 
-  joinToCommunityByManager(community, user) {
+  joinToCommunityByManager(community, user, fromUserId) {
     let params = {
       room: community._id,
       roomName: community.communityName,
       roomId: community._id,
-      user: user
+      user: user,
+      fromUserId: fromUserId
     };
     this.socket.emit('add-to-community-by-manager', params)
   }
 
-  deleteFromCommunity(community, user) {
+  deleteFromCommunity(community, user, fromUserId) {
     let params = {
       room: community._id,
       roomName: community.communityName,
       roomId: community._id,
-      user: user
+      user: user,
+      fromUserId: fromUserId
     };
     this.socket.emit('delete-from-community', params)
   }

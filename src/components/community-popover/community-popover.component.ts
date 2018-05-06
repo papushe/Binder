@@ -49,7 +49,7 @@ export class CommunityPopoverComponent {
           if (res) {
             this.userService.thisProfile = <Profile> res;
 
-            this.socketService.deleteFromCommunity(this.community, res);
+            this.socketService.deleteFromCommunity(this.community, res, '');
 
             this.sharedService.createToast(`You left ${this.community.communityName}`);
           }

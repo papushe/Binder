@@ -80,7 +80,7 @@ export class MemberOptionsComponent implements OnInit {
 
             //TODO check response - res
 
-            this.socketService.deleteFromCommunity(this.community, res);
+            this.socketService.deleteFromCommunity(this.community, res, this.userService.thisProfile.keyForFirebase);
             this.sharedService.createToast(`You removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}`);
           }
           else {
@@ -106,7 +106,7 @@ export class MemberOptionsComponent implements OnInit {
 
             //todo: send socket event and update the added user profile with res
 
-            this.socketService.joinToCommunityByManager(this.community, res);
+            this.socketService.joinToCommunityByManager(this.community, res, this.userService.thisProfile.keyForFirebase);
             this.sharedService.createToast(`User joined ${this.community.communityName}`);
           }
           else {

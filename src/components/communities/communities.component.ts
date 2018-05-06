@@ -71,18 +71,6 @@ export class CommunitiesComponent implements OnInit {
 
   }
 
-  getNotification() {
-    this.notificationService.getUserNotifications(this.userService.thisProfile.keyForFirebase)
-      .subscribe((notification) => {
-          this.notificationService.notifications = <Notification[]>notification;
-        }, (err) => {
-          console.log(`Failed to get user notifications ${err.message}`)
-        },
-        () => {
-          //done
-        })
-  }
-
   getProfile(user) {
     if ((Object.keys(this.userService.thisProfile) && Object.keys(this.userService.thisProfile).length === 0) || this.userService.thisFromCommunityDetails) {
       this.userService.thisFromCommunityDetails = false;
@@ -108,7 +96,6 @@ export class CommunitiesComponent implements OnInit {
             },
             () => {
               //done
-              this.getNotification();
             }
           );
       }
@@ -116,7 +103,6 @@ export class CommunitiesComponent implements OnInit {
       this.getCommunities(this.userService.thisProfile.keyForFirebase);
       this.userService.thisHasProfile = true;
       this.hasProfileEvent.emit(true);
-      this.getNotification();
     }
   }
 
