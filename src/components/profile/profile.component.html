@@ -80,41 +80,25 @@
                       [ngModelOptions]="{standalone: true}"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label>Type</ion-label>
-        <ion-select [(ngModel)]="profile.type"
-                    #type="ngModel"
-                    required
-                    [ngModelOptions]="{standalone: true}">
-          <ion-option value="consumer">Consumer</ion-option>
-          <ion-option value="provider">Provider</ion-option>
-          <ion-option value="both">Provider & Consumer</ion-option>
-        </ion-select>
+        <ion-label floating>Skills</ion-label>
+        <ion-input [(ngModel)]="skill"
+                   type="text"
+                   name="skill"></ion-input>
       </ion-item>
-      <div padding *ngIf="type.invalid && type.dirty">
-        <span class="global__input-error">Must Choose Type</span>
-      </div>
-      <span *ngIf="profile.type == 'provider' || profile.type == 'both' ">
-        <ion-item>
-          <ion-label floating>Skills</ion-label>
-          <ion-input [(ngModel)]="skill"
-                     type="text"
-                     name="skill"></ion-input>
-        </ion-item>
-        <button clear [disabled]="skill == ''" ion-button (click)="cancelNew()">Clear</button>
-        <button clear [disabled]="skill == ''" ion-button (click)="addItem(skill)">
-          <ion-icon name="add"> Add skill</ion-icon>
-        </button>
-        <ion-list>
-          <ion-item *ngFor="let item of skills; let i = index">
+      <button clear [disabled]="skill == ''" ion-button (click)="cancelNew()">Clear</button>
+      <button clear [disabled]="skill == ''" ion-button (click)="addItem(skill)">
+        <ion-icon name="add"> Add skill</ion-icon>
+      </button>
+      <ion-list>
+        <ion-item *ngFor="let item of skills; let i = index">
             <span>
               <button clear (click)="remove(i)">
                 <ion-icon class="removeRed" name="remove"></ion-icon>
               </button>
               {{item}}
             </span>
-          </ion-item>
-        </ion-list>
-      </span>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
   <button *ngIf="!hasProfile" class="saveUpdateButtons" outline ion-button (click)="saveProfile()"

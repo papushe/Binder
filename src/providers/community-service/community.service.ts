@@ -28,6 +28,7 @@ export class CommunityService {
       communityName: community.communityName,
       communityDescription: community.communityDescription,
       managerId: community.managerId,
+      managerName: community.managerName,
       type: community.type
     };
     return this._http

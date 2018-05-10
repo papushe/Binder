@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Events, IonicPage, NavController, NavParams, Tab} from 'ionic-angular';
 import {SocketService} from "../../providers/socket/socket.service";
-import {NotificationService} from "../../providers/notitfication/notification";
+import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
 import {Notification} from "../../models/notification/notification.interface";
 import {UserService} from "../../providers/user-service/user.service";
@@ -17,7 +17,7 @@ export class TabsPage implements OnInit, OnDestroy {
   tab2Root: string;
   tab3Root: string;
   newMessage: number = 0;
-  tabsSocketConnection: any;
+
   @ViewChild('tabs') tabs;
 
   constructor(private navCtrl: NavController,
@@ -83,6 +83,6 @@ export class TabsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.tabsSocketConnection.unsubscribe();
+
   }
 }

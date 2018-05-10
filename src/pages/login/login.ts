@@ -7,7 +7,7 @@ import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
 import {SharedService} from "../../providers/shared/shared.service";
 import {Notification} from "../../models/notification/notification.interface";
-import {NotificationService} from "../../providers/notitfication/notification";
+import {NotificationService} from "../../providers/notitfication/notification.service";
 
 @IonicPage()
 @Component({

@@ -30,6 +30,7 @@ export class CreateCommunityFormComponent {
   createCommunity() {
     if (this.userService.thisAuthenticatedUser) {
       this.community.managerId = this.userService.thisAuthenticatedUser.uid;
+      this.community.managerName = this.userService.thisProfile.fullName;
       this.communityService.createCommunity(this.community)
         .subscribe(
           data => {

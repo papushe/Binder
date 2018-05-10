@@ -89,11 +89,12 @@ export class SocketService {
     this.socket.emit('activities-change', params);
   }
 
-  sendMessage(message, room, userToTalk) {
+  sendMessage(message, room, userToTalk, from) {
     let params = {
       message: message,
       room: room,
-      to: userToTalk
+      to: userToTalk,
+      from: from
     };
     this.socket.emit('add-message', params);
   }
@@ -101,8 +102,9 @@ export class SocketService {
   enterToChatRoom(roomNum, userToTalk, from) {
     let params = {
       room: roomNum,
-      to: userToTalk,
-      from: from
+      user: userToTalk,
+      from: from,
+      fromUserId: from.keyForFirebase
     };
     this.socket.emit('enter-to-chat-room', params);
   }
@@ -110,8 +112,9 @@ export class SocketService {
   joinToChatRoom(roomNum, userToTalk, from) {
     let params = {
       room: roomNum,
-      to: userToTalk,
-      from: from
+      user: userToTalk,
+      from: from,
+      fromUserId: from.keyForFirebase
     };
     this.socket.emit('join-to-chat-room', params);
   }
@@ -119,13 +122,33 @@ export class SocketService {
   leaveFromChatRoom(roomNum, userToTalk, from) {
     let params = {
       room: roomNum,
-      to: userToTalk,
+      user: userToTalk,
       from: from
     };
     this.socket.emit('left-from-chat-room', params);
   }
 
+  askToJoinToPrivateRoom(toManager, fromUser, community) {
+    let params = {
+      toManager: toManager,
+      fromUser: fromUser,
+      community: community
+    };
+
+    this.socket.emit('ask-to-join-private-room', params);
+  }
+
+
   //observable
+  userAskToJoinPrivateRoom() {
+    let observable = new Observable(observer => {
+      this.socket.on('user-ask-to-join-private-room', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
   getNewSockets() {
     let observable = new Observable(observer => {
       this.socket.on('users-changed', (data) => {

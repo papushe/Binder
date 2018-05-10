@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
-import {NotificationService} from "../../providers/notitfication/notification";
+import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
 
 
@@ -25,7 +25,8 @@ export class NotificationPage implements OnInit {
               private navParams: NavParams,
               public events: Events,
               private notificationService: NotificationService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private alertCtrl: AlertController) {
   }
 
   ngOnInit() {
@@ -40,7 +41,7 @@ export class NotificationPage implements OnInit {
   handleNotificationEvent(message, from) {
     let params = {
       status: 'done',
-      id: message.to.id
+      id: message._id
     };
 
     this.notificationService.updateUserNotification(params)
@@ -57,6 +58,8 @@ export class NotificationPage implements OnInit {
 
     if (message.event == 'enter-to-chat-room') {
       this.navCtrl.push('ChatRoomPage', {message: message})
+    } else if (message.event == 'user-ask-to-join-private-room') {
+
     }
   }
 
@@ -74,6 +77,33 @@ export class NotificationPage implements OnInit {
       }, () => {
         //done
       });
+  }
+
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Confirm User',
+      message: 'Do you want to allow this user join on to the community?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            //remove from pending community array
+            //send notification to the user
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            //send the user notification
+            //call to add user by manager
+            console.log('Buy clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 

@@ -4,6 +4,7 @@ export interface Community{
   communityDescription: string,
   creationDate: string,
   managerId: string,
+  managerName: string,
   authorizedMembers: [{
     memberId:string
   }],

@@ -5,7 +5,6 @@ export interface Profile {
   location?: string,
   phoneNumber: string,
   description?: string,
-  type: string,
   dateOfBirth: Date,
   $key: string,
   skills?: [string],

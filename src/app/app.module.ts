@@ -26,7 +26,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 
 import {SocketService} from '../providers/socket/socket.service';
 import {ChatService} from '../providers/chat-service/chat-service';
-import { NotificationService } from '../providers/notitfication/notification';
+import { NotificationService } from '../providers/notitfication/notification.service';
 import { MessageService } from '../providers/message/message';
 
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};

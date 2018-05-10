@@ -56,29 +56,35 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
   }
 
   joinCommunity() {
-    this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase, false)
-      .subscribe(
-        res => {
-          console.debug(`You joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${!!res}`);
-          if (res) {
-            this.userService.thisProfile = <Profile> res;
+    if (this.communityService.thisSelectedCommunity.type !== 'private') {
+      this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase, false)
+        .subscribe(
+          res => {
+            console.debug(`You joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${!!res}`);
+            if (res) {
+              this.userService.thisProfile = <Profile> res;
 
-            this.socketService.joinToCommunity(this.communityService.thisSelectedCommunity, res);
+              this.socketService.joinToCommunity(this.communityService.thisSelectedCommunity, res);
 
-            this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
-            this.sharedService.createToast(`You joined ${this.communityService.thisSelectedCommunity.communityName}`);
-          }
-          else {
+              this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
+              this.sharedService.createToast(`You joined ${this.communityService.thisSelectedCommunity.communityName}`);
+            }
+            else {
+              this.sharedService.createToast(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`);
+            }
+          },
+          err => {
+            console.debug(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
             this.sharedService.createToast(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`);
-          }
-        },
-        err => {
-          console.debug(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
-          this.sharedService.createToast(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`);
-        },
-        () => {
-          //done
-        });
+          },
+          () => {
+            //done
+          });
+    } else {
+
+      this.socketService.askToJoinToPrivateRoom(this.communityService.thisSelectedCommunity.managerName, this.userService.thisProfile, this.communityService.thisSelectedCommunity);
+
+    }
   }
 
   isUserJoined(community) {

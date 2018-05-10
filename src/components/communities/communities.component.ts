@@ -6,7 +6,7 @@ import {NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {SocketService} from "../../providers/socket/socket.service";
-import {NotificationService} from "../../providers/notitfication/notification";
+import {NotificationService} from "../../providers/notitfication/notification.service";
 import {Notification} from "../../models/notification/notification.interface";
 
 @Component({
