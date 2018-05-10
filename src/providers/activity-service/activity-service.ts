@@ -51,7 +51,7 @@ export class ActivityService {
       filters: filters
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/community/get`, obj);
+      .post(`${this.baseUrl}/${this.context}/community`, obj);
   }
 
   getActivitiesByUserId(userId: string) {
