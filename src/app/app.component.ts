@@ -9,14 +9,14 @@ import {SocketService} from "../providers/socket/socket.service";
 import {Notification} from "../models/notification/notification.interface";
 import {NotificationService} from "../providers/notitfication/notification.service";
 
-
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp implements OnInit, OnDestroy {
 
   rootPage: string;
-  tabsSocketConnection: any;
+  tabsSocketEnterToChatRoomPrivate: any;
+  tabsSocketAskToJoinToPrivateRoom: any;
   @ViewChild('child') child;
 
   constructor(private userService: UserService,
@@ -60,14 +60,42 @@ export class MyApp implements OnInit, OnDestroy {
   }
 
   init() {
-    this.tabsSocketConnection = this.socketService.enterToChatRoomPrivate()
-      .subscribe(message => {
+    this.tabsSocketEnterToChatRoomPrivate = this.socketService.enterToChatRoomPrivate()
+      .subscribe(data => {
 
         this.notificationService.notificationNumber++;
 
         this.events.publish('newNotification', this.notificationService.notificationNumber);
 
-        this.notificationService.createNotification(<Notification>message)
+        this.notificationService.createNotification(<Notification>data)
+          .subscribe(data => {
+            this.notificationService.notifications.push(<Notification>data);
+          }, err => {
+            console.log(`Faild to save notification, ${err}`)
+          }, () => {
+            //done
+          })
+      });
+
+    this.tabsSocketAskToJoinToPrivateRoom = this.socketService.userAskToJoinPrivateRoom()
+      .subscribe(data => {
+
+        this.notificationService.notificationNumber++;
+
+        this.events.publish('newNotification', this.notificationService.notificationNumber);
+
+
+        let notification: any = data;
+
+        if (notification.event !== 'manager-decline-user-join-private-room') {
+          notification.to = {
+            keyForFirebase: notification.community.managerId,
+            fullName: notification.community.managerName
+          };
+        }
+
+
+        this.notificationService.createNotification(<Notification>notification)
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {

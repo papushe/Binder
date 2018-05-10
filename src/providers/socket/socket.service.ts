@@ -137,6 +137,16 @@ export class SocketService {
     this.socket.emit('ask-to-join-private-room', params);
   }
 
+  declineUserJoinPrivateRoom(fromUser, communityName, to) {
+    let params = {
+      from: fromUser,
+      communityName: communityName,
+      to: to
+    };
+
+    this.socket.emit('decline-user-join-private-room', params);
+  }
+
 
   //observable
   userAskToJoinPrivateRoom() {
