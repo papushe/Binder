@@ -75,7 +75,7 @@ export class ActivityInfoPage {
   }
 
   deleteCurrentActivity() {
-    this.activityService.deleteActivity(this.activity._id, this.community._id)
+    this.activityService.deleteActivity(this.activity._id)
       .subscribe(
         data => {
           if (data) {

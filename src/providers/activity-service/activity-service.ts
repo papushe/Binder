@@ -36,13 +36,12 @@ export class ActivityService {
       .post(`${this.baseUrl}/${this.context}/create`, activityObj)
   }
 
-  deleteActivity(activityId: string, communityId: string) {
+  deleteActivity(activityId: string) {
     const activityIdObj = {
       activityId: activityId,
-      communityId: communityId
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/delete/`, activityIdObj)
+      .post(`${this.baseUrl}/${this.context}/delete`, activityIdObj)
   }
 
 
@@ -72,6 +71,24 @@ export class ActivityService {
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/update`, activityObj)
+  }
+
+  claim(activityId: string, fullName: string, userId: string) {
+    const activityIdObj = {
+      activityId: activityId,
+      fullName: fullName,
+      userId: userId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/claim`, activityIdObj)
+  }
+
+  approve(activityId: string) {
+    const activityIdObj = {
+      activityId: activityId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/approve`, activityIdObj)
   }
 
 }
