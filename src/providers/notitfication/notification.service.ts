@@ -27,6 +27,7 @@ export class NotificationService {
       event: notification.event,
       content: notification.content,
       room: notification.room,
+      communityName: notification.communityName,
       status: notification.status
     };
     return this._http
