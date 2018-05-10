@@ -15,7 +15,7 @@ export class ActivityService {
   baseUrl: string = 'http://localhost:4300';
   context: string = 'activity';
 
-  constructor(public _http: HttpClient,) {
+  constructor(public _http: HttpClient) {
 
   }
 

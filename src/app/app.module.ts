@@ -15,6 +15,7 @@ import {CommunityService} from '../providers/community-service/community.service
 import {FormsModule} from "@angular/forms";
 import {ActivityService} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
+import { Calendar } from '@ionic-native/calendar';
 import {SharedService} from '../providers/shared/shared.service';
 import {ProfilePopoverComponent} from "../components/profile-popover/profile-popover.component";
 import {ProfilePopoverComponentModule} from "../components/profile-popover/profile-popover.component.module";
@@ -63,6 +64,7 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     CommunityService,
     ActivityService,
     Camera,
+    Calendar,
     SharedService,
     SocketService,
     {
