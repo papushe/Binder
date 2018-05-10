@@ -14,6 +14,11 @@ export interface Activity {
     id: string
   }
   community_id: string,
+  status: {
+    value: string,
+    user_id: string,
+    fullName: string
+  }
   notes: string,
   source: string,
   destination: string

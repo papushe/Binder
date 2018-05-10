@@ -98,5 +98,25 @@ export class ActivityInfoPage {
 
   }
 
+  claimActivity() {
+    this.activityService.claim(this.activity._id, this.profile.fullName, this.profile.keyForFirebase)
+      .subscribe(data => {
+        console.debug(`claimed activity success? : ${!!data}`);
+        if (data) {
+          this.activity = <Activity> data;
+          this.sharedService.createToast(`You claimed ${this.activity.activity_name}`);
+        }
+        else {
+          this.sharedService.createToast(`Failed to claim ${this.activity.activity_name}`);
+        }
+
+      }, err => {
+        console.log(err.message);
+        this.sharedService.createToast(`Failed to claim ${this.activity.activity_name}`);
+      }, () => {
+        this.navCtrl.pop();
+      })
+  }
+
 
 }

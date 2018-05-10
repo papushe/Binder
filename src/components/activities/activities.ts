@@ -65,7 +65,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   getActivitiesByCommunityId(communityId: string) {
-    this.activityService.getActivitiesByCommunityId(communityId)
+    this.activityService.getActivitiesByCommunityId(communityId, ['open', 'claimed'])
       .subscribe(
         data => {
           console.log(`got all activities successfully? : ${data != null}`);

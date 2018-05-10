@@ -45,9 +45,13 @@ export class ActivityService {
   }
 
 
-  getActivitiesByCommunityId(communityId: string) {
+  getActivitiesByCommunityId(communityId: string, filters: [string]) {
+    const obj = {
+      communityId: communityId,
+      filters: filters
+    };
     return this._http
-      .get(`${this.baseUrl}/${this.context}/community/get/${communityId}`)
+      .post(`${this.baseUrl}/${this.context}/community/get`, obj);
   }
 
   getActivitiesByUserId(userId: string) {
