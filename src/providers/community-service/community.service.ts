@@ -13,7 +13,7 @@ import {User} from "firebase/app";
 export class CommunityService {
 
   // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl:string = 'http://localhost:4300';
+  baseUrl: string = 'http://localhost:4300';
 
   thisCommunities = {} as Community;
   thisSelectedCommunity: Community;
@@ -90,4 +90,14 @@ export class CommunityService {
     return this._http
       .post(`${this.baseUrl}/${this.context}/update-role`, obj)
   }
+
+  addUserToWaitingList(communityId, userId) {
+    const obj = {
+      communityId: communityId,
+      userId: userId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/add-waiting-list`, obj)
+  }
+
 }

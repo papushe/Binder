@@ -56,7 +56,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
   }
 
   joinCommunity() {
-    if (this.communityService.thisSelectedCommunity.type !== 'private') {
+    if (this.communityService.thisSelectedCommunity.type.toLocaleLowerCase() !== 'private') {
       this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.profile.keyForFirebase, false)
         .subscribe(
           res => {
@@ -82,7 +82,15 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           });
     } else {
 
-      this.socketService.askToJoinToPrivateRoom(this.communityService.thisSelectedCommunity.managerName, this.userService.thisProfile, this.communityService.thisSelectedCommunity);
+      this.communityService.addUserToWaitingList(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase)
+        .subscribe(data => {
+          console.log(data);
+        }, err => {
+          console.log(err);
+        }, () => {
+          console.log('done');
+        })
+      // this.socketService.askToJoinToPrivateRoom(this.communityService.thisSelectedCommunity.managerName, this.userService.thisProfile, this.communityService.thisSelectedCommunity);
 
     }
   }
