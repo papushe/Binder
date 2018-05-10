@@ -121,17 +121,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     });
   }
 
-  cancelJoinRequest() {
-    this.communityService.removeUserFromWaitingList(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase)
-      .subscribe(data => {
-        console.log(data);
-      }, err => {
-        console.log(err.message);
-      }, () => {
-        //done
-      })
-  }
-
   createNewActivity() {
     this.navCtrl.push('CreateActivityPage', {community: this.communityService.thisSelectedCommunity});
   }
