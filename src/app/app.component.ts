@@ -7,7 +7,8 @@ import {LoginPage} from "../pages/login/login";
 import {SharedService} from "../providers/shared/shared.service";
 import {SocketService} from "../providers/socket/socket.service";
 import {Notification} from "../models/notification/notification.interface";
-import {NotificationService} from "../providers/notitfication/notification";
+import {NotificationService} from "../providers/notitfication/notification.service";
+
 
 @Component({
   templateUrl: 'app.html'
@@ -70,7 +71,7 @@ export class MyApp implements OnInit, OnDestroy {
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
-            console.log(`Faild to save notification, ${err}`)
+            console.log(`Failed to save notification, ${err}`)
           }, () => {
             //done
           })

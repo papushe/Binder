@@ -100,4 +100,13 @@ export class CommunityService {
       .post(`${this.baseUrl}/${this.context}/add-waiting-list`, obj)
   }
 
+  removeUserFromWaitingList(communityId, userId) {
+    const obj = {
+      communityId: communityId,
+      userId: userId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/remove-waiting-list`, obj)
+  }
+
 }

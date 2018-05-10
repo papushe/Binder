@@ -5,6 +5,7 @@ export interface Community{
   creationDate: string,
   managerId: string,
   managerName: string,
+  waiting_list: [string],
   authorizedMembers: [{
     memberId:string
   }],

@@ -89,7 +89,7 @@ export class ChatRoomPage implements OnInit {
   }
 
   sendMessage() {
-    this.socketService.sendMessage(this.message, this.randomNumberRoom, this.userToTalk);
+    // this.socketService.sendMessage(this.message, this.randomNumberRoom, this.userToTalk);
     this.message = '';
   }
 

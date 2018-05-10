@@ -25,7 +25,8 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
 
   community: Community;
   profile: Profile;
-  isJoined: boolean;
+  isJoined: boolean = false;
+  isWaiting: boolean = false;
   cameFrom: string;
   @ViewChild('child') activitiesComponent: any;
 
@@ -46,7 +47,8 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
       this.socketService.enteredToCommunity(this.community);
     }
     this.profile = this.userService.thisProfile;
-    this.isUserJoined(this.communityService.thisSelectedCommunity);
+    this.isUserJoined();
+    this.isUserWaiting();
   }
 
   ionViewDidEnter() {
@@ -84,24 +86,49 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
 
       this.communityService.addUserToWaitingList(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase)
         .subscribe(data => {
-          console.log(data);
+          console.log(`add user to waiting list success? : ${!!data}`);
+          if (data) {
+            this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} sent`);
+          }
+          else {
+            this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} failed`);
+          }
         }, err => {
-          console.log(err);
+          console.log(err.message);
+          this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} failed`);
         }, () => {
-          console.log('done');
+          this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
         })
       // this.socketService.askToJoinToPrivateRoom(this.communityService.thisSelectedCommunity.managerName, this.userService.thisProfile, this.communityService.thisSelectedCommunity);
 
     }
   }
 
-  isUserJoined(community) {
-    this.isJoined = false;
+  isUserJoined() {
     this.profile.communities.forEach((userCommunity) => {
-      if (community._id == userCommunity.communityId) {
+      if (this.communityService.thisSelectedCommunity._id == userCommunity.communityId) {
         this.isJoined = true;
       }
     });
+  }
+
+  isUserWaiting() {
+    this.communityService.thisSelectedCommunity.waiting_list.forEach((waitingUser) => {
+      if (this.profile.keyForFirebase === waitingUser) {
+        this.isWaiting = true;
+      }
+    });
+  }
+
+  cancelJoinRequest() {
+    this.communityService.removeUserFromWaitingList(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase)
+      .subscribe(data => {
+        console.log(data);
+      }, err => {
+        console.log(err.message);
+      }, () => {
+          //done
+      })
   }
 
   createNewActivity() {
