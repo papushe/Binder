@@ -128,11 +128,10 @@ export class SocketService {
     this.socket.emit('left-from-chat-room', params);
   }
 
-  askToJoinToPrivateRoom(toManager, fromUser, community) {
+  askToJoinToPrivateRoom(fromUser, community) {
     let params = {
-      toManager: toManager,
-      fromUser: fromUser,
-      community: community
+      user: community,
+      from: fromUser
     };
 
     this.socket.emit('ask-to-join-private-room', params);

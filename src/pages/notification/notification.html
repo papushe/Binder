@@ -16,7 +16,7 @@
           <ion-col col-9>
             <p>From: {{notification.from.fullName}}</p>
             <p>Event: {{notification.event}}</p>
-            <p *ngIf="notification,content">Content: {{notification.content}}</p>
+            <p *ngIf="notification.content">Content: {{notification.content}}</p>
             <p>[{{i}}] - {{notification.creation_date}}</p>
           </ion-col>
           <ion-col>

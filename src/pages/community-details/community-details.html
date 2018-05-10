@@ -31,7 +31,9 @@
   <members-component [community]="community" *ngIf="isJoined"></members-component>
   <activities-component #child [currentCommunity]="community" *ngIf="isJoined"></activities-component>
   <ion-row>
-    <button outline ion-button color="primary" *ngIf="!isJoined && !isWaiting" (click)="joinCommunity()">Join</button>
+    <button outline ion-button color="primary" *ngIf="!isJoined && !isWaiting" (click)="joinCommunity()">
+      {{community.type.toLocaleLowerCase() === 'private'? 'Ask to join':'Join'}}
+    </button>
     <p *ngIf="!isJoined && isWaiting">Pending</p>
   </ion-row>
 </ion-content>

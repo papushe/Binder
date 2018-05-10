@@ -98,8 +98,9 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} failed`);
         }, () => {
           this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
-        })
-      // this.socketService.askToJoinToPrivateRoom(this.communityService.thisSelectedCommunity.managerName, this.userService.thisProfile, this.communityService.thisSelectedCommunity);
+        });
+
+      this.socketService.askToJoinToPrivateRoom(this.userService.thisProfile, this.communityService.thisSelectedCommunity);
 
     }
   }
@@ -127,7 +128,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
       }, err => {
         console.log(err.message);
       }, () => {
-          //done
+        //done
       })
   }
 
