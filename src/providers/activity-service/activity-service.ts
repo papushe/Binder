@@ -71,7 +71,7 @@ export class ActivityService {
       destination: activity.destination
     };
     return this._http
-      .post(`${this.baseUrl}/${this.context}/updateActivity/`, activityObj)
+      .post(`${this.baseUrl}/${this.context}/update`, activityObj)
   }
 
 }
