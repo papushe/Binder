@@ -5,6 +5,7 @@ import {NotificationService} from "../../providers/notitfication/notification.se
 import {SharedService} from "../../providers/shared/shared.service";
 import {Notification} from "../../models/notification/notification.interface";
 import {UserService} from "../../providers/user-service/user.service";
+import {MessagesPage} from "../messages/messages";
 
 @IonicPage()
 @Component({
@@ -16,6 +17,7 @@ export class TabsPage implements OnInit, OnDestroy {
   tab1Root: string;
   tab2Root: string;
   tab3Root: string;
+  tab4Root: string;
   newMessage: number = 0;
 
   @ViewChild('tabs') tabs;
@@ -30,7 +32,8 @@ export class TabsPage implements OnInit, OnDestroy {
 
     this.tab1Root = 'CommunitiesPage';
     this.tab2Root = 'NotificationPage';
-    this.tab3Root = 'ProfilePage';
+    this.tab3Root = 'MessagesPage';
+    this.tab4Root = 'MenuPage';
 
   }
 

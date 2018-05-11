@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {ProfilePopoverComponent} from "../../components/profile-popover/profile-popover.component";
@@ -23,7 +23,6 @@ export class ProfilePage {
               private navCtrl: NavController,
               private popoverCtrl: PopoverController) {
   }
-
 
   saveProfileResult(event) {
     event ? this.navCtrl.setRoot('TabsPage') : console.log("Not authenticated or saved");

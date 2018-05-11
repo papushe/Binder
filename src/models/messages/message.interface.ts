@@ -1,9 +1,7 @@
-export interface Message{
-  _id: String,
-  from: String,
-  to: String,
-  room: String,
-  status: String,
-  creation_date: String,
-  content: String
+export interface Message {
+  _id: string,
+  from: string,
+  room: string,
+  date: string,
+  text: string
 }

@@ -12,19 +12,24 @@ export class ChatService {
 
   // baseUrl: string = 'https://appbinder.herokuapp.com';
   baseUrl: string = 'http://localhost:4300';
-
+  context: string = 'message';
+  roomNumberChat = [];
 
   constructor(public _http: HttpClient) {
     console.log('Hello ChatService Provider');
   }
 
-  saveChat(chatRoomName, massage) {
+
+  saveChat(chatRoomId, talkedTo, user) {
     const obj = {
-      massage: massage
+      chatRoomId: chatRoomId,
+      talkedToId: talkedTo.keyForFirebase,
+      talkedToName: talkedTo.fullName,
+      talkedFromName: user.fullName,
+      profilePic: talkedTo.profilePic,
+      userId: user.keyForFirebase
     };
     return this._http
-      .post(`${this.baseUrl}/${chatRoomName}`, obj);
+      .post(`${this.baseUrl}/${this.context}/save-chat-room`, obj);
   }
-
-
 }

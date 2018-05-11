@@ -18,11 +18,14 @@ export class NotificationService {
     const obj = {
       from: {
         fullName: notification.from.fullName,
-        id: notification.from.keyForFirebase
+        id: notification.from.keyForFirebase,
+        profilePic: notification.from.profilePic
+
       },
       to: {
         fullName: notification.to.fullName,
-        id: notification.to.keyForFirebase
+        id: notification.to.keyForFirebase || notification.to.id,
+        profilePic: notification.from.profilePic
       },
       event: notification.event,
       content: notification.content,

@@ -18,18 +18,6 @@ export class MessageService {
   constructor(public _http: HttpClient) {
   }
 
-  createMessage(msg: Message) {
-    const obj = {
-      from: msg.from,
-      to: msg.to,
-      content: msg.content,
-      room: msg.room,
-      status: msg.status
-    };
-    return this._http
-      .post(`${this.baseUrl}/${this.context}/create`, obj)
-  }
-
   getRoomMessages(roomId: string) {
     return this._http
       .get(`${this.baseUrl}/${this.context}/get/${roomId}`)

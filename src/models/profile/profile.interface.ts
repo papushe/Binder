@@ -18,6 +18,13 @@ export interface Profile {
     communityId: string,
     role: string
   }],
-  profilePic: string,
-  fullName?: string
+  profilePic?: string,
+  fullName?: string,
+  chats: [{
+    chatRoomId: string,
+    talkedToId: string,
+    talkedToName: string,
+    talkedFromName:string,
+    profilePic: string,
+  }]
 }

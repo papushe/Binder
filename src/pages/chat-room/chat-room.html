@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Chat with {{userToTalk.fullName}}
+      Chat with {{userToTalk?.fullName}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,7 +14,7 @@
                [ngClass]="{'my_message': message.from === currentUser.fullName, 'other_message': message.from !== currentUser.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message.from }}:</span>
-          <div col-6 class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+          <div col-6 class="time">{{message.date | date:'dd.MM hh:MM'}}</div>
         </ion-row>
 
         <div class="chatText">{{ message.text }}</div>
@@ -24,7 +24,7 @@
                [ngClass]="{'my_message': message.from === currentUser.fullName, 'other_message': message.from !== currentUser.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message.from }}:</span>
-          <div col-6 class="time">{{message.created | date:'dd.MM hh:MM'}}</div>
+          <div col-6 class="time">{{message.date | date:'dd.MM hh:MM'}}</div>
         </ion-row>
 
         <div class="chatText">{{ message.text }}</div>
