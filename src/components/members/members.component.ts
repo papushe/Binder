@@ -30,17 +30,19 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.getCommunityMembers();
     this.profile = this.userService.thisProfile;
     this.communitySocketConnection = this.socketService.getMembersChangedEvents()
-      .subscribe(data => {
-        this.handleSocket(data);
+      .subscribe(
+        data => {
+          if(data) {
+            this.handleSocket(data);
+          }
       });
   }
 
   handleSocket(data) {
-    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
+    let thisUserName = this.userService.thisProfile.fullName;
 
-    console.log(data);
     if (data.event == 'deleted') {
-      let userFromServer = data['user'].keyForFirebase;
+      let userFromServer = data.user ? data.user.keyForFirebase : '';
 
       this.removeMemberFromMembersObject(data.user);
 
@@ -48,27 +50,22 @@ export class MembersComponent implements OnInit, OnDestroy {
         this.sharedService.createToast(`${data.user.firstName} has ${data.event} from ${data.communityName} community`);
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
-
-        // this.updateUserProfile(data.user, data.communityId);
         this.userService.thisProfile = data.user;
         this.navCtrl.setRoot('TabsPage')
       }
 
-    } else if (data.event == 'joined') {
-
+    }
+    else if (data.event == 'joined') {
       this.getCommunityMembers();
 
       if (thisUserName != data.from) {
-
         this.sharedService.createToast(`${data.user.firstName} has ${data.event} to ${data.communityName} community`);
-
       }
     }
 
   }
 
   removeMemberFromMembersObject(user) {
-
     const removeIndex = this.members.map(function (item) {
       return item.keyForFirebase;
     }).indexOf(user.keyForFirebase);
@@ -78,23 +75,12 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.getCommunityMembers();
   }
 
-  // updateUserProfile(user, communityId) {
-  //   const removeIndex = user.communities.map(function (item) {
-  //     return item.communityId;
-  //   }).indexOf(communityId);
-  //   if (removeIndex !== -1) {
-  //     user.communities.splice(removeIndex, 1);
-  //   }
-  //   this.userService.thisProfile = user;
-  // }
-
-
   getCommunityMembers() {
     this.communityService.getCommunityMembers(this.community._id)
       .subscribe(
         res => {
           if (res) {
-            console.log(`get community members success? : ${res != null}`);
+            console.log(`get community members success? : ${!!res}`);
             this.members = <Profile[]>res;
           }
           else {

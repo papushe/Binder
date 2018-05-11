@@ -63,7 +63,7 @@ export class ProfileComponent implements OnDestroy, OnInit {
               }
             },
             err => {
-              console.log(`error: ${err.message}`);
+              console.log(`Error occurred when tried to get profile: ${err.message}`);
             },
             () => {
               //done
@@ -76,7 +76,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
 
   showAddressModal() {
     let modal = this.modalCtrl.create('AutocompletePage');
-    let me = this;
     modal.onDidDismiss(data => {
       this.profile.location = data;
     });
@@ -90,15 +89,18 @@ export class ProfileComponent implements OnDestroy, OnInit {
       this.userService.updateProfile(this.profile)
         .subscribe(
           data => {
-            this.userService.thisProfile = <Profile>data;
-            this.userService.thisHasProfile = true;
+            if (data) {
+              this.userService.thisProfile = <Profile>data;
+              this.userService.thisHasProfile = true;
+              this.sharedService.createToast(`Profile updated successfully`);
+            }
           },
           err => {
-            this.sharedService.createToast(`Error: ${err.message}`);
+            this.sharedService.createToast(`Error occurred when tried to update profile`);
+            console.log(`Error occurred when tried to update profile: ${err.message}`);
           },
           () => {
             this.sharedService.loader.dismiss();
-            this.sharedService.createToast(`Profile updated successfully`);
           }
         );
     })
@@ -127,10 +129,12 @@ export class ProfileComponent implements OnDestroy, OnInit {
         this.userService.saveProfile(this.profile)
           .subscribe(
             data => {
-              this.hasProfile = true;
-              this.userService.thisProfile = <Profile>data;
-              this.userService.thisHasProfile = true;
-              this.fromLoginPageEvent.emit(this.fromLoginPage);
+              if (data) {
+                this.hasProfile = true;
+                this.userService.thisProfile = <Profile>data;
+                this.userService.thisHasProfile = true;
+                this.fromLoginPageEvent.emit(this.fromLoginPage);
+              }
             },
             err => {
               this.sharedService.createToast(`Error: ${err.message}`);

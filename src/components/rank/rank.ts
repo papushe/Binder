@@ -15,11 +15,9 @@ export class RankComponent implements OnInit{
   @Input() rank: number;
   stars;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
-
     this.stars = (this.rank > -1) ? Array(this.rank) : [];
   }
 

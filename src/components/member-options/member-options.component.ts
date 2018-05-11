@@ -53,18 +53,17 @@ export class MemberOptionsComponent implements OnInit {
       this.member.keyForFirebase, role)
       .subscribe(
         res => {
-          console.log(`update user role success? : ${res == true}`);
-          if (res === true) {
+          console.log(`update user role success? : ${!!res}`);
+          if (res) {
             this.sharedService.createToast(`New Role has been updated for ${this.member.firstName} ${this.member.lastName}`);
           }
           else {
-            console.debug(`operation failed in the server`);
             this.sharedService.createToast(`Failed to update ${this.member.firstName} ${this.member.lastName} role`);
           }
         },
         err => {
           console.debug(`Failed to update role for user due to: ${err.message}`);
-          this.sharedService.createToast(`Failed to update ${this.member.firstName} ${this.member.lastName} role`);
+          this.sharedService.createToast(`Failed to update ${this.member.fullName} role`);
         },
         () => {
           this.navCtrl.pop();
@@ -74,13 +73,10 @@ export class MemberOptionsComponent implements OnInit {
   removeUser() {
     this.communityService.leaveCommunity(this.community._id, this.member.keyForFirebase)
       .subscribe(
-        res => {
-          console.log(`user was removed from community success? : ${!!res}`);
-          if (res) {
-
-            //TODO check response - res
-
-            this.socketService.deleteFromCommunity(this.community, res, this.userService.thisProfile.keyForFirebase);
+        userResponse => {
+          console.log(`user was removed from community success? : ${!!userResponse}`);
+          if (userResponse) {
+            this.socketService.deleteFromCommunity(this.community, userResponse, this.userService.thisProfile.keyForFirebase);
             this.sharedService.createToast(`You removed ${this.member.firstName} ${this.member.lastName} from ${this.community.communityName}`);
           }
           else {

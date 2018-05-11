@@ -35,8 +35,8 @@ export class CreateCommunityFormComponent {
         .subscribe(
           data => {
             this.saveCommunityResult.emit(data);
-            this.userService.thisProfile = <Profile> data;
             if (data) {
+              this.userService.thisProfile = <Profile> data;
               this.sharedService.createToast('Community was created successfully');
             }
             else {
@@ -44,22 +44,12 @@ export class CreateCommunityFormComponent {
             }
           },
           err => {
-            this.sharedService.createToast(`Error: ${err.message}`);
+            this.sharedService.createToast(`Error occurred when tried to create community: ${err.message}`);
           },
           () => {
             //done
           }
         );
     }
-  }
-
-  checkType(communityForm) {
-
-    if (this.community.type) {
-      if (communityForm.valid) {
-        return false;
-      }
-    }
-    return true;
   }
 }

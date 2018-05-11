@@ -22,9 +22,11 @@ export class LoginFormComponent {
   async login() {
     const loginResponse = await this.userService.signInWithEmailAndPassword(this.account);
 
-    this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser().subscribe(auth => {
-      this.userService.thisAuthenticatedUser = auth;
+    this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser()
+      .subscribe(
+        auth => {
       if (auth) {
+        this.userService.thisAuthenticatedUser = auth;
         this.loginStatus.emit(loginResponse);
       } else {
         this.userService.thisAuthenticatedUser$.unsubscribe();

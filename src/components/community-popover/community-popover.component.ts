@@ -48,9 +48,7 @@ export class CommunityPopoverComponent {
           console.log(`user was removed from community success? : ${!!res}`);
           if (res) {
             this.userService.thisProfile = <Profile> res;
-
             this.socketService.deleteFromCommunity(this.community, res, '');
-
             this.sharedService.createToast(`You left ${this.community.communityName}`);
           }
           else {
@@ -77,7 +75,7 @@ export class CommunityPopoverComponent {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.log('Cancel clicked');
+            console.debug('Cancel clicked');
           }
         },
         {
