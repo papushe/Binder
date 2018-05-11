@@ -1,13 +1,22 @@
 member-options {
-  .profile-pic {
-    margin-bottom: 10px;
+  .pic-wrapper {
+
+    text-align: center;
+
+    .profile-pic {
+      //margin-bottom: 10px;
+      width: 150px;
+      margin: 0 auto;
+      border-radius: 50%;
+    }
+    img {
+      display: block;
+      margin-left: 0;
+    }
+    .no-pic {
+      font-size: 11em;
+      color: #9D9D9D;
+    }
   }
-  img{
-    display: block;
-    margin-left: 0;
-  }
-  .no-pic{
-    font-size: 11em;
-    color: #9D9D9D;
-  }
+
 }

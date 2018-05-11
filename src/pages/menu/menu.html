@@ -1,0 +1,32 @@
+<!--
+  Generated template for the MenuPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>menu</ion-title>
+    <ion-buttons end>
+      <button [disabled]="!hasProfile" ion-button icon-only (click)="navigateTo('SearchUsersPage')">
+        <ion-icon name="search" color="dark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row (click)="navigateTo('ProfilePage')">
+    <ion-col class="profile" col-2>
+      <img class="profilePic" src="{{ profile.profilePic}}">
+      <ion-icon *ngIf="!profile.profilePic" name="contact"></ion-icon>
+    </ion-col>
+    <ion-col class="menu-tab">
+      <span class="menu-title">{{profile.fullName}}</span>
+      <div class="menu-details">View Your Profile</div>
+    </ion-col>
+  </ion-row>
+</ion-content>

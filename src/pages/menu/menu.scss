@@ -1,0 +1,24 @@
+page-menu {
+  ion-row {
+    border-bottom: 1px solid gainsboro;
+    ion-icon {
+      font-size: 3.7em;
+    }
+    .menu-tab {
+      text-align: left;
+      margin-left: 10px;
+
+      .menu-title {
+        display: inline-block;
+        margin: 5px 0;
+        font-size: 16px;
+
+      }
+      .menu-details {
+        color: gray;
+      }
+    }
+  }
+}
+
+
