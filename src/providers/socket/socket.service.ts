@@ -17,7 +17,7 @@ export class SocketService {
 
   socketConnect() {
     if (!this.isUserConnected) {
-      const userName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
+      const userName = this.userService.thisProfile.fullName;
       this.socket.connect();
       this.isUserConnected = true;
       this.socket.emit('set-nickname', userName);

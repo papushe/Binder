@@ -36,36 +36,35 @@ export class CommunitiesComponent implements OnInit {
 
   ngOnInit(): void {
     this.communitySocketConnection = this.socketService.getMembersChangedEventsPrivate()
-      .subscribe(data => {
-        this.handleSocket(data);
+      .subscribe(
+        data => {
+          if (data){
+            this.handleSocket(data);
+          }
       });
   }
 
   handleSocket(data) {
-    let thisUserName = this.userService.thisProfile.firstName + ' ' + this.userService.thisProfile.lastName;
+    let thisUserName = this.userService.thisProfile.fullName;
 
-    console.log(data);
     if (data.event == 'deleted') {
-      let userFromServer = data['user'].keyForFirebase;
+      let userFromServer = (data.user) ? data.user.keyForFirebase : '';
 
       if (thisUserName != data.from) {
         this.sharedService.createToast(`You were ${data.event} from ${data.communityName} community by ${data.from}`);
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
-
-        // this.updateUserProfile(data.user, data.communityId);
         this.userService.thisProfile = data.user;
         this.getProfile(this.userService.thisAuthenticatedUser)
       }
 
-    } else if (data.event == 'joined') {
-
+    }
+    else if (data.event == 'joined') {
       this.userService.thisProfile = data.user;
       this.getProfile(this.userService.thisAuthenticatedUser);
+
       if (thisUserName != data.from) {
-
         this.sharedService.createToast(`You were ${data.event} to ${data.communityName} community by ${data.from}`);
-
       }
     }
 
@@ -78,7 +77,9 @@ export class CommunitiesComponent implements OnInit {
         this.userService.getProfile(user)
           .subscribe(
             data => {
-              this.userService.thisProfile = <Profile>data;
+              if (data) {
+                this.userService.thisProfile = <Profile>data;
+              }
               if (this.userService.thisProfile) {
                 this.socketService.socketConnect();
                 this.userService.thisHasProfile = true;

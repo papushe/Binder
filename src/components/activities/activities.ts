@@ -33,13 +33,13 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.activitiesSocketConnection = this.socketService.getCommunityChangeActivity()
       .subscribe(data => {
-        this.handleActivitySocket(data);
+        if (data) {
+          this.handleActivitySocket(data);
+        }
       });
   }
 
   handleActivitySocket(data) {
-    const EVENT = data.event;
-
     if (data.event == 'delete-activity') {
       const removeIndex = this.activities.map(function (item) {
         return item._id;
@@ -57,8 +57,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       this.activities.push(data.activity);
     }
 
-    if (this.userService.thisProfile.fullName != data.from) {
-      this.sharedService.createToast(`${data['from']} ${EVENT} - ${data['activity'].activity_name}`);
+    if (data.from && this.userService.thisProfile.fullName != data.from) {
+      this.sharedService.createToast(`${data['from']} ${data.event} - ${data['activity'].activity_name}`);
     }
 
 
@@ -68,7 +68,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     this.activityService.getActivitiesByCommunityId(communityId, ['open', 'claimed'])
       .subscribe(
         data => {
-          console.log(`got all activities successfully? : ${data != null}`);
+          console.log(`got all activities successfully? : ${!!data}`);
           if (data) {
             this.activities = <Activity[]>data;
           }

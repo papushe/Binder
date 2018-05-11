@@ -39,29 +39,23 @@ export class ActivityCreationFormComponent implements OnInit {
   ngOnInit() {
     if (this.currentActivity) {
       this.activity = this.currentActivity;
-      // this.activity.activity_date =
     }
   }
-
-  enterActivityDetails() {
-
-  }
-
 
   createActivity(actionRequired) {
     if (this.userService.thisAuthenticatedUser) {
       this.activity.consumer = {
         id: this.userService.thisProfile.keyForFirebase,
-        name: `${this.userService.thisProfile.firstName} ${this.userService.thisProfile.lastName}`
+        name: this.userService.thisProfile.fullName
       };
       this.activity.community_id = this.currentCommunity._id;
       if (actionRequired == 'create') {
         this.activityService.createActivity(this.activity)
           .subscribe(
             data => {
-              console.log(`create activity success? : ${data != null}`);
-              this.socketService.communityChangeActivity(data, this.activity.community_id, 'create');
+              console.log(`create activity success? : ${!!data}`);
               if (data) {
+                this.socketService.communityChangeActivity(data, this.activity.community_id, 'create');
                 this.sharedService.createToast(`${this.activity.activity_name} was created successfully`);
                 this.saveActivityResult.emit(data);
               }
@@ -81,9 +75,9 @@ export class ActivityCreationFormComponent implements OnInit {
         this.activityService.updateActivity(this.activity)
           .subscribe(
             data => {
-              console.log(`successfully updated activity? : ${data != null}`);
-              this.socketService.communityChangeActivity(data, this.activity.community_id, 'update');
+              console.log(`successfully updated activity? : ${!!data}`);
               if (data) {
+                this.socketService.communityChangeActivity(data, this.activity.community_id, 'update');
                 this.sharedService.createToast(`${this.activity.activity_name} was updated successfully`);
                 this.saveActivityResult.emit(data);
               }
