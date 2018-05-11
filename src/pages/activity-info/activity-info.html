@@ -33,7 +33,7 @@
     <ion-card-header>Destination: {{activity.destination}}</ion-card-header>
   </ion-card>
   <button ion-button block color="danger" outline *ngIf="isAllowedToEdit() && activity.status.value !== 'approved'" (click)="deleteActivityPopUp()">Delete</button>
-  <button ion-button block color="primary" outline *ngIf="!isAllowedToEdit() && activity.status.value === 'open'" (click)="claimActivity()">Claim</button>
+  <button ion-button block color="primary" outline *ngIf="activity.consumer.id !== this.profile.keyForFirebase && activity.status.value === 'open'" (click)="claimActivity()">Claim</button>
   <p *ngIf="activity.status.user_id === this.profile.keyForFirebase">Pending to user approval</p>
 </ion-content>
 
