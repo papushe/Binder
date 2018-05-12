@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {Socket} from 'ng-socket-io';
+import {IonicPage, NavParams} from 'ionic-angular';
 import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SharedService} from "../../providers/shared/shared.service";
 import {ChatService} from "../../providers/chat-service/chat-service";
 import {MessageService} from "../../providers/message/message";
+
 
 @IonicPage()
 @Component({
@@ -25,12 +25,9 @@ export class ChatRoomPage implements OnInit {
   joinLeaveSocketConnection: any;
   enterToChatRoomSocketConnection: any;
   chatWith: any;
-  chatIsSaved: boolean = false;
   alreadyChat: any;
 
-  constructor(private navCtrl: NavController,
-              private navParams: NavParams,
-              private socket: Socket,
+  constructor(private navParams: NavParams,
               private socketService: SocketService,
               private userService: UserService,
               private sharedService: SharedService,
@@ -39,19 +36,24 @@ export class ChatRoomPage implements OnInit {
   }
 
   ngOnInit() {
-    this.paramsFromUserToTalk = this.navParams.get('message');
     this.currentUser = this.userService.thisProfile;
-    this.userToTalk = this.navParams.get('member');
-    if (this.userToTalk && this.userToTalk.chats.length > 0) {
-      this.checkIfAlreadyChat();
+    this.paramsFromUserToTalk = this.navParams.get('message'); //from notification
+    this.userToTalk = this.navParams.get('member'); //select from list
+    this.chatWith = this.navParams.get('chat'); //from already chats
+
+    if (this.userToTalk) { //if userToTalk - check if chat with him
+      this.checkIfAlreadyChat('enter');
     }
-    if (!this.userToTalk && this.paramsFromUserToTalk) {
-      this.getMessages(this.paramsFromUserToTalk, true);
+
+    if (this.paramsFromUserToTalk) { //from notification get messages
+      this.userToTalk = this.paramsFromUserToTalk.from;
+      this.checkIfAlreadyChat('join');
     }
-    this.chatWith = this.navParams.get('chat');
-    if (this.chatWith || this.alreadyChat) {
+
+    if (this.chatWith || this.alreadyChat) { //from already chats get messages
       this.getMessages(this.chatWith || this.alreadyChat, '')
     }
+
     this.messageSocketConnection = this.socketService.getMessages().subscribe(message => {
       this.messages.push(message);
     });
@@ -59,20 +61,6 @@ export class ChatRoomPage implements OnInit {
     this.joinLeaveSocketConnection = this.socketService.joinedLeaveFromChatRoomPrivate().subscribe(message => {
       this.handleJoinToRoom(message);
     });
-
-    if (this.paramsFromUserToTalk) {
-      this.randomNumberRoom = this.paramsFromUserToTalk.room;
-      this.joinToChatRoom(this.paramsFromUserToTalk.room, this.userToTalk, this.currentUser);
-
-    } else {
-      this.enterToChatRoomSocketConnection = this.socketService.enterToChatRoomPrivate().subscribe(message => {
-        console.log(message)
-
-      });
-
-      this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser);
-
-    }
   }
 
   handleJoinToRoom(message) {
@@ -111,18 +99,41 @@ export class ChatRoomPage implements OnInit {
     this.message = '';
   }
 
-
-  checkIfAlreadyChat() {
-    this.userToTalk.chats.find((chat) => {
-      if (chat.talkedFromName === this.userToTalk.fullName) {
-        this.alreadyChat = chat;
+  checkIfAlreadyChat(type) {
+    if (type === 'enter') {
+      if (this.currentUser.chats && this.currentUser.chats.length > 0) { // if this user and i have chat
+        this.currentUser.chats.map((chat) => {
+          if (chat.talkedToName === this.userToTalk.fullName || chat.talkedFromName === this.userToTalk.fullName) {
+            this.alreadyChat = chat;
+            this.enterToChatRoom(chat.chatRoomId, this.userToTalk, this.currentUser);
+          }
+        })
+      } else {
+        this.saveChat('', ''); // else save chat
+        this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser);
       }
-    })
+    } else {
+      if (type === 'join') {
+        if (this.currentUser.chats && this.currentUser.chats.length > 0) { // if this user and i have chat
+          this.currentUser.chats.map((chat) => {
+            if (chat.talkedToName === this.userToTalk.fullName || chat.talkedFromName === this.userToTalk.fullName) {
+              this.alreadyChat = chat;
+              this.joinToChatRoom(chat.chatRoomId, this.userToTalk, this.currentUser);
+            }
+          })
+        } else {
+          this.saveChat(this.paramsFromUserToTalk.room, this.paramsFromUserToTalk.from); // else save chat
+          this.randomNumberRoom = this.paramsFromUserToTalk.room;
+          this.userToTalk = this.paramsFromUserToTalk.from;
+          this.joinToChatRoom(this.paramsFromUserToTalk.room, this.paramsFromUserToTalk.from, this.currentUser);
+        }
+      }
+    }
   }
 
-  saveChat() {
+  saveChat(room, from) {
 
-    this.chatService.saveChat(this.randomNumberRoom, this.userToTalk, this.userService.thisProfile)
+    this.chatService.saveChat(room || this.randomNumberRoom, from || this.userToTalk, this.userService.thisProfile)
       .subscribe(data => {
         this.userService.thisProfile = <Profile>data;
         this.chatService.roomNumberChat = this.userService.thisProfile.chats;
@@ -154,8 +165,7 @@ export class ChatRoomPage implements OnInit {
     }
 
     this.randomNumberRoom = room;
-    this.chatIsSaved = true;
-
+    this.chatWith ? this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser) : '';
     this.messagesService.getRoomMessages(this.randomNumberRoom)
       .subscribe(messages => {
         this.messages = <any[]>messages;
@@ -167,14 +177,10 @@ export class ChatRoomPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    if (!this.chatIsSaved) {
-      this.saveChat();
-    }
     this.joinLeaveSocketConnection.unsubscribe();
     this.messageSocketConnection.unsubscribe();
     this.enterToChatRoomSocketConnection ? this.enterToChatRoomSocketConnection.unsubscribe() : '';
     this.leftFromChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser)
-
   }
 
 }
