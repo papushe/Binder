@@ -38,8 +38,8 @@ export class ChatRoomPage implements OnInit {
   ngOnInit() {
     this.currentUser = this.userService.thisProfile;
     this.paramsFromUserToTalk = this.navParams.get('message'); //from notification
-    this.userToTalk = this.navParams.get('member'); //select from list
-    this.chatWith = this.navParams.get('chat'); //from already chats
+    this.userToTalk = this.navParams.get('member'); //select from community
+    this.chatWith = this.navParams.get('chat'); //from chats tab
 
     if (this.userToTalk) { //if userToTalk - check if chat with him
       this.checkIfAlreadyChat('enter');
@@ -51,7 +51,7 @@ export class ChatRoomPage implements OnInit {
     }
 
     if (this.chatWith || this.alreadyChat) { //from already chats get messages
-      this.getMessages(this.chatWith || this.alreadyChat, '')
+      this.getMessages(this.chatWith || this.alreadyChat)
     }
 
     this.messageSocketConnection = this.socketService.getMessages().subscribe(message => {
@@ -109,7 +109,7 @@ export class ChatRoomPage implements OnInit {
           }
         })
       } else {
-        this.saveChat('', ''); // else save chat
+        this.saveChat(this.randomNumberRoom, this.userToTalk); // else save chat
         this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser);
       }
     } else {
@@ -131,9 +131,9 @@ export class ChatRoomPage implements OnInit {
     }
   }
 
-  saveChat(room, from) {
+  saveChat(room, talkedTo) {
 
-    this.chatService.saveChat(room || this.randomNumberRoom, from || this.userToTalk, this.userService.thisProfile)
+    this.chatService.saveChat(room, talkedTo, this.userService.thisProfile)
       .subscribe(data => {
         this.userService.thisProfile = <Profile>data;
         this.chatService.roomNumberChat = this.userService.thisProfile.chats;
@@ -144,28 +144,27 @@ export class ChatRoomPage implements OnInit {
       })
   }
 
-  getMessages(chat, message) {
+  getMessages(chat) {
     let fullName = '',
       room = '';
-    if (message) {
-      this.userToTalk = chat.from;
-      room = chat.room;
+
+    if (this.currentUser.fullName == chat.talkedToName) {
+      fullName = chat.talkedFromName
     } else {
-      if (this.currentUser.fullName == chat.talkedToName) {
-        fullName = chat.talkedFromName
-      } else {
-        fullName = chat.talkedToName
-      }
-      this.userToTalk = {
-        id: chat.talkedToId,
-        fullName: fullName,
-        profilePic: chat.talkedToPic || chat.profilePic
-      };
-      room = chat.chatRoomId;
+      fullName = chat.talkedToName
     }
 
+    this.userToTalk = {
+      id: chat.talkedToId,
+      fullName: fullName,
+      profilePic: chat.talkedToPic || chat.profilePic
+    };
+    room = chat.chatRoomId;
+
     this.randomNumberRoom = room;
+
     this.chatWith ? this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser) : '';
+
     this.messagesService.getRoomMessages(this.randomNumberRoom)
       .subscribe(messages => {
         this.messages = <any[]>messages;

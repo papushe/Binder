@@ -65,13 +65,15 @@ export class TabsPage implements OnInit, OnDestroy {
   getNotification() {
     this.notificationService.getUserNotifications(this.userService.thisAuthenticatedUser.uid)
       .subscribe((notification) => {
-          this.notificationService.notifications = <Notification[]>notification;
-          this.notificationService.notifications.map((element) => {
-            if (element.status !== 'done') {
-              this.notificationService.notificationNumber++;
-            }
-            this.newMessage = this.notificationService.notificationNumber;
-          })
+          if (notification) {
+            this.notificationService.notifications = <Notification[]>notification;
+            this.notificationService.notifications.map((element) => {
+              if (element.status !== 'done') {
+                this.notificationService.notificationNumber++;
+              }
+              this.newMessage = this.notificationService.notificationNumber;
+            })
+          }
         }, (err) => {
           console.log(`Failed to get user notifications ${err.message}`)
         },
