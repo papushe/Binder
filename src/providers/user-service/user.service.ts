@@ -99,7 +99,7 @@ export class UserService {
       type: profile.type,
       skills: profile.skills,
       email: profile.email,
-      keyForFirebase: profile.keyForFirebase,
+      keyForFirebase: this.thisAuthenticatedUser.uid,
       profilePic: profile.profilePic
     };
     return this._http
