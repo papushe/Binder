@@ -3,7 +3,6 @@ import {Events, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {UserService} from "../providers/user-service/user.service";
-import {LoginPage} from "../pages/login/login";
 import {SharedService} from "../providers/shared/shared.service";
 import {SocketService} from "../providers/socket/socket.service";
 import {Notification} from "../models/notification/notification.interface";

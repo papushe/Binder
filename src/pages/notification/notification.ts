@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, Events, IonicPage, NavController} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
@@ -17,7 +17,6 @@ export class NotificationPage implements OnInit {
   notifications: Notification[] = [];
 
   constructor(private navCtrl: NavController,
-              private navParams: NavParams,
               private events: Events,
               private notificationService: NotificationService,
               private sharedService: SharedService,

@@ -3,7 +3,6 @@ import {PopoverController, IonicPage, NavController, NavParams} from 'ionic-angu
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
-import {CreateActivityPage} from "../create-activity/create-activity"
 import {Profile} from "../../models/profile/profile.interface";
 import {CommunityPopoverComponent} from "../../components/community-popover/community-popover.component";
 import {SocketService} from "../../providers/socket/socket.service";

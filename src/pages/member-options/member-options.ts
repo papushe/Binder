@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavParams} from 'ionic-angular';
 import {Profile} from "../../models/profile/profile.interface";
 import {Community} from "../../models/community/community.interface";
 
@@ -15,7 +15,7 @@ export class MemberOptionsPage implements OnInit {
   isJoined: boolean;
   title: string;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams) {
+  constructor(private navParams: NavParams) {
   }
 
   ngOnInit() {
