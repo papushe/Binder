@@ -34,21 +34,22 @@
                       max="2025"
                       displayFormat="DD/MM/YYYY HH:mm"
                       name="activity_date"
-                      [pickerOptions]="activityDateOptions"
+                      [pickerOptions]="activity_date"
                       #activity_date="ngModel"
-                      [ngModelOptions]="{standalone: true}"
                       required>
+        <!--[ngModelOptions]="{standalone: true}"-->
         </ion-datetime>
       </ion-item>
-      <div padding *ngIf="activityDateOptions.invalid && activityDateOptions.dirty">
+      <div padding *ngIf="activity_date.invalid && activity_date.dirty">
         <span class="global__input-error">Must enter a valid date!</span>
       </div>
       <ion-item>
         <ion-label>Type</ion-label>
         <ion-select [(ngModel)]="activity.type"
                     #type="ngModel"
-                    required
-                    [ngModelOptions]="{standalone: true}">
+                    name="type"
+                    required>
+                    <!--[ngModelOptions]="{standalone: true}">-->
           <ion-option value="Dog Walking">Dog Walking</ion-option>
           <ion-option value="Baby Sitting">Baby Sitting</ion-option>
           <ion-option value="Delivery">Delivery</ion-option>

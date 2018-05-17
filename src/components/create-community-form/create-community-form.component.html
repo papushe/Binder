@@ -6,7 +6,8 @@
         <ion-select [(ngModel)]="community.type"
                     #type="ngModel"
                     required
-                    [ngModelOptions]="{standalone: true}">
+                    name="type">
+                    <!--[ngModelOptions]="{standalone: true}">-->
           <ion-option value="Secured">Secured</ion-option>
           <ion-option value="Private">Private</ion-option>
           <ion-option value="Public">Public</ion-option>
@@ -42,6 +43,6 @@
     </ion-card-content>
   </ion-card>
   <button class="create-new-community-btn" ion-button (click)="createCommunity()" outline
-          [disabled]="communityForm.invalid">Create
+          [disabled]="communityForm.invalid || type.value ===''">Create
   </button>
 </form>
