@@ -10,7 +10,7 @@ import {SharedService} from "../../providers/shared/shared.service";
   selector: 'app-profile',
   templateUrl: 'profile.component.html'
 })
-export class ProfileComponent implements OnDestroy, OnInit {
+export class ProfileComponent implements OnDestroy {
 
   profile = {} as Profile;
   skill: string = "";
@@ -31,13 +31,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
               private camera: Camera,
               private sharedService: SharedService) {
 
-  }
-
-  ngOnInit(){
-    this.init();
-  }
-
-  init() {
     if (this.userService.thisProfile) {
       this.profile = this.userService.thisProfile;
       this.skills = this.userService.thisProfile.skills;
