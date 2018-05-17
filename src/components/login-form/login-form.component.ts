@@ -25,14 +25,14 @@ export class LoginFormComponent {
     this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe(
         auth => {
-      if (auth) {
-        this.userService.thisAuthenticatedUser = auth;
-        this.loginStatus.emit(loginResponse);
-      } else {
-        this.userService.thisAuthenticatedUser$.unsubscribe();
-        this.navCtrl.setRoot('LoginPage')
-      }
-    });
+          if (auth) {
+            this.userService.thisAuthenticatedUser = auth;
+            this.loginStatus.emit(loginResponse);
+          } else {
+            this.userService.thisAuthenticatedUser$.unsubscribe();
+            this.navCtrl.setRoot('LoginPage')
+          }
+        });
   }
 
   navigateToRegisterPage() {
