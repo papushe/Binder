@@ -27,8 +27,6 @@
 
 
 <span *ngIf="(loggedInUser.keyForFirebase == community?.managerId) && isJoined">
-  <!--<button block ion-button (click)="updateUserRole()"-->
-          <!--outline>Make {{isAuthorizedMember ? roles.member : roles.auth}}</button>-->
   <button block ion-button color="danger" outline *ngIf="loggedInUser.keyForFirebase===community?.managerId"
           (click)="removeUser()">Remove</button>
   <!--<button block ion-button color="success" outline>Call</button>-->

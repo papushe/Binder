@@ -63,9 +63,6 @@ export class NotificationPage implements OnInit {
     } else if (message.event == 'user-ask-to-join-private-room') {
       this.confirmUserToJoin(message);
     }
-    // else if (message.event == 'update-user-role') {
-    //   this.userService.thisProfile = message.user;
-    // }
   }
 
   deleteNotification(notification, from) {

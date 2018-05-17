@@ -74,16 +74,6 @@ export class CommunityService {
       .post(`${this.baseUrl}/${this.context}/members`, obj)
   }
 
-  // updateCommunityUserRole(communityId: string, uid: string, role: string) {
-  //   const obj = {
-  //     communityId: communityId,
-  //     uid: uid,
-  //     role: role
-  //   };
-  //   return this._http
-  //     .post(`${this.baseUrl}/${this.context}/update-role`, obj)
-  // }
-
   addUserToWaitingList(communityId, userId) {
     const obj = {
       communityId: communityId,

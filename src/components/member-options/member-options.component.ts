@@ -18,12 +18,6 @@ export class MemberOptionsComponent implements OnInit {
   @Input() community: Community;
   loggedInUser: Profile;
   isJoined: boolean;
-  // isAuthorizedMember: boolean;
-
-  // roles = {
-  //   auth: 'Authorized Member',
-  //   member: 'Member'
-  // };
 
   constructor(private navCtrl: NavController, private navParams: NavParams,
               private communityService: CommunityService,
@@ -34,54 +28,12 @@ export class MemberOptionsComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    // this.checkAuthorizedMember();
   }
 
   init() {
     this.loggedInUser = this.userService.thisProfile;
     this.isJoined = this.navParams.get('isJoined');
   }
-
-  // checkAuthorizedMember() {
-  //   this.member.communities.forEach(community => {
-  //     if (community.communityId === this.community._id) {
-  //       this.isAuthorizedMember = (community.role !== 'Member');
-  //     }
-  //   })
-  // }
-
-  // updateUserRole() {
-  //   let role = this.isAuthorizedMember ? this.roles.member : this.roles.auth;
-  //   this.communityService.updateCommunityUserRole(this.community._id, this.member.keyForFirebase, role)
-  //     .subscribe(
-  //       res => {
-  //         console.log(`update user role success? : ${!!res}`);
-  //         if (res) {
-  //           this.community = <Community>res;
-  //           this.updateUserAfterChangingRole(role);
-  //           this.sharedService.createToast(`New Role has been updated for ${this.member.firstName} ${this.member.lastName}`);
-  //         }
-  //         else {
-  //           this.sharedService.createToast(`Failed to update ${this.member.firstName} ${this.member.lastName} role`);
-  //         }
-  //       },
-  //       err => {
-  //         console.debug(`Failed to update role for user due to: ${err.message}`);
-  //         this.sharedService.createToast(`Failed to update ${this.member.fullName} role`);
-  //       },
-  //       () => {
-  //         this.navCtrl.pop();
-  //       });
-  // }
-
-  // updateUserAfterChangingRole(role) {
-  //   this.member.communities.map(community => {
-  //     if (community.communityId === this.community._id) {
-  //       community.role = role;
-  //       this.socketService.updateUserRole(this.userService.thisProfile, this.community, this.member, role);
-  //     }
-  //   })
-  // }
 
   removeUser() {
     this.communityService.leaveCommunity(this.community._id, this.member.keyForFirebase)

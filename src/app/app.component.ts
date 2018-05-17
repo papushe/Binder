@@ -17,7 +17,6 @@ export class MyApp implements OnInit, OnDestroy {
   rootPage: string;
   tabsSocketEnterToChatRoomPrivate: any;
   tabsSocketAskToJoinToPrivateRoom: any;
-  // tabsSocketOnUpdateUserRolePrivate: any;
   @ViewChild('child') child;
 
   constructor(private userService: UserService,
@@ -49,7 +48,6 @@ export class MyApp implements OnInit, OnDestroy {
 
     this.joinPrivateRoom();
 
-    // this.onUpdateUserRole();
   }
 
 
@@ -121,26 +119,6 @@ export class MyApp implements OnInit, OnDestroy {
           })
       });
   }
-
-  // onUpdateUserRole() {
-  //   this.tabsSocketOnUpdateUserRolePrivate = this.socketService.onUpdateUserRolePrivate()
-  //     .subscribe(data => {
-  //
-  //       this.notificationService.notificationNumber++;
-  //
-  //       this.events.publish('newNotification', this.notificationService.notificationNumber);
-  //
-  //       this.notificationService.createNotification(<Notification>data)
-  //         .subscribe(data => {
-  //           this.notificationService.notifications.push(<Notification>data);
-  //         }, err => {
-  //           console.log(`Faild to save notification, ${err}`)
-  //         }, () => {
-  //           //done
-  //         })
-  //     });
-  // }
-
 
   ngOnDestroy(): void {
     this.socketService.disconnect();

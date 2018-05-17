@@ -22,7 +22,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
   isWaiting: boolean = false;
   cameFrom: string;
   @ViewChild('child') activitiesComponent: any;
-  // socketOnUpdateUserRole: any;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
@@ -37,7 +36,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     this.init();
     this.isUserJoined();
     this.isUserWaiting();
-    // this.handleSocket();
   }
 
   init() {
@@ -49,25 +47,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     }
     this.profile = this.userService.thisProfile;
   }
-
-  // handleSocket() {
-    // this.socketOnUpdateUserRole = this.socketService.onUpdateUserRole()
-    //   .subscribe(data => {
-    //     this.handleSocketEvent(data);
-    //   })
-  // }
-
-  // handleSocketEvent(data) {
-  //   this.communityService.thisSelectedCommunity = data.community;
-  //   this.community = this.communityService.thisSelectedCommunity;
-  //   let userName = '';
-  //   if (data.user.fullName == this.profile.fullName) {
-  //     userName = 'You are'
-  //   } else {
-  //     userName = `${data.user.fullName} is`
-  //   }
-  //   this.sharedService.createToast(`${userName} now ${data.role} in ${data.community.communityName} community`)
-  // }
 
   ionViewDidEnter() {
     if (this.community && this.activitiesComponent) {

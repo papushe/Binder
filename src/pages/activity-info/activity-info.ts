@@ -89,7 +89,6 @@ export class ActivityInfoPage implements OnInit {
           this.sharedService.createToast(`Failed to leave ${this.activity.activity_name}`,)
         },
         () => {
-          // this.navCtrl.push('CommunityDetailsPage', {community: this.community, from: 'communitiesComponent'})
           this.navCtrl.pop();
         }
       );
