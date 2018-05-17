@@ -24,7 +24,7 @@ export interface Profile {
     chatRoomId: string,
     talkedToId: string,
     talkedToName: string,
-    talkedFromName:string,
+    talkedFromName: string,
     profilePic: string,
   }]
 }

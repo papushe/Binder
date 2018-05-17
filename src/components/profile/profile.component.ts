@@ -31,6 +31,13 @@ export class ProfileComponent implements OnDestroy, OnInit {
               private camera: Camera,
               private sharedService: SharedService) {
 
+  }
+
+  ngOnInit(){
+    this.init();
+  }
+
+  init() {
     if (this.userService.thisProfile) {
       this.profile = this.userService.thisProfile;
       this.skills = this.userService.thisProfile.skills;
@@ -82,7 +89,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
     modal.present();
   }
 
-
   updateProfile() {
     this.sharedService.createLoader('Updating profile..');
     this.sharedService.loader.present().then(() => {
@@ -114,10 +120,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
       }
     }]
   };
-
-  ngOnInit(): void {
-
-  }
 
   saveProfile() {
     if (this.userService.thisAuthenticatedUser) {
@@ -169,7 +171,6 @@ export class ProfileComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     this.userService.thisAuthenticatedUser$.unsubscribe();
   }
-
 
   // ************************ Add picture ************************
 
