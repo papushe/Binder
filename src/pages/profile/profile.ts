@@ -1,14 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {IonicPage, NavController, PopoverController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {ProfilePopoverComponent} from "../../components/profile-popover/profile-popover.component";
-
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -26,9 +19,6 @@ export class ProfilePage {
 
   saveProfileResult(event) {
     event ? this.navCtrl.setRoot('TabsPage') : console.log("Not authenticated or saved");
-  }
-
-  ionViewDidLoad() {
   }
 
   presentPopover(myEvent) {

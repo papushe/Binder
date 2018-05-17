@@ -3,14 +3,6 @@ import {IonicPage, NavController} from 'ionic-angular';
 import {LoginResponse} from "../../models/login/login-response.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-register',
