@@ -15,6 +15,7 @@
       <p>Description: {{activity.activity_description}}</p>
       <p>Activity date: {{activity.activity_date|date:'short'}}</p>
       <p>Type: {{activity.type}}</p>
+      <p>Created by <strong>{{activity.consumer.name}}</strong></p>
     </ion-item>
   </ion-list>
 </ion-card>
