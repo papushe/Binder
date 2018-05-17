@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertController, NavController, NavParams, ViewController} from "ionic-angular";
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
@@ -7,17 +7,11 @@ import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 import {SharedService} from "../../providers/shared/shared.service";
 
-/**
- * Generated class for the CommunityPopoverComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'community-popover',
   templateUrl: 'community-popover.component.html'
 })
-export class CommunityPopoverComponent {
+export class CommunityPopoverComponent implements OnInit {
 
   isJoined: boolean;
   community: Community;
@@ -31,6 +25,13 @@ export class CommunityPopoverComponent {
               private sharedService: SharedService,
               private alertCtrl: AlertController,
               private socketService: SocketService) {
+  }
+
+  ngOnInit() {
+    this.init();
+  }
+
+  init() {
     this.isJoined = this.navParams.get('IsJoined');
     this.community = this.communityService.thisSelectedCommunity;
     this.profile = this.userService.thisProfile;

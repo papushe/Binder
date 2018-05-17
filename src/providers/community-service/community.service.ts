@@ -1,14 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
-import {User} from "firebase/app";
 
-/*
- Generated class for the CommunityService provider.
-
- See https://angular.io/guide/dependency-injection for more info on providers
- and Angular DI.
- */
 @Injectable()
 export class CommunityService {
 

@@ -1,4 +1,4 @@
-export interface Community{
+export interface Community {
   _id: string,
   communityName: string,
   communityDescription: string,
@@ -7,10 +7,10 @@ export interface Community{
   managerName: string,
   waiting_list: [string],
   authorizedMembers: [{
-    memberId:string
+    memberId: string
   }],
   members: [{
-    memberId:string
+    memberId: string
   }],
   type: string
 }
