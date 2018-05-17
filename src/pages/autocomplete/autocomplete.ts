@@ -1,18 +1,13 @@
-import {Component, NgZone} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {IonicPage, ViewController} from 'ionic-angular';
 
-/**
- * Generated class for the AutocompletePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 declare var google;
+
 @IonicPage()
 @Component({
   templateUrl: 'autocomplete.html'
 })
-export class AutocompletePage {
+export class AutocompletePage implements OnInit {
   autocompleteItems;
   autocomplete;
 
@@ -20,12 +15,22 @@ export class AutocompletePage {
   longitude: number = 0;
   geo: any;
   service = new google.maps.places.AutocompleteService();
-  constructor (public viewCtrl: ViewController, private zone: NgZone) {
+
+  constructor(private viewCtrl: ViewController, private zone: NgZone) {
+
+  }
+
+  ngOnInit(): void {
+    this.init();
+  }
+
+  init() {
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
     };
   }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }
@@ -35,6 +40,7 @@ export class AutocompletePage {
     this.geo = item;
     this.geoCode(this.geo);//convert Address to lat and long
   }
+
   updateSearch() {
     if (this.autocomplete.query == '') {
       this.autocompleteItems = [];
@@ -42,26 +48,29 @@ export class AutocompletePage {
     }
     let me = this;
     this.service.getPlacePredictions({
-      input: this.autocomplete.query,
-      componentRestrictions: {country: 'IL'} },
+        input: this.autocomplete.query,
+        componentRestrictions: {country: 'IL'}
+      },
       function (predictions, status) {
-      if(predictions){
-        me.autocompleteItems = [];
-        me.zone.run(function () {
-          predictions.forEach(function (prediction) {
-            me.autocompleteItems.push(prediction.description);
+        if (predictions) {
+          me.autocompleteItems = [];
+          me.zone.run(function () {
+            predictions.forEach(function (prediction) {
+              me.autocompleteItems.push(prediction.description);
+            });
           });
-        });
-      }
-    });
+        }
+      });
   }
-  geoCode(address:any) {
+
+  geoCode(address: any) {
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode({'address': address}, (results, status) => {
       this.latitude = results[0].geometry.location.lat();
       this.longitude = results[0].geometry.location.lng();
     });
   }
+
   ionViewDidLoad() {
   }
 
