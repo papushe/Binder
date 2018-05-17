@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams, Tab} from 'ionic-angular';
+import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {SocketService} from "../../providers/socket/socket.service";
 import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
@@ -29,12 +29,6 @@ export class TabsPage implements OnInit, OnDestroy {
               private events: Events,
               private sharedService: SharedService,
               private userService: UserService) {
-
-    this.tab1Root = 'CommunitiesPage';
-    this.tab2Root = 'NotificationPage';
-    this.tab3Root = 'MessagesPage';
-    this.tab4Root = 'MenuPage';
-
   }
 
   ngOnInit(): void {
@@ -42,7 +36,16 @@ export class TabsPage implements OnInit, OnDestroy {
   }
 
   init() {
+    this.tab1Root = 'CommunitiesPage';
+    this.tab2Root = 'NotificationPage';
+    this.tab3Root = 'MessagesPage';
+    this.tab4Root = 'MenuPage';
+    this.eventsSubscribe();
 
+    this.getNotification();
+  }
+
+  eventsSubscribe() {
     this.events.subscribe('newNotification', (data) => {
 
       if (this.tabs._selectHistory[this.tabs._selectHistory.length - 1] !== 't0-1') {
@@ -59,7 +62,6 @@ export class TabsPage implements OnInit, OnDestroy {
 
     });
 
-    this.getNotification();
   }
 
   getNotification() {
