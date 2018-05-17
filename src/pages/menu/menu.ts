@@ -31,7 +31,7 @@ export class MenuPage implements OnInit {
   }
 
   navigateTo(page) {
-    this.navCtrl.push(page)
+    page === 'SearchUsersPage' ? this.navCtrl.push(page, {profile: this.profile}) : this.navCtrl.push(page);
   }
 
 

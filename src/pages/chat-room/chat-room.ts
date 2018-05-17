@@ -36,6 +36,13 @@ export class ChatRoomPage implements OnInit {
   }
 
   ngOnInit() {
+    this.init();
+
+    this.handleSockets();
+
+  }
+
+  init() {
     this.currentUser = this.userService.thisProfile;
     this.paramsFromUserToTalk = this.navParams.get('message'); //from notification
     this.userToTalk = this.navParams.get('member'); //select from community
@@ -53,7 +60,9 @@ export class ChatRoomPage implements OnInit {
     if (this.chatWith || this.alreadyChat) { //from already chats get messages
       this.getMessages(this.chatWith || this.alreadyChat)
     }
+  }
 
+  handleSockets() {
     this.messageSocketConnection = this.socketService.getMessages().subscribe(message => {
       this.messages.push(message);
     });
