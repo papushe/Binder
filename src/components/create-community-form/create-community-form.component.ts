@@ -5,12 +5,6 @@ import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 
-/**
- * Generated class for the CreateCommunityFormComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'create-community-form',
   templateUrl: 'create-community-form.component.html'

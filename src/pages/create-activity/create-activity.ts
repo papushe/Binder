@@ -1,31 +1,28 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {Activity} from "../../models/activity/activity.interface";
-
-/**
- * Generated class for the CreateActivityPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
   selector: 'page-create-activity',
   templateUrl: 'create-activity.html',
 })
-export class CreateActivityPage {
+export class CreateActivityPage implements OnInit {
 
   community: Community;
   activity: Activity;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.community = this.navParams.get('community');
-    this.activity = this.navParams.get('activity');
   }
 
-  ionViewDidLoad() {
+  ngOnInit() {
+    this.init();
+  }
+
+  init() {
+    this.community = this.navParams.get('community');
+    this.activity = this.navParams.get('activity');
   }
 
   saveActivityResult(event) {
