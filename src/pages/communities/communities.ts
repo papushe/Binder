@@ -1,22 +1,15 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {CreateCommunityPage} from "../create-community/create-community";
 import {SearchCommunityPage} from "../search-community/search-community";
 import {UserService} from "../../providers/user-service/user.service";
-
-/**
- * Generated class for the InboxPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
   selector: 'page-communities',
   templateUrl: 'communities.html',
 })
-export class CommunitiesPage {
+export class CommunitiesPage implements OnInit {
 
   hasProfile: boolean;
   @ViewChild('child') child;
@@ -24,6 +17,13 @@ export class CommunitiesPage {
   constructor(private navCtrl: NavController,
               public navParams: NavParams,
               private userService: UserService) {
+  }
+
+  ngOnInit() {
+    this.init();
+  }
+
+  init() {
     this.userService.thisFromCommunityDetails = this.navParams.get('fromCommunityDetails')
   }
 
