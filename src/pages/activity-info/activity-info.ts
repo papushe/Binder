@@ -1,5 +1,5 @@
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {Activity} from '../../models/activity/activity.interface';
 import {Profile} from "../../models/profile/profile.interface";
@@ -8,20 +8,12 @@ import {ActivityService} from "../../providers/activity-service/activity-service
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 
-
-/**
- * Generated class for the ActivityInfoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-activity-info',
   templateUrl: 'activity-info.html',
 })
-export class ActivityInfoPage {
+export class ActivityInfoPage implements OnInit {
 
   activity: Activity;
   community: Community;
@@ -35,10 +27,16 @@ export class ActivityInfoPage {
               private navParams: NavParams,
               private socketService: SocketService) {
 
+  }
+
+  ngOnInit(): void {
+    this.init();
+  }
+
+  init() {
     this.community = this.navParams.get('community');
     this.activity = this.navParams.get('activity');
     this.profile = this.userService.thisProfile;
-
   }
 
   isAllowedToEdit() {
