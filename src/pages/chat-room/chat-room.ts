@@ -134,6 +134,7 @@ export class ChatRoomPage implements OnInit {
           this.saveChat(this.paramsFromUserToTalk.room, this.paramsFromUserToTalk.from); // else save chat
           this.randomNumberRoom = this.paramsFromUserToTalk.room;
           this.userToTalk = this.paramsFromUserToTalk.from;
+          this.getMessages('');
           this.joinToChatRoom(this.paramsFromUserToTalk.room, this.paramsFromUserToTalk.from, this.currentUser);
         }
       }
@@ -154,25 +155,27 @@ export class ChatRoomPage implements OnInit {
   }
 
   getMessages(chat) {
-    let fullName = '',
-      room = '';
+    if (chat) {
+      let fullName = '',
+        room = '';
 
-    if (this.currentUser.fullName == chat.talkedToName) {
-      fullName = chat.talkedFromName
-    } else {
-      fullName = chat.talkedToName
+      if (this.currentUser.fullName == chat.talkedToName) {
+        fullName = chat.talkedFromName
+      } else {
+        fullName = chat.talkedToName
+      }
+
+      this.userToTalk = {
+        id: chat.talkedToId,
+        fullName: fullName,
+        profilePic: chat.talkedToPic || chat.profilePic
+      };
+      room = chat.chatRoomId;
+
+      this.randomNumberRoom = room;
+
+      this.chatWith ? this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser) : '';
     }
-
-    this.userToTalk = {
-      id: chat.talkedToId,
-      fullName: fullName,
-      profilePic: chat.talkedToPic || chat.profilePic
-    };
-    room = chat.chatRoomId;
-
-    this.randomNumberRoom = room;
-
-    this.chatWith ? this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser) : '';
 
     this.messagesService.getRoomMessages(this.randomNumberRoom)
       .subscribe(messages => {
