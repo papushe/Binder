@@ -5,14 +5,16 @@ import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private sharedService: SharedService){
+  constructor(private sharedService: SharedService) {
 
   }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      req = req.clone({
-        setHeaders: {
-          Authorization: this.sharedService.getToken()}
-      });
+    req = req.clone({
+      setHeaders: {
+        Authorization: this.sharedService.getToken()
+      }
+    });
     return next.handle(req);
   }
 }
