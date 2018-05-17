@@ -4,13 +4,6 @@ import {ChatService} from "../../providers/chat-service/chat-service";
 import {UserService} from "../../providers/user-service/user.service";
 import {ChatRoomPage} from "../chat-room/chat-room";
 
-/**
- * Generated class for the MessagesPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-messages',
@@ -32,7 +25,6 @@ export class MessagesPage {
 
   chatWith(chat) {
     this.navCtrl.push('ChatRoomPage', {chat: chat});
-
   }
 
 
