@@ -1,23 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {SharedService} from "../../providers/shared/shared.service";
 
-/**
- * Generated class for the SearchUsersPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-search-users',
   templateUrl: 'search-users.html',
 })
-export class SearchUsersPage {
+export class SearchUsersPage implements OnInit {
 
   community: Community;
   profile: Profile;
@@ -31,6 +24,13 @@ export class SearchUsersPage {
               private sharedService: SharedService,
               private userService: UserService,
               private navCtrl: NavController) {
+  }
+
+  ngOnInit(): void {
+    this.init();
+  }
+
+  init() {
     this.community = this.navParams.get('community');
     this.profile = this.navParams.get('profile');
   }
@@ -63,6 +63,7 @@ export class SearchUsersPage {
           );
       });
   }
+
   openOptions(user: Profile) {
     if (user.keyForFirebase != this.profile.keyForFirebase) {
       this.navCtrl.push('MemberOptionsPage', {member: user, community: this.community, isJoined: false})
