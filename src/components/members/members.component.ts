@@ -28,14 +28,22 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getCommunityMembers();
-    this.profile = this.userService.thisProfile;
+    this.init();
+    this.membersChangeEvent();
+  }
+
+  membersChangeEvent() {
     this.communitySocketConnection = this.socketService.getMembersChangedEvents()
       .subscribe(
         data => {
-          if(data) {
+          if (data) {
             this.handleSocket(data);
           }
-      });
+        });
+  }
+
+  init() {
+    this.profile = this.userService.thisProfile;
   }
 
   handleSocket(data) {

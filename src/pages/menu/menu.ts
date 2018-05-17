@@ -3,13 +3,6 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
 
-/**
- * Generated class for the MenuPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-menu',
@@ -27,13 +20,14 @@ export class MenuPage implements OnInit {
   }
 
 
-  ngOnInit(): void {
-    this.hasProfile = this.userService.thisHasProfile;
-    this.profile = this.userService.thisProfile
+  ngOnInit() {
+    this.init();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MenuPage');
+  init() {
+    this.hasProfile = this.userService.thisHasProfile;
+    this.profile = this.userService.thisProfile
+
   }
 
   navigateTo(page) {
