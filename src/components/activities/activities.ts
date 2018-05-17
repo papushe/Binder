@@ -31,6 +31,10 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.communityChangeActivity();
+  }
+
+  communityChangeActivity() {
     this.activitiesSocketConnection = this.socketService.getCommunityChangeActivity()
       .subscribe(data => {
         if (data) {
