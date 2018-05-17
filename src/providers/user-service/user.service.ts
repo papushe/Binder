@@ -88,7 +88,7 @@ export class UserService {
 
   }
 
-  updateProfile (profile) {
+  updateProfile(profile) {
     const obj = {
       firstName: profile.firstName,
       lastName: profile.lastName,
@@ -106,7 +106,7 @@ export class UserService {
       .post(`${this.baseUrl}/${this.context}/update`, obj);
   }
 
-  vote (vote) {
+  vote(vote) {
     const obj = {
       up: vote.up || false,
       down: vote.down || false,
