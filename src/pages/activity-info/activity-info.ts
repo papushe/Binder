@@ -116,5 +116,9 @@ export class ActivityInfoPage implements OnInit {
       })
   }
 
+  approveActivity() {
+
+  }
+
 
 }

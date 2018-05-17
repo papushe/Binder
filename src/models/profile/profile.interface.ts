@@ -14,6 +14,9 @@ export interface Profile {
     up: number,
     down: number
   },
+  activities: [{
+    activityId: string
+  }],
   communities?: [{
     communityId: string,
     role: string
