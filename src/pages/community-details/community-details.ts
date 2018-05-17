@@ -9,13 +9,6 @@ import {CommunityPopoverComponent} from "../../components/community-popover/comm
 import {SocketService} from "../../providers/socket/socket.service";
 import {SharedService} from "../../providers/shared/shared.service";
 
-/**
- * Generated class for the CommunityDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-community-details',
@@ -29,6 +22,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
   isWaiting: boolean = false;
   cameFrom: string;
   @ViewChild('child') activitiesComponent: any;
+  // socketOnUpdateUserRole: any;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
@@ -40,6 +34,13 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.init();
+    this.isUserJoined();
+    this.isUserWaiting();
+    // this.handleSocket();
+  }
+
+  init() {
     this.communityService.thisSelectedCommunity = this.navParams.get('community');
     this.cameFrom = this.navParams.get('from');
     this.community = this.communityService.thisSelectedCommunity;
@@ -47,9 +48,26 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
       this.socketService.enteredToCommunity(this.community);
     }
     this.profile = this.userService.thisProfile;
-    this.isUserJoined();
-    this.isUserWaiting();
   }
+
+  // handleSocket() {
+    // this.socketOnUpdateUserRole = this.socketService.onUpdateUserRole()
+    //   .subscribe(data => {
+    //     this.handleSocketEvent(data);
+    //   })
+  // }
+
+  // handleSocketEvent(data) {
+  //   this.communityService.thisSelectedCommunity = data.community;
+  //   this.community = this.communityService.thisSelectedCommunity;
+  //   let userName = '';
+  //   if (data.user.fullName == this.profile.fullName) {
+  //     userName = 'You are'
+  //   } else {
+  //     userName = `${data.user.fullName} is`
+  //   }
+  //   this.sharedService.createToast(`${userName} now ${data.role} in ${data.community.communityName} community`)
+  // }
 
   ionViewDidEnter() {
     if (this.community && this.activitiesComponent) {

@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Socket} from "ng-socket-io";
 import {UserService} from "../user-service/user.service";
 import {Observable} from "rxjs/Observable";
-import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class SocketService {
@@ -147,8 +146,36 @@ export class SocketService {
     this.socket.emit('decline-user-join-private-room', params);
   }
 
+  // updateUserRole(manager, community, userChangedRole, role) {
+  //   let params = {
+  //     from: manager,
+  //     community: community,
+  //     user: userChangedRole,
+  //     role: role
+  //   };
+  //
+  //   this.socket.emit('update-user-role', params);
+  // }
 
   //observable
+  // onUpdateUserRole() {
+  //   let observable = new Observable(observer => {
+  //     this.socket.on('on-update-user-role', (data) => {
+  //       observer.next(data);
+  //     });
+  //   });
+  //   return observable;
+  // }
+
+  // onUpdateUserRolePrivate() {
+  //   let observable = new Observable(observer => {
+  //     this.socket.on('on-update-user-role-private', (data) => {
+  //       observer.next(data);
+  //     });
+  //   });
+  //   return observable;
+  // }
+
   userAskToJoinPrivateRoom() {
     let observable = new Observable(observer => {
       this.socket.on('user-ask-to-join-private-room', (data) => {

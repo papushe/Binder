@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AlertController, Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification.service";
@@ -6,14 +6,6 @@ import {SharedService} from "../../providers/shared/shared.service";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
-
-
-/**
- * Generated class for the NotificationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -36,6 +28,10 @@ export class NotificationPage implements OnInit {
   }
 
   ngOnInit() {
+    this.init();
+  }
+
+  init() {
     this.notifications = this.notificationService.notifications;
   }
 
@@ -67,6 +63,9 @@ export class NotificationPage implements OnInit {
     } else if (message.event == 'user-ask-to-join-private-room') {
       this.confirmUserToJoin(message);
     }
+    // else if (message.event == 'update-user-role') {
+    //   this.userService.thisProfile = message.user;
+    // }
   }
 
   deleteNotification(notification, from) {
