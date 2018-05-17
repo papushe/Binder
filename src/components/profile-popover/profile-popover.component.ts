@@ -2,12 +2,6 @@ import {Component} from '@angular/core';
 import {AlertController, ViewController} from "ionic-angular";
 import {UserService} from "../../providers/user-service/user.service";
 
-/**
- * Generated class for the ProfilePopoverComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'popover',
   templateUrl: 'profile-popover.component.html'
@@ -16,7 +10,7 @@ export class ProfilePopoverComponent {
 
   constructor(private viewCtrl: ViewController,
               private userService: UserService,
-              private alertCtrl :AlertController) {
+              private alertCtrl: AlertController) {
   }
 
   close() {
@@ -27,6 +21,7 @@ export class ProfilePopoverComponent {
     this.close();
     this.userService.signOut();
   }
+
   deleteProfilePopup() {
     this.close();
     let alert = this.alertCtrl.create({

@@ -1,18 +1,21 @@
+import {Profile} from "../profile/profile.interface";
+
 export interface Notification {
   _id: string,
   from: {
     id: string,
     fullName: string,
-    profilePic:string
+    profilePic: string
   },
-  to:  {
+  to: {
     id: string,
     fullName: string,
-    profilePic:string
+    profilePic: string
   },
   room: string,
   event: string,
   content: string,
   creation_date: string,
-  status: string
+  status: string,
+  user: Profile
 }
