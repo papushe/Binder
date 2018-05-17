@@ -39,11 +39,6 @@ export class ActivityInfoPage implements OnInit {
     this.profile = this.userService.thisProfile;
   }
 
-  isAllowedToEdit() {
-    return (this.profile.keyForFirebase == this.activity.consumer.id) ||
-      (this.profile.keyForFirebase == this.community.managerId);
-  }
-
   editActivity() {
     this.activity.activity_date = new Date(this.activity.activity_date).toISOString();
     this.navCtrl.push('CreateActivityPage', {activity: this.activity, community: this.community});
