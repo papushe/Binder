@@ -1,5 +1,5 @@
-export interface Account{
-  email:string;
-  password:string;
-  passwordAgain:string;
+export interface Account {
+  email: string;
+  password: string;
+  passwordAgain: string;
 }
