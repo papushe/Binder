@@ -35,7 +35,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   communityChangeActivity() {
-    this.activitiesSocketConnection = this.socketService.getCommunityChangeActivity()
+    this.activitiesSocketConnection = this.socketService.onGetCommunityChangeActivity()
       .subscribe(data => {
         if (data) {
           this.handleActivitySocket(data);

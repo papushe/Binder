@@ -33,7 +33,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   membersChangeEvent() {
-    this.communitySocketConnection = this.socketService.getMembersChangedEvents()
+    this.communitySocketConnection = this.socketService.onGetMembersChangedEvents()
       .subscribe(
         data => {
           if (data) {

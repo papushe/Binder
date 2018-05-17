@@ -15,14 +15,10 @@ export class SocketService {
 
   socketConnect() {
     if (!this.isUserConnected) {
+      this.isUserConnected = true;
       const userName = this.userService.thisProfile.fullName;
       this.socket.connect();
-      this.isUserConnected = true;
       this.socket.emit('set-nickname', userName);
-
-      this.getNewSockets().subscribe(data => {
-        console.log(data);
-      });
     }
   }
 
@@ -145,37 +141,7 @@ export class SocketService {
     this.socket.emit('decline-user-join-private-room', params);
   }
 
-  // updateUserRole(manager, community, userChangedRole, role) {
-  //   let params = {
-  //     from: manager,
-  //     community: community,
-  //     user: userChangedRole,
-  //     role: role
-  //   };
-  //
-  //   this.socket.emit('update-user-role', params);
-  // }
-
-  //observable
-  // onUpdateUserRole() {
-  //   let observable = new Observable(observer => {
-  //     this.socket.on('on-update-user-role', (data) => {
-  //       observer.next(data);
-  //     });
-  //   });
-  //   return observable;
-  // }
-
-  // onUpdateUserRolePrivate() {
-  //   let observable = new Observable(observer => {
-  //     this.socket.on('on-update-user-role-private', (data) => {
-  //       observer.next(data);
-  //     });
-  //   });
-  //   return observable;
-  // }
-
-  userAskToJoinPrivateRoom() {
+  onUserAskToJoinPrivateRoom() {
     let observable = new Observable(observer => {
       this.socket.on('user-ask-to-join-private-room', (data) => {
         observer.next(data);
@@ -184,16 +150,7 @@ export class SocketService {
     return observable;
   }
 
-  getNewSockets() {
-    let observable = new Observable(observer => {
-      this.socket.on('users-changed', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
-  }
-
-  getMembersChangedEvents() {
+  onGetMembersChangedEvents() {
     let observable = new Observable(observer => {
       this.socket.on('members-changed', (data) => {
         observer.next(data);
@@ -202,7 +159,7 @@ export class SocketService {
     return observable;
   }
 
-  getMembersChangedEventsPrivate() {
+  onGetMembersChangedEventsPrivate() {
     let observable = new Observable(observer => {
       this.socket.on('members-changed-private', (data) => {
         observer.next(data);
@@ -211,7 +168,7 @@ export class SocketService {
     return observable;
   }
 
-  getCommunityChangeActivity() {
+  onGetCommunityChangeActivity() {
     let observable = new Observable(observer => {
       this.socket.on('activities-change', (data) => {
         observer.next(data);
@@ -220,7 +177,7 @@ export class SocketService {
     return observable;
   }
 
-  enterToChatRoomPrivate() {
+  onEnterToChatRoomPrivate() {
     let observable = new Observable(observer => {
       this.socket.on('chat-room', (data) => {
         observer.next(data);
@@ -229,7 +186,7 @@ export class SocketService {
     return observable;
   }
 
-  joinedLeaveFromChatRoomPrivate() {
+  onJoinedLeaveFromChatRoomPrivate() {
     let observable = new Observable(observer => {
       this.socket.on('change-event-chat-room', (data) => {
         observer.next(data);
@@ -238,7 +195,7 @@ export class SocketService {
     return observable;
   }
 
-  getMessages() {
+  onGetMessages() {
     let observable = new Observable(observer => {
       this.socket.on('message', (data) => {
         observer.next(data);
@@ -247,7 +204,7 @@ export class SocketService {
     return observable;
   }
 
-  disconnect() {
+  onDisconnect() {
     this.socket.disconnect();
   }
 

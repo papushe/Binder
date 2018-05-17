@@ -71,7 +71,7 @@ export class MyApp implements OnInit, OnDestroy {
   }
 
   privateChatRoom() {
-    this.tabsSocketEnterToChatRoomPrivate = this.socketService.enterToChatRoomPrivate()
+    this.tabsSocketEnterToChatRoomPrivate = this.socketService.onEnterToChatRoomPrivate()
       .subscribe(data => {
 
         this.notificationService.notificationNumber++;
@@ -90,7 +90,7 @@ export class MyApp implements OnInit, OnDestroy {
   }
 
   joinPrivateRoom() {
-    this.tabsSocketAskToJoinToPrivateRoom = this.socketService.userAskToJoinPrivateRoom()
+    this.tabsSocketAskToJoinToPrivateRoom = this.socketService.onUserAskToJoinPrivateRoom()
       .subscribe(data => {
 
         this.notificationService.notificationNumber++;
@@ -120,7 +120,7 @@ export class MyApp implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.socketService.disconnect();
+    this.socketService.onDisconnect();
   }
 }
 

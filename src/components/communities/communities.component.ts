@@ -42,7 +42,7 @@ export class CommunitiesComponent implements OnInit {
   }
 
   membersChangeEvent() {
-    this.communitySocketConnection = this.socketService.getMembersChangedEventsPrivate()
+    this.communitySocketConnection = this.socketService.onGetMembersChangedEventsPrivate()
       .subscribe(
         data => {
           if (data) {

@@ -63,11 +63,11 @@ export class ChatRoomPage implements OnInit {
   }
 
   handleSockets() {
-    this.messageSocketConnection = this.socketService.getMessages().subscribe(message => {
+    this.messageSocketConnection = this.socketService.onGetMessages().subscribe(message => {
       this.messages.push(message);
     });
 
-    this.joinLeaveSocketConnection = this.socketService.joinedLeaveFromChatRoomPrivate().subscribe(message => {
+    this.joinLeaveSocketConnection = this.socketService.onJoinedLeaveFromChatRoomPrivate().subscribe(message => {
       this.handleJoinToRoom(message);
     });
   }
