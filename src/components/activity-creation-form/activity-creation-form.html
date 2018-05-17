@@ -4,8 +4,8 @@
       <ion-item>
         <ion-label>Name:</ion-label>
         <ion-input [(ngModel)]="activity.activity_name"
-                   type = "text"
-                   name = "activityName"
+                   type="text"
+                   name="activityName"
                    #activityName="ngModel"
                    clearInput
                    required>
@@ -17,8 +17,8 @@
       <ion-item>
         <ion-label>Description:</ion-label>
         <ion-input [(ngModel)]="activity.activity_description"
-                   type = "text"
-                   name = "activityDescription"
+                   type="text"
+                   name="activityDescription"
                    #activityDescription="ngModel"
                    clearInput
                    required>
@@ -33,7 +33,7 @@
                       [min]="now"
                       max="2025"
                       displayFormat="DD/MM/YYYY HH:mm"
-                      name = "activity_date"
+                      name="activity_date"
                       [pickerOptions]="activityDateOptions"
                       #activity_date="ngModel"
                       [ngModelOptions]="{standalone: true}"
@@ -60,8 +60,8 @@
       <ion-item>
         <ion-label>Special Notes:</ion-label>
         <ion-input [(ngModel)]="activity.notes"
-                   type = "text"
-                   name = "notes"
+                   type="text"
+                   name="notes"
                    #notes="ngModel"
                    clearInput>
         </ion-input>
@@ -70,8 +70,8 @@
         <ion-label floating>Source:</ion-label>
         <ion-input [(ngModel)]="activity.source"
                    (click)="showAddressModal('source')"
-                   type = "text"
-                   name = "source"
+                   type="text"
+                   name="source"
                    #source="ngModel"
                    clearInput
                    required>
@@ -84,14 +84,18 @@
         <ion-label floating>Destination:</ion-label>
         <ion-input [(ngModel)]="activity.destination"
                    (click)="showAddressModal('destination')"
-                   type = "text"
-                   name = "destination"
+                   type="text"
+                   name="destination"
                    #notes="ngModel"
                    clearInput>
         </ion-input>
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" outline [disabled]="activityForm.invalid" *ngIf='!this.currentActivity'>Create Activity</button>
-  <button ion-button class="create-new-activity-btn" (click)="createActivity('update')" outline [disabled]="activityForm.invalid" *ngIf='this.currentActivity'>Update Activity</button>
+  <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" outline
+          [disabled]="activityForm.invalid" *ngIf='!this.currentActivity'>Create Activity
+  </button>
+  <button ion-button class="create-new-activity-btn" (click)="createActivity('update')" outline
+          [disabled]="activityForm.invalid" *ngIf='this.currentActivity'>Update Activity
+  </button>
 </form>

@@ -7,12 +7,6 @@ import {Community} from "../../models/community/community.interface";
 import {SocketService} from "../../providers/socket/socket.service";
 import {SharedService} from "../../providers/shared/shared.service";
 
-/**
- * Generated class for the ActivityCreationFormComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'activity-creation-form',
   templateUrl: 'activity-creation-form.html'
@@ -31,12 +25,14 @@ export class ActivityCreationFormComponent implements OnInit {
               private userService: UserService,
               private modalCtrl: ModalController,
               private socketService: SocketService) {
-
     this.saveActivityResult = new EventEmitter<any>();
-
   }
 
   ngOnInit() {
+    this.checkCurrentActivity();
+  }
+
+  checkCurrentActivity() {
     if (this.currentActivity) {
       this.activity = this.currentActivity;
     }
