@@ -17,17 +17,43 @@ export class MyApp implements OnInit, OnDestroy {
   rootPage: string;
   tabsSocketEnterToChatRoomPrivate: any;
   tabsSocketAskToJoinToPrivateRoom: any;
+  // tabsSocketOnUpdateUserRolePrivate: any;
   @ViewChild('child') child;
 
   constructor(private userService: UserService,
               private sharedService: SharedService,
-              platform: Platform,
-              statusBar: StatusBar,
-              splashScreen: SplashScreen,
+              private platform: Platform,
+              private statusBar: StatusBar,
+              private splashScreen: SplashScreen,
               private socketService: SocketService,
               private notificationService: NotificationService,
               private events: Events) {
+    this.platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+    });
+  }
 
+  ngOnInit(): void {
+    this.init();
+    console.log(this.child);
+  }
+
+  init() {
+
+    this.authenticatedUser();
+
+    this.privateChatRoom();
+
+    this.joinPrivateRoom();
+
+    // this.onUpdateUserRole();
+  }
+
+
+  authenticatedUser() {
     this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser().subscribe(auth => {
       if (!auth) {
         this.rootPage = 'LoginPage';
@@ -45,21 +71,9 @@ export class MyApp implements OnInit, OnDestroy {
           });
       }
     });
-
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-    });
   }
 
-  ngOnInit(): void {
-    this.init();
-    console.log(this.child);
-  }
-
-  init() {
+  privateChatRoom() {
     this.tabsSocketEnterToChatRoomPrivate = this.socketService.enterToChatRoomPrivate()
       .subscribe(data => {
 
@@ -76,7 +90,9 @@ export class MyApp implements OnInit, OnDestroy {
             //done
           })
       });
+  }
 
+  joinPrivateRoom() {
     this.tabsSocketAskToJoinToPrivateRoom = this.socketService.userAskToJoinPrivateRoom()
       .subscribe(data => {
 
@@ -105,6 +121,26 @@ export class MyApp implements OnInit, OnDestroy {
           })
       });
   }
+
+  // onUpdateUserRole() {
+  //   this.tabsSocketOnUpdateUserRolePrivate = this.socketService.onUpdateUserRolePrivate()
+  //     .subscribe(data => {
+  //
+  //       this.notificationService.notificationNumber++;
+  //
+  //       this.events.publish('newNotification', this.notificationService.notificationNumber);
+  //
+  //       this.notificationService.createNotification(<Notification>data)
+  //         .subscribe(data => {
+  //           this.notificationService.notifications.push(<Notification>data);
+  //         }, err => {
+  //           console.log(`Faild to save notification, ${err}`)
+  //         }, () => {
+  //           //done
+  //         })
+  //     });
+  // }
+
 
   ngOnDestroy(): void {
     this.socketService.disconnect();
