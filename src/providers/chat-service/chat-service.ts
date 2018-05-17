@@ -9,7 +9,7 @@ export class ChatService {
   context: string = 'message';
   roomNumberChat = [];
 
-  constructor(public _http: HttpClient) {
+  constructor(private _http: HttpClient) {
     console.log('Hello ChatService Provider');
   }
 

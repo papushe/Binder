@@ -11,7 +11,7 @@ export class NotificationService {
   notifications: Notification[] = [];
   notificationNumber: number = 0;
 
-  constructor(public _http: HttpClient) {
+  constructor(private _http: HttpClient) {
   }
 
   createNotification(notification) {

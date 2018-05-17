@@ -19,7 +19,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   showMembers: boolean = true;
   communitySocketConnection: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(private navCtrl: NavController, private navParams: NavParams,
               private communityService: CommunityService,
               private userService: UserService,
               private socketService: SocketService,

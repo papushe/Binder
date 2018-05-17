@@ -8,7 +8,7 @@ export class MessageService {
   baseUrl: string = 'http://localhost:4300';
   context: string = 'message';
 
-  constructor(public _http: HttpClient) {
+  constructor(private _http: HttpClient) {
   }
 
   getRoomMessages(roomId: string) {

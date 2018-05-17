@@ -15,7 +15,7 @@ export class CommunitiesPage implements OnInit {
   @ViewChild('child') child;
 
   constructor(private navCtrl: NavController,
-              public navParams: NavParams,
+              private navParams: NavParams,
               private userService: UserService) {
   }
 

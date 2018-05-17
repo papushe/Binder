@@ -20,7 +20,7 @@ export class CommunitiesComponent implements OnInit {
 
   constructor(private userService: UserService,
               private communityService: CommunityService,
-              public navCtrl: NavController,
+              private navCtrl: NavController,
               private socketService: SocketService,
               private sharedService: SharedService) {
     this.hasProfileEvent = new EventEmitter<boolean>();

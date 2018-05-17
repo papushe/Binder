@@ -18,7 +18,7 @@ export class NotificationPage implements OnInit {
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
-              public events: Events,
+              private events: Events,
               private notificationService: NotificationService,
               private sharedService: SharedService,
               private alertCtrl: AlertController,

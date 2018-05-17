@@ -21,7 +21,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   showActivities: boolean = true;
   activitiesSocketConnection: any;
 
-  constructor(public navCtrl: NavController,
+  constructor(private navCtrl: NavController,
               private activityService: ActivityService,
               private userService: UserService,
               private socketService: SocketService,

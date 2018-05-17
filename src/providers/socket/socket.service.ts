@@ -6,7 +6,6 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class SocketService {
 
-
   isUserConnected: boolean = false;
 
   constructor(private socket: Socket,
