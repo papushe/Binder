@@ -6,8 +6,6 @@ import {NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {SocketService} from "../../providers/socket/socket.service";
-import {NotificationService} from "../../providers/notitfication/notification.service";
-import {Notification} from "../../models/notification/notification.interface";
 
 @Component({
   selector: 'communities-component',
@@ -24,24 +22,33 @@ export class CommunitiesComponent implements OnInit {
               private communityService: CommunityService,
               public navCtrl: NavController,
               private socketService: SocketService,
-              private sharedService: SharedService,
-              private notificationService: NotificationService) {
+              private sharedService: SharedService) {
     this.hasProfileEvent = new EventEmitter<boolean>();
+  }
 
+  ngOnInit(): void {
+
+    this.checkGetProfile();
+
+    this.membersChangeEvent();
+
+  }
+
+  checkGetProfile() {
     if (this.userService.thisAuthenticatedUser) {
       this.getProfile(this.userService.thisAuthenticatedUser);
     }
 
   }
 
-  ngOnInit(): void {
+  membersChangeEvent() {
     this.communitySocketConnection = this.socketService.getMembersChangedEventsPrivate()
       .subscribe(
         data => {
-          if (data){
+          if (data) {
             this.handleSocket(data);
           }
-      });
+        });
   }
 
   handleSocket(data) {
