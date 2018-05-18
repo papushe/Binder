@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "angularfire2/auth";
 import {Account} from "../../models/account/account.interface";
 import {LoginResponse} from "../../models/login/login-response.interface";
-import {AngularFireDatabase} from "angularfire2/database";
 import {User} from 'firebase/app'
 import {HttpClient} from "@angular/common/http";
 
@@ -25,7 +24,6 @@ export class UserService {
   context: string = 'user';
 
   constructor(private _http: HttpClient,
-              private database: AngularFireDatabase,
               private auth: AngularFireAuth,
               private sharedService: SharedService) {
 

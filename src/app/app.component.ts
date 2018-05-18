@@ -36,7 +36,6 @@ export class MyApp implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.init();
-    console.log(this.child);
   }
 
   init() {

@@ -32,27 +32,27 @@
   <hr>
   <ion-list *ngIf="foundResults">
     <ion-row>
-      <span class="results">Found {{users.length}} result(s)</span>
+      <span class="results">Found {{users?.length}} result(s)</span>
     </ion-row>
     <ion-item class="pointer" *ngFor="let user of users" (click)="openOptions(user)">
 
       <ion-row>
         <ion-col class="profile" col-2>
-          <img class="profilePic" src="{{user.profilePic}}">
-          <ion-icon *ngIf="!user.profilePic" name="contact"></ion-icon>
+          <img class="profilePic" src="{{user?.profilePic}}">
+          <ion-icon *ngIf="!user?.profilePic" name="contact"></ion-icon>
         </ion-col>
         <ion-col class="content">
-          <h2>{{user.firstName}} {{user.lastName}}</h2>
-          <p class="description" *ngIf="user.description != ''">"{{user.description}}"</p>
-          <p>{{user.location}}</p>
+          <h2>{{user?.fullName}}</h2>
+          <p class="description" *ngIf="user?.description != ''">"{{user?.description}}"</p>
+          <p>{{user?.location}}</p>
           <p>
-            <rank [rank]="user.rank"></rank>
+            <rank [rank]="user?.rank"></rank>
           </p>
         </ion-col>
       </ion-row>
     </ion-item>
   </ion-list>
   <ion-row>
-    <span class="results">{{noUsersFound}}</span>
+    <h6 class="noResultsFound">{{noUsersFound}}</h6>
   </ion-row>
 </ion-content>

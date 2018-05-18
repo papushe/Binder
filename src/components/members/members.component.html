@@ -9,13 +9,13 @@
     <ion-item *ngFor="let member of members" (click)="openOptions(member)">
       <ion-row>
         <ion-col class="profile" col-2>
-          <img class="profilePic" src="{{ member.profilePic}}">
-          <ion-icon *ngIf="!member.profilePic" name="contact"></ion-icon>
+          <img class="profilePic" src="{{ member?.profilePic}}">
+          <ion-icon *ngIf="!member?.profilePic" name="contact"></ion-icon>
         </ion-col>
         <ion-col class="content">
-          <strong>{{member.firstName}} {{member.lastName}}</strong>
-          <p class="description" *ngIf="member.description != ''">"{{member.description}}"</p>
-          <span class="community-manager" *ngIf="community.managerId === member.keyForFirebase">
+          <strong>{{member?.fullName}}</strong>
+          <p class="description" *ngIf="member?.description != ''">"{{member?.description}}"</p>
+          <span class="community-manager" *ngIf="community?.managerId === member?.keyForFirebase">
               <ion-icon name="star-outline"></ion-icon>
               MANAGER
               <ion-icon name="star-outline"></ion-icon>

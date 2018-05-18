@@ -1,37 +1,37 @@
 <ion-card>
   <ion-item>
     <div class="pic-wrapper">
-      <img *ngIf="member.profilePic" class="profile-pic" src="{{ member.profilePic }}">
-      <span *ngIf="!member.profilePic" class="profilePic">
+      <img *ngIf="member?.profilePic" class="profile-pic" src="{{ member?.profilePic }}">
+      <span *ngIf="!member?.profilePic" class="profilePic">
             <ion-icon class="no-pic" name="contact"></ion-icon>
           </span>
     </div>
-    <p><strong>Name: </strong>{{member.firstName + ' ' + member.lastName}}</p>
-    <p><strong>Description: </strong>{{member.description}}</p>
-    <p><strong>Location: </strong>{{member.location}}</p>
+    <p><strong>Name: </strong>{{member?.fullName}}</p>
+    <p><strong>Description: </strong>{{member?.description}}</p>
+    <p><strong>Location: </strong>{{member?.location}}</p>
     <p><strong>Rank: </strong>
-      <rank [rank]="member.rank"></rank>
+      <rank [rank]="member?.rank"></rank>
     </p>
-    <p><strong>Date of birth: </strong>{{member.dateOfBirth}}</p>
-    <p *ngIf="member.skills.length>0"><strong>skills:</strong>
-      <ion-list *ngFor="let skill of member.skills">
+    <p><strong>Date of birth: </strong>{{member?.dateOfBirth}}</p>
+    <p *ngIf="member?.skills?.length>0"><strong>skills:</strong>
+      <ion-list *ngFor="let skill of member?.skills">
         <span>{{skill}}</span>
       </ion-list>
     </p>
     <span>
       <button block ion-button outline
-              (click)="talkToUser(member)">Talk to {{member.firstName + ' ' + member.lastName}}</button>
+              (click)="talkToUser(member)">Talk to {{member?.fullName}}</button>
     </span>
   </ion-item>
 </ion-card>
 
 
-<span *ngIf="(loggedInUser.keyForFirebase == community?.managerId) && isJoined">
-  <button block ion-button color="danger" outline *ngIf="loggedInUser.keyForFirebase===community?.managerId"
+<span *ngIf="(loggedInUser?.keyForFirebase == community?.managerId) && isJoined">
+  <button block ion-button color="danger" outline *ngIf="loggedInUser?.keyForFirebase===community?.managerId"
           (click)="removeUser()">Remove</button>
   <!--<button block ion-button color="success" outline>Call</button>-->
 </span>
 
-<span *ngIf="(loggedInUser.keyForFirebase == community?.managerId) && !isJoined">
+<span *ngIf="(loggedInUser?.keyForFirebase == community?.managerId) && !isJoined">
   <button block ion-button outline (click)="addUser()">Add</button>
 </span>

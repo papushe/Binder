@@ -1,7 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {CreateCommunityPage} from "../create-community/create-community";
-import {SearchCommunityPage} from "../search-community/search-community";
+import {FabContainer, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 
 @IonicPage()
@@ -33,11 +31,13 @@ export class CommunitiesPage implements OnInit {
     }
   }
 
-  createCommunity() {
+  createCommunity(fab: FabContainer) {
+    fab.close();
     this.navCtrl.push('CreateCommunityPage');
   }
 
-  searchCommunity() {
+  searchCommunity(fab: FabContainer) {
+    fab.close();
     this.navCtrl.push('SearchCommunityPage');
   }
 

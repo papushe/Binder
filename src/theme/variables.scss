@@ -43,29 +43,63 @@ $colors: (
   dark:       #222
 );
 
-ion-app .scroll-content{
+ion-app .scroll-content {
   padding: 0 !important;
 }
 
-.button{
+.button {
   border-radius: 0 !important;
 }
-.card-content{
+
+.card-content {
   padding: 0 !important;
 }
 
-.highLight{
+.highLight {
   background: #10FDFF !important;
   //border: 5px solid yellow !important;
 }
-.arrows{
+
+.arrows {
   float: right;
   margin-right: 10px;
 }
+
 .pointer {
   cursor: pointer;
 }
 
+ion-fab {
+  ion-icon {
+    font-size: 3rem !important;
+    position: absolute;
+  }
+}
+
+.fab-close-icon {
+  margin: 0;
+}
+
+.noResultsFound {
+  margin: 0 auto;
+}
+
+ion-fab-list[side=top] {
+  position: absolute !important;
+  right: 0 !important;
+}
+
+ion-fab-list[side=left] {
+  width: 150px !important;
+}
+
+.fabName {
+  text-align: center;
+}
+
+.createNewFab {
+  width: 50px !important;
+}
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

@@ -1,11 +1,9 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {SocketService} from "../../providers/socket/socket.service";
+import {Events, IonicPage} from 'ionic-angular';
 import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
 import {Notification} from "../../models/notification/notification.interface";
 import {UserService} from "../../providers/user-service/user.service";
-import {MessagesPage} from "../messages/messages";
 
 @IonicPage()
 @Component({
@@ -22,10 +20,7 @@ export class TabsPage implements OnInit, OnDestroy {
 
   @ViewChild('tabs') tabs;
 
-  constructor(private navCtrl: NavController,
-              private navParams: NavParams,
-              private socketService: SocketService,
-              private notificationService: NotificationService,
+  constructor(private notificationService: NotificationService,
               private events: Events,
               private sharedService: SharedService,
               private userService: UserService) {

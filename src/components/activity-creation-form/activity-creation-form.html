@@ -11,7 +11,7 @@
                    required>
         </ion-input>
       </ion-item>
-      <div padding *ngIf="activityName.invalid && activityName.dirty">
+      <div padding *ngIf="activityName?.invalid && activityName?.dirty">
         <span class="global__input-error">Must enter an activity name</span>
       </div>
       <ion-item>
@@ -24,7 +24,7 @@
                    required>
         </ion-input>
       </ion-item>
-      <div padding *ngIf="activityDescription.invalid && activityDescription.dirty">
+      <div padding *ngIf="activityDescription?.invalid && activityDescription?.dirty">
         <span class="global__input-error">Must enter an activity description!</span>
       </div>
       <ion-item>
@@ -40,7 +40,7 @@
         <!--[ngModelOptions]="{standalone: true}"-->
         </ion-datetime>
       </ion-item>
-      <div padding *ngIf="activity_date.invalid && activity_date.dirty">
+      <div padding *ngIf="activity_date?.invalid && activity_date?.dirty">
         <span class="global__input-error">Must enter a valid date!</span>
       </div>
       <ion-item>
@@ -55,7 +55,7 @@
           <ion-option value="Delivery">Delivery</ion-option>
         </ion-select>
       </ion-item>
-      <div padding *ngIf="type.invalid && type.dirty">
+      <div padding *ngIf="type?.invalid && type?.dirty">
         <span class="global__input-error">Must choose a type!</span>
       </div>
       <ion-item>
@@ -78,7 +78,7 @@
                    required>
         </ion-input>
       </ion-item>
-      <div padding *ngIf="source.invalid && source.dirty">
+      <div padding *ngIf="source?.invalid && source?.dirty">
         <span class="global__input-error">Must enter a source!</span>
       </div>
       <ion-item>
@@ -94,9 +94,9 @@
     </ion-card-content>
   </ion-card>
   <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" outline
-          [disabled]="activityForm.invalid" *ngIf='!this.currentActivity'>Create Activity
+          [disabled]="activityForm?.invalid" *ngIf='!currentActivity'>Create Activity
   </button>
   <button ion-button class="create-new-activity-btn" (click)="createActivity('update')" outline
-          [disabled]="activityForm.invalid" *ngIf='this.currentActivity'>Update Activity
+          [disabled]="activityForm?.invalid" *ngIf='currentActivity'>Update Activity
   </button>
 </form>

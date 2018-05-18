@@ -1,15 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{community.communityName | uppercase}}</ion-title>
-    <ion-buttons end *ngIf="isJoined">
-      <button ion-button icon-only (click)="presentPopover($event, isJoined)">
-        <ion-icon name="more" color="dark"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="createNewActivity()">
-        <ion-icon name="add" color="dark"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title>{{community?.communityName | uppercase}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,18 +10,53 @@
 <ion-content padding>
   <ion-card class="community-description">
     <ion-item>
-      <p class="title">Description: <span>{{community.communityDescription}}</span></p>
-      <p class="title">Type: <span>{{community.type}}</span></p>
+      <p class="title">Description: <span>{{community?.communityDescription}}</span></p>
+      <p class="title">Type: <span>{{community?.type}}</span></p>
     </ion-item>
   </ion-card>
   <members-component [community]="community" *ngIf="isJoined"></members-component>
   <activities-component #child [currentCommunity]="community" *ngIf="isJoined"></activities-component>
   <ion-row>
     <button outline ion-button color="primary" *ngIf="!isJoined && !isWaiting" (click)="joinCommunity()">
-      {{community.type.toLocaleLowerCase() === 'private'? 'Ask to join':'Join'}}
+      {{community?.type?.toLocaleLowerCase() === 'private'? 'Ask to join':'Join'}}
     </button>
     <p *ngIf="!isJoined && isWaiting">Pending</p>
   </ion-row>
+
+  <ion-fab bottom right #fab>
+    <button ion-fab>
+      <ion-icon class="moreOptions" name="more"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+
+      <span class="fabName">Search Users</span>
+      <button ion-fab (click)="addMembers(fab)"
+              *ngIf="isJoined && community?.managerId == profile?.keyForFirebase">
+        <ion-icon name="search"></ion-icon>
+      </button>
+
+      <span class="fabName">leave Community</span>
+      <button ion-fab (click)="leaveCommunity(fab)" *ngIf="isJoined">
+        <ion-icon name="hand"></ion-icon>
+
+      </button>
+
+      <span class="fabName">Delete Community</span>
+      <button ion-fab (click)="deletePopup(fab)"
+              *ngIf="isJoined && community?.managerId == profile?.keyForFirebase">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-fab-list>
+
+    <ion-fab-list side="left">
+      <button class="createNewFab" ion-fab (click)="createNewActivity(fab)">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <span class="fabName">Create New activity</span>
+    </ion-fab-list>
+  </ion-fab>
+
+
 </ion-content>
 
 

@@ -13,7 +13,7 @@
           <ion-option value="Public">Public</ion-option>
         </ion-select>
       </ion-item>
-      <div padding *ngIf="type.invalid && type.dirty">
+      <div padding *ngIf="type?.invalid && type?.dirty">
         <span class="global__input-error">Must Choose Type</span>
       </div>
       <ion-item>
@@ -25,7 +25,7 @@
                    clearInput
                    required></ion-input>
       </ion-item>
-      <div padding *ngIf="communityName.invalid && communityName.dirty">
+      <div padding *ngIf="communityName?.invalid && communityName?.dirty">
         <span class="global__input-error">Must enter Community Name</span>
       </div>
       <ion-item>
@@ -37,12 +37,12 @@
                    clearInput
                    required></ion-input>
       </ion-item>
-      <div padding *ngIf="communityDescription.invalid && communityDescription.dirty">
+      <div padding *ngIf="communityDescription?.invalid && communityDescription?.dirty">
         <span class="global__input-error">Must enter Community Description</span>
       </div>
     </ion-card-content>
   </ion-card>
   <button class="create-new-community-btn" ion-button (click)="createCommunity()" outline
-          [disabled]="communityForm.invalid || type.value ===''">Create
+          [disabled]="communityForm?.invalid || type?.value ===''">Create
   </button>
 </form>

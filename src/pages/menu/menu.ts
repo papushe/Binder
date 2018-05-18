@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
 
@@ -15,7 +15,6 @@ export class MenuPage implements OnInit {
   hasProfile: boolean = false;
 
   constructor(private navCtrl: NavController,
-              private navParams: NavParams,
               private userService: UserService) {
   }
 

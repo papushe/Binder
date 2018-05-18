@@ -1,4 +1,4 @@
-<ion-card class="activities" *ngIf="activities.length>0">
+<ion-card class="activities" *ngIf="activities?.length>0">
   <ion-item (click)="showActivities = !showActivities">
     <span class="title">Activities:</span>
     <ion-icon *ngIf="!showActivities" class="arrows" name="ios-arrow-down"></ion-icon>
@@ -9,13 +9,13 @@
     <ion-item *ngFor="let activity of activities"
               paintAfterChange
               [changer]="activity"
-              [activityLength]="activities.length"
+              [activityLength]="activities?.length"
               (click)="openActivity(activity)">
-      <strong>{{activity.activity_name}}</strong>
-      <p>Description: {{activity.activity_description}}</p>
-      <p>Activity date: {{activity.activity_date|date:'short'}}</p>
-      <p>Type: {{activity.type}}</p>
-      <p>Created by <strong>{{activity.consumer.name}}</strong></p>
+      <strong>{{activity?.activity_name}}</strong>
+      <p>Description: {{activity?.activity_description}}</p>
+      <p>Activity date: {{activity?.activity_date|date:'short'}}</p>
+      <p>Type: {{activity?.type}}</p>
+      <p>Created by <strong>{{activity?.consumer?.name}}</strong></p>
     </ion-item>
   </ion-list>
 </ion-card>

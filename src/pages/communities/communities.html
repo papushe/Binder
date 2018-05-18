@@ -1,14 +1,6 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Communities</ion-title>
-    <ion-buttons end>
-      <button [disabled]="!hasProfile" ion-button icon-only (click)="searchCommunity()">
-        <ion-icon name="search" color="dark"></ion-icon>
-      </button>
-      <button [disabled]="!hasProfile" ion-button icon-only (click)="createCommunity()">
-        <ion-icon name="add" color="dark"></ion-icon>
-      </button>
-    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -21,4 +13,21 @@
   </ion-refresher>
   <communities-component #child (hasProfileEvent)="updateHasProfile($event)"></communities-component>
 
+  <ion-fab bottom right #fab>
+    <button ion-fab>
+      <ion-icon class="moreOptions" name="more"></ion-icon>
+    </button>
+    <ion-fab-list side="top">
+      <span class="fabName">Search Communities</span>
+      <button [disabled]="!hasProfile" ion-fab (click)="searchCommunity(fab)">
+        <ion-icon name="search" color="dark"></ion-icon>
+      </button>
+    </ion-fab-list>
+    <ion-fab-list side="left">
+      <button class="createNewFab" ion-fab [disabled]="!hasProfile" (click)="createCommunity(fab)">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <span class="fabName">Create New Community</span>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
