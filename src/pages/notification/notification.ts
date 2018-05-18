@@ -42,7 +42,7 @@ export class NotificationPage implements OnInit {
   handleNotificationEvent(message, from) {
     let params = {
       status: 'done',
-      id: message._id
+      keyForFirebase: message._id
     };
 
     this.notificationService.updateUserNotification(params)
@@ -105,7 +105,7 @@ export class NotificationPage implements OnInit {
 
 
   cancelJoinRequest(message) {
-    this.communityService.removeUserFromWaitingList(message.room, message.from.id)
+    this.communityService.removeUserFromWaitingList(message.room, message.from.keyForFirebase)
       .subscribe(data => {
         console.log(data)
         this.sendUserDeclineNotification(message);
@@ -123,7 +123,7 @@ export class NotificationPage implements OnInit {
   }
 
   approveUserRequest(message) {
-    this.communityService.joinCommunity(message.room, message.from.id, true)
+    this.communityService.joinCommunity(message.room, message.from.keyForFirebase, true)
       .subscribe(
         res => {
           console.log(`user has joined to ${message.communityName} community  success? : ${!!res}`);

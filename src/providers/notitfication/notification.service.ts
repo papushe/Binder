@@ -18,13 +18,13 @@ export class NotificationService {
     const obj = {
       from: {
         fullName: notification.from.fullName,
-        id: notification.from.keyForFirebase,
+        keyForFirebase: notification.from.keyForFirebase,
         profilePic: notification.from.profilePic
 
       },
       to: {
         fullName: notification.to.fullName,
-        id: notification.to.keyForFirebase || notification.to.id,
+        keyForFirebase: notification.to.keyForFirebase || notification.to.keyForFirebase,
         profilePic: notification.from.profilePic
       },
       event: notification.event,
@@ -40,7 +40,7 @@ export class NotificationService {
   updateUserNotification(params) {
     const obj = {
       status: params.status,
-      id: params.id
+      keyForFirebase: params.keyForFirebase
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/update`, obj)
@@ -53,7 +53,7 @@ export class NotificationService {
 
   deleteNotification(notification) {
     const obj = {
-      id: notification
+      keyForFirebase: notification
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/delete`, obj)

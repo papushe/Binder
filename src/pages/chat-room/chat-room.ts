@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {IonicPage, NavParams} from 'ionic-angular';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Content, IonicPage, NavParams} from 'ionic-angular';
 import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
 import {UserService} from "../../providers/user-service/user.service";
@@ -15,6 +15,7 @@ import {MessageService} from "../../providers/message/message";
 })
 export class ChatRoomPage implements OnInit {
 
+  @ViewChild(Content) content: Content;
   messages = [];
   message = '';
   userToTalk: any;
@@ -40,6 +41,10 @@ export class ChatRoomPage implements OnInit {
 
     this.handleSockets();
 
+  }
+
+  scrollToBottom(){
+    this.content.scrollToBottom(0)
   }
 
   init() {
@@ -166,7 +171,7 @@ export class ChatRoomPage implements OnInit {
       }
 
       this.userToTalk = {
-        id: chat.talkedToId,
+        keyForFirebase: chat.talkedToId,
         fullName: fullName,
         profilePic: chat.talkedToPic || chat.profilePic
       };
