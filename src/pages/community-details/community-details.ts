@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {PopoverController, IonicPage, NavController, NavParams, AlertController, FabContainer} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController, FabContainer} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
-import {CommunityPopoverComponent} from "../../components/community-popover/community-popover.component";
 import {SocketService} from "../../providers/socket/socket.service";
 import {SharedService} from "../../providers/shared/shared.service";
 
@@ -24,7 +23,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
-              private popoverCtrl: PopoverController,
               private communityService: CommunityService,
               private userService: UserService,
               private sharedService: SharedService,
