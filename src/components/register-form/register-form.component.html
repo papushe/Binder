@@ -34,7 +34,7 @@
                    required
                    pattern="(?=.*[A-Z])[a-zA-Z0-9!@#$%^&*]{6,}$"></ion-input>
       </ion-item>
-      <div padding *ngIf="passwordAgain?.invalid && passwordAgain??.dirty">
+      <div padding *ngIf="passwordAgain?.invalid && passwordAgain?.dirty">
         <span class="global__input-error">Password again must equal to the first password</span>
       </div>
     </ion-card-content>

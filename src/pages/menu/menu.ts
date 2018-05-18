@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
 
@@ -15,7 +15,8 @@ export class MenuPage implements OnInit {
   hasProfile: boolean = false;
 
   constructor(private navCtrl: NavController,
-              private userService: UserService) {
+              private userService: UserService,
+              private alertCtrl: AlertController) {
   }
 
 
@@ -28,6 +29,41 @@ export class MenuPage implements OnInit {
     this.profile = this.userService.thisProfile
 
   }
+
+  signOut() {
+    this.userService.signOut();
+  }
+
+  deleteProfilePopup() {
+    let alert = this.alertCtrl.create({
+      title: 'Delete Account',
+      message: 'Do you Really want to delete your Account? Enter your password first',
+      inputs: [
+        {
+          name: 'password',
+          placeholder: 'Password',
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: data => {
+            this.userService.deleteFromFirebase(this.userService.thisAuthenticatedUser, data.password);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   navigateTo(page) {
     page === 'SearchUsersPage' ? this.navCtrl.push(page, {profile: this.profile}) : this.navCtrl.push(page);
