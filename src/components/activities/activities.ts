@@ -43,11 +43,13 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   handleActivitySocket(data) {
+    let deletedActivity = '';
     if (data.event == 'delete-activity') {
       const removeIndex = this.activities.map(function (item) {
         return item._id;
       }).indexOf(data.activity);
       if (removeIndex !== -1) {
+        deletedActivity = this.activities[removeIndex].activity_name;
         this.activities.splice(removeIndex, 1);
       }
     } else {
@@ -61,9 +63,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     }
 
     if (data.from && this.userService.thisProfile.fullName != data.from) {
-      this.sharedService.createToast(`${data['from']} ${data.event} - ${data['activity'].activity_name}`);
+      this.sharedService.createToast(`${data['from']} ${data.event} ${data['activity'].activity_name || deletedActivity}`);
     }
-
 
   }
 
