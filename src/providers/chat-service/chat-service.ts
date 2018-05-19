@@ -17,7 +17,7 @@ export class ChatService {
   saveChat(chatRoomId, talkedTo, user) {
     const obj = {
       chatRoomId: chatRoomId,
-      talkedToId: talkedTo.keyForFirebase || talkedTo.id,
+      talkedToId: talkedTo.keyForFirebase || talkedTo.keyForFirebase,
       talkedToName: talkedTo.fullName,
       talkedFromName: user.fullName,
       profilePic: talkedTo.profilePic,

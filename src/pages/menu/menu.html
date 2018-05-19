@@ -13,14 +13,34 @@
 
 
 <ion-content padding>
+
   <ion-row (click)="navigateTo('ProfilePage')">
     <ion-col class="profile" col-2>
-      <img class="profilePic" src="{{ profile.profilePic}}">
-      <ion-icon *ngIf="!profile.profilePic" name="contact"></ion-icon>
+      <img class="profilePic" src="{{ profile?.profilePic}}">
+      <ion-icon *ngIf="!profile?.profilePic" name="contact"></ion-icon>
     </ion-col>
     <ion-col class="menu-tab">
-      <span class="menu-title">{{profile.fullName}}</span>
+      <span class="menu-title">{{profile?.fullName}}</span>
       <div class="menu-details">View Your Profile</div>
     </ion-col>
   </ion-row>
+
+  <ion-row (click)="deleteProfilePopup()">
+    <ion-col class="profile" col-2>
+      <ion-icon name="trash"></ion-icon>
+    </ion-col>
+    <ion-col class="menu-tab">
+      <span class="menu-title">Delete Your Account</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row (click)="signOut()">
+    <ion-col class="profile" col-2>
+      <ion-icon name="log-out"></ion-icon>
+    </ion-col>
+    <ion-col class="menu-tab">
+      <span class="menu-title">Sign Out</span>
+    </ion-col>
+  </ion-row>
+
 </ion-content>

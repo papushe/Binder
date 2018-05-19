@@ -3,12 +3,12 @@ import {Profile} from "../profile/profile.interface";
 export interface Notification {
   _id: string,
   from: {
-    id: string,
+    keyForFirebase: string,
     fullName: string,
     profilePic: string
   },
   to: {
-    id: string,
+    keyForFirebase: string,
     fullName: string,
     profilePic: string
   },

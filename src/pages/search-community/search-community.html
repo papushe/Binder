@@ -32,20 +32,20 @@
   </form>
   <hr>
   <ion-list *ngIf="hasCommunity">
-    <span class="results">Found {{communities.length}} result(s)</span>
+    <span class="results">Found {{communities?.length}} result(s)</span>
     <ion-item class="pointer" *ngFor="let community of communities" (click)="openCommunity(community)">
-      <h2>{{community.communityName}}</h2>
-      <p>{{community.communityDescription}}</p>
+      <h2>{{community?.communityName}}</h2>
+      <p>{{community?.communityDescription}}</p>
       <p>
         <span>
             <ion-icon name="people"></ion-icon>
         </span>
-        {{community.members.length}}
+        {{community?.members?.length}}
       </p>
-      <p>{{community.type}}</p>
+      <p>{{community?.type}}</p>
     </ion-item>
   </ion-list>
   <ion-row>
-    <span class="results">{{noCommunityFound}}</span>
+    <h6 class="noResultsFound">{{noCommunityFound}}</h6>
   </ion-row>
 </ion-content>

@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {NavController, NavParams} from "ionic-angular";
+import {NavController} from "ionic-angular";
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Profile} from "../../models/profile/profile.interface";
@@ -19,7 +19,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   showMembers: boolean = true;
   communitySocketConnection: any;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams,
+  constructor(private navCtrl: NavController,
               private communityService: CommunityService,
               private userService: UserService,
               private socketService: SocketService,

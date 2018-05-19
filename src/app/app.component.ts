@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Events, Platform} from 'ionic-angular';
+import {Events, NavController, Platform} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {UserService} from "../providers/user-service/user.service";
@@ -12,6 +12,8 @@ import {NotificationService} from "../providers/notitfication/notification.servi
   templateUrl: 'app.html'
 })
 export class MyApp implements OnInit, OnDestroy {
+
+  @ViewChild('myNav') navCtrl: NavController;
 
   rootPage: string;
   tabsSocketEnterToChatRoomPrivate: any;
@@ -36,7 +38,6 @@ export class MyApp implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.init();
-    console.log(this.child);
   }
 
   init() {
@@ -60,7 +61,9 @@ export class MyApp implements OnInit, OnDestroy {
         auth.getIdToken(true)
           .then(token => {
             this.sharedService.storeToken(token);
-            this.rootPage = 'TabsPage';
+            if (!this.navCtrl.getActive() || this.navCtrl.getActive().name !== 'TabsPage') {
+              this.rootPage = 'TabsPage';
+            }
           })
           .catch(err => {
             console.log(`Initialization error: ${err.message}`);

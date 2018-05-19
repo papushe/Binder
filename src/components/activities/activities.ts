@@ -5,7 +5,6 @@ import {NavController} from "ionic-angular";
 import {Activity} from '../../models/activity/activity.interface';
 import {ActivityService} from '../../providers/activity-service/activity-service'
 import {SocketService} from "../../providers/socket/socket.service";
-import {ActivityInfoPage} from '../../pages/activity-info/activity-info'
 import {SharedService} from "../../providers/shared/shared.service";
 
 

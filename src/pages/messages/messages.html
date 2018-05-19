@@ -12,11 +12,11 @@
     <ion-item *ngFor="let chat of roomNumberChat" (click)="chatWith(chat)">
       <ion-row>
         <ion-col class="profile" col-2>
-          <img class="profilePic" src="{{ chat.profilePic}}">
-          <ion-icon *ngIf="!chat.profilePic" name="contact"></ion-icon>
+          <img class="profilePic" src="{{ chat?.profilePic}}">
+          <ion-icon *ngIf="!chat?.profilePic" name="contact"></ion-icon>
         </ion-col>
         <ion-col class="chat-tab">
-          <h2 class="chat-with">{{chat.talkedToName}}</h2>
+          <h2 class="chat-with">{{chat?.talkedToName}}</h2>
         </ion-col>
       </ion-row>
     </ion-item>

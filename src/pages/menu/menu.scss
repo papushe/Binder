@@ -17,8 +17,16 @@ page-menu {
       .menu-details {
         color: gray;
       }
+      .menu-title:nth-child(n+1) {
+        margin-top: 16px;
+      }
     }
   }
+
+  ion-row:nth-child(1) {
+    border-bottom: 5px solid gainsboro;
+  }
+
 }
 
 

@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {ChatService} from "../../providers/chat-service/chat-service";
+import {IonicPage, NavController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
-import {ChatRoomPage} from "../chat-room/chat-room";
 
 @IonicPage()
 @Component({
@@ -13,8 +11,6 @@ export class MessagesPage {
   roomNumberChat = [];
 
   constructor(private navCtrl: NavController,
-              private navParams: NavParams,
-              private chatService: ChatService,
               private userService: UserService) {
   }
 

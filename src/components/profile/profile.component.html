@@ -4,9 +4,9 @@
 
       <ion-item>
         <ion-row>
-          <ion-col *ngIf="profile.profilePic && !hasProfilePicAbdUploadNew">
+          <ion-col *ngIf="profile?.profilePic && !hasProfilePicAbdUploadNew">
             <ion-item>
-              <img class="profilePic" src="{{ profile.profilePic }}">
+              <img class="profilePic" src="{{ profile?.profilePic }}">
             </ion-item>
             <ion-item *ngIf="showLoader">
               <div class="loader"></div>
@@ -29,7 +29,7 @@
                    clearInput
                    required></ion-input>
       </ion-item>
-      <div padding *ngIf="firstName.invalid && firstName.dirty">
+      <div padding *ngIf="firstName?.invalid && firstName?.dirty">
         <span class="global__input-error">Must enter First Name</span>
       </div>
       <ion-item>
@@ -41,7 +41,7 @@
                    clearInput
                    required></ion-input>
       </ion-item>
-      <div padding *ngIf="lastName.invalid && lastName.dirty">
+      <div padding *ngIf="lastName?.invalid && lastName?.dirty">
         <span class="global__input-error">Must enter Last Name</span>
       </div>
       <ion-item>
@@ -61,7 +61,7 @@
                    #phoneNumber="ngModel"
                    required></ion-input>
       </ion-item>
-      <div padding *ngIf="phoneNumber.invalid && phoneNumber.dirty">
+      <div padding *ngIf="phoneNumber?.invalid && phoneNumber?.dirty">
         <span class="global__input-error">Must enter Phone Number</span>
       </div>
       <ion-item>
@@ -102,9 +102,9 @@
     </ion-card-content>
   </ion-card>
   <button *ngIf="!hasProfile" class="saveUpdateButtons" outline ion-button (click)="saveProfile()"
-          [disabled]="profileForm.invalid">Save
+          [disabled]="profileForm?.invalid">Save
   </button>
   <button *ngIf="hasProfile" class="saveUpdateButtons" outline ion-button (click)="updateProfile()"
-          [disabled]="profileForm.invalid">Update
+          [disabled]="profileForm?.invalid">Update
   </button>
 </form>

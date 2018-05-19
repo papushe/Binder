@@ -1,7 +1,7 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
-import {AlertController, ModalController, NavParams} from "ionic-angular";
+import {ModalController, NavParams} from "ionic-angular";
 import {Camera, CameraOptions} from '@ionic-native/camera';
 import firebase from 'firebase';
 import {SharedService} from "../../providers/shared/shared.service";
@@ -27,7 +27,6 @@ export class ProfileComponent implements OnDestroy {
   constructor(private userService: UserService,
               private modalCtrl: ModalController,
               private navParams: NavParams,
-              private alertCtrl: AlertController,
               private camera: Camera,
               private sharedService: SharedService) {
 
