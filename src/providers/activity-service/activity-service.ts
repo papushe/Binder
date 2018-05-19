@@ -1,6 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Activity} from '../../models/activity/activity.interface';
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class ActivityService {
@@ -9,7 +10,7 @@ export class ActivityService {
   baseUrl: string = 'http://localhost:4300';
   context: string = 'activity';
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private sharedService:SharedService) {
 
   }
 
@@ -17,7 +18,7 @@ export class ActivityService {
     const activityObj = {
       activityName: activity.activity_name,
       activityDescription: activity.activity_description,
-      activity_date: activity.activity_date,
+      activity_date: this.sharedService.convertToEpoch(activity.activity_date),
       provider: activity.provider,
       consumer: activity.consumer,
       communityId: activity.community_id,
@@ -58,7 +59,7 @@ export class ActivityService {
       activityId: activity._id,
       activityName: activity.activity_name,
       activityDescription: activity.activity_description,
-      activity_date: activity.activity_date,
+      activity_date: this.sharedService.convertToEpoch(activity.activity_date),
       provider: activity.provider,
       consumer: activity.consumer,
       communityId: activity.community_id,
@@ -89,4 +90,11 @@ export class ActivityService {
       .post(`${this.baseUrl}/${this.context}/approve`, activityIdObj)
   }
 
+  decline(activityId: string) {
+    const activityIdObj = {
+      activityId: activityId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/decline`, activityIdObj)
+  }
 }
