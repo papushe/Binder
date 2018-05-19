@@ -2,13 +2,13 @@ page-menu {
   ion-row {
     border-bottom: 1px solid gainsboro;
     ion-icon {
-      font-size: 3.7em;
+      font-size: 3em;
     }
     .menu-tab {
       text-align: left;
       margin-left: 10px;
 
-      .menu-title {
+      .menu-title, .menu-title-profile {
         display: inline-block;
         margin: 5px 0;
         font-size: 16px;
@@ -17,10 +17,10 @@ page-menu {
       .menu-details {
         color: gray;
       }
-      .menu-title:nth-child(n+1) {
-        margin-top: 16px;
-      }
     }
+  }
+  .menu-wrapper .menu-title {
+    margin-top: 11px !important;
   }
 
   ion-row:nth-child(1) {

@@ -20,8 +20,8 @@ export class CommunityService {
     const obj = {
       communityName: community.communityName,
       communityDescription: community.communityDescription,
-      managerId: community.managerId,
-      managerName: community.managerName,
+      managerId: community.manager.id,
+      managerName: community.manager.name,
       type: community.type
     };
     return this._http

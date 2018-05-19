@@ -198,14 +198,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
         });
   }
 
-  // presentPopover(myEvent, isJoined) {
-  //   const IsJoined = {IsJoined: isJoined};
-  //   let popover = this.popoverCtrl.create(CommunityPopoverComponent, IsJoined);
-  //   popover.present({
-  //     ev: myEvent
-  //   });
-  // }
-
   ngOnDestroy() {
     this.socketService.leftCommunity(this.community);
   }

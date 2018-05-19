@@ -29,9 +29,9 @@
     </button>
     <ion-fab-list side="top">
 
-      <span  *ngIf="isJoined && community?.managerId == profile?.keyForFirebase" class="fabName">Search Users</span>
+      <span  *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Search Users</span>
       <button ion-fab (click)="addMembers(fab)"
-              *ngIf="isJoined && community?.managerId == profile?.keyForFirebase">
+              *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase">
         <ion-icon name="search"></ion-icon>
       </button>
 
@@ -41,9 +41,9 @@
 
       </button>
 
-      <span   *ngIf="isJoined && community?.managerId == profile?.keyForFirebase" class="fabName">Delete Community</span>
+      <span   *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Delete Community</span>
       <button ion-fab (click)="deletePopup(fab)"
-              *ngIf="isJoined && community?.managerId == profile?.keyForFirebase">
+              *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-fab-list>
