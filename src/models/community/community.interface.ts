@@ -3,8 +3,10 @@ export interface Community {
   communityName: string,
   communityDescription: string,
   creationDate: string,
-  managerId: string,
-  managerName: string,
+  manager: {
+    id: string,
+    name: string,
+  },
   waiting_list: [string],
   members: [{
     memberId: string

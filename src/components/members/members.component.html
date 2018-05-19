@@ -15,7 +15,7 @@
         <ion-col class="content">
           <strong>{{member?.fullName}}</strong>
           <p class="description" *ngIf="member?.description != ''">"{{member?.description}}"</p>
-          <span class="community-manager" *ngIf="community?.managerId === member?.keyForFirebase">
+          <span class="community-manager" *ngIf="community?.manager?.id === member?.keyForFirebase">
               <ion-icon name="star-outline"></ion-icon>
               MANAGER
               <ion-icon name="star-outline"></ion-icon>

@@ -26,12 +26,12 @@
 </ion-card>
 
 
-<span *ngIf="(loggedInUser?.keyForFirebase == community?.managerId) && isJoined">
-  <button block ion-button color="danger" outline *ngIf="loggedInUser?.keyForFirebase===community?.managerId"
+<span *ngIf="(loggedInUser?.keyForFirebase == community?.manager?.id) && isJoined">
+  <button block ion-button color="danger" outline *ngIf="loggedInUser?.keyForFirebase===community?.manager?.id"
           (click)="removeUser()">Remove</button>
   <!--<button block ion-button color="success" outline>Call</button>-->
 </span>
 
-<span *ngIf="(loggedInUser?.keyForFirebase == community?.managerId) && !isJoined">
+<span *ngIf="(loggedInUser?.keyForFirebase == community?.manager?.id) && !isJoined">
   <button block ion-button outline (click)="addUser()">Add</button>
 </span>
