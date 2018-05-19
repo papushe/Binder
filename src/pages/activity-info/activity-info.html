@@ -25,7 +25,7 @@
     <ion-card-header>Destination: {{activity?.destination}}</ion-card-header>
   </ion-card>
   <button ion-button block color="primary" outline
-          *ngIf="activity.consumer.id === this.profile.keyForFirebase && activity.status.value === 'claimed'"
+          *ngIf="activity?.consumer?.id === profile?.keyForFirebase && activity?.status?.value === 'claimed'"
   (click)="approveActivity()">Approve Activity
   </button>
   <button ion-button block color="danger" outline
