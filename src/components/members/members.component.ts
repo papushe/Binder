@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {NavController} from "ionic-angular";
+import {Events, NavController} from "ionic-angular";
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Profile} from "../../models/profile/profile.interface";
@@ -23,13 +23,23 @@ export class MembersComponent implements OnInit, OnDestroy {
               private communityService: CommunityService,
               private userService: UserService,
               private socketService: SocketService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private events: Events) {
   }
 
   ngOnInit() {
     this.getCommunityMembers();
     this.init();
     this.membersChangeEvent();
+    this.updateMembersCommunityEvent();
+  }
+
+  updateMembersCommunityEvent() {
+    this.events.subscribe('updateMembersCommunity', (data) => {
+      this.communityService.thisSelectedCommunity = data;
+      this.community = this.communityService.thisSelectedCommunity;
+      this.getCommunity(this.userService.thisProfile.keyForFirebase);
+    });
   }
 
   membersChangeEvent() {
@@ -62,12 +72,17 @@ export class MembersComponent implements OnInit, OnDestroy {
         this.navCtrl.setRoot('TabsPage')
       }
 
-    }
-    else if (data.event == 'joined') {
+    } else if (data.event == 'joined') {
       this.getCommunityMembers();
 
       if (thisUserName != data.from) {
         this.sharedService.createToast(`${data.user.firstName} has ${data.event} to ${data.communityName} community`);
+      }
+    } else if (data.event == 'left') {
+      if (data.from === thisUserName) {
+        this.navCtrl.setRoot('TabsPage');
+      } else {
+        this.getCommunity(this.userService.thisProfile.keyForFirebase);
       }
     }
 
@@ -82,6 +97,30 @@ export class MembersComponent implements OnInit, OnDestroy {
     }
     this.getCommunityMembers();
   }
+
+
+  getCommunity(userId) {
+    this.communityService.getCommunities(userId)
+      .subscribe(
+        res => {
+          if (res) {
+            console.log(`get community success? : ${!!res}`);
+
+            this.communityService.thisSelectedCommunity = <Community>res[0];
+            this.community = this.communityService.thisSelectedCommunity;
+
+            this.events.publish('updateCommunity', this.community);
+            this.getCommunityMembers();
+          }
+        },
+        err => {
+          console.debug(`Failed to get ${this.community._id} members due to: ${err.message}`);
+        },
+        () => {
+          //done
+        });
+  }
+
 
   getCommunityMembers() {
     this.communityService.getCommunityMembers(this.community._id)

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, AlertController, FabContainer} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController, FabContainer, Events} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
@@ -27,13 +27,15 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
               private userService: UserService,
               private sharedService: SharedService,
               private socketService: SocketService,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private events: Events) {
   }
 
   ngOnInit(): void {
     this.init();
     this.isUserJoined();
     this.isUserWaiting();
+    this.updateCommunityEvent();
   }
 
   init() {
@@ -47,9 +49,18 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
+    this.events.publish('updateMembersCommunity', this.community);
     if (this.community && this.activitiesComponent) {
       this.activitiesComponent.getActivitiesByCommunityId(this.community._id)
     }
+  }
+
+
+  updateCommunityEvent() {
+    this.events.subscribe('updateCommunity', (data) => {
+      this.communityService.thisSelectedCommunity = data;
+      this.community = this.communityService.thisSelectedCommunity;
+    });
   }
 
   joinCommunity() {
@@ -121,7 +132,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     this.navCtrl.push('CreateActivityPage', {community: this.communityService.thisSelectedCommunity});
   }
 
-
   addMembers(fab: FabContainer) {
     fab.close();
     this.navCtrl.push('SearchUsersPage', {community: this.community, profile: this.profile});
@@ -176,7 +186,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
         }
       );
   }
-
 
   deletePopup(fab: FabContainer) {
     fab.close();
