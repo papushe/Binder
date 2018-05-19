@@ -29,7 +29,7 @@
       </div>
       <ion-item>
         <ion-label>Date:</ion-label>
-        <ion-datetime [(ngModel)]="activity.activity_date"
+        <ion-datetime [(ngModel)]="displayDateAsISO"
                       [min]="now"
                       max="2025"
                       displayFormat="DD/MM/YYYY HH:mm"

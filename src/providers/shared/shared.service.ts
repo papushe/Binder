@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Loading, LoadingController, ToastController} from "ionic-angular";
-import * as moment from "../../../node_modules/moment"
+import * as moment from "moment"
 import * as _ from 'lodash';
 
 @Injectable()
@@ -9,6 +9,7 @@ export class SharedService {
   loader: Loading;
   token: string;
   baseUrl: string = '';
+  DATE_FORMAT = 'YYYY-MM-DD HH:mm';
 
   constructor(private loading: LoadingController,
               private toast: ToastController) {
@@ -44,33 +45,32 @@ export class SharedService {
     return this.token;
   }
 
-  getCurrentLocalTime() {
+  getCurrentLocalTime () {
     return moment().format();
   }
 
   convertToEpoch(date: string) {
-    let tz = new Date().getTimezoneOffset() * (60 * 1000);
-    tz *= 2;
-    console.log(`${tz}`);
-    // console.log(`---1> ${date}`);
-    // console.log(`---2> ${moment(date).unix().toString()}`);
-    // console.log(`---2> ${new Date(date).getTime()}`);
-    // console.log(`---3> ${new Date(date).toUTCString()}`);
-    // console.log(`---3> ${moment(date).unix()}`);
-    console.log((moment(date).unix() + tz).toString());
-    return (moment(date).unix() + tz).toString();
+    let dateUTC = date.toString().replace('Z','');
+    return new Date(dateUTC).getTime();
   }
 
   convertEpochToDate(epochTimestamp: string) {
-    // console.log(`---1> ${epochTimestamp}`);
-    // console.log(`---2> ${moment(epochTimestamp).local().toString()}`);
-    // console.log(`---3> ${moment.unix(parseInt(epochTimestamp)).local().toString()}`);
-    // console.log(`---4> ${moment.unix(parseInt(epochTimestamp)).toString()}`);
-    // console.log(`---5> ${moment.unix(parseInt(epochTimestamp)).format()}`);
-    // console.log(`---6> ${moment.unix(parseInt(epochTimestamp))}`);
-    // console.log(`---7> ${moment(epochTimestamp).local().format()}`);
-    // return moment(epochTimestamp).local().toString();
-    return moment.unix(parseInt(epochTimestamp)).toString();
+    if (!epochTimestamp) {
+      return new Date();
+    }
+    return moment(new Date(parseInt(epochTimestamp))).format(this.DATE_FORMAT);
+  }
+
+  convertToISO(date: string) {
+    let offsetInMS = new Date().getTimezoneOffset() * 60 *1000;
+    let dateInMS = new Date(date).getTime();
+    console.log(new Date(dateInMS - offsetInMS).toISOString().replace('Z', ''));
+    return new Date(dateInMS - offsetInMS).toISOString().replace('Z', '');
+  }
+
+  ISOToLocal (iso: string) {
+    let isoStr = iso.replace('Z', '');
+    return moment(isoStr).format(this.DATE_FORMAT);
   }
 
   getRandomString(length) {
