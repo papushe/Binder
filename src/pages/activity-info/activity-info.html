@@ -29,7 +29,7 @@
   (click)="approveActivity()">Approve Activity
   </button>
   <button ion-button block color="danger" outline
-          *ngIf="(profile?.keyForFirebase == activity?.consumer.id || profile?.keyForFirebase == community?.managerId) && activity?.status?.value !== 'approved'"
+          *ngIf="(profile?.keyForFirebase == activity?.consumer.id || profile?.keyForFirebase == community?.manager?.id) && activity?.status?.value !== 'approved'"
           (click)="deleteActivityPopUp()">Delete
   </button>
   <button ion-button block color="primary" outline

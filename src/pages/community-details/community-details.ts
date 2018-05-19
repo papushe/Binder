@@ -127,15 +127,40 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     this.navCtrl.push('SearchUsersPage', {community: this.community, profile: this.profile});
   }
 
-  leaveCommunity(fab: FabContainer) {
+  leavePopup(fab: FabContainer) {
     fab.close();
+    let alert = this.alertCtrl.create({
+      title: 'Leave Community',
+      message: `Are you sure you want to leave ${this.community.communityName}?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.debug('Cancel clicked');
+          }
+        },
+        {
+          text: 'Leave',
+          handler: data => {
+            this.leaveCommunity();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  leaveCommunity() {
     this.communityService.leaveCommunity(this.community._id, this.profile.keyForFirebase)
       .subscribe(
         res => {
           console.log(`user was removed from community success? : ${!!res}`);
           if (res) {
             this.userService.thisProfile = <Profile> res;
+
             this.socketService.deleteFromCommunity(this.community, res, '');
+
             this.sharedService.createToast(`You left ${this.community.communityName}`);
           }
           else {
@@ -152,11 +177,12 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
       );
   }
 
+
   deletePopup(fab: FabContainer) {
     fab.close();
     let alert = this.alertCtrl.create({
       title: 'Delete Community',
-      message: 'Do you Really want to delete your Community?',
+      message: 'Are you sure you want to delete your Community?',
       buttons: [
         {
           text: 'Cancel',
@@ -182,6 +208,10 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
         res => {
           console.log(`community ${this.community._id} was deleted success? : ${!!res}`);
           if (res) {
+
+
+            //TODO add socket
+
             this.userService.thisProfile = <Profile> res;
             this.sharedService.createToast(`You deleted ${this.community.communityName}`);
           }
