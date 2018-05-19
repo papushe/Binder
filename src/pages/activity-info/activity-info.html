@@ -23,6 +23,10 @@
     <ion-card-header>Source: {{activity.source}}</ion-card-header>
     <ion-card-header>Destination: {{activity.destination}}</ion-card-header>
   </ion-card>
+  <button ion-button block color="primary" outline
+          *ngIf="activity.consumer.id === this.profile.keyForFirebase && activity.status.value === 'claimed'"
+  (click)="approveActivity()">Approve Activity
+  </button>
   <button ion-button block color="danger" outline
           *ngIf="(profile.keyForFirebase == activity.consumer.id || profile.keyForFirebase == community.managerId) && activity.status.value !== 'approved'"
           (click)="deleteActivityPopUp()">Delete

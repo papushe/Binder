@@ -111,7 +111,20 @@ export class ActivityInfoPage implements OnInit {
   }
 
   approveActivity() {
-
+    this.activityService.approve(this.activity._id)
+      .subscribe(data => {
+        console.debug(`activity was approved successfully? : ${data}`);
+        if (data) {
+          this.activity = <Activity> data;
+          this.sharedService.createToast(`Successfully approved ${this.activity.activity_name}`);
+        }
+        else this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
+      }, err => {
+        console.log(err.message);
+        this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
+      }, () => {
+        // this.navCtrl.pop()
+      })
   }
 
 
