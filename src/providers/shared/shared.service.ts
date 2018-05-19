@@ -57,6 +57,18 @@ export class SharedService {
     return moment(new Date(parseInt(epochTimestamp))).format(this.DATE_FORMAT);
   }
 
+  convertToISO(date: string) {
+    let offsetInMS = new Date().getTimezoneOffset() * 60 *1000;
+    let dateInMS = new Date(date).getTime();
+    console.log(new Date(dateInMS - offsetInMS).toISOString().replace('Z', ''));
+    return new Date(dateInMS - offsetInMS).toISOString().replace('Z', '');
+  }
+
+  ISOToLocal (iso: string) {
+    let isoStr = iso.replace('Z', '');
+    return moment(isoStr).format(this.DATE_FORMAT);
+  }
+
   getRandomString(length) {
     let text = "";
     let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

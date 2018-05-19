@@ -19,6 +19,7 @@ export class ActivityCreationFormComponent implements OnInit {
   @Input() currentCommunity: Community;
   @Input() currentActivity: Activity;
   now  = this.sharedService.getCurrentLocalTime();
+  displayDateAsISO;
 
   constructor(private sharedService: SharedService,
               private activityService: ActivityService,
@@ -35,6 +36,7 @@ export class ActivityCreationFormComponent implements OnInit {
   checkCurrentActivity() {
     if (this.currentActivity) {
       this.activity = this.currentActivity;
+      this.displayDateAsISO = this.sharedService.convertToISO(this.activity.activity_date);
     }
   }
 
@@ -45,6 +47,7 @@ export class ActivityCreationFormComponent implements OnInit {
         name: this.userService.thisProfile.fullName
       };
       this.activity.community_id = this.currentCommunity._id;
+      this.activity.activity_date = this.sharedService.ISOToLocal(this.displayDateAsISO);
       if (actionRequired == 'create') {
         this.activityService.createActivity(this.activity)
           .subscribe(
