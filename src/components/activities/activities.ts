@@ -24,7 +24,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
               private activityService: ActivityService,
               private userService: UserService,
               private socketService: SocketService,
-              private sharedService: SharedService) {
+              public sharedService: SharedService) {
 
     this.saveActivityResult = new EventEmitter<any>();
   }

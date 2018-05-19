@@ -40,7 +40,13 @@ export class ActivityInfoPage implements OnInit {
   }
 
   editActivity() {
-    this.activity.activity_date = new Date(this.activity.activity_date).toISOString();
+    console.log(this.activity.activity_date);
+    this.activity.activity_date = this.sharedService.convertEpochToDate(this.activity.activity_date);
+    // this.activity.activity_date = new Date(this.activity.activity_date).toISOString();
+    // this.activity.activity_date = new Date(this.activity.activity_date).getTime();
+    // this.activity.activity_date = new Date(this.activity.activity_date);
+    console.log('hiiii');
+    console.log(this.activity.activity_date);
     this.navCtrl.push('CreateActivityPage', {activity: this.activity, community: this.community});
   }
 

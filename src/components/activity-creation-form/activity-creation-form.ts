@@ -18,7 +18,8 @@ export class ActivityCreationFormComponent implements OnInit {
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
   @Input() currentActivity: Activity;
-  now: string = new Date().toISOString();
+  offset = new Date().getTimezoneOffset();
+  now  = this.sharedService.getCurrentLocalTime();
 
   constructor(private sharedService: SharedService,
               private activityService: ActivityService,
@@ -45,6 +46,7 @@ export class ActivityCreationFormComponent implements OnInit {
         name: this.userService.thisProfile.fullName
       };
       this.activity.community_id = this.currentCommunity._id;
+      this.activity.activity_date = this.sharedService.convertToEpoch(this.activity.activity_date);
       if (actionRequired == 'create') {
         this.activityService.createActivity(this.activity)
           .subscribe(
