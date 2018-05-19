@@ -1,16 +1,17 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Activity} from '../../models/activity/activity.interface';
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class ActivityService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl: string = 'http://localhost:4300';
+  baseUrl: string = '';
   context: string = 'activity';
 
-  constructor(private _http: HttpClient) {
-
+  constructor(private _http: HttpClient,
+              private sharedService: SharedService) {
+    this.baseUrl = this.sharedService.baseUrl;
   }
 
   createActivity(activity: Activity) {

@@ -5,11 +5,15 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class SharedService {
+
   loader: Loading;
   token: string;
+  baseUrl: string = '';
 
   constructor(private loading: LoadingController,
               private toast: ToastController) {
+    this.baseUrl = 'http://localhost:4300';
+    // this.baseUrl = 'https://appbinder.herokuapp.com';
   }
 
   createLoader(massage) {
@@ -40,14 +44,14 @@ export class SharedService {
     return this.token;
   }
 
-  getCurrentLocalTime () {
+  getCurrentLocalTime() {
     return moment().format();
   }
 
   convertToEpoch(date: string) {
-     let tz = new Date().getTimezoneOffset() * (60 * 1000);
-     tz *= 2;
-     console.log(`${tz}`);
+    let tz = new Date().getTimezoneOffset() * (60 * 1000);
+    tz *= 2;
+    console.log(`${tz}`);
     // console.log(`---1> ${date}`);
     // console.log(`---2> ${moment(date).unix().toString()}`);
     // console.log(`---2> ${new Date(date).getTime()}`);

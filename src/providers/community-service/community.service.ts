@@ -1,18 +1,20 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class CommunityService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl: string = 'http://localhost:4300';
+  baseUrl: string = '';
 
   thisCommunities = {} as Community;
   thisSelectedCommunity: Community;
   context: string = 'community';
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private sharedService: SharedService) {
+    this.baseUrl = this.sharedService.baseUrl;
   }
 
 

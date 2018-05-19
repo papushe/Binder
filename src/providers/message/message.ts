@@ -1,14 +1,16 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class MessageService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl: string = 'http://localhost:4300';
+  baseUrl: string = '';
   context: string = 'message';
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private sharedService: SharedService) {
+    this.baseUrl = this.sharedService.baseUrl;
   }
 
   getRoomMessages(roomId: string) {

@@ -28,7 +28,6 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getCommunityMembers();
     this.init();
     this.membersChangeEvent();
     this.updateMembersCommunityEvent();
@@ -114,7 +113,7 @@ export class MembersComponent implements OnInit, OnDestroy {
           }
         },
         err => {
-          console.debug(`Failed to get ${this.community._id} members due to: ${err.message}`);
+          console.debug(`Failed to get ${this.userService.thisProfile.keyForFirebase} community due to: ${err.message}`);
         },
         () => {
           //done

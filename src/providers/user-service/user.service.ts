@@ -13,8 +13,7 @@ import {SharedService} from "../shared/shared.service";
 @Injectable()
 export class UserService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl: string = 'http://localhost:4300';
+  baseUrl: string = '';
 
   thisProfile = {} as Profile;
   thisAuthenticatedUser: User;
@@ -26,6 +25,7 @@ export class UserService {
   constructor(private _http: HttpClient,
               private auth: AngularFireAuth,
               private sharedService: SharedService) {
+    this.baseUrl = this.sharedService.baseUrl;
 
   }
 

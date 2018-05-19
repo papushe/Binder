@@ -1,17 +1,20 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Notification} from "../../models/notification/notification.interface";
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class NotificationService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl: string = 'http://localhost:4300';
+  baseUrl: string = '';
+
   context: string = 'notification';
   notifications: Notification[] = [];
   notificationNumber: number = 0;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private sharedService: SharedService) {
+    this.baseUrl = this.sharedService.baseUrl;
   }
 
   createNotification(notification) {

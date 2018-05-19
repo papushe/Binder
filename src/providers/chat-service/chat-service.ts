@@ -1,16 +1,17 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {SharedService} from "../shared/shared.service";
 
 @Injectable()
 export class ChatService {
 
-  // baseUrl: string = 'https://appbinder.herokuapp.com';
-  baseUrl: string = 'http://localhost:4300';
+  baseUrl: string = '';
   context: string = 'message';
   roomNumberChat = [];
 
-  constructor(private _http: HttpClient) {
-    console.log('Hello ChatService Provider');
+  constructor(private _http: HttpClient,
+              private sharedService: SharedService) {
+    this.baseUrl = this.sharedService.baseUrl;
   }
 
 
