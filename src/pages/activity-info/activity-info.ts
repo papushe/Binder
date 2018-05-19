@@ -123,7 +123,7 @@ export class ActivityInfoPage implements OnInit {
         console.log(err.message);
         this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
       }, () => {
-        // this.navCtrl.pop()
+        this.navCtrl.pop()
       })
   }
 
