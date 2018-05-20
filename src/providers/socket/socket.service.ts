@@ -152,6 +152,35 @@ export class SocketService {
     this.socket.emit('delete-community', params);
   }
 
+  claimedActivity(from, activity, to, community) {
+    let params = {
+      from: from,
+      activity: activity,
+      to: to,
+      community: community
+    };
+
+    this.socket.emit('claimed-activity', params);
+  }
+
+  onClaimedActivity() {
+    let observable = new Observable(observer => {
+      this.socket.on('on-claimed-activity', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  onClaimedActivityPrivate() {
+    let observable = new Observable(observer => {
+      this.socket.on('on-claimed-activity-private', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
   onDeleteCommunity() {
     let observable = new Observable(observer => {
       this.socket.on('on-delete-community', (data) => {
@@ -188,7 +217,7 @@ export class SocketService {
     return observable;
   }
 
-  onGetCommunityChangeActivity() {
+  onCommunityChangeActivity() {
     let observable = new Observable(observer => {
       this.socket.on('activities-change', (data) => {
         observer.next(data);

@@ -18,6 +18,7 @@ export class MyApp implements OnInit, OnDestroy {
   rootPage: string;
   tabsSocketEnterToChatRoomPrivate: any;
   tabsSocketAskToJoinToPrivateRoom: any;
+  tabsSocketClaimedActivityPrivateRoom: any;
   @ViewChild('child') child;
 
   constructor(private userService: UserService,
@@ -47,6 +48,8 @@ export class MyApp implements OnInit, OnDestroy {
     this.privateChatRoom();
 
     this.joinPrivateRoom();
+
+    this.claimedActivityPrivate();
 
   }
 
@@ -121,6 +124,35 @@ export class MyApp implements OnInit, OnDestroy {
           })
       });
   }
+
+  claimedActivityPrivate() {
+    this.tabsSocketClaimedActivityPrivateRoom = this.socketService.onClaimedActivityPrivate()
+      .subscribe(data => {
+
+        this.notificationService.notificationNumber++;
+
+        this.events.publish('newNotification', this.notificationService.notificationNumber);
+
+
+        let notification: any = data;
+
+        notification.to = {
+          keyForFirebase: notification.activity.consumer.id,
+          fullName: notification.activity.consumer.name
+        };
+
+
+        this.notificationService.createNotification(<Notification>notification)
+          .subscribe(data => {
+            this.notificationService.notifications.push(<Notification>data);
+          }, err => {
+            console.log(`Failed to save notification, ${err}`)
+          }, () => {
+            //done
+          })
+      });
+  }
+
 
   ngOnDestroy(): void {
     this.socketService.onDisconnect();

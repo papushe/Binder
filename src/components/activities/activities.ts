@@ -19,6 +19,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   @Input() currentCommunity: Community;
   showActivities: boolean = true;
   activitiesSocketConnection: any;
+  activityClaimdeSocketConnection: any;
 
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
@@ -31,10 +32,11 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.communityChangeActivity();
+    this.onClaimedActivity();
   }
 
   communityChangeActivity() {
-    this.activitiesSocketConnection = this.socketService.onGetCommunityChangeActivity()
+    this.activitiesSocketConnection = this.socketService.onCommunityChangeActivity()
       .subscribe(data => {
         if (data) {
           this.handleActivitySocket(data);
@@ -42,15 +44,30 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       });
   }
 
+  onClaimedActivity() {
+    this.activityClaimdeSocketConnection = this.socketService.onClaimedActivity()
+      .subscribe(data => {
+        if (data) {
+          this.handleActivitySocket(data);
+        }
+      })
+  }
+
+
   handleActivitySocket(data) {
-    let deletedActivity = '';
-    if (data.event == 'delete-activity') {
-      const removeIndex = this.activities.map(function (item) {
+    let actionActivity = '';
+    if (data.event == 'on-claimed-activity') {
+      const updatedIndex = this.activities.map(function (item) {
+        return item._id;
+      }).indexOf(data.activity._id);
+      this.activities[updatedIndex] = data.activity;
+    } else if (data.event == 'delete-activity') {
+      const updatedIndex = this.activities.map(function (item) {
         return item._id;
       }).indexOf(data.activity);
-      if (removeIndex !== -1) {
-        deletedActivity = this.activities[removeIndex].activity_name;
-        this.activities.splice(removeIndex, 1);
+      if (updatedIndex !== -1) {
+        actionActivity = this.activities[updatedIndex].activity_name;
+        this.activities.splice(updatedIndex, 1);
       }
     } else {
       const removeIndex = this.activities.map(function (item) {
@@ -62,8 +79,9 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       this.activities.push(data.activity);
     }
 
+
     if (data.from && this.userService.thisProfile.fullName != data.from.fullName) {
-      this.sharedService.createToast(`${data['from'].fullName} ${data.event} ${data['activity'].activity_name || deletedActivity}`);
+      this.sharedService.createToast(`${data['from'].fullName} ${data.event} ${data['activity'].activity_name || actionActivity}`);
     }
 
   }

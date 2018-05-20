@@ -23,7 +23,7 @@ export class MemberOptionsPage implements OnInit {
   }
 
   init() {
-    this.member = this.navParams.get('member');
+    this.member = this.navParams.get('member') || this.navParams.get('claimedUser');
     this.community = this.navParams.get('community');
     this.isJoined = this.navParams.get('isJoined');
     this.title = this.member ? `${this.member.fullName}` : `User Options`;

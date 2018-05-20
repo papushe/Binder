@@ -7,6 +7,7 @@ import {SharedService} from "../../providers/shared/shared.service";
 import {ActivityService} from "../../providers/activity-service/activity-service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
+import {CommunityService} from "../../providers/community-service/community.service";
 
 @IonicPage()
 @Component({
@@ -25,7 +26,8 @@ export class ActivityInfoPage implements OnInit {
               private userService: UserService,
               private alertCtrl: AlertController,
               private navParams: NavParams,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private communityService: CommunityService) {
 
   }
 
@@ -96,6 +98,9 @@ export class ActivityInfoPage implements OnInit {
         if (data) {
           this.activity = <Activity> data;
           this.sharedService.createToast(`You claimed ${this.activity.activity_name}`);
+
+          this.socketService.claimedActivity(this.userService.thisProfile, this.activity, this.activity.consumer, this.communityService.thisSelectedCommunity);
+
         }
         else {
           this.sharedService.createToast(`Failed to claim ${this.activity.activity_name}`);
@@ -126,5 +131,40 @@ export class ActivityInfoPage implements OnInit {
       })
   }
 
+  openSearchPage(name) {
+
+    let spacePosition = name.indexOf(' ');
+    let tempName = '';
+    tempName = name.substr(0, spacePosition);
+
+    let claimedUser: any;
+    this.userService.searchUsers(tempName)
+      .subscribe(
+        data => {
+          claimedUser = this.findUser(data, name);
+        },
+        err => {
+          console.log(`error: ${err.message}`);
+        },
+        () => {
+          //done
+          this.navCtrl.push('MemberOptionsPage', {claimedUser: claimedUser})
+        }
+      );
+
+
+  }
+
+  findUser(users, currentUser) {
+    let tempUser: any;
+    if (users && users.length > 0) {
+      users.forEach(user => {
+        if (user.fullName == currentUser) {
+          tempUser = user;
+        }
+      });
+      return tempUser;
+    }
+  }
 
 }
