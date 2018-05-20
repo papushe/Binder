@@ -6,6 +6,7 @@ import {NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {SocketService} from "../../providers/socket/socket.service";
+import {Notification} from "../../models/notification/notification.interface";
 
 @Component({
   selector: 'communities-component',
@@ -17,6 +18,7 @@ export class CommunitiesComponent implements OnInit {
   sharedCommunityId: string;
   @Output() hasProfileEvent: EventEmitter<boolean>;
   communitySocketConnection: any;
+  tabsSocketDeleteCommunity: any;
 
   constructor(private userService: UserService,
               private communityService: CommunityService,
@@ -32,6 +34,7 @@ export class CommunitiesComponent implements OnInit {
 
     this.membersChangeEvent();
 
+    this.deleteCommunity();
   }
 
   checkGetProfile() {
@@ -51,13 +54,23 @@ export class CommunitiesComponent implements OnInit {
         });
   }
 
+  deleteCommunity() {
+    this.tabsSocketDeleteCommunity = this.socketService.onDeleteCommunity()
+      .subscribe(data => {
+        if (data) {
+          this.handleSocket(data);
+        }
+      });
+  }
+
+
   handleSocket(data) {
     let thisUserName = this.userService.thisProfile.fullName;
 
     if (data.event == 'deleted') {
       let userFromServer = (data.user) ? data.user.keyForFirebase : '';
 
-      if (thisUserName != data.from) {
+      if (thisUserName != data.from.fullName) {
         this.sharedService.createToast(`You were ${data.event} from ${data.communityName} community by ${data.from}`);
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
@@ -70,11 +83,12 @@ export class CommunitiesComponent implements OnInit {
       this.userService.thisProfile = data.user;
       this.getProfile(this.userService.thisAuthenticatedUser);
 
-      if (thisUserName != data.from) {
-        this.sharedService.createToast(`You were ${data.event} to ${data.communityName} community by ${data.from}`);
+      if (thisUserName != data.from.fullName) {
+        this.sharedService.createToast(`You were ${data.event} to ${data.communityName} community by ${data.from.fullName}`);
       }
+    } else if (data.event == 'on-delete-community' && data.from.fullName !== this.userService.thisProfile.fullName) {
+      this.getProfile(this.userService.thisAuthenticatedUser)
     }
-
   }
 
   getProfile(user) {

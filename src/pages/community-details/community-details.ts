@@ -220,10 +220,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           console.log(`community ${this.community._id} was deleted success? : ${!!res}`);
           if (res) {
 
-
-            //TODO add socket
-
-            this.userService.thisProfile = <Profile> res;
+            this.socketService.deleteCommunity(this.userService.thisProfile, this.community);
             this.sharedService.createToast(`You deleted ${this.community.communityName}`);
           }
           else {

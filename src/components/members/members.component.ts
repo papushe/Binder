@@ -63,8 +63,8 @@ export class MembersComponent implements OnInit, OnDestroy {
 
       this.removeMemberFromMembersObject(data.user);
 
-      if (thisUserName != data.from) {
-        this.sharedService.createToast(`${data.user.firstName} has ${data.event} from ${data.communityName} community`);
+      if (thisUserName != data.from.fullName) {
+        this.sharedService.createToast(`${data.user.fullName} has ${data.event} from ${data.communityName} community`);
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
@@ -74,11 +74,12 @@ export class MembersComponent implements OnInit, OnDestroy {
     } else if (data.event == 'joined') {
       this.getCommunityMembers();
 
-      if (thisUserName != data.from) {
-        this.sharedService.createToast(`${data.user.firstName} has ${data.event} to ${data.communityName} community`);
+      if (thisUserName != data.from.fullName) {
+        this.sharedService.createToast(`${data.user.fullName} has ${data.event} to ${data.communityName} community`);
       }
     } else if (data.event == 'left') {
-      if (data.from === thisUserName) {
+      console.log(data);
+      if (data.user.fullName === thisUserName) {
         this.navCtrl.setRoot('TabsPage');
       } else {
         this.getCommunity(this.userService.thisProfile.keyForFirebase);

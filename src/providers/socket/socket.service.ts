@@ -16,9 +16,8 @@ export class SocketService {
   socketConnect() {
     if (!this.isUserConnected) {
       this.isUserConnected = true;
-      const userName = this.userService.thisProfile.fullName;
       this.socket.connect();
-      this.socket.emit('set-nickname', userName);
+      this.socket.emit('init-binder-socket', this.userService.thisProfile);
     }
   }
 
@@ -51,34 +50,37 @@ export class SocketService {
     this.socket.emit('join-to-community', params)
   }
 
-  joinToCommunityByManager(community, user, fromUserId) {
+  joinToCommunityByManager(community, user, fromUser) {
     let params = {
       room: community._id,
       roomName: community.communityName,
       roomId: community._id,
       user: user,
-      fromUserId: fromUserId
+      fromUserId: fromUser.keyForFirebase,
+      from: fromUser
     };
     this.socket.emit('add-to-community-by-manager', params)
   }
 
-  deleteFromCommunity(community, user, fromUserId) {
+  deleteFromCommunity(community, user, fromUser) {
     let params = {
       room: community._id,
       roomName: community.communityName,
       roomId: community._id,
       user: user,
-      fromUserId: fromUserId
+      fromUserId: fromUser.keyForFirebase,
+      from: fromUser
     };
     this.socket.emit('delete-from-community', params)
   }
 
-  communityChangeActivity(activity, communityId, event) {
+  communityChangeActivity(activity, communityId, event, from) {
     let params = {
       activity: activity,
       communityId: communityId,
       room: communityId,
-      event: event
+      event: event,
+      from: from
     };
     this.socket.emit('activities-change', params);
   }
@@ -139,6 +141,24 @@ export class SocketService {
     };
 
     this.socket.emit('decline-user-join-private-room', params);
+  }
+
+  deleteCommunity(fromUser, community) {
+    let params = {
+      from: fromUser,
+      community: community
+    };
+
+    this.socket.emit('delete-community', params);
+  }
+
+  onDeleteCommunity() {
+    let observable = new Observable(observer => {
+      this.socket.on('on-delete-community', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
   }
 
   onUserAskToJoinPrivateRoom() {

@@ -6,6 +6,7 @@ import {SharedService} from "../../providers/shared/shared.service";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
+import {Community} from "../../models/community/community.interface";
 
 @IonicPage()
 @Component({
@@ -61,6 +62,10 @@ export class NotificationPage implements OnInit {
       this.navCtrl.push('ChatRoomPage', {message: message})
     } else if (message.event == 'user-ask-to-join-private-room') {
       this.confirmUserToJoin(message);
+    } else if (message.event == 'on-delete-community') {
+
+      this.getCommunities();
+
     }
   }
 
@@ -103,11 +108,9 @@ export class NotificationPage implements OnInit {
     alert.present();
   }
 
-
   cancelJoinRequest(message) {
     this.communityService.removeUserFromWaitingList(message.room, message.from.keyForFirebase)
       .subscribe(data => {
-        console.log(data)
         this.sendUserDeclineNotification(message);
 
         console.log(data);
@@ -129,7 +132,7 @@ export class NotificationPage implements OnInit {
           console.log(`user has joined to ${message.communityName} community  success? : ${!!res}`);
           if (res) {
 
-            this.socketService.joinToCommunityByManager(message, res, this.userService.thisProfile.keyForFirebase);
+            this.socketService.joinToCommunityByManager(message, res, this.userService.thisProfile);
             this.sharedService.createToast(`User joined to ${message.communityName} community`);
           }
           else {
@@ -145,5 +148,15 @@ export class NotificationPage implements OnInit {
         });
   }
 
+  getCommunities() {
+    this.communityService.getCommunities(this.userService.thisProfile.keyForFirebase)
+      .subscribe(data => {
+        this.communityService.thisCommunities = <Community>data;
+      }, err => {
+        console.log(err)
+      }, () => {
+        console.log('done')
+      })
+  }
 
 }

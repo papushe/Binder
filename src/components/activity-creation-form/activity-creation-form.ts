@@ -18,7 +18,7 @@ export class ActivityCreationFormComponent implements OnInit {
   @Output() saveActivityResult: EventEmitter<any>;
   @Input() currentCommunity: Community;
   @Input() currentActivity: Activity;
-  now  = this.sharedService.getCurrentLocalTime();
+  now = this.sharedService.getCurrentLocalTime();
   displayDateAsISO;
 
   constructor(private sharedService: SharedService,
@@ -54,7 +54,7 @@ export class ActivityCreationFormComponent implements OnInit {
             data => {
               console.log(`create activity success? : ${!!data}`);
               if (data) {
-                this.socketService.communityChangeActivity(data, this.activity.community_id, 'create');
+                this.socketService.communityChangeActivity(data, this.activity.community_id, 'create', this.userService.thisProfile);
                 this.sharedService.createToast(`${this.activity.activity_name} was created successfully`);
                 this.saveActivityResult.emit(data);
               }
@@ -76,7 +76,7 @@ export class ActivityCreationFormComponent implements OnInit {
             data => {
               console.log(`successfully updated activity? : ${!!data}`);
               if (data) {
-                this.socketService.communityChangeActivity(data, this.activity.community_id, 'update');
+                this.socketService.communityChangeActivity(data, this.activity.community_id, 'update', this.userService.thisProfile);
                 this.sharedService.createToast(`${this.activity.activity_name} was updated successfully`);
                 this.saveActivityResult.emit(data);
               }

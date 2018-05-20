@@ -41,7 +41,7 @@ export class MemberOptionsComponent implements OnInit {
         userResponse => {
           console.log(`user was removed from community success? : ${!!userResponse}`);
           if (userResponse) {
-            this.socketService.deleteFromCommunity(this.community, userResponse, this.userService.thisProfile.keyForFirebase);
+            this.socketService.deleteFromCommunity(this.community, userResponse, this.userService.thisProfile);
             this.sharedService.createToast(`You removed ${this.member.fullName} from ${this.community.communityName}`);
           }
           else {
@@ -65,9 +65,7 @@ export class MemberOptionsComponent implements OnInit {
           console.log(`user has joined community ${this.community.communityName} success? : ${!!res}`);
           if (res) {
 
-            //todo: send socket event and update the added user profile with res
-
-            this.socketService.joinToCommunityByManager(this.community, res, this.userService.thisProfile.keyForFirebase);
+            this.socketService.joinToCommunityByManager(this.community, res, this.userService.thisProfile);
             this.sharedService.createToast(`User joined ${this.community.communityName}`);
           }
           else {

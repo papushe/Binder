@@ -105,8 +105,8 @@ export class MyApp implements OnInit, OnDestroy {
 
         if (notification.event !== 'manager-decline-user-join-private-room') {
           notification.to = {
-            keyForFirebase: notification.community.managerId,
-            fullName: notification.community.managerName
+            keyForFirebase: notification.community.manager.id,
+            fullName: notification.community.manager.name
           };
         }
 

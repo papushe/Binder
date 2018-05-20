@@ -72,7 +72,7 @@ export class ActivityInfoPage implements OnInit {
         data => {
           if (data) {
             this.sharedService.createToast(`${this.activity.activity_name} was removed successfully`);
-            this.socketService.communityChangeActivity(this.activity._id, this.activity.community_id, 'delete');
+            this.socketService.communityChangeActivity(this.activity._id, this.activity.community_id, 'delete', this.userService.thisProfile);
           }
           else {
             this.sharedService.createToast('Something went wrong, Please try again');

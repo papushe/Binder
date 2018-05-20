@@ -62,8 +62,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       this.activities.push(data.activity);
     }
 
-    if (data.from && this.userService.thisProfile.fullName != data.from) {
-      this.sharedService.createToast(`${data['from']} ${data.event} ${data['activity'].activity_name || deletedActivity}`);
+    if (data.from && this.userService.thisProfile.fullName != data.from.fullName) {
+      this.sharedService.createToast(`${data['from'].fullName} ${data.event} ${data['activity'].activity_name || deletedActivity}`);
     }
 
   }
