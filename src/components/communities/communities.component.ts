@@ -71,7 +71,7 @@ export class CommunitiesComponent implements OnInit {
       let userFromServer = (data.user) ? data.user.keyForFirebase : '';
 
       if (thisUserName != data.from.fullName) {
-        this.sharedService.createToast(`You were ${data.event} from ${data.communityName} community by ${data.from}`);
+        this.sharedService.createToast(`You were ${data.event} from ${data.communityName} community by ${data.from.fullName}`);
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;

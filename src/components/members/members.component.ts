@@ -68,7 +68,9 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
-        this.navCtrl.setRoot('TabsPage')
+        if (this.navCtrl.getActive().name !== 'TabsPage') {
+          this.navCtrl.setRoot('TabsPage')
+        }
       }
 
     } else if (data.event == 'joined') {
