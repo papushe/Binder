@@ -43,7 +43,7 @@ export class ChatRoomPage implements OnInit {
 
   }
 
-  scrollToBottom(){
+  scrollToBottom() {
     this.content.scrollToBottom(0)
   }
 
@@ -115,18 +115,26 @@ export class ChatRoomPage implements OnInit {
 
   checkIfAlreadyChat(type) {
     if (type === 'enter') {
+      let flag: boolean = false;
       if (this.currentUser.chats && this.currentUser.chats.length > 0) { // if this user and i have chat
         this.currentUser.chats.map((chat) => {
           if (chat.talkedToName === this.userToTalk.fullName || chat.talkedFromName === this.userToTalk.fullName) {
             this.alreadyChat = chat;
             this.enterToChatRoom(chat.chatRoomId, this.userToTalk, this.currentUser);
+          } else {
+            flag = true;
           }
         })
       } else {
+        flag = true;
+      }
+      if (flag) {
         this.saveChat(this.randomNumberRoom, this.userToTalk); // else save chat
         this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.currentUser);
       }
-    } else {
+    }
+
+    else {
       if (type === 'join') {
         if (this.currentUser.chats && this.currentUser.chats.length > 0) { // if this user and i have chat
           this.currentUser.chats.map((chat) => {

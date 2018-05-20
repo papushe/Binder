@@ -58,8 +58,10 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
 
   updateCommunityEvent() {
     this.events.subscribe('updateCommunity', (data) => {
-      this.communityService.thisSelectedCommunity = data;
-      this.community = this.communityService.thisSelectedCommunity;
+      if (data) {
+        this.communityService.thisSelectedCommunity = data;
+        this.community = this.communityService.thisSelectedCommunity;
+      }
     });
   }
 

@@ -101,14 +101,16 @@ export class MembersComponent implements OnInit, OnDestroy {
   getCommunity(userId) {
     this.communityService.getCommunities(userId)
       .subscribe(
-        res => {
-          if (res) {
-            console.log(`get community success? : ${!!res}`);
+        community => {
+          if (Object.keys(community) && Object.keys(community).length !== 0) {
 
-            this.communityService.thisSelectedCommunity = <Community>res[0];
+            console.log(`get community success? : ${!!community}`);
+
+            this.communityService.thisSelectedCommunity = <Community>community[0];
             this.community = this.communityService.thisSelectedCommunity;
 
             this.events.publish('updateCommunity', this.community);
+
             this.getCommunityMembers();
           }
         },
