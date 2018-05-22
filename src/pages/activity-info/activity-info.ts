@@ -119,7 +119,6 @@ export class ActivityInfoPage implements OnInit {
       .subscribe(data => {
         console.debug(`activity was approved successfully? : ${data}`);
         if (data) {
-
           this.activity = <Activity> data;
           this.sharedService.createToast(`Successfully approved ${this.activity.activity_name}`);
 
@@ -129,6 +128,24 @@ export class ActivityInfoPage implements OnInit {
       }, err => {
         console.log(err.message);
         this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
+      }, () => {
+        this.navCtrl.pop()
+      })
+  }
+
+  declineActivity() {
+    this.activityService.decline(this.activity._id)
+      .subscribe(data => {
+        console.debug(`activity was declined successfully? : ${data}`);
+        if (data) {
+          this.activity = <Activity> data;
+          this.sharedService.createToast(`Successfully declined ${this.activity.activity_name}`);
+        //  place for socketService declineActivity method
+        }
+        else this.sharedService.createToast(`Failed to decline ${this.activity.activity_name}`);
+      }, err => {
+        console.log(err.message);
+        this.sharedService.createToast(`Failed to decline ${this.activity.activity_name}`);
       }, () => {
         this.navCtrl.pop()
       })
