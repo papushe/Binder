@@ -19,7 +19,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   @Input() currentCommunity: Community;
   showActivities: boolean = true;
   activitiesSocketConnection: any;
-  activityClaimdeSocketConnection: any;
+  activityClaimedSocketConnection: any;
+  activityApproveSocketConnection: any;
 
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
@@ -33,6 +34,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.communityChangeActivity();
     this.onClaimedActivity();
+    this.onApproveActivity();
   }
 
   communityChangeActivity() {
@@ -45,7 +47,16 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   onClaimedActivity() {
-    this.activityClaimdeSocketConnection = this.socketService.onClaimedActivity()
+    this.activityClaimedSocketConnection = this.socketService.onClaimedActivity()
+      .subscribe(data => {
+        if (data) {
+          this.handleActivitySocket(data);
+        }
+      })
+  }
+
+  onApproveActivity() {
+    this.activityApproveSocketConnection = this.socketService.onApproveActivity()
       .subscribe(data => {
         if (data) {
           this.handleActivitySocket(data);
@@ -56,7 +67,12 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
 
   handleActivitySocket(data) {
     let actionActivity = '';
-    if (data.event == 'on-claimed-activity') {
+    if (data.event == 'on-approve-activity') {
+      const updatedIndex = this.activities.map(function (item) {
+        return item._id;
+      }).indexOf(data.activity._id);
+      this.activities[updatedIndex] = data.activity;
+    } else if (data.event == 'on-claimed-activity') {
       const updatedIndex = this.activities.map(function (item) {
         return item._id;
       }).indexOf(data.activity._id);

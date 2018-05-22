@@ -99,7 +99,7 @@ export class ActivityInfoPage implements OnInit {
           this.activity = <Activity> data;
           this.sharedService.createToast(`You claimed ${this.activity.activity_name}`);
 
-          this.socketService.claimedActivity(this.userService.thisProfile, this.activity, this.activity.consumer, this.communityService.thisSelectedCommunity);
+          this.socketService.claimedActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity);
 
         }
         else {
@@ -119,8 +119,11 @@ export class ActivityInfoPage implements OnInit {
       .subscribe(data => {
         console.debug(`activity was approved successfully? : ${data}`);
         if (data) {
+
           this.activity = <Activity> data;
           this.sharedService.createToast(`Successfully approved ${this.activity.activity_name}`);
+
+          this.socketService.approveActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity);
         }
         else this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
       }, err => {

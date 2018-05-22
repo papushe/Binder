@@ -152,15 +152,44 @@ export class SocketService {
     this.socket.emit('delete-community', params);
   }
 
-  claimedActivity(from, activity, to, community) {
+  claimedActivity(from, activity, community) {
     let params = {
       from: from,
       activity: activity,
-      to: to,
+      to: activity.consumer,
       community: community
     };
 
     this.socket.emit('claimed-activity', params);
+  }
+
+  approveActivity(from, activity, community) {
+    let params = {
+      from: from,
+      activity: activity,
+      to: activity.status,
+      community: community
+    };
+
+    this.socket.emit('approve-activity', params);
+  }
+
+  onApproveActivity() {
+    let observable = new Observable(observer => {
+      this.socket.on('on-approve-activity', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  onApproveActivityPrivate() {
+    let observable = new Observable(observer => {
+      this.socket.on('on-approve-activity-private', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
   }
 
   onClaimedActivity() {

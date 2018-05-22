@@ -75,11 +75,8 @@ export class CommunitiesComponent implements OnInit {
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
-        this.getProfile(this.userService.thisAuthenticatedUser)
       }
-
-    }
-    else if (data.event == 'joined') {
+    } else if (data.event == 'joined') {
       this.userService.thisProfile = data.user;
       this.getProfile(this.userService.thisAuthenticatedUser);
 
