@@ -80,7 +80,6 @@ export class MembersComponent implements OnInit, OnDestroy {
         this.sharedService.createToast(`${data.user.fullName} has ${data.event} to ${data.communityName} community`);
       }
     } else if (data.event == 'left') {
-      console.log(data);
       if (data.user.fullName === thisUserName) {
         this.navCtrl.setRoot('TabsPage');
       } else {
@@ -109,7 +108,7 @@ export class MembersComponent implements OnInit, OnDestroy {
 
             console.log(`get community success? : ${!!community}`);
 
-            this.communityService.thisSelectedCommunity = <Community>community[0];
+            this.communityService.thisSelectedCommunity = <Community>community[this.checkCommunity(community)];
             this.community = this.communityService.thisSelectedCommunity;
 
             this.events.publish('updateCommunity', this.community);
@@ -123,6 +122,15 @@ export class MembersComponent implements OnInit, OnDestroy {
         () => {
           //done
         });
+  }
+
+  checkCommunity(communities): number {
+    let key: number = 0;
+    Object.keys(communities).forEach((k) => {
+      if (this.communityService.thisSelectedCommunity._id === communities[k]._id)
+        key = Number(k);
+    });
+    return key;
   }
 
 

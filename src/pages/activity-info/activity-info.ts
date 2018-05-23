@@ -138,9 +138,12 @@ export class ActivityInfoPage implements OnInit {
       .subscribe(data => {
         console.debug(`activity was declined successfully? : ${data}`);
         if (data) {
+
           this.activity = <Activity> data;
           this.sharedService.createToast(`Successfully declined ${this.activity.activity_name}`);
-        //  place for socketService declineActivity method
+
+          this.socketService.declineActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity);
+
         }
         else this.sharedService.createToast(`Failed to decline ${this.activity.activity_name}`);
       }, err => {

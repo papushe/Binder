@@ -35,6 +35,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     this.communityChangeActivity();
     this.onClaimedActivity();
     this.onApproveActivity();
+    this.onDeclineActivity();
   }
 
   communityChangeActivity() {
@@ -55,6 +56,15 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       })
   }
 
+  onDeclineActivity() {
+    this.activityClaimedSocketConnection = this.socketService.onDeclineActivity()
+      .subscribe(data => {
+        if (data) {
+          this.handleActivitySocket(data);
+        }
+      })
+  }
+
   onApproveActivity() {
     this.activityApproveSocketConnection = this.socketService.onApproveActivity()
       .subscribe(data => {
@@ -67,12 +77,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
 
   handleActivitySocket(data) {
     let actionActivity = '';
-    if (data.event == 'on-approve-activity') {
-      const updatedIndex = this.activities.map(function (item) {
-        return item._id;
-      }).indexOf(data.activity._id);
-      this.activities[updatedIndex] = data.activity;
-    } else if (data.event == 'on-claimed-activity') {
+    if (data.event == 'on-approve-activity' || data.event == 'on-decline-activity' || data.event == 'on-claimed-activity') {
       const updatedIndex = this.activities.map(function (item) {
         return item._id;
       }).indexOf(data.activity._id);

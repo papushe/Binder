@@ -7,6 +7,7 @@ import {SharedService} from "../providers/shared/shared.service";
 import {SocketService} from "../providers/socket/socket.service";
 import {Notification} from "../models/notification/notification.interface";
 import {NotificationService} from "../providers/notitfication/notification.service";
+import {Profile} from "../models/profile/profile.interface";
 
 @Component({
   templateUrl: 'app.html'
@@ -20,6 +21,7 @@ export class MyApp implements OnInit, OnDestroy {
   tabsSocketAskToJoinToPrivateRoom: any;
   tabsSocketClaimedActivityPrivateRoom: any;
   tabsSocketApproveActivityPrivateRoom: any;
+  tabsSocketNewNotification: any;
   @ViewChild('child') child;
 
   constructor(private userService: UserService,
@@ -53,6 +55,8 @@ export class MyApp implements OnInit, OnDestroy {
     this.claimedActivityPrivate();
 
     this.approveActivityPrivate();
+
+    this.newNotification();
 
   }
 
@@ -92,6 +96,28 @@ export class MyApp implements OnInit, OnDestroy {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
             console.log(`Faild to save notification, ${err}`)
+          }, () => {
+            //done
+          })
+      });
+  }
+
+
+  newNotification() {
+    this.tabsSocketNewNotification = this.socketService.onNewNotification()
+      .subscribe(data => {
+
+        this.notificationService.notificationNumber++;
+
+        this.events.publish('newNotification', this.notificationService.notificationNumber);
+
+        let notification: any = data;
+
+        this.notificationService.createNotification(<Notification>notification)
+          .subscribe(data => {
+            this.notificationService.notifications.push(<Notification>data);
+          }, err => {
+            console.log(`Failed to save notification, ${err}`)
           }, () => {
             //done
           })

@@ -163,6 +163,17 @@ export class SocketService {
     this.socket.emit('claimed-activity', params);
   }
 
+  declineActivity(from, activity, community) {
+    let params = {
+      from: from,
+      activity: activity,
+      to: activity.consumer,
+      community: community
+    };
+
+    this.socket.emit('decline-activity', params);
+  }
+
   approveActivity(from, activity, community) {
     let params = {
       from: from,
@@ -183,6 +194,15 @@ export class SocketService {
     return observable;
   }
 
+  onNewNotification() {
+    let observable = new Observable(observer => {
+      this.socket.on('notification', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
   onApproveActivityPrivate() {
     let observable = new Observable(observer => {
       this.socket.on('on-approve-activity-private', (data) => {
@@ -195,6 +215,15 @@ export class SocketService {
   onClaimedActivity() {
     let observable = new Observable(observer => {
       this.socket.on('on-claimed-activity', (data) => {
+        observer.next(data);
+      });
+    });
+    return observable;
+  }
+
+  onDeclineActivity() {
+    let observable = new Observable(observer => {
+      this.socket.on('on-decline-activity', (data) => {
         observer.next(data);
       });
     });
