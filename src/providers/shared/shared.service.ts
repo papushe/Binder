@@ -27,7 +27,7 @@ export class SharedService {
   createToast(msg) {
     let toast = this.toast.create({
       message: msg,
-      duration: 3000
+      duration: 2000
     });
     toast.present();
   }
