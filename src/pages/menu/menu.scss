@@ -32,6 +32,19 @@ page-menu {
     border-bottom: 5px solid gainsboro;
   }
 
+  .activityLabel {
+    background: lightgray;
+    min-height: 20px;
+    font-weight: bolder;
+    font-size: 12px;
+    color: grey;
+
+    ion-label {
+      margin: 6px 8px 6px 0 !important;
+    }
+
+  }
+
 }
 
 

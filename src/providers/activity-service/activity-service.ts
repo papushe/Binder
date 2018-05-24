@@ -16,11 +16,10 @@ export class ActivityService {
               private sharedService: SharedService,
               private userService: UserService) {
     this.baseUrl = this.sharedService.baseUrl;
-    this.getActivities();
   }
 
-  getActivities() {
-    this.getActivitiesByUserId(this.userService.thisAuthenticatedUser.uid)
+  getActivities(auth) {
+    this.getActivitiesByUserId(auth.uid)
       .subscribe((activities) => {
         this.thisUserActivities = <Activity[]>activities;
       }, (err) => {

@@ -7,7 +7,7 @@ import {SharedService} from "../providers/shared/shared.service";
 import {SocketService} from "../providers/socket/socket.service";
 import {Notification} from "../models/notification/notification.interface";
 import {NotificationService} from "../providers/notitfication/notification.service";
-import {Profile} from "../models/profile/profile.interface";
+import {ActivityService} from "../providers/activity-service/activity-service";
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +31,8 @@ export class MyApp implements OnInit, OnDestroy {
               private splashScreen: SplashScreen,
               private socketService: SocketService,
               private notificationService: NotificationService,
-              private events: Events) {
+              private events: Events,
+              private activityService: ActivityService) {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -71,6 +72,7 @@ export class MyApp implements OnInit, OnDestroy {
         auth.getIdToken(true)
           .then(token => {
             this.sharedService.storeToken(token);
+            this.activityService.getActivities(auth);
             if (!this.navCtrl.getActive() || this.navCtrl.getActive().name !== 'TabsPage') {
               this.rootPage = 'TabsPage';
             }

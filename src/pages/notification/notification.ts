@@ -65,7 +65,7 @@ export class NotificationPage implements OnInit {
     } else if (message.event == 'on-delete-community') {
       this.getCommunities();
     } else if (message.event == 'activity-is-about-to-start') {
-
+      this.navCtrl.push('LiveActivityPage');
     }
   }
 
