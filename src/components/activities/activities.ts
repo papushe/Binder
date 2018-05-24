@@ -114,9 +114,6 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
           console.log(`got all activities successfully? : ${!!data}`);
           if (data) {
             this.activities = <Activity[]>data;
-            this.activities.forEach(activity => {
-              activity.activity_date = this.sharedService.convertEpochToDate(activity.activity_date)
-            })
           }
           else {
             this.sharedService.createToast(`Couldn't get activities, please try again`);

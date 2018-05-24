@@ -2,13 +2,18 @@ page-menu {
   ion-row {
     border-bottom: 1px solid gainsboro;
     ion-icon {
-      font-size: 3em;
+      font-size: 2em;
     }
     .menu-tab {
       text-align: left;
       margin-left: 10px;
 
-      .menu-title, .menu-title-profile {
+      .menu-title {
+        display: inline-block;
+        margin: 5px 0;
+        font-size: 14px;
+      }
+      .menu-title-profile {
         display: inline-block;
         margin: 5px 0;
         font-size: 16px;
@@ -20,10 +25,10 @@ page-menu {
     }
   }
   .menu-wrapper .menu-title {
-    margin-top: 11px !important;
+    margin-top: 6px !important;
   }
 
-  ion-row:nth-child(1) {
+  ion-row:nth-child(1), ion-row:nth-child(2), ion-row:nth-child(5) {
     border-bottom: 5px solid gainsboro;
   }
 

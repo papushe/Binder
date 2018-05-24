@@ -61,7 +61,7 @@ export class SharedService {
     return moment(new Date(parseInt(epochTimestamp))).format(this.DATE_FORMAT);
   }
 
-  convertToISO(date: string) {
+  convertToISO(date: number) {
     let offsetInMS = new Date().getTimezoneOffset() * 60 *1000;
     let dateInMS = new Date(date).getTime();
     console.log(new Date(dateInMS - offsetInMS).toISOString().replace('Z', ''));
@@ -70,7 +70,7 @@ export class SharedService {
 
   ISOToLocal (iso: string) {
     let isoStr = iso.replace('Z', '');
-    return moment(isoStr).format(this.DATE_FORMAT);
+    return new Date(isoStr).getTime();
   }
 
   getRandomString(length) {

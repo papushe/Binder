@@ -4,6 +4,7 @@ import {NotificationService} from "../../providers/notitfication/notification.se
 import {SharedService} from "../../providers/shared/shared.service";
 import {Notification} from "../../models/notification/notification.interface";
 import {UserService} from "../../providers/user-service/user.service";
+import {LiveActivityPage} from "../live-activity/live-activity";
 
 @IonicPage()
 @Component({
@@ -33,7 +34,7 @@ export class TabsPage implements OnInit, OnDestroy {
   init() {
     this.tab1Root = 'CommunitiesPage';
     this.tab2Root = 'NotificationPage';
-    this.tab3Root = 'MessagesPage';
+    this.tab3Root = 'LiveActivityPage';
     this.tab4Root = 'MenuPage';
     this.eventsSubscribe();
 

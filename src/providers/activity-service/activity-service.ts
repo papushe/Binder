@@ -1,24 +1,50 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {Activity} from '../../models/activity/activity.interface';
 import {SharedService} from "../shared/shared.service";
+import {UserService} from "../user-service/user.service";
 
 @Injectable()
 export class ActivityService {
 
+
   baseUrl: string = '';
   context: string = 'activity';
+  thisUserActivities: Activity[];
 
   constructor(private _http: HttpClient,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private userService: UserService) {
     this.baseUrl = this.sharedService.baseUrl;
+    this.getActivities();
   }
+
+  getActivities() {
+    this.getActivitiesByUserId(this.userService.thisAuthenticatedUser.uid)
+      .subscribe((activities) => {
+        this.thisUserActivities = <Activity[]>activities;
+      }, (err) => {
+        console.log(err);
+      }, () => {
+        console.log('done');
+      })
+  };
+
+  mapAs(type) {
+    let activities: Activity[] = [];
+
+    this.thisUserActivities.map((activity) => {
+      activity.status.value === type ? activities.push(activity) : ''
+    });
+    return activities
+  }
+
 
   createActivity(activity: Activity) {
     const activityObj = {
       activityName: activity.activity_name,
       activityDescription: activity.activity_description,
-      activity_date: this.sharedService.convertToEpoch(activity.activity_date),
+      activity_date: activity.activity_date,
       provider: activity.provider,
       consumer: activity.consumer,
       communityId: activity.community_id,
@@ -59,7 +85,7 @@ export class ActivityService {
       activityId: activity._id,
       activityName: activity.activity_name,
       activityDescription: activity.activity_description,
-      activity_date: this.sharedService.convertToEpoch(activity.activity_date),
+      activity_date: activity.activity_date,
       provider: activity.provider,
       consumer: activity.consumer,
       communityId: activity.community_id,

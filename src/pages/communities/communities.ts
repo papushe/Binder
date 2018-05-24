@@ -52,7 +52,7 @@ export class CommunitiesPage implements OnInit {
       console.log('Async operation has ended');
       this.child.getProfile(this.userService.thisAuthenticatedUser);
       refresher.complete();
-    }, 2000);
+    }, 1000);
   }
 
 }

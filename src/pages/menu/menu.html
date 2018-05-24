@@ -25,6 +25,35 @@
     </ion-col>
   </ion-row>
 
+  <ion-row (click)="navigateTo('MessagesPage')">
+    <ion-col class="profile" col-2>
+      <ion-icon name="chatbubbles"></ion-icon>
+    </ion-col>
+    <ion-col class="menu-tab">
+      <span class="menu-title">Chat</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-item>Activities</ion-item>
+
+  <ion-row (click)="navigateTo('UpcomingActivityPage')">
+    <ion-col class="profile" col-2>
+      <ion-icon name="briefcase"></ion-icon>
+    </ion-col>
+    <ion-col class="menu-tab">
+      <span class="menu-title">Upcoming</span>
+    </ion-col>
+  </ion-row>
+
+  <ion-row (click)="navigateTo('ActivityHistoryPage')">
+    <ion-col class="profile" col-2>
+      <ion-icon name="archive"></ion-icon>
+    </ion-col>
+    <ion-col class="menu-tab">
+      <span class="menu-title">History</span>
+    </ion-col>
+  </ion-row>
+
   <ion-row (click)="deleteProfilePopup()">
     <ion-col class="profile" col-2>
       <ion-icon name="trash"></ion-icon>
