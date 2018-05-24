@@ -29,19 +29,19 @@
     </button>
     <ion-fab-list side="top">
 
-      <span  *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Search Users</span>
+      <!--<span  *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Search Users</span>-->
       <button ion-fab (click)="addMembers(fab)"
               *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase">
         <ion-icon name="search"></ion-icon>
       </button>
 
-      <span class="fabName" *ngIf="isJoined">leave Community</span>
+      <!--<span class="fabName" *ngIf="isJoined">leave Community</span>-->
       <button ion-fab (click)="leavePopup(fab)" *ngIf="isJoined">
         <ion-icon name="hand"></ion-icon>
 
       </button>
 
-      <span   *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Delete Community</span>
+      <!--<span   *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Delete Community</span>-->
       <button ion-fab (click)="deletePopup(fab)"
               *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase">
         <ion-icon name="trash"></ion-icon>
@@ -52,7 +52,7 @@
       <button class="createNewFab" ion-fab (click)="createNewActivity(fab)">
         <ion-icon name="add"></ion-icon>
       </button>
-      <span class="fabName">Create New activity</span>
+      <!--<span class="fabName">Create New activity</span>-->
     </ion-fab-list>
   </ion-fab>
 
