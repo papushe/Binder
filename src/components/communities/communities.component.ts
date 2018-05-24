@@ -78,14 +78,14 @@ export class CommunitiesComponent implements OnInit {
       }
     } else if (data.event == 'joined') {
       this.userService.thisProfile = data.user;
-      this.getProfile(this.userService.thisAuthenticatedUser);
 
       if (thisUserName != data.from.fullName) {
         this.sharedService.createToast(`You were ${data.event} to ${data.communityName} community by ${data.from.fullName}`);
       }
-    } else if (data.event == 'on-delete-community' && data.from.fullName !== this.userService.thisProfile.fullName) {
-      this.getProfile(this.userService.thisAuthenticatedUser)
     }
+    // else if (data.event == 'on-delete-community' && data.from.fullName !== this.userService.thisProfile.fullName) {
+    // }
+    this.getProfile(this.userService.thisAuthenticatedUser)
   }
 
   getProfile(user) {
