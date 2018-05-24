@@ -13,8 +13,7 @@ export class ActivityService {
   thisUserActivities: Activity[];
 
   constructor(private _http: HttpClient,
-              private sharedService: SharedService,
-              private userService: UserService) {
+              private sharedService: SharedService) {
     this.baseUrl = this.sharedService.baseUrl;
   }
 
@@ -48,7 +47,6 @@ export class ActivityService {
       consumer: activity.consumer,
       communityId: activity.community_id,
       notes: activity.notes,
-      type: activity.type,
       source: activity.source,
       destination: activity.destination
     };
@@ -89,7 +87,6 @@ export class ActivityService {
       consumer: activity.consumer,
       communityId: activity.community_id,
       notes: activity.notes,
-      type: activity.type,
       source: activity.source,
       destination: activity.destination
     };

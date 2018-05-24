@@ -3,7 +3,6 @@ export interface Activity {
   activity_name: string,
   activity_description: string,
   activity_date: number,
-  type: string,
   created_at: string,
   consumer: {
     name: string,

@@ -44,19 +44,6 @@
         <span class="global__input-error">Must enter a valid date!</span>
       </div>
       <ion-item>
-        <ion-label>Type</ion-label>
-        <ion-input [(ngModel)]="activity.type"
-                   type="text"
-                   name="type"
-                   #type="ngModel"
-                   clearInput
-                   required>
-        </ion-input>
-      </ion-item>
-      <div padding *ngIf="type?.invalid && type?.dirty">
-        <span class="global__input-error">Must choose a type!</span>
-      </div>
-      <ion-item>
         <ion-label>Special Notes:</ion-label>
         <ion-input [(ngModel)]="activity.notes"
                    type="text"

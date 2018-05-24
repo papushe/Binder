@@ -13,7 +13,6 @@
               (click)="openActivity(activity)">
       <strong>{{activity?.activity_name}}</strong>
       <p>Activity date: {{activity?.activity_date | convertDate}}</p>
-      <p>Type: {{activity?.type}}</p>
       <p>Created by <strong>{{activity?.consumer?.name}}</strong></p>
     </ion-item>
   </ion-list>
