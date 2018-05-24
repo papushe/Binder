@@ -18,7 +18,7 @@
       <ion-icon class="moreOptions" name="more"></ion-icon>
     </button>
     <ion-fab-list side="top">
-      <span class="fabName">Search Communities</span>
+      <!--<span class="fabName">Search Communities</span>-->
       <button [disabled]="!hasProfile" ion-fab (click)="searchCommunity(fab)">
         <ion-icon name="search" color="dark"></ion-icon>
       </button>
@@ -27,7 +27,7 @@
       <button class="createNewFab" ion-fab [disabled]="!hasProfile" (click)="createCommunity(fab)">
         <ion-icon name="add"></ion-icon>
       </button>
-      <span class="fabName">Create New Community</span>
+      <!--<span class="fabName">Create New Community</span>-->
     </ion-fab-list>
   </ion-fab>
 </ion-content>
