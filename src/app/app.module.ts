@@ -29,6 +29,7 @@ import {SocketService} from '../providers/socket/socket.service';
 import {ChatService} from '../providers/chat-service/chat-service';
 import { NotificationService } from '../providers/notitfication/notification.service';
 import { MessageService } from '../providers/message/message';
+import { CalendarServiceProvider } from '../providers/calendar-service/calendar-service';
 
 const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
 
@@ -74,7 +75,8 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     },
     ChatService,
     NotificationService,
-    MessageService
+    MessageService,
+    CalendarServiceProvider
   ]
 })
 export class AppModule {

@@ -4,6 +4,7 @@ export interface Activity {
   activity_description: string,
   activity_date: number,
   created_at: string,
+  recurring: number
   consumer: {
     name: string,
     id: string
