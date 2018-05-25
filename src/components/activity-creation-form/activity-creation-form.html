@@ -20,21 +20,8 @@
                    type="text"
                    name="activityDescription"
                    #activityDescription="ngModel"
-                   clearInput>
-        </ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Recurrence:</ion-label>
-        <ion-input
-          type="number"
-          [(ngModel)]="activity.recurring"
-          #activityRecurring="ngModel"
-          name="recurring"
-          placeholder="30 days max"
-          required
-          clearInput
-          min="1"
-          max="30">
+                   clearInput
+                   required>
         </ion-input>
       </ion-item>
       <div padding *ngIf="activityDescription?.invalid && activityDescription?.dirty">
@@ -56,6 +43,17 @@
       <div padding *ngIf="activity_date?.invalid && activity_date?.dirty">
         <span class="global__input-error">Must enter a valid date!</span>
       </div>
+      <ion-item>
+        <ion-label>Recurrence</ion-label>
+        <ion-select [(ngModel)]="activity.recurring"
+                    #activityRecurring="ngModel"
+                    name="activityRecurring"
+                    required>
+          <ion-option value="daily">Once</ion-option>
+          <ion-option value="weekly">Weekly</ion-option>
+          <ion-option value="monthly">Monthly</ion-option>
+        </ion-select>
+      </ion-item>
       <ion-item>
         <ion-label>Notes:</ion-label>
         <ion-input [(ngModel)]="activity.notes"
