@@ -72,11 +72,13 @@ export class MembersComponent implements OnInit, OnDestroy {
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
 
-        if (this.navCtrl.getActive().name === 'CommunityDetailsPage') {
+        if (this.navCtrl.getActive().name !== 'CommunityDetailsPage') {
+        // if (this.navCtrl.getActive().name !== 'TabsPage') {
           this.navCtrl.pop();
         }
 
-        // Don't
+        // placeholder
+
         // if (this.navCtrl.getActive().name !== 'TabsPage' || this.navCtrl.getActive().name !== 'communitiesComponent') {
         //   console.log(data)
         //   console.log(this.navCtrl.getActive().name);
@@ -92,8 +94,8 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
     } else if (data.event == 'left') {
       if (data.user.fullName === thisUserName) {
-        if (this.navCtrl.getActive().name !== 'TabsPage') {
-          this.navCtrl.setRoot('TabsPage');
+        if (this.navCtrl.getActive().name !== 'CommunitiesPage') {
+          this.navCtrl.setRoot('CommunitiesPage');
         }
       } else {
         this.getCommunity(this.userService.thisProfile.keyForFirebase);
@@ -120,9 +122,9 @@ export class MembersComponent implements OnInit, OnDestroy {
           if (Object.keys(community) && Object.keys(community).length !== 0) {
 
             console.log(`get community success? : ${!!community}`);
-            let key = this.checkCommunity(community)
+            let key = this.checkCommunity(community);
 
-            if (key) {
+            if (key >= 0) {
               this.communityService.thisSelectedCommunity = <Community>community[key];
               this.community = this.communityService.thisSelectedCommunity;
 

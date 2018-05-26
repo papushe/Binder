@@ -26,19 +26,21 @@ export class LoginPage {
       this.userService.getProfile(<User>event.result)
         .subscribe(
           profile => {
-            this.userService.thisProfile = <Profile>profile;
-            this.socketService.socketConnect();
-            this.userService.thisHasProfile = true;
-          },
-          err => {
+            if (Object.keys(<Profile>profile) && Object.keys(<Profile>profile).length !== 0) {
+              this.userService.thisProfile = <Profile>profile;
+              this.socketService.socketConnect();
+              this.userService.thisHasProfile = true;
+            }
+          }, err => {
             console.log(`error: ${err.message}`);
             this.userService.thisHasProfile = false;
-          },
-          () => {
+          }, () => {
             //done
             if (this.userService.thisProfile) {
-              if (this.navCtrl.getActive().name == 'LoginPage' || this.navCtrl.getActive().name !== 'TabsPage') {
-                this.navCtrl.setRoot("TabsPage");
+              if (this.navCtrl.getActive().name == 'LoginPage' || this.navCtrl.getActive().name !== 'CommunitiesPage') {
+
+                //need to check again
+                // this.navCtrl.setRoot("CommunitiesPage");
               }
             } else {
               this.navCtrl.setRoot('ProfilePage', {where: true});

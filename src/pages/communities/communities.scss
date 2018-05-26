@@ -2,4 +2,13 @@ page-communities {
   ion-icon {
     margin-right: 5px;
   }
+  ion-footer {
+    text-align: right;
+    ion-icon {
+      margin-right: 37px;
+      font-size: 3em;
+      color: red;
+      font-weight: bolder;
+    }
+  }
 }

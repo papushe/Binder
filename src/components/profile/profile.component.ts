@@ -30,15 +30,12 @@ export class ProfileComponent implements OnDestroy {
               private camera: Camera,
               private sharedService: SharedService) {
 
-    if (this.userService.thisProfile) {
+    if (Object.keys(this.userService.thisProfile) && Object.keys(this.userService.thisProfile).length !== 0) {
       this.profile = this.userService.thisProfile;
       this.skills = this.userService.thisProfile.skills;
-      this.hasProfile = true;
       this.myPhotosRef = firebase.storage().ref(`/Photos/`);
-    } else {
-      this.hasProfile = false;
     }
-
+    this.hasProfile = this.userService.thisHasProfile;
     this.fromLoginPageEvent = new EventEmitter<boolean>();
     this.fromLoginPage = this.navParams.get('where');
   }
@@ -51,14 +48,23 @@ export class ProfileComponent implements OnDestroy {
           .subscribe(
             data => {
               if (data) {
-                this.userService.thisProfile = <Profile>data;
-                this.profile = this.userService.thisProfile;
-                this.skills = this.userService.thisProfile.skills;
-                this.hasProfile = true;
-                this.fromLoginPageEvent = new EventEmitter<boolean>();
-                this.fromLoginPage = this.navParams.get('where');
+                if (Object.keys(<Profile>data) && Object.keys(<Profile>data).length !== 0) {
+                  this.userService.thisProfile = <Profile>data;
+                  this.profile = this.userService.thisProfile;
+                  this.skills = this.userService.thisProfile.skills;
+                  this.userService.thisHasProfile = true;
+                  this.hasProfile = this.userService.thisHasProfile;
+                  this.fromLoginPageEvent.emit(true);
+                  this.fromLoginPage = this.navParams.get('where');
+                } else {
+                  this.userService.thisHasProfile = false;
+                  this.hasProfile = this.userService.thisHasProfile;
+                  this.fromLoginPageEvent.emit(false);
+                }
               } else {
-                this.hasProfile = false;
+                this.userService.thisHasProfile = false;
+                this.hasProfile = this.userService.thisHasProfile;
+                this.fromLoginPageEvent.emit(false);
               }
             },
             err => {
@@ -124,9 +130,9 @@ export class ProfileComponent implements OnDestroy {
           .subscribe(
             data => {
               if (data) {
-                this.hasProfile = true;
-                this.userService.thisProfile = <Profile>data;
                 this.userService.thisHasProfile = true;
+                this.hasProfile = this.userService.thisHasProfile;
+                this.userService.thisProfile = <Profile>data;
                 this.fromLoginPageEvent.emit(this.fromLoginPage);
               }
             },

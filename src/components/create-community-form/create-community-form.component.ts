@@ -28,25 +28,25 @@ export class CreateCommunityFormComponent {
         id: this.userService.thisAuthenticatedUser.uid,
         name: this.userService.thisProfile.fullName
       };
-        this.communityService.createCommunity(this.community)
-          .subscribe(
-            data => {
+      this.communityService.createCommunity(this.community)
+        .subscribe(
+          data => {
+            if (data) {
+              this.userService.thisProfile = <Profile> data;
+              this.sharedService.createToast('Community was created successfully');
               this.saveCommunityResult.emit(data);
-              if (data) {
-                this.userService.thisProfile = <Profile> data;
-                this.sharedService.createToast('Community was created successfully');
-              }
-              else {
-                this.sharedService.createToast('Failed to create community');
-              }
-            },
-            err => {
-              this.sharedService.createToast(`Error occurred when tried to create community: ${err.message}`);
-            },
-            () => {
-              //done
             }
-          );
+            else {
+              this.sharedService.createToast('Failed to create community');
+            }
+          },
+          err => {
+            this.sharedService.createToast(`Error occurred when tried to create community: ${err.message}`);
+          },
+          () => {
+            //done
+          }
+        );
     }
   }
 }

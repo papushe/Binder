@@ -12,7 +12,7 @@ export class CreateCommunityPage {
   }
 
   saveCommunityResult(event){
-    event ? this.navCtrl.setRoot('TabsPage') : console.log("Not Community saved")
+    event ? this.navCtrl.setRoot('CommunitiesPage') : console.log("Not Community saved")
   }
 
 }

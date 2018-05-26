@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
@@ -8,7 +8,7 @@ import {Profile} from "../../models/profile/profile.interface";
   selector: 'page-menu',
   templateUrl: 'menu.html',
 })
-export class MenuPage implements OnInit {
+export class MenuPage {
 
 
   profile: Profile;
@@ -19,15 +19,9 @@ export class MenuPage implements OnInit {
               private alertCtrl: AlertController) {
   }
 
-
-  ngOnInit() {
-    this.init();
-  }
-
-  init() {
+  ionViewDidEnter() {
     this.hasProfile = this.userService.thisHasProfile;
     this.profile = this.userService.thisProfile
-
   }
 
   signOut() {

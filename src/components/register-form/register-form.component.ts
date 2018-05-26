@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Account} from "../../models/account/account.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {LoginResponse} from "../../models/login/login-response.interface";
@@ -8,7 +8,7 @@ import {SharedService} from "../../providers/shared/shared.service";
   selector: 'app-register-form',
   templateUrl: 'register-form.component.html'
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent {
 
   account = {} as Account;
   @Output() registerStatus: EventEmitter<LoginResponse>;
@@ -16,13 +16,6 @@ export class RegisterFormComponent implements OnInit {
   constructor(private userService: UserService,
               private sharedService: SharedService) {
 
-  }
-
-  ngOnInit() {
-    this.init();
-  }
-
-  init() {
     this.registerStatus = new EventEmitter<LoginResponse>();
   }
 

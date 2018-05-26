@@ -17,11 +17,15 @@
   <ion-row (click)="navigateTo('ProfilePage')">
     <ion-col class="profile" col-2>
       <img class="profilePic" src="{{ profile?.profilePic}}">
-      <ion-icon *ngIf="!profile?.profilePic" name="contact"></ion-icon>
+      <ion-icon class="ionContact" *ngIf="!profile?.profilePic" name="contact"></ion-icon>
     </ion-col>
-    <ion-col class="menu-tab">
-      <span class="menu-title-profile">{{profile?.fullName}}</span>
-      <div class="menu-details">View Your Profile</div>
+    <ion-col class="menu-tab" col-6>
+      <span *ngIf="hasProfile" class="menu-title-profile">{{profile?.fullName}}</span>
+      <div class="menu-details" *ngIf="hasProfile">View Your Profile</div>
+      <div class="menu-details complete" *ngIf="!hasProfile">Complete Your Registration</div>
+    </ion-col>
+    <ion-col *ngIf="!hasProfile">
+      <ion-icon class="arrow-left" name="arrow-round-back"></ion-icon>
     </ion-col>
   </ion-row>
 

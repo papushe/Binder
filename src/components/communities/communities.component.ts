@@ -83,7 +83,11 @@ export class CommunitiesComponent implements OnInit {
         this.sharedService.createToast(`You were ${data.event} to ${data.communityName} community by ${data.from.fullName}`);
       }
     }
-    this.getProfile(this.userService.thisAuthenticatedUser)
+    if (this.navCtrl.getActive().name !== 'CommunitiesPage') {// && this.navCtrl.getActive().name !== 'TabsPage') {
+      this.navCtrl.setRoot('CommunitiesPage');
+    } else {
+      this.getProfile(this.userService.thisAuthenticatedUser);
+    }
   }
 
   getProfile(user) {
@@ -93,10 +97,8 @@ export class CommunitiesComponent implements OnInit {
         this.userService.getProfile(user)
           .subscribe(
             data => {
-              if (data) {
+              if (Object.keys(<Profile>data) && Object.keys(<Profile>data).length !== 0) {
                 this.userService.thisProfile = <Profile>data;
-              }
-              if (this.userService.thisProfile) {
                 this.socketService.socketConnect();
                 this.userService.thisHasProfile = true;
                 this.hasProfileEvent.emit(true);
@@ -150,6 +152,7 @@ export class CommunitiesComponent implements OnInit {
 
   ngOnDestroy() {
     this.communitySocketConnection.unsubscribe();
+    this.tabsSocketDeleteCommunity.unsubscribe();
   }
 
 }

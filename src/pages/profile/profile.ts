@@ -18,7 +18,7 @@ export class ProfilePage {
   }
 
   saveProfileResult(event) {
-    event ? this.navCtrl.setRoot('TabsPage') : console.log("Not authenticated or saved");
+    event ? this.navCtrl.setRoot('CommunitiesPage') : console.log("Not authenticated or saved");
   }
 
   presentPopover(myEvent) {
@@ -35,7 +35,7 @@ export class ProfilePage {
       console.log('Async operation has ended');
       this.child.getProfile(this.userService.thisAuthenticatedUser);
       refresher.complete();
-    }, 2000);
+    }, 1000);
   }
 
 }

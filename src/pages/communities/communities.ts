@@ -9,7 +9,7 @@ import {UserService} from "../../providers/user-service/user.service";
 })
 export class CommunitiesPage implements OnInit {
 
-  hasProfile: boolean;
+  hasProfile: boolean = false;
   @ViewChild('child') child;
 
   constructor(private navCtrl: NavController,

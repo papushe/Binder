@@ -22,6 +22,12 @@ page-menu {
       .menu-details {
         color: gray;
       }
+      .menu-details.complete {
+        margin-top: 10px;
+      }
+    }
+    .ionContact{
+      font-size: 3.2em;
     }
   }
   .menu-wrapper .menu-title {
@@ -44,7 +50,14 @@ page-menu {
     }
 
   }
-
+  .arrow-left {
+    margin-top: 4px;
+    color: red;
+    font-weight: bolder;
+  }
+  .profile.view {
+    margin-top: 4px;
+  }
 }
 
 
