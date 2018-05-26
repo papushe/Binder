@@ -9,7 +9,7 @@ export class CommunityService {
 
   baseUrl: string = '';
 
-  thisCommunities = {} as Community;
+  thisCommunities: Community[] = [];
   thisSelectedCommunity: Community;
   thisCommunityMembers: Profile[] = [];
   context: string = 'community';
