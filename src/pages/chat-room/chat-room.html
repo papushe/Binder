@@ -7,6 +7,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-card padding *ngIf="messages.length ==0">
+    <p>No message yet with {{userToTalk?.fullName}}</p>
+  </ion-card>
   <ion-grid>
     <ion-row *ngFor="let message of messages; let last = last">
 

@@ -52,7 +52,7 @@
       </ion-row>
     </ion-item>
   </ion-list>
-  <ion-row>
-    <h6 class="noResultsFound">{{noUsersFound}}</h6>
-  </ion-row>
+  <ion-card padding *ngIf="noUsersFound">
+    <p>{{noUsersFound}}</p>
+  </ion-card>
 </ion-content>

@@ -29,7 +29,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="navigateTo('MessagesPage')">
+  <ion-row (click)="navigateTo('MessagesPage')" *ngIf="hasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="chatbubbles"></ion-icon>
     </ion-col>
@@ -38,9 +38,9 @@
     </ion-col>
   </ion-row>
 
-  <ion-item class="activityLabel">Activities</ion-item>
+  <ion-item class="activityLabel" *ngIf="hasProfile">Activities</ion-item>
 
-  <ion-row (click)="navigateTo('UpcomingActivityPage')">
+  <ion-row (click)="navigateTo('UpcomingActivityPage')" *ngIf="hasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="briefcase"></ion-icon>
     </ion-col>
@@ -49,7 +49,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="navigateTo('ActivityHistoryPage')">
+  <ion-row (click)="navigateTo('ActivityHistoryPage')" *ngIf="hasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="archive"></ion-icon>
     </ion-col>
@@ -58,7 +58,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="deleteProfilePopup()">
+  <ion-row (click)="deleteProfilePopup()" *ngIf="hasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="trash"></ion-icon>
     </ion-col>
@@ -67,7 +67,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="signOut()">
+  <ion-row (click)="signOut()" *ngIf="hasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="log-out"></ion-icon>
     </ion-col>

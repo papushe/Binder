@@ -16,7 +16,7 @@ export class SearchUsersPage implements OnInit {
   profile: Profile;
   foundResults: boolean;
   query: string;
-  noUsersFound: string;
+  noUsersFound: string = '';
   users: Profile[] = [];
 
 
