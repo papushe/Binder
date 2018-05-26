@@ -11,7 +11,12 @@ export class CalendarServiceProvider {
   createEvent(activity: Activity) {
     let hour = 60 * 60 * 1000;
     let event;
-    let options = {firstReminderMinutes: 60, secondReminderMinutes: 5, recurrence: activity.recurring || 'daily'};
+    let options = {
+      id: activity._id,
+      firstReminderMinutes: 60,
+      secondReminderMinutes: 5,
+      recurrence: (activity.recurring !== 'once') ? activity.recurring : ''
+    };
 
     event = {
       title: activity.activity_name,
