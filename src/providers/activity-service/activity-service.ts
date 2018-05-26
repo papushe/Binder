@@ -121,4 +121,20 @@ export class ActivityService {
     return this._http
       .post(`${this.baseUrl}/${this.context}/decline`, activityIdObj)
   }
+
+  finish(activityId: string) {
+    const activityIdObj = {
+      activityId: activityId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/finish`, activityIdObj)
+  }
+
+  cancel(activityId: string) {
+    const activityIdObj = {
+      activityId: activityId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/cancel`, activityIdObj)
+  }
 }
