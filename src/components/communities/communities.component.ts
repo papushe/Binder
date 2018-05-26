@@ -83,8 +83,6 @@ export class CommunitiesComponent implements OnInit {
         this.sharedService.createToast(`You were ${data.event} to ${data.communityName} community by ${data.from.fullName}`);
       }
     }
-    // else if (data.event == 'on-delete-community' && data.from.fullName !== this.userService.thisProfile.fullName) {
-    // }
     this.getProfile(this.userService.thisAuthenticatedUser)
   }
 

@@ -6,6 +6,7 @@ import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
+import {CommunityDetailsPage} from "../../pages/community-details/community-details";
 
 @Component({
   selector: 'members-component',
@@ -37,6 +38,8 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.events.subscribe('updateMembersCommunity', (data) => {
       this.communityService.thisSelectedCommunity = data;
       this.community = this.communityService.thisSelectedCommunity;
+      // if (Object.is(this.communityService.thisSelectedCommunity, data)) {
+
       this.getCommunity(this.userService.thisProfile.keyForFirebase);
     });
   }
@@ -68,9 +71,17 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
-        if (this.navCtrl.getActive().name !== 'TabsPage') {
-          this.navCtrl.setRoot('TabsPage')
+
+        if (this.navCtrl.getActive().name === 'CommunityDetailsPage') {
+          this.navCtrl.pop();
         }
+
+        // Don't
+        // if (this.navCtrl.getActive().name !== 'TabsPage' || this.navCtrl.getActive().name !== 'communitiesComponent') {
+        //   console.log(data)
+        //   console.log(this.navCtrl.getActive().name);
+        //   this.navCtrl.setRoot('TabsPage')
+        // }
       }
 
     } else if (data.event == 'joined') {
@@ -81,7 +92,9 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
     } else if (data.event == 'left') {
       if (data.user.fullName === thisUserName) {
-        this.navCtrl.setRoot('TabsPage');
+        if (this.navCtrl.getActive().name !== 'TabsPage') {
+          this.navCtrl.setRoot('TabsPage');
+        }
       } else {
         this.getCommunity(this.userService.thisProfile.keyForFirebase);
       }
@@ -107,13 +120,15 @@ export class MembersComponent implements OnInit, OnDestroy {
           if (Object.keys(community) && Object.keys(community).length !== 0) {
 
             console.log(`get community success? : ${!!community}`);
+            let key = this.checkCommunity(community)
 
-            this.communityService.thisSelectedCommunity = <Community>community[this.checkCommunity(community)];
-            this.community = this.communityService.thisSelectedCommunity;
+            if (key) {
+              this.communityService.thisSelectedCommunity = <Community>community[key];
+              this.community = this.communityService.thisSelectedCommunity;
 
-            this.events.publish('updateCommunity', this.community);
-
-            this.getCommunityMembers();
+              this.events.publish('updateCommunity', this.community);
+              this.getCommunityMembers();
+            }
           }
         },
         err => {
@@ -125,7 +140,7 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   checkCommunity(communities): number {
-    let key: number = 0;
+    let key: number;
     Object.keys(communities).forEach((k) => {
       if (this.communityService.thisSelectedCommunity._id === communities[k]._id)
         key = Number(k);
@@ -140,7 +155,8 @@ export class MembersComponent implements OnInit, OnDestroy {
         res => {
           if (res) {
             console.log(`get community members success? : ${!!res}`);
-            this.members = <Profile[]>res;
+            this.communityService.thisCommunityMembers = <Profile[]>res;
+            this.members = this.communityService.thisCommunityMembers
           }
           else {
             this.members = [];

@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {SharedService} from "../shared/shared.service";
+import {Profile} from "../../models/profile/profile.interface";
 
 @Injectable()
 export class CommunityService {
@@ -10,6 +11,7 @@ export class CommunityService {
 
   thisCommunities = {} as Community;
   thisSelectedCommunity: Community;
+  thisCommunityMembers: Profile[] = [];
   context: string = 'community';
 
   constructor(private _http: HttpClient,
