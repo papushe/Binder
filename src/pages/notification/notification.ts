@@ -151,7 +151,7 @@ export class NotificationPage implements OnInit {
   getCommunities() {
     this.communityService.getCommunities(this.userService.thisProfile.keyForFirebase)
       .subscribe(data => {
-        this.communityService.thisCommunities = <Community>data;
+        this.communityService.thisCommunities = <Community[]>data;
       }, err => {
         console.log(err)
       }, () => {
