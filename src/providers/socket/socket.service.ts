@@ -163,12 +163,12 @@ export class SocketService {
     this.socket.emit('claimed-activity', params);
   }
 
-  declineActivity(from, activity, community) {
+  declineActivity(from, activity, community, user) {
     let params = {
       from: from,
       activity: activity,
-      to: activity.consumer,
-      community: community
+      to: user,
+      community: community,
     };
 
     this.socket.emit('decline-activity', params);

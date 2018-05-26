@@ -74,7 +74,7 @@ export class ActivityInfoPage implements OnInit {
         data => {
           if (data) {
             this.sharedService.createToast(`${this.activity.activity_name} was removed successfully`);
-            this.socketService.communityChangeActivity(this.activity._id, this.activity.community_id, 'delete', this.userService.thisProfile);
+            this.socketService.communityChangeActivity(this.activity, this.activity.community_id, 'delete', this.userService.thisProfile);
           }
           else {
             this.sharedService.createToast('Something went wrong, Please try again');
@@ -134,6 +134,7 @@ export class ActivityInfoPage implements OnInit {
   }
 
   declineActivity() {
+    let user = this.activity.status;
     this.activityService.decline(this.activity._id)
       .subscribe(data => {
         console.debug(`activity was declined successfully? : ${data}`);
@@ -142,7 +143,7 @@ export class ActivityInfoPage implements OnInit {
           this.activity = <Activity> data;
           this.sharedService.createToast(`Successfully declined ${this.activity.activity_name}`);
 
-          this.socketService.declineActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity);
+          this.socketService.declineActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity, user);
 
         }
         else this.sharedService.createToast(`Failed to decline ${this.activity.activity_name}`);
