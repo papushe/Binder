@@ -14,7 +14,7 @@ import {Notification} from "../../models/notification/notification.interface";
 })
 export class CommunitiesComponent implements OnInit {
 
-  communities: Community;
+  communities: Community[] = [];
   sharedCommunityId: string;
   @Output() hasProfileEvent: EventEmitter<boolean>;
   communitySocketConnection: any;
@@ -131,7 +131,7 @@ export class CommunitiesComponent implements OnInit {
       this.communityService.getCommunities(userId)
         .subscribe(
           data => {
-            this.communityService.thisCommunities = <Community>data;
+            this.communityService.thisCommunities = <Community[]>data;
             this.communities = this.communityService.thisCommunities;
             console.log(`get communities success? : ${data != null}`);
           },

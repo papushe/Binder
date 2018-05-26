@@ -11,10 +11,22 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
+  <ion-card padding *ngIf="profile">
+    <ion-row>
+      <ion-col>
+        Welcome {{profile.fullName}}
+      </ion-col>
+      <ion-col>
+        {{date|date:'short'}}
+      </ion-col>
+
+    </ion-row>
+    <p></p>
+  </ion-card>
   <communities-component #child (hasProfileEvent)="updateHasProfile($event)"></communities-component>
 
   <ion-fab bottom right #fab *ngIf="hasProfile">
-    <button ion-fab>
+    <button ion-fab (click)="toggleArrow()">
       <ion-icon class="moreOptions" name="more"></ion-icon>
     </button>
     <ion-fab-list side="top">
@@ -30,10 +42,16 @@
       <!--<span class="fabName">Create New Community</span>-->
     </ion-fab-list>
   </ion-fab>
+  <ion-card padding *ngIf="profile && profile.communities.length ==0">
+    <p>Create new Community or join to one</p>
+  </ion-card>
   <ion-card padding *ngIf="!hasProfile">
     <p>Go to `View Your Profile` in order to complete your Registration</p>
   </ion-card>
   <ion-footer *ngIf="!hasProfile">
-    <ion-icon class="down-animation" name="arrow-round-down"></ion-icon>
+    <ion-icon name="arrow-round-down"></ion-icon>
+  </ion-footer>
+  <ion-footer *ngIf="showArrow">
+    <ion-icon class="noCommunities" name="arrow-round-down"></ion-icon>
   </ion-footer>
 </ion-content>

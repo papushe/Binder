@@ -38,8 +38,6 @@ export class MembersComponent implements OnInit, OnDestroy {
     this.events.subscribe('updateMembersCommunity', (data) => {
       this.communityService.thisSelectedCommunity = data;
       this.community = this.communityService.thisSelectedCommunity;
-      // if (Object.is(this.communityService.thisSelectedCommunity, data)) {
-
       this.getCommunity(this.userService.thisProfile.keyForFirebase);
     });
   }
@@ -72,27 +70,19 @@ export class MembersComponent implements OnInit, OnDestroy {
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
 
-        if (this.navCtrl.getActive().name !== 'CommunityDetailsPage') {
-        // if (this.navCtrl.getActive().name !== 'TabsPage') {
+        if (this.navCtrl.getActive().name === 'CommunityDetailsPage') {
           this.navCtrl.pop();
         }
-
-        // placeholder
-
-        // if (this.navCtrl.getActive().name !== 'TabsPage' || this.navCtrl.getActive().name !== 'communitiesComponent') {
-        //   console.log(data)
-        //   console.log(this.navCtrl.getActive().name);
-        //   this.navCtrl.setRoot('TabsPage')
-        // }
       }
 
     } else if (data.event == 'joined') {
-      this.getCommunityMembers();
 
       if (thisUserName != data.from.fullName) {
         this.sharedService.createToast(`${data.user.fullName} has ${data.event} to ${data.communityName} community`);
       }
+
     } else if (data.event == 'left') {
+
       if (data.user.fullName === thisUserName) {
         if (this.navCtrl.getActive().name !== 'CommunitiesPage') {
           this.navCtrl.setRoot('CommunitiesPage');
@@ -100,8 +90,8 @@ export class MembersComponent implements OnInit, OnDestroy {
       } else {
         this.getCommunity(this.userService.thisProfile.keyForFirebase);
       }
-    }
 
+    }
   }
 
   removeMemberFromMembersObject(user) {
@@ -111,7 +101,6 @@ export class MembersComponent implements OnInit, OnDestroy {
     if (removeIndex !== -1) {
       this.members.splice(removeIndex, 1);
     }
-    this.getCommunityMembers();
   }
 
 
@@ -122,14 +111,17 @@ export class MembersComponent implements OnInit, OnDestroy {
           if (Object.keys(community) && Object.keys(community).length !== 0) {
 
             console.log(`get community success? : ${!!community}`);
-            let key = this.checkCommunity(community);
+            if (!Object.is(this.communityService.thisSelectedCommunity, <Community>community)) {
 
-            if (key >= 0) {
-              this.communityService.thisSelectedCommunity = <Community>community[key];
-              this.community = this.communityService.thisSelectedCommunity;
+              let key = this.checkCommunity(community);
+              if (key >= 0) {
 
-              this.events.publish('updateCommunity', this.community);
-              this.getCommunityMembers();
+                this.communityService.thisSelectedCommunity = <Community>community[key];
+                this.community = this.communityService.thisSelectedCommunity;
+                this.events.publish('updateCommunity', this.community);
+                this.getCommunityMembers();
+
+              }
             }
           }
         },

@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FabContainer, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
+import {Profile} from "../../models/profile/profile.interface";
 
 @IonicPage()
 @Component({
@@ -11,6 +12,10 @@ export class CommunitiesPage implements OnInit {
 
   hasProfile: boolean = false;
   @ViewChild('child') child;
+  profile: Profile;
+  showArrow: boolean;
+  date = new Date();
+  updateTime: any;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
@@ -27,9 +32,22 @@ export class CommunitiesPage implements OnInit {
 
   updateHasProfile(hasProfile) {
     if (hasProfile) {
+      this.profile = this.userService.thisProfile;
+      this.showArrow = this.profile && this.profile.communities.length == 0;
       this.hasProfile = this.userService.thisHasProfile;
     }
   }
+
+  toggleArrow() {
+    this.showArrow = false;
+  }
+
+  refreshDate() {
+    this.updateTime = setInterval(() => {
+      this.date = new Date();
+    }, 1000)
+  }
+
 
   createCommunity(fab: FabContainer) {
     fab.close();
@@ -42,7 +60,12 @@ export class CommunitiesPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.refreshDate();
     this.hasProfile = this.userService.thisHasProfile;
+  }
+
+  ionViewDidLeave() {
+    clearInterval(this.updateTime);
   }
 
   doRefresh(refresher) {
