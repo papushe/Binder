@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>{{activity?.activity_name}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only *ngIf="profile?.keyForFirebase == activity?.consumer?.id" (click)="editActivity()">
+      <button ion-button icon-only *ngIf="profile?.keyForFirebase == activity?.consumer?.id && activity?.status?.value==='open'" (click)="editActivity()">
         <!--<ion-icon name="create" color="dark"></ion-icon>-->
         <ion-icon name="construct" color="dark"></ion-icon>
       </button>
