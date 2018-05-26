@@ -24,7 +24,7 @@
     <ion-card-header>Destination: {{activity?.destination}}</ion-card-header>
 
     <button ion-button block (click)="openSearchPage(activity?.status?.fullName)"
-      *ngIf="activity?.status.value ==='claimed'">Claimed By: {{activity?.status?.fullName}}
+      *ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == profile?.keyForFirebase">Claimed By: {{activity?.status?.fullName}}
     </button>
 
   </ion-card>
