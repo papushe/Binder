@@ -5,10 +5,36 @@ import {Activity} from "../../models/activity/activity.interface";
 @Injectable()
 export class CalendarService {
 
+  permission: boolean;
+  activity: Activity;
+
   constructor(private calendar: Calendar) {
+    this.calendar.hasReadPermission()
+      .then(data => {
+        this.permission = data;
+      })
+      .catch(err => {
+        this.permission = false;
+      });
   }
 
+  askForPermission() {
+    this.calendar.requestReadWritePermission()
+      .then(res => {
+        this.permission = res;
+        this.createEvent(this.activity);
+      })
+      .catch(err => {
+        this.permission = false;
+      })
+  }
   createEvent(activity: Activity) {
+    this.activity = activity;
+
+    if(!this.permission) {
+      this.askForPermission();
+    }
+
     let hour = 60 * 60 * 1000;
     let event;
     let options = {
