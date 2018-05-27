@@ -238,6 +238,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.socketService.leftCommunity(this.community);
+    this.events.unsubscribe('updateCommunity');
   }
 
 

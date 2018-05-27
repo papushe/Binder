@@ -1,4 +1,5 @@
 import {Profile} from "../profile/profile.interface";
+import {Activity} from "../activity/activity.interface";
 
 export interface Notification {
   _id: string,
@@ -17,5 +18,6 @@ export interface Notification {
   content: string,
   creation_date: string,
   status: string,
+  activity: Activity
   user: Profile
 }

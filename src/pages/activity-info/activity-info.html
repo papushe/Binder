@@ -3,7 +3,9 @@
   <ion-navbar>
     <ion-title>{{activity?.activity_name}}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only *ngIf="profile?.keyForFirebase == activity?.consumer?.id && activity?.status?.value==='open'" (click)="editActivity()">
+      <button ion-button icon-only
+              *ngIf="profile?.keyForFirebase == activity?.consumer?.id && activity?.status?.value==='open'"
+              (click)="editActivity()">
         <!--<ion-icon name="create" color="dark"></ion-icon>-->
         <ion-icon name="construct" color="dark"></ion-icon>
       </button>
@@ -21,10 +23,11 @@
     <ion-card-header *ngIf="activity?.provider && activity?.provider?.id">Provider: {{activity?.provider?.name}}
     </ion-card-header>
     <ion-card-header>Source: {{activity?.source}}</ion-card-header>
-    <ion-card-header>Destination: {{activity?.destination}}</ion-card-header>
+    <ion-card-header *ngIf="activity?.destination">Destination: {{activity?.destination}}</ion-card-header>
 
     <button ion-button block (click)="openSearchPage(activity?.status?.fullName)"
-      *ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == profile?.keyForFirebase">Claimed By: {{activity?.status?.fullName}}
+            *ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == profile?.keyForFirebase">Claimed
+      By: {{activity?.status?.fullName}}
     </button>
 
   </ion-card>
@@ -37,14 +40,20 @@
           (click)="declineActivity()">Decline Activity
   </button>
   <button ion-button block color="danger" outline
-          *ngIf="(activity?.status?.value !== 'claimed' || profile?.keyForFirebase == activity?.consumer.id || profile?.keyForFirebase == community?.manager?.id) && activity?.status?.value !== 'approved'"
+          *ngIf="(profile?.keyForFirebase == activity?.consumer.id || profile?.keyForFirebase == community?.manager?.id) && (activity?.status?.value !== 'approved' && activity?.status?.value !== 'claimed')"
           (click)="deleteActivityPopUp()">Delete
   </button>
   <button ion-button block color="primary" outline
           *ngIf="activity?.consumer?.id !== profile?.keyForFirebase && activity?.status?.value === 'open'"
           (click)="claimActivity()">Claim
   </button>
-  <p class="noResultsFound" *ngIf="activity?.status?.user_id === profile?.keyForFirebase">Pending to user approval</p>
+
+  <ion-card *ngIf="activity?.status?.user_id === profile?.keyForFirebase" padding>
+    <p>Pending to user approval</p>
+  </ion-card>
+  <ion-card *ngIf="activity?.status?.value === 'approved'" padding>
+    <p>This activity was approved</p>
+  </ion-card>
 </ion-content>
 
 

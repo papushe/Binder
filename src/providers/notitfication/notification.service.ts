@@ -34,7 +34,8 @@ export class NotificationService {
       content: notification.content,
       room: notification.room,
       communityName: notification.communityName,
-      status: notification.status
+      status: notification.status,
+      activity: notification.activity
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/create`, obj)

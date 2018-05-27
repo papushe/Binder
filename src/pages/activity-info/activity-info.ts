@@ -115,6 +115,7 @@ export class ActivityInfoPage implements OnInit {
   }
 
   approveActivity() {
+    let user = this.activity.status;
     this.activityService.approve(this.activity._id)
       .subscribe(data => {
         console.debug(`activity was approved successfully? : ${data}`);
@@ -122,7 +123,7 @@ export class ActivityInfoPage implements OnInit {
           this.activity = <Activity> data;
           this.sharedService.createToast(`Successfully approved ${this.activity.activity_name}`);
 
-          this.socketService.approveActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity);
+          this.socketService.approveActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity, user);
         }
         else this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
       }, err => {

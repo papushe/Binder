@@ -172,6 +172,7 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.communitySocketConnection.unsubscribe();
+    this.events.unsubscribe('updateMembersCommunity')
   }
 
 }

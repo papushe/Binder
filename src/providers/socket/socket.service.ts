@@ -174,11 +174,11 @@ export class SocketService {
     this.socket.emit('decline-activity', params);
   }
 
-  approveActivity(from, activity, community) {
+  approveActivity(from, activity, community, user) {
     let params = {
       from: from,
       activity: activity,
-      to: activity.status,
+      to: user,
       community: community
     };
 

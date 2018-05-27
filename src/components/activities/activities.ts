@@ -85,7 +85,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
     } else if (data.event == 'delete-activity') {
       const updatedIndex = this.activities.map(function (item) {
         return item._id;
-      }).indexOf(data.activity);
+      }).indexOf(data.activity._id);
       if (updatedIndex !== -1) {
         actionActivity = this.activities[updatedIndex].activity_name;
         this.activities.splice(updatedIndex, 1);
@@ -99,7 +99,6 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
       }
       this.activities.push(data.activity);
     }
-
 
     if (data.from && this.userService.thisProfile.fullName != data.from.fullName) {
       this.sharedService.createToast(`${data['from'].fullName} ${data.event} ${data['activity'].activity_name || actionActivity}`);

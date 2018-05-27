@@ -58,7 +58,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="deleteProfilePopup()" *ngIf="hasProfile">
+  <ion-row (click)="deleteProfilePopup()">
     <ion-col class="profile" col-2>
       <ion-icon name="trash"></ion-icon>
     </ion-col>
@@ -67,7 +67,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="signOut()" *ngIf="hasProfile">
+  <ion-row (click)="signOut()">
     <ion-col class="profile" col-2>
       <ion-icon name="log-out"></ion-icon>
     </ion-col>

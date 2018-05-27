@@ -1,16 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {Activity} from "../../models/activity/activity.interface";
 import {Profile} from "../../models/profile/profile.interface";
 import {ActivityService} from "../../providers/activity-service/activity-service";
-
-/**
- * Generated class for the UpcomingActivityPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -35,5 +28,4 @@ export class UpcomingActivityPage {
   ionViewDidLoad() {
     this.activities = this.activityService.mapAs('approved');
   }
-
 }

@@ -66,6 +66,8 @@ export class NotificationPage implements OnInit {
       this.getCommunities();
     } else if (message.event == 'activity-is-about-to-start') {
       this.navCtrl.push('LiveActivityPage');
+    } else if (message.event == 'user-approve-activity') {
+      this.addToCalender(message);
     }
   }
 
@@ -101,6 +103,29 @@ export class NotificationPage implements OnInit {
           text: 'Approve',
           handler: () => {
             this.approveUserRequest(message);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  addToCalender(message) {
+    let alert = this.alertCtrl.create({
+      title: 'Add this activity to calender?',
+      message: `Do you want to add this activity ${message.activity.activity_name} to your calender?`,
+      buttons: [
+        {
+          text: 'Decline',
+          role: 'cancel',
+          handler: () => {
+            console.log('cancel')
+          }
+        },
+        {
+          text: 'Approve',
+          handler: () => {
+            //TODO @naor you can add here
           }
         }
       ]
