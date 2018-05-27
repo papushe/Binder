@@ -36,7 +36,8 @@ export class CalendarService {
     }
 
     let hour = 60 * 60 * 1000;
-    let event;
+    let activityLocalDate = new Date(activity.activity_date);
+
     let options = {
       id: activity._id,
       firstReminderMinutes: 120,
@@ -44,12 +45,13 @@ export class CalendarService {
       recurrence: (activity.recurring !== 'once') ? activity.recurring : null
     };
 
-    event = {
+    let event = {
       title: activity.activity_name,
       location: activity.source,
       notes: activity.notes || '',
       startDate: new Date(activity.activity_date ),
       endDate: new Date(activity.activity_date + hour),
+      recurrenceEndDate: new Date(activityLocalDate.getFullYear(), activityLocalDate.getMonth() + 3, activityLocalDate.getDate(), activityLocalDate.getHours(), activityLocalDate.getMinutes())
     };
 
     this.calendar.createEventInteractivelyWithOptions(event.title, event.location, event.notes, event.startDate, event.endDate, options)
