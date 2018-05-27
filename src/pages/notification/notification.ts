@@ -7,6 +7,7 @@ import {CommunityService} from "../../providers/community-service/community.serv
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 import {Community} from "../../models/community/community.interface";
+import {CalendarService} from "../../providers/calendar-service/calendar-service";
 
 @IonicPage()
 @Component({
@@ -23,6 +24,7 @@ export class NotificationPage implements OnInit {
               private sharedService: SharedService,
               private alertCtrl: AlertController,
               private communityService: CommunityService,
+              private calendarService: CalendarService,
               private userService: UserService,
               private socketService: SocketService) {
   }
@@ -125,7 +127,7 @@ export class NotificationPage implements OnInit {
         {
           text: 'Approve',
           handler: () => {
-            //TODO @naor you can add here
+            this.calendarService.createEvent(message.activity);
           }
         }
       ]

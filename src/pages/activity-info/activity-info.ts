@@ -8,6 +8,7 @@ import {ActivityService} from "../../providers/activity-service/activity-service
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 import {CommunityService} from "../../providers/community-service/community.service";
+import {CalendarService} from "../../providers/calendar-service/calendar-service";
 
 @IonicPage()
 @Component({
@@ -23,6 +24,7 @@ export class ActivityInfoPage implements OnInit {
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
               private sharedService: SharedService,
+              private calendarService: CalendarService,
               private userService: UserService,
               private alertCtrl: AlertController,
               private navParams: NavParams,
@@ -122,8 +124,8 @@ export class ActivityInfoPage implements OnInit {
         if (data) {
           this.activity = <Activity> data;
           this.sharedService.createToast(`Successfully approved ${this.activity.activity_name}`);
-
           this.socketService.approveActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity, user);
+          this.calendarService.createEvent(this.activity);
         }
         else this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
       }, err => {

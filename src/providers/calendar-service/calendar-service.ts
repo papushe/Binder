@@ -3,7 +3,7 @@ import {Calendar} from "@ionic-native/calendar";
 import {Activity} from "../../models/activity/activity.interface";
 
 @Injectable()
-export class CalendarServiceProvider {
+export class CalendarService {
 
   constructor(private calendar: Calendar) {
   }
@@ -13,8 +13,8 @@ export class CalendarServiceProvider {
     let event;
     let options = {
       id: activity._id,
-      firstReminderMinutes: 60,
-      secondReminderMinutes: 5,
+      firstReminderMinutes: 120,
+      secondReminderMinutes: 30,
       recurrence: (activity.recurring !== 'once') ? activity.recurring : ''
     };
 
@@ -28,7 +28,7 @@ export class CalendarServiceProvider {
 
     this.calendar.createEventInteractivelyWithOptions(event.title, event.location, event.notes, event.startDate, event.endDate, options)
       .then(data => {
-        console.log(`new event was saved in calendar ${data}`);
+        console.log(`new event was saved in user calendar ${data}`);
       })
       .catch(err => {
         console.error(`failed to create a new event with error: ${err}`);
