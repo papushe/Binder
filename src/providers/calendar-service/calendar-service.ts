@@ -41,7 +41,7 @@ export class CalendarService {
       id: activity._id,
       firstReminderMinutes: 120,
       secondReminderMinutes: 30,
-      recurrence: (activity.recurring !== 'once') ? activity.recurring : ''
+      recurrence: (activity.recurring !== 'once') ? activity.recurring : null
     };
 
     event = {
