@@ -248,14 +248,14 @@ export class SocketService {
     return observable;
   }
 
-  onUserAskToJoinPrivateRoom() {
-    let observable = new Observable(observer => {
-      this.socket.on('user-ask-to-join-private-room', (data) => {
-        observer.next(data);
-      });
-    });
-    return observable;
-  }
+  // onUserAskToJoinPrivateRoom() {
+  //   let observable = new Observable(observer => {
+  //     this.socket.on('user-ask-to-join-private-room', (data) => {
+  //       observer.next(data);
+  //     });
+  //   });
+  //   return observable;
+  // }
 
   onGetMembersChangedEvents() {
     let observable = new Observable(observer => {
