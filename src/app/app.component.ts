@@ -51,10 +51,6 @@ export class MyApp implements OnInit, OnDestroy {
 
     this.authenticatedUser();
 
-    this.pushService.initialize(this.userService.thisAuthenticatedUser.uid);
-
-    this.pushService.cleanBadge();
-
     this.privateChatRoom();
 
     // this.joinPrivateRoom();
