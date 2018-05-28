@@ -8,6 +8,7 @@ import {SocketService} from "../providers/socket/socket.service";
 import {Notification} from "../models/notification/notification.interface";
 import {NotificationService} from "../providers/notitfication/notification.service";
 import {ActivityService} from "../providers/activity-service/activity-service";
+import {PushService} from "../providers/push-service/push-service";
 
 @Component({
   templateUrl: 'app.html'
@@ -31,6 +32,7 @@ export class MyApp implements OnInit, OnDestroy {
               private splashScreen: SplashScreen,
               private socketService: SocketService,
               private notificationService: NotificationService,
+              private pushService: PushService,
               private events: Events,
               private activityService: ActivityService) {
     this.platform.ready().then(() => {
@@ -48,6 +50,10 @@ export class MyApp implements OnInit, OnDestroy {
   init() {
 
     this.authenticatedUser();
+
+    this.pushService.initialize(this.userService.thisAuthenticatedUser.uid);
+
+    this.pushService.cleanBadge();
 
     this.privateChatRoom();
 
