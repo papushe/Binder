@@ -115,12 +115,16 @@ export class MyApp implements OnInit, OnDestroy {
 
         this.events.publish('newNotification', this.notificationService.notificationNumber);
 
-        // if (notification.event === 'user-approve-activity' && !notification.isAddToCalender) {
-        //
-        //   // addHere
-        //   notification.isAddToCalender = true;
-        //
-        // }
+        let notification = <any>data;
+
+        if (notification.event === 'user-approve-activity' ||
+          notification.event === 'activity-is-about-to-start' ||
+          notification.event === 'you-approved-activity') {
+
+          // addHere
+          // notification.isAddToCalender = true;
+          this.activityService.getActivities(this.userService.thisProfile.keyForFirebase);
+        }
 
         this.notificationService.createNotification(<Notification>data)
           .subscribe(data => {
