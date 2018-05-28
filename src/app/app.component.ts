@@ -119,9 +119,14 @@ export class MyApp implements OnInit, OnDestroy {
 
         this.events.publish('newNotification', this.notificationService.notificationNumber);
 
-        let notification: any = data;
+        // if (notification.event === 'user-approve-activity' && !notification.isAddToCalender) {
+        //
+        //   // addHere
+        //   notification.isAddToCalender = true;
+        //
+        // }
 
-        this.notificationService.createNotification(<Notification>notification)
+        this.notificationService.createNotification(<Notification>data)
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
