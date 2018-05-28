@@ -1,5 +1,5 @@
 <ion-card *ngFor="let activity of activities">
-  <button class="addToCalenderButton" readonly (click)="addToCalender(activity)">
+  <button class="addToCalenderButton" readonly (click)="showData(activity)">
     <ion-item>
       <p><strong>{{activity?.activity_name}}</strong></p>
       <p>Activity date: {{activity?.activity_date | convertDate}}</p>
