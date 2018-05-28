@@ -41,7 +41,9 @@ export class PushService {
             this.pushObject.on('notification').subscribe((notification: any) => console.log('Received a notification', notification));
           })
         }
-      });
+      }).catch(err => {
+        console.log(err);
+    })
   }
 
   createChannel(FirebaseKey) {
