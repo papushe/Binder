@@ -2,21 +2,6 @@
   <ion-card>
     <ion-card-content>
       <ion-item>
-        <ion-label>Type</ion-label>
-        <ion-select [(ngModel)]="community.type"
-                    #type="ngModel"
-                    required
-                    name="type">
-                    <!--[ngModelOptions]="{standalone: true}">-->
-          <ion-option value="Secured">Secured</ion-option>
-          <ion-option value="Private">Private</ion-option>
-          <ion-option value="Public">Public</ion-option>
-        </ion-select>
-      </ion-item>
-      <div padding *ngIf="type?.invalid && type?.dirty">
-        <span class="global__input-error">Must Choose Type</span>
-      </div>
-      <ion-item>
         <ion-label floating>Community Name</ion-label>
         <ion-input [(ngModel)]="community.communityName"
                    type="text"
@@ -24,6 +9,7 @@
                    #communityName="ngModel"
                    clearInput
                    required></ion-input>
+        <!--#focusInput -->
       </ion-item>
       <div padding *ngIf="communityName?.invalid && communityName?.dirty">
         <span class="global__input-error">Must enter Community Name</span>
@@ -39,6 +25,21 @@
       </ion-item>
       <div padding *ngIf="communityDescription?.invalid && communityDescription?.dirty">
         <span class="global__input-error">Must enter Community Description</span>
+      </div>
+      <ion-item>
+        <ion-label>Type</ion-label>
+        <ion-select [(ngModel)]="community.type"
+                    #type="ngModel"
+                    required
+                    name="type">
+          <!--[ngModelOptions]="{standalone: true}">-->
+          <ion-option value="Secured">Secured</ion-option>
+          <ion-option value="Private">Private</ion-option>
+          <ion-option value="Public">Public</ion-option>
+        </ion-select>
+      </ion-item>
+      <div padding *ngIf="type?.invalid && type?.dirty">
+        <span class="global__input-error">Must Choose Type</span>
       </div>
     </ion-card-content>
   </ion-card>
