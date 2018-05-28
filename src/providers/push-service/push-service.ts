@@ -42,7 +42,7 @@ export class PushService {
           })
         }
       }).catch(err => {
-        console.log(err);
+        console.log(`pushService cannot be initialized: ${err}`);
     })
   }
 
@@ -57,8 +57,10 @@ export class PushService {
 
 
   cleanBadge() {
+    if(this.permission) {
     this.pushObject.clearAllNotifications()
       .then(() => {})
+    }
   }
 
   sendPushNotification() {

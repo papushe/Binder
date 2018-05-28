@@ -71,6 +71,8 @@ export class MyApp implements OnInit, OnDestroy {
       }
       else {
         this.userService.thisAuthenticatedUser = auth;
+        this.pushService.initialize(auth.uid);
+        this.pushService.cleanBadge();
         auth.getIdToken(true)
           .then(token => {
             this.sharedService.storeToken(token);
