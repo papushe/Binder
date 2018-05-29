@@ -16,6 +16,7 @@ export class MemberOptionsComponent implements OnInit {
   text: string;
   @Input() member: Profile;
   @Input() community: Community;
+  @Input() fromNotification: string = '';
   loggedInUser: Profile;
   isJoined: boolean;
 
@@ -85,6 +86,10 @@ export class MemberOptionsComponent implements OnInit {
 
   talkToUser(member: Profile) {
     this.navCtrl.push('ChatRoomPage', {member: member});
+  }
+
+  closeModal() {
+    this.navCtrl.pop();
   }
 
 }

@@ -14,6 +14,7 @@ export class MemberOptionsPage implements OnInit {
   community: Community;
   isJoined: boolean;
   title: string;
+  fromNotification:boolean;
 
   constructor(private navParams: NavParams) {
   }
@@ -23,7 +24,8 @@ export class MemberOptionsPage implements OnInit {
   }
 
   init() {
-    this.member = this.navParams.get('member') || this.navParams.get('claimedUser');
+    this.member = this.navParams.get('member') || this.navParams.get('claimedUser') || this.navParams.get('user');
+    this.fromNotification = this.navParams.get('fromNotification');
     this.community = this.navParams.get('community');
     this.isJoined = this.navParams.get('isJoined');
     this.title = this.member ? `${this.member.fullName}` : `User Options`;

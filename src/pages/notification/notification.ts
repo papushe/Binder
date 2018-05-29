@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, Events, IonicPage, NavController} from 'ionic-angular';
+import {AlertController, Events, IonicPage, ModalController, NavController} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
@@ -26,7 +26,8 @@ export class NotificationPage implements OnInit {
               private communityService: CommunityService,
               private calendarService: CalendarService,
               private userService: UserService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private modalCtrl: ModalController) {
   }
 
   ngOnInit() {
@@ -43,33 +44,21 @@ export class NotificationPage implements OnInit {
   }
 
   handleNotificationEvent(message, from) {
-    let params = {
-      status: 'done',
-      keyForFirebase: message._id
-    };
-
-    this.notificationService.updateUserNotification(params)
-      .subscribe(data => {
-        console.log(data);
-        this.notificationService.notifications[from] = <Notification>data;
-        this.notifications = this.notificationService.notifications;
-      }, err => {
-        console.log(`Faild to save notification, ${err}`)
-      }, () => {
-        //done
-      });
-
 
     if (message.event == 'enter-to-chat-room') {
       this.navCtrl.push('ChatRoomPage', {message: message})
     } else if (message.event == 'user-ask-to-join-private-room') {
-      this.confirmUserToJoin(message);
+      this.openModal(message, from);
     } else if (message.event == 'on-delete-community') {
       this.getCommunities();
+      this.makeNotificationRead(message, from);
     } else if (message.event == 'activity-is-about-to-start') {
       this.navCtrl.push('LiveActivityPage');
-    } else if (message.event == 'user-approve-activity') {
-      this.addToCalender(message);
+      this.makeNotificationRead(message, from);
+    } else if (message.event == 'you-approved-activity') {
+      this.addToCalender(message, from);
+    } else {
+      this.makeNotificationRead(message, from);
     }
   }
 
@@ -89,7 +78,7 @@ export class NotificationPage implements OnInit {
       });
   }
 
-  confirmUserToJoin(message) {
+  confirmUserToJoin(message, from) {
     let alert = this.alertCtrl.create({
       title: 'Confirm User',
       message: `Do you want to allow ${message.from.fullName} to join ${message.communityName} community?`,
@@ -98,13 +87,13 @@ export class NotificationPage implements OnInit {
           text: 'Decline',
           role: 'cancel',
           handler: () => {
-            this.cancelJoinRequest(message);
+            this.cancelJoinRequest(message, from);
           }
         },
         {
           text: 'Approve',
           handler: () => {
-            this.approveUserRequest(message);
+            this.approveUserRequest(message, from);
           }
         }
       ]
@@ -112,7 +101,7 @@ export class NotificationPage implements OnInit {
     alert.present();
   }
 
-  addToCalender(message) {
+  addToCalender(message, from) {
     let alert = this.alertCtrl.create({
       title: 'Add this activity to calender?',
       message: `Do you want to add this activity ${message.activity.activity_name} to your calender?`,
@@ -128,6 +117,7 @@ export class NotificationPage implements OnInit {
           text: 'Approve',
           handler: () => {
             this.calendarService.createEvent(message.activity);
+            this.makeNotificationRead(message, from);
           }
         }
       ]
@@ -135,11 +125,12 @@ export class NotificationPage implements OnInit {
     alert.present();
   }
 
-  cancelJoinRequest(message) {
+  cancelJoinRequest(message, from) {
+
     this.communityService.removeUserFromWaitingList(message.room, message.from.keyForFirebase)
       .subscribe(data => {
         this.sendUserDeclineNotification(message);
-
+        this.makeNotificationRead(message, from);
         console.log(data);
       }, err => {
         console.log(err.message);
@@ -152,7 +143,7 @@ export class NotificationPage implements OnInit {
     this.socketService.declineUserJoinPrivateRoom(message.from, message.communityName, message.to)
   }
 
-  approveUserRequest(message) {
+  approveUserRequest(message, from) {
     this.communityService.joinCommunity(message.room, message.from.keyForFirebase, true)
       .subscribe(
         res => {
@@ -161,6 +152,7 @@ export class NotificationPage implements OnInit {
 
             this.socketService.joinToCommunityByManager(message, res, this.userService.thisProfile);
             this.sharedService.createToast(`User joined to ${message.communityName} community`);
+            this.makeNotificationRead(message, from);
           }
           else {
             this.sharedService.createToast(`Failed to join ${message.communityName} community`);
@@ -184,6 +176,32 @@ export class NotificationPage implements OnInit {
       }, () => {
         console.log('done')
       })
+  }
+
+  makeNotificationRead(message, from) {
+    let params = {
+      status: 'done',
+      keyForFirebase: message._id
+    };
+
+    this.notificationService.updateUserNotification(params)
+      .subscribe(data => {
+        console.log(data);
+        this.notificationService.notifications[from] = <Notification>data;
+        this.notifications = this.notificationService.notifications;
+      }, err => {
+        console.log(`Faild to save notification, ${err}`)
+      }, () => {
+        //done
+      });
+  }
+
+  openModal(message, from) {
+    let profileModal = this.modalCtrl.create('MemberOptionsPage', {user: message.user, fromNotification: true});
+    profileModal.onDidDismiss(data => {
+      this.confirmUserToJoin(message, from);
+    });
+    profileModal.present();
   }
 
 }
