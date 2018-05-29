@@ -17,14 +17,20 @@ import {Activity} from "../../models/activity/activity.interface";
 export class LiveActivityInfoPage {
 
   activity: Activity;
+  isLive: string = '';
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams) {
     this.activity = this.navParams.get('activity');
+    this.isLive = this.navParams.get('isLive');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LiveActivityInfoPage');
+  }
+
+  finish(){
+
   }
 
 }

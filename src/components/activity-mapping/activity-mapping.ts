@@ -40,7 +40,7 @@ export class ActivityMappingComponent {
   // }
 
   showData(activity) {
-    this.navCtrl.push('LiveActivityInfoPage', {activity: activity});
+    this.navCtrl.push('LiveActivityInfoPage', {activity: activity, isLive: activity.status.value});
   }
 
 }

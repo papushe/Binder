@@ -24,4 +24,7 @@
     <ion-item>Status: <span [ngClass]="{'live':activity?.status?.value ==='live'}">{{activity?.status?.value}}</span>
     </ion-item>
   </ion-card>
+
+  <button ion-button block outline *ngIf="isLive=='live'" (click)="finish()">Finish Activity</button>
+
 </ion-content>

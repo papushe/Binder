@@ -34,4 +34,8 @@
 <span *ngIf="(loggedInUser?.keyForFirebase == community?.manager?.id) && !isJoined">
   <button block ion-button outline (click)="addUser()">Add</button>
 </span>
-<button *ngIf="fromNotification" ion-button block (click)="closeModal()">Close</button>
+
+<button *ngIf="fromNotification" ion-button block outline (click)="approve()">Approve</button>
+<button *ngIf="fromNotification" ion-button block outline (click)="decline()">Decline</button>
+
+

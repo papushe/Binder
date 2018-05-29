@@ -17,6 +17,9 @@ export class MemberOptionsComponent implements OnInit {
   @Input() member: Profile;
   @Input() community: Community;
   @Input() fromNotification: string = '';
+  @Input() messageFromNotification: any;
+  @Input() from: any;
+  message: any;
   loggedInUser: Profile;
   isJoined: boolean;
 
@@ -28,6 +31,10 @@ export class MemberOptionsComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.messageFromNotification) {
+      this.member = this.messageFromNotification.user;
+      this.message = this.messageFromNotification;
+    }
     this.init();
   }
 
@@ -90,6 +97,59 @@ export class MemberOptionsComponent implements OnInit {
 
   closeModal() {
     this.navCtrl.pop();
+  }
+
+
+  cancelJoinRequest(message, from) {
+
+    this.communityService.removeUserFromWaitingList(message.room, message.from.keyForFirebase)
+      .subscribe(data => {
+        this.sendUserDeclineNotification(message);
+        // this.makeNotificationRead(message, from);
+        console.log(data);
+      }, err => {
+        console.log(err.message);
+      }, () => {
+        //done
+        this.closeModal();
+      })
+  }
+
+  approve() {
+    this.approveUserRequest(this.message, this.from);
+  }
+
+  decline() {
+    this.cancelJoinRequest(this.message, this.from);
+  }
+
+  approveUserRequest(message, from) {
+    this.communityService.joinCommunity(message.room, message.from.keyForFirebase, true)
+      .subscribe(
+        res => {
+          console.log(`user has joined to ${message.communityName} community  success? : ${!!res}`);
+          if (res) {
+
+            this.socketService.joinToCommunityByManager(message, res, this.userService.thisProfile);
+            this.sharedService.createToast(`User joined to ${message.communityName} community`);
+            // this.makeNotificationRead(message, from);
+          }
+          else {
+            this.sharedService.createToast(`Failed to join ${message.communityName} community`);
+          }
+        },
+        err => {
+          console.debug(`Failed to join ${message.content} community due to: ${err.message}`);
+          this.sharedService.createToast(`Failed to join ${message.content} community`);
+        },
+        () => {
+          //done
+          this.closeModal();
+        });
+  }
+
+  sendUserDeclineNotification(message) {
+    this.socketService.declineUserJoinPrivateRoom(message.from, message.communityName, message.to)
   }
 
 }

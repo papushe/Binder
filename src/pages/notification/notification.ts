@@ -78,28 +78,6 @@ export class NotificationPage implements OnInit {
       });
   }
 
-  confirmUserToJoin(message, from) {
-    let alert = this.alertCtrl.create({
-      title: 'Confirm User',
-      message: `Do you want to allow ${message.from.fullName} to join ${message.communityName} community?`,
-      buttons: [
-        {
-          text: 'Decline',
-          role: 'cancel',
-          handler: () => {
-            this.cancelJoinRequest(message, from);
-          }
-        },
-        {
-          text: 'Approve',
-          handler: () => {
-            this.approveUserRequest(message, from);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
 
   addToCalender(message, from) {
     let alert = this.alertCtrl.create({
@@ -123,48 +101,6 @@ export class NotificationPage implements OnInit {
       ]
     });
     alert.present();
-  }
-
-  cancelJoinRequest(message, from) {
-
-    this.communityService.removeUserFromWaitingList(message.room, message.from.keyForFirebase)
-      .subscribe(data => {
-        this.sendUserDeclineNotification(message);
-        this.makeNotificationRead(message, from);
-        console.log(data);
-      }, err => {
-        console.log(err.message);
-      }, () => {
-        //done
-      })
-  }
-
-  sendUserDeclineNotification(message) {
-    this.socketService.declineUserJoinPrivateRoom(message.from, message.communityName, message.to)
-  }
-
-  approveUserRequest(message, from) {
-    this.communityService.joinCommunity(message.room, message.from.keyForFirebase, true)
-      .subscribe(
-        res => {
-          console.log(`user has joined to ${message.communityName} community  success? : ${!!res}`);
-          if (res) {
-
-            this.socketService.joinToCommunityByManager(message, res, this.userService.thisProfile);
-            this.sharedService.createToast(`User joined to ${message.communityName} community`);
-            this.makeNotificationRead(message, from);
-          }
-          else {
-            this.sharedService.createToast(`Failed to join ${message.communityName} community`);
-          }
-        },
-        err => {
-          console.debug(`Failed to join ${message.content} community due to: ${err.message}`);
-          this.sharedService.createToast(`Failed to join ${message.content} community`);
-        },
-        () => {
-          //done
-        });
   }
 
   getCommunities() {
@@ -197,9 +133,13 @@ export class NotificationPage implements OnInit {
   }
 
   openModal(message, from) {
-    let profileModal = this.modalCtrl.create('MemberOptionsPage', {user: message.user, fromNotification: true});
+    let profileModal = this.modalCtrl.create('MemberOptionsPage', {
+      message: message,
+      fromNotification: true,
+      from: from
+    });
     profileModal.onDidDismiss(data => {
-      this.confirmUserToJoin(message, from);
+      this.makeNotificationRead(message, from);
     });
     profileModal.present();
   }
