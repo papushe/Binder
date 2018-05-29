@@ -46,7 +46,8 @@ export class NotificationPage implements OnInit {
   handleNotificationEvent(message, from) {
 
     if (message.event == 'enter-to-chat-room') {
-      this.navCtrl.push('ChatRoomPage', {message: message})
+      this.navCtrl.push('ChatRoomPage', {message: message});
+      this.makeNotificationRead(message, from);
     } else if (message.event == 'user-ask-to-join-private-room') {
       this.openModal(message, from);
     } else if (message.event == 'on-delete-community') {
