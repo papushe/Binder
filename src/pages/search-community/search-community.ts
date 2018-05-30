@@ -12,11 +12,9 @@ import {SharedService} from "../../providers/shared/shared.service";
 export class SearchCommunityPage {
 
   search: string = '';
-  communities: Community[] = [];
-  hasCommunity: boolean = false;
   noCommunityFound: string = '';
 
-  constructor(private communityService: CommunityService,
+  constructor(public communityService: CommunityService,
               private navCtrl: NavController,
               private sharedService: SharedService) {
 
@@ -30,11 +28,11 @@ export class SearchCommunityPage {
           .subscribe(
             data => {
               if (!data || data == 0) {
-                this.hasCommunity = false;
+                this.communityService.thisHasCommunity = false;
                 this.noCommunityFound = 'No communities found, try again';
               } else {
-                this.communities = <Community[]>data;
-                this.hasCommunity = true;
+                this.communityService.thisCommunities  = <Community[]>data;
+                this.communityService.thisHasCommunity  = true;
                 this.noCommunityFound = '';
                 this.search = '';
               }

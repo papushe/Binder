@@ -31,9 +31,9 @@
     </ion-card>
   </form>
   <hr>
-  <ion-list *ngIf="hasCommunity">
-    <span class="results">Found {{communities?.length}} result(s)</span>
-    <ion-item class="pointer" *ngFor="let community of communities" (click)="openCommunity(community)">
+  <ion-list *ngIf="communityService?.thisHasCommunity ">
+    <span class="results">Found {{communityService?.thisCommunities?.length}} result(s)</span>
+    <ion-item class="pointer" *ngFor="let community of communityService?.thisCommunities" (click)="openCommunity(community)">
       <h2>{{community?.communityName}}</h2>
       <p>{{community?.communityDescription}}</p>
       <p>

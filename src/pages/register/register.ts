@@ -14,7 +14,6 @@ export class RegisterPage {
               private sharedService:SharedService) {
   }
 
-
   register(event: LoginResponse) {
     if (!event.error) {
       this.sharedService.createToast(`Account created: ${event.result.email}`);

@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {Account} from "../../models/account/account.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {LoginResponse} from "../../models/login/login-response.interface";
 import {SharedService} from "../../providers/shared/shared.service";
@@ -10,20 +9,19 @@ import {SharedService} from "../../providers/shared/shared.service";
 })
 export class RegisterFormComponent {
 
-  account = {} as Account;
   @Output() registerStatus: EventEmitter<LoginResponse>;
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               private sharedService: SharedService) {
 
     this.registerStatus = new EventEmitter<LoginResponse>();
   }
 
   async register() {
-    if (this.account.password === this.account.passwordAgain) {
+    if (this.userService.account.password === this.userService.account.passwordAgain) {
       try {
         const result = await
-          this.userService.createUserWithEmailAndPassword(this.account);
+          this.userService.createUserWithEmailAndPassword(this.userService.account);
         this.registerStatus.emit(result);
       } catch (e) {
         console.error(e);
