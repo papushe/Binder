@@ -13,8 +13,8 @@
   <ion-grid>
     <ion-row *ngFor="let message of messages; let last = last">
 
-      <ion-col col-9 *ngIf="message?.from !== currentUser?.fullName" class="message"
-               [ngClass]="{'my_message': message?.from === currentUser?.fullName, 'other_message': message?.from !== currentUser?.fullName}">
+      <ion-col col-9 *ngIf="message?.from !== userService?.thisProfile?.fullName" class="message"
+               [ngClass]="{'my_message': message?.from === userService?.thisProfile?.fullName, 'other_message': message?.from !== userService?.thisProfile?.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message?.from }}:</span>
           <div col-6 class="time">{{message?.date | date:'dd.MM hh:MM'}}</div>
@@ -24,8 +24,8 @@
         {{last ? scrollToBottom() : ''}}
       </ion-col>
 
-      <ion-col offset-3 col-9 *ngIf="message?.from === currentUser?.fullName" class="message"
-               [ngClass]="{'my_message': message?.from === currentUser?.fullName, 'other_message': message?.from !== currentUser?.fullName}">
+      <ion-col offset-3 col-9 *ngIf="message?.from === userService?.thisProfile?.fullName" class="message"
+               [ngClass]="{'my_message': message?.from === userService?.thisProfile?.fullName, 'other_message': message?.from !== userService?.thisProfile?.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message?.from }}:</span>
           <div col-6 class="time">{{message?.date | date:'dd.MM hh:MM'}}</div>

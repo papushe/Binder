@@ -6,7 +6,6 @@ import {NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {SocketService} from "../../providers/socket/socket.service";
-import {Notification} from "../../models/notification/notification.interface";
 
 @Component({
   selector: 'communities-component',
@@ -14,14 +13,13 @@ import {Notification} from "../../models/notification/notification.interface";
 })
 export class CommunitiesComponent implements OnInit {
 
-  communities: Community[] = [];
   sharedCommunityId: string;
   @Output() hasProfileEvent: EventEmitter<boolean>;
   communitySocketConnection: any;
   tabsSocketDeleteCommunity: any;
 
   constructor(private userService: UserService,
-              private communityService: CommunityService,
+              public communityService: CommunityService,
               private navCtrl: NavController,
               private socketService: SocketService,
               private sharedService: SharedService) {
@@ -132,7 +130,6 @@ export class CommunitiesComponent implements OnInit {
         .subscribe(
           data => {
             this.communityService.thisCommunities = <Community[]>data;
-            this.communities = this.communityService.thisCommunities;
             console.log(`get communities success? : ${data != null}`);
           },
           err => {
