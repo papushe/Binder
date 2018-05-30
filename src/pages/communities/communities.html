@@ -11,10 +11,10 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-card padding *ngIf="profile">
+  <ion-card padding *ngIf="userService?.thisProfile">
     <ion-row>
       <ion-col>
-        Welcome to Binder {{profile.fullName}}
+        Welcome to Binder {{userService?.thisProfile?.fullName}}
       </ion-col>
       <ion-col>
         {{date|date:'short'}}
@@ -25,7 +25,7 @@
   </ion-card>
   <communities-component #child (hasProfileEvent)="updateHasProfile($event)"></communities-component>
 
-  <ion-fab bottom right #fab *ngIf="hasProfile">
+  <ion-fab bottom right #fab *ngIf="userService?.thisHasProfile">
     <button ion-fab (click)="toggleArrow()">
       <ion-icon class="moreOptions" name="more"></ion-icon>
     </button>
@@ -42,13 +42,13 @@
       <!--<span class="fabName">Create New Community</span>-->
     </ion-fab-list>
   </ion-fab>
-  <ion-card padding *ngIf="profile && profile.communities.length ==0">
+  <ion-card padding *ngIf="userService?.thisProfile && userService?.thisProfile?.communities?.length ==0">
     <p>Create new Community or join to one</p>
   </ion-card>
-  <ion-card padding *ngIf="!hasProfile">
+  <ion-card padding *ngIf="!userService?.thisHasProfile">
     <p>Go to `View Your Profile` in order to complete your Registration</p>
   </ion-card>
-  <ion-footer *ngIf="!hasProfile">
+  <ion-footer *ngIf="!userService?.thisHasProfile">
     <ion-icon name="arrow-round-down"></ion-icon>
   </ion-footer>
   <ion-footer *ngIf="showArrow">
