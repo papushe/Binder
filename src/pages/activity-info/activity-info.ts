@@ -2,7 +2,6 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {Component, OnInit} from '@angular/core';
 import {Community} from "../../models/community/community.interface";
 import {Activity} from '../../models/activity/activity.interface';
-import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {ActivityService} from "../../providers/activity-service/activity-service";
 import {UserService} from "../../providers/user-service/user.service";
@@ -19,13 +18,12 @@ export class ActivityInfoPage implements OnInit {
 
   activity: Activity;
   community: Community;
-  profile: Profile;
 
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
               private sharedService: SharedService,
               private calendarService: CalendarService,
-              private userService: UserService,
+              public userService: UserService,
               private alertCtrl: AlertController,
               private navParams: NavParams,
               private socketService: SocketService,
@@ -40,7 +38,6 @@ export class ActivityInfoPage implements OnInit {
   init() {
     this.community = this.navParams.get('community');
     this.activity = this.navParams.get('activity');
-    this.profile = this.userService.thisProfile;
   }
 
   editActivity() {
@@ -94,7 +91,7 @@ export class ActivityInfoPage implements OnInit {
   }
 
   claimActivity() {
-    this.activityService.claim(this.activity._id, this.profile.fullName, this.profile.keyForFirebase)
+    this.activityService.claim(this.activity._id, this.userService.thisProfile.fullName, this.userService.thisProfile.keyForFirebase)
       .subscribe(data => {
         console.debug(`claimed activity success? : ${!!data}`);
         if (data) {

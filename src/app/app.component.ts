@@ -53,8 +53,6 @@ export class MyApp implements OnInit, OnDestroy {
 
     this.privateChatRoom();
 
-    // this.joinPrivateRoom();
-
     this.claimedActivityPrivate();
 
     this.approveActivityPrivate();
@@ -138,36 +136,6 @@ export class MyApp implements OnInit, OnDestroy {
           })
       });
   }
-
-  // joinPrivateRoom() {
-  //   this.tabsSocketAskToJoinToPrivateRoom = this.socketService.onUserAskToJoinPrivateRoom()
-  //     .subscribe(data => {
-  //
-  //       this.notificationService.notificationNumber++;
-  //
-  //       this.events.publish('newNotification', this.notificationService.notificationNumber);
-  //
-  //
-  //       let notification: any = data;
-  //
-  //       if (notification.event !== 'manager-decline-user-join-private-room') {
-  //         notification.to = {
-  //           keyForFirebase: notification.community.manager.id,
-  //           fullName: notification.community.manager.name
-  //         };
-  //       }
-  //
-  //
-  //       this.notificationService.createNotification(<Notification>notification)
-  //         .subscribe(data => {
-  //           this.notificationService.notifications.push(<Notification>data);
-  //         }, err => {
-  //           console.log(`Failed to save notification, ${err}`)
-  //         }, () => {
-  //           //done
-  //         })
-  //     });
-  // }
 
   claimedActivityPrivate() {
     this.tabsSocketClaimedActivityPrivateRoom = this.socketService.onClaimedActivityPrivate()
