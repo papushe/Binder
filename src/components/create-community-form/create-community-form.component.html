@@ -3,7 +3,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label floating>Community Name</ion-label>
-        <ion-input [(ngModel)]="community.communityName"
+        <ion-input [(ngModel)]="communityService?.thisCommunity.communityName"
                    type="text"
                    name="communityName"
                    #communityName="ngModel"
@@ -16,7 +16,7 @@
       </div>
       <ion-item>
         <ion-label floating>Community Description</ion-label>
-        <ion-input [(ngModel)]="community.communityDescription"
+        <ion-input [(ngModel)]="communityService?.thisCommunity.communityDescription"
                    type="text"
                    name="communityDescription"
                    #communityDescription="ngModel"
@@ -28,7 +28,7 @@
       </div>
       <ion-item>
         <ion-label>Type</ion-label>
-        <ion-select [(ngModel)]="community.type"
+        <ion-select [(ngModel)]="communityService?.thisCommunity.type"
                     #type="ngModel"
                     required
                     name="type">
@@ -43,7 +43,7 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <button block ion-button (click)="createCommunity()" outline
+  <button ion-button block (click)="createCommunity()" outline
           [disabled]="communityForm?.invalid || type?.value ===''">Create
   </button>
 </form>

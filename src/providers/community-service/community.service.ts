@@ -8,10 +8,11 @@ import {Profile} from "../../models/profile/profile.interface";
 export class CommunityService {
 
   baseUrl: string = '';
-
   thisCommunities: Community[] = [];
+  thisCommunity = {} as Community;
   thisSelectedCommunity: Community;
   thisCommunityMembers: Profile[] = [];
+  thisHasCommunity: boolean = false;
   context: string = 'community';
 
   constructor(private _http: HttpClient,

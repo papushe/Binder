@@ -13,7 +13,8 @@ export class CreateActivityPage implements OnInit {
   community: Community;
   activity: Activity;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams) {
+  constructor(private navCtrl: NavController,
+              private navParams: NavParams) {
   }
 
   ngOnInit() {

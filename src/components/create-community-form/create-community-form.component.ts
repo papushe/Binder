@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {Community} from "../../models/community/community.interface";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
@@ -11,15 +10,12 @@ import {SharedService} from "../../providers/shared/shared.service";
 })
 export class CreateCommunityFormComponent {
 
-  community = {} as Community;
   @Output() saveCommunityResult: EventEmitter<any>;
-
 
   // @ViewChild('focusInput') focusInput;
 
-
   constructor(private userService: UserService,
-              private communityService: CommunityService,
+              public communityService: CommunityService,
               private sharedService: SharedService) {
 
     this.saveCommunityResult = new EventEmitter<any>();
@@ -32,11 +28,11 @@ export class CreateCommunityFormComponent {
   createCommunity() {
 
     if (this.userService.thisAuthenticatedUser) {
-      this.community.manager = {
+      this.communityService.thisCommunity.manager = {
         id: this.userService.thisAuthenticatedUser.uid,
         name: this.userService.thisProfile.fullName
       };
-      this.communityService.createCommunity(this.community)
+      this.communityService.createCommunity(this.communityService.thisCommunity)
         .subscribe(
           data => {
             if (data) {
