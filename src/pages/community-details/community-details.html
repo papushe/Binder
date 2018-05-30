@@ -1,24 +1,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{community?.communityName | uppercase}} Community</ion-title>
+    <ion-title>{{communityService?.thisSelectedCommunity?.communityName | uppercase}} Community</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-card class="community-description">
+  <ion-card class="communityService?.thisSelectedCommunity-description">
     <ion-item>
-      <p class="title">Description: <span>{{community?.communityDescription}}</span></p>
-      <p class="title">Type: <span>{{community?.type}}</span></p>
+      <p class="title">Description: <span>{{communityService?.thisSelectedCommunity?.communityDescription}}</span></p>
+      <p class="title">Type: <span>{{communityService?.thisSelectedCommunity?.type}}</span></p>
     </ion-item>
   </ion-card>
-  <members-component [community]="community" *ngIf="isJoined"></members-component>
-  <activities-component #child [currentCommunity]="community" *ngIf="isJoined"></activities-component>
+  <members-component [community]="communityService?.thisSelectedCommunity" *ngIf="isJoined"></members-component>
+  <activities-component #child [currentCommunity]="communityService?.thisSelectedCommunity" *ngIf="isJoined"></activities-component>
   <ion-row>
     <button block outline ion-button color="primary" *ngIf="!isJoined && !isWaiting" (click)="joinCommunity()">
-      {{community?.type?.toLocaleLowerCase() === 'private'? 'Ask to join':'Join'}}
+      {{communityService?.thisSelectedCommunity?.type?.toLocaleLowerCase() === 'private'? 'Ask to join':'Join'}}
     </button>
     <p *ngIf="!isJoined && isWaiting">Pending</p>
   </ion-row>
@@ -29,9 +29,9 @@
     </button>
     <ion-fab-list side="top">
 
-      <!--<span  *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Search Users</span>-->
+      <!--<span  *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile.keyForFirebase" class="fabName">Search Users</span>-->
       <button ion-fab (click)="addMembers(fab)"
-              *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase">
+              *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile?.keyForFirebase">
         <ion-icon name="search"></ion-icon>
       </button>
 
@@ -41,9 +41,9 @@
 
       </button>
 
-      <!--<span   *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase" class="fabName">Delete Community</span>-->
+      <!--<span   *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile.keyForFirebase" class="fabName">Delete Community</span>-->
       <button ion-fab (click)="deletePopup(fab)"
-              *ngIf="isJoined && community?.manager?.id == profile?.keyForFirebase">
+              *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile?.keyForFirebase">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-fab-list>
