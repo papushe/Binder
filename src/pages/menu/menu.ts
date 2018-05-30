@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
-import {Profile} from "../../models/profile/profile.interface";
 
 @IonicPage()
 @Component({
@@ -10,18 +9,9 @@ import {Profile} from "../../models/profile/profile.interface";
 })
 export class MenuPage {
 
-
-  profile: Profile;
-  hasProfile: boolean = false;
-
   constructor(private navCtrl: NavController,
-              private userService: UserService,
+              public userService: UserService,
               private alertCtrl: AlertController) {
-  }
-
-  ionViewDidEnter() {
-    this.hasProfile = this.userService.thisHasProfile;
-    this.profile = this.userService.thisProfile
   }
 
   signOut() {
@@ -60,7 +50,7 @@ export class MenuPage {
 
 
   navigateTo(page) {
-    page === 'SearchUsersPage' ? this.navCtrl.push(page, {profile: this.profile}) : this.navCtrl.push(page);
+    page === 'SearchUsersPage' ? this.navCtrl.push(page, {profile: this.userService.thisProfile}) : this.navCtrl.push(page);
   }
 
 

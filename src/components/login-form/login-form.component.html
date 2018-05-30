@@ -3,7 +3,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label floating>Email</ion-label>
-        <ion-input [(ngModel)]="account.email"
+        <ion-input [(ngModel)]="userService?.account.email"
                    type="email"
                    name="email"
                    #email="ngModel"
@@ -15,7 +15,7 @@
       </div>
       <ion-item>
         <ion-label floating>Password</ion-label>
-        <ion-input [(ngModel)]="account.password"
+        <ion-input [(ngModel)]="userService?.account.password"
                    type="password"
                    name="password"
                    #password="ngModel"

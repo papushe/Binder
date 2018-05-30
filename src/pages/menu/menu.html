@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>menu</ion-title>
     <ion-buttons end>
-      <button [disabled]="!hasProfile" ion-button icon-only (click)="navigateTo('SearchUsersPage')">
+      <button [disabled]="!userService?.thisHasProfile" ion-button icon-only (click)="navigateTo('SearchUsersPage')">
         <ion-icon name="search" color="dark"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,20 +16,20 @@
 
   <ion-row (click)="navigateTo('ProfilePage')">
     <ion-col class="profile" col-2>
-      <img class="profilePic" src="{{ profile?.profilePic}}">
-      <ion-icon class="ionContact" *ngIf="!profile?.profilePic" name="contact"></ion-icon>
+      <img class="profilePic" src="{{ userService?.thisProfile?.profilePic}}">
+      <ion-icon class="ionContact" *ngIf="!userService?.thisProfile?.profilePic" name="contact"></ion-icon>
     </ion-col>
     <ion-col class="menu-tab" col-6>
-      <span *ngIf="hasProfile" class="menu-title-profile">{{profile?.fullName}}</span>
-      <div class="menu-details" *ngIf="hasProfile">View Your Profile</div>
-      <div class="menu-details complete" *ngIf="!hasProfile">Complete Your Registration</div>
+      <span *ngIf="userService?.thisHasProfile" class="menu-title-profile">{{userService?.thisProfile?.fullName}}</span>
+      <div class="menu-details" *ngIf="userService?.thisHasProfile">View Your Profile</div>
+      <div class="menu-details complete" *ngIf="!userService?.thisHasProfile">Complete Your Registration</div>
     </ion-col>
-    <ion-col *ngIf="!hasProfile">
+    <ion-col *ngIf="!userService?.thisHasProfile">
       <ion-icon class="arrow-left" name="arrow-round-back"></ion-icon>
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="navigateTo('MessagesPage')" *ngIf="hasProfile">
+  <ion-row (click)="navigateTo('MessagesPage')" *ngIf="userService?.thisHasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="chatbubbles"></ion-icon>
     </ion-col>
@@ -38,9 +38,9 @@
     </ion-col>
   </ion-row>
 
-  <ion-item class="activityLabel" *ngIf="hasProfile">Activities</ion-item>
+  <ion-item class="activityLabel" *ngIf="userService?.thisHasProfile">Activities</ion-item>
 
-  <ion-row (click)="navigateTo('UpcomingActivityPage')" *ngIf="hasProfile">
+  <ion-row (click)="navigateTo('UpcomingActivityPage')" *ngIf="userService?.thisHasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="briefcase"></ion-icon>
     </ion-col>
@@ -49,7 +49,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row (click)="navigateTo('ActivityHistoryPage')" *ngIf="hasProfile">
+  <ion-row (click)="navigateTo('ActivityHistoryPage')" *ngIf="userService?.thisHasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="archive"></ion-icon>
     </ion-col>
