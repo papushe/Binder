@@ -16,7 +16,7 @@ export class CommunitiesPage implements OnInit {
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
-              private userService: UserService) {
+              public userService: UserService) {
   }
 
   ngOnInit() {
