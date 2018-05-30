@@ -17,7 +17,6 @@ export class TabsPage implements OnInit, OnDestroy {
   tab2Root: string;
   tab3Root: string;
   tab4Root: string;
-  newMessage: number = 0;
 
   @ViewChild('tabs') tabs;
 
@@ -45,7 +44,7 @@ export class TabsPage implements OnInit, OnDestroy {
     this.events.subscribe('newNotification', (data) => {
 
       if (this.tabs._selectHistory[this.tabs._selectHistory.length - 1] !== 't0-1') {
-        this.newMessage = data;
+        this.notificationService.notificationNumber = data;
       } else {
         this.clearNumbers();
         this.sharedService.createToast(`You got new notification`)
@@ -69,7 +68,6 @@ export class TabsPage implements OnInit, OnDestroy {
               if (element.status !== 'done') {
                 this.notificationService.notificationNumber++;
               }
-              this.newMessage = this.notificationService.notificationNumber;
             })
           }
         }, (err) => {
@@ -82,7 +80,6 @@ export class TabsPage implements OnInit, OnDestroy {
 
   clearNumbers() {
     this.notificationService.notificationNumber = 0;
-    this.newMessage = this.notificationService.notificationNumber;
   }
 
   ngOnDestroy() {

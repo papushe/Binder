@@ -14,7 +14,7 @@ import {SharedService} from "../shared/shared.service";
 export class UserService {
 
   baseUrl: string = '';
-
+  account = {} as Account;
   thisProfile = {} as Profile;
   thisAuthenticatedUser: User;
   thisAuthenticatedUser$: Subscription;

@@ -8,7 +8,7 @@
   <ion-tab [tabsHideOnSubPages]="true"
            [root]="tab2Root"
            tabIcon="notifications"
-           [tabBadge]="newMessage"
+           [tabBadge]="notificationService?.notificationNumber"
            tabTitle=""></ion-tab>
            <!--tabTitle="Notification"></ion-tab>-->
   <ion-tab [tabsHideOnSubPages]="true"
