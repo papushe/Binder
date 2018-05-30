@@ -12,7 +12,6 @@ import {SharedService} from "../../providers/shared/shared.service";
 })
 export class ProfileComponent implements OnDestroy {
 
-  profile = {} as Profile;
   skill: string = "";
   skills: any = [];
   hasProfile: boolean = false;
@@ -24,14 +23,13 @@ export class ProfileComponent implements OnDestroy {
   showLoader: boolean = false;
   hasProfilePicAbdUploadNew: boolean = false;
 
-  constructor(private userService: UserService,
+  constructor(public userService: UserService,
               private modalCtrl: ModalController,
               private navParams: NavParams,
               private camera: Camera,
               private sharedService: SharedService) {
 
     if (Object.keys(this.userService.thisProfile) && Object.keys(this.userService.thisProfile).length !== 0) {
-      this.profile = this.userService.thisProfile;
       this.skills = this.userService.thisProfile.skills;
       this.myPhotosRef = firebase.storage().ref(`/Photos/`);
     }
@@ -50,7 +48,6 @@ export class ProfileComponent implements OnDestroy {
               if (data) {
                 if (Object.keys(<Profile>data) && Object.keys(<Profile>data).length !== 0) {
                   this.userService.thisProfile = <Profile>data;
-                  this.profile = this.userService.thisProfile;
                   this.skills = this.userService.thisProfile.skills;
                   this.userService.thisHasProfile = true;
                   this.hasProfile = this.userService.thisHasProfile;
@@ -82,7 +79,7 @@ export class ProfileComponent implements OnDestroy {
   showAddressModal() {
     let modal = this.modalCtrl.create('AutocompletePage');
     modal.onDidDismiss(data => {
-      this.profile.location = data;
+      this.userService.thisProfile.location = data;
     });
     modal.present();
   }
@@ -90,7 +87,7 @@ export class ProfileComponent implements OnDestroy {
   updateProfile() {
     this.sharedService.createLoader('Updating profile..');
     this.sharedService.loader.present().then(() => {
-      this.userService.updateProfile(this.profile)
+      this.userService.updateProfile(this.userService.thisProfile)
         .subscribe(
           data => {
             if (data) {
@@ -114,19 +111,19 @@ export class ProfileComponent implements OnDestroy {
     buttons: [{
       text: 'Clear',
       handler: () => {
-        this.profile.dateOfBirth = null;
+        this.userService.thisProfile.dateOfBirth = null;
       }
     }]
   };
 
   saveProfile() {
     if (this.userService.thisAuthenticatedUser) {
-      this.profile.email = this.userService.thisAuthenticatedUser.email;
-      this.profile.keyForFirebase = this.userService.thisAuthenticatedUser.uid;
-      this.profile.skills = this.skills;
+      this.userService.thisProfile.email = this.userService.thisAuthenticatedUser.email;
+      this.userService.thisProfile.keyForFirebase = this.userService.thisAuthenticatedUser.uid;
+      this.userService.thisProfile.skills = this.skills;
       this.sharedService.createLoader('Saving profile..');
       this.sharedService.loader.present().then(() => {
-        this.userService.saveProfile(this.profile)
+        this.userService.saveProfile(this.userService.thisProfile)
           .subscribe(
             data => {
               if (data) {
@@ -210,7 +207,7 @@ export class ProfileComponent implements OnDestroy {
   }
 
   uploadPhoto(): void {
-    if (this.profile.profilePic) {
+    if (this.userService.thisProfile.profilePic) {
       this.hasProfilePicAbdUploadNew = true;
     }
     this.showLoader = true;
@@ -220,7 +217,6 @@ export class ProfileComponent implements OnDestroy {
         this.hasProfilePicAbdUploadNew = false;
         this.showLoader = false;
         this.userService.thisProfile.profilePic = savedPicture.downloadURL;
-        this.profile.profilePic = this.userService.thisProfile.profilePic;
       });
   }
 }

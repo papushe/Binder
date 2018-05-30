@@ -4,9 +4,9 @@
 
       <ion-item>
         <ion-row>
-          <ion-col *ngIf="profile?.profilePic && !hasProfilePicAbdUploadNew">
+          <ion-col *ngIf="userService?.thisProfile?.profilePic && !hasProfilePicAbdUploadNew">
             <ion-item>
-              <img class="profilePic" src="{{ profile?.profilePic }}">
+              <img class="profilePic" src="{{ userService?.thisProfile?.profilePic }}">
             </ion-item>
             <ion-item *ngIf="showLoader">
               <div class="loader"></div>
@@ -22,7 +22,7 @@
 
       <ion-item>
         <ion-label floating>First Name</ion-label>
-        <ion-input [(ngModel)]="profile.firstName"
+        <ion-input [(ngModel)]="userService?.thisProfile.firstName"
                    type="text"
                    name="firstName"
                    #firstName="ngModel"
@@ -34,7 +34,7 @@
       </div>
       <ion-item>
         <ion-label floating>Last Name</ion-label>
-        <ion-input [(ngModel)]="profile.lastName"
+        <ion-input [(ngModel)]="userService?.thisProfile.lastName"
                    type="text"
                    name="lastName"
                    #lastName="ngModel"
@@ -46,7 +46,7 @@
       </div>
       <ion-item>
         <ion-label floating>Location</ion-label>
-        <ion-input [(ngModel)]="profile.location"
+        <ion-input [(ngModel)]="userService?.thisProfile.location"
                    (click)="showAddressModal()"
                    type="text"
                    name="location"
@@ -54,7 +54,7 @@
       </ion-item>
       <ion-item>
         <ion-label floating>Phone Number</ion-label>
-        <ion-input [(ngModel)]="profile.phoneNumber"
+        <ion-input [(ngModel)]="userService?.thisProfile.phoneNumber"
                    type="number"
                    min="0"
                    name="phoneNumber"
@@ -66,7 +66,7 @@
       </div>
       <ion-item>
         <ion-label floating>Description</ion-label>
-        <ion-input [(ngModel)]="profile.description"
+        <ion-input [(ngModel)]="userService?.thisProfile.description"
                    type="text"
                    name="description"
                    #description="ngModel"></ion-input>
@@ -74,7 +74,7 @@
       <ion-item>
         <ion-label floating>Date of Birth</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY"
-                      [(ngModel)]="profile.dateOfBirth"
+                      [(ngModel)]="userService?.thisProfile.dateOfBirth"
                       [pickerOptions]="dateOfBirthOptions"
                       #dateOfBirth="ngModel"
                       [ngModelOptions]="{standalone: true}"></ion-datetime>
