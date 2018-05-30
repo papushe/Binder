@@ -8,20 +8,12 @@ import {UserService} from "../../providers/user-service/user.service";
   templateUrl: 'messages.html',
 })
 export class MessagesPage {
-  roomNumberChat = [];
 
   constructor(private navCtrl: NavController,
-              private userService: UserService) {
-  }
-
-  ionViewDidLoad() {
-    this.roomNumberChat = this.userService.thisProfile.chats;
-    console.log('ionViewDidLoad MessagesPage');
+              public userService: UserService) {
   }
 
   chatWith(chat) {
     this.navCtrl.push('ChatRoomPage', {chat: chat});
   }
-
-
 }

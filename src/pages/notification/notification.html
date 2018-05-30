@@ -7,10 +7,10 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card padding *ngIf="notifications.length ==0">
+  <ion-card padding *ngIf="notificationService?.notifications?.length ==0">
     <p>No Notifications</p>
   </ion-card>
-  <ion-card *ngFor="let notification of notifications;let i = index" class="notifications">
+  <ion-card *ngFor="let notification of notificationService?.notifications; let i = index" class="notifications">
     <ion-icon class="deleteNotification" name="close" (click)="deleteNotification(notification,i)"></ion-icon>
     <button class="notification" readonly (click)="handleNotificationEvent(notification,i)"
             [disabled]="notification?.status ==='done'">

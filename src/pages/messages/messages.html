@@ -8,11 +8,11 @@
 
 
 <ion-content>
-  <ion-card padding *ngIf="roomNumberChat.length ==0">
+  <ion-card padding *ngIf="userService?.thisProfile?.chats?.length ==0">
     <p>No chat room yet</p>
   </ion-card>
   <ion-list>
-    <ion-item *ngFor="let chat of roomNumberChat" (click)="chatWith(chat)">
+    <ion-item *ngFor="let chat of userService?.thisProfile?.chats" (click)="chatWith(chat)">
       <ion-row>
         <ion-col class="profile" col-2>
           <img class="profilePic" src="{{ chat?.profilePic}}">

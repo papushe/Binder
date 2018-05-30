@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AlertController, Events, IonicPage, ModalController, NavController} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification.service";
@@ -14,13 +14,11 @@ import {CalendarService} from "../../providers/calendar-service/calendar-service
   selector: 'page-notification',
   templateUrl: 'notification.html'
 })
-export class NotificationPage implements OnInit {
-
-  notifications: Notification[] = [];
+export class NotificationPage {
 
   constructor(private navCtrl: NavController,
               private events: Events,
-              private notificationService: NotificationService,
+              public notificationService: NotificationService,
               private sharedService: SharedService,
               private alertCtrl: AlertController,
               private communityService: CommunityService,
@@ -30,17 +28,8 @@ export class NotificationPage implements OnInit {
               private modalCtrl: ModalController) {
   }
 
-  ngOnInit() {
-    this.init();
-  }
-
-  init() {
-    this.notifications = this.notificationService.notifications;
-  }
-
   ionViewDidEnter() {
     this.events.publish('enterToNotificationPage', true);
-    this.notifications = this.notificationService.notifications;
   }
 
   handleNotificationEvent(message, from) {
@@ -68,7 +57,6 @@ export class NotificationPage implements OnInit {
       .subscribe(data => {
         if (data === true) {
           this.notificationService.notifications.splice(from, 1);
-          this.notifications = this.notificationService.notifications;
           this.sharedService.createToast(`Notification was deleted successfully`);
         }
       }, err => {
@@ -125,7 +113,6 @@ export class NotificationPage implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.notificationService.notifications[from] = <Notification>data;
-        this.notifications = this.notificationService.notifications;
       }, err => {
         console.log(`Faild to save notification, ${err}`)
       }, () => {
