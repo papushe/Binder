@@ -57,7 +57,6 @@ export class NotificationPage {
       .subscribe(data => {
         if (data === true) {
           this.notificationService.notifications.splice(from, 1);
-          this.sharedService.createToast(`Notification was deleted successfully`);
         }
       }, err => {
         console.log(`Failed to delete notification, ${err}`);
