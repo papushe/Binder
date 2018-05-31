@@ -37,7 +37,6 @@
                       [pickerOptions]="activity_date"
                       #activity_date="ngModel"
                       required>
-          <!--[ngModelOptions]="{standalone: true}"-->
         </ion-datetime>
       </ion-item>
       <div padding *ngIf="activity_date?.invalid && activity_date?.dirty">

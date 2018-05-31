@@ -32,15 +32,11 @@
                     #type="ngModel"
                     required
                     name="type">
-          <!--[ngModelOptions]="{standalone: true}">-->
-          <ion-option value="Secured">Secured</ion-option>
-          <ion-option value="Private">Private</ion-option>
-          <ion-option value="Public">Public</ion-option>
+          <ion-option value="Secured">SECURED - Join by admin invitation</ion-option>
+          <ion-option value="Private">PRIVATE - Join By request</ion-option>
+          <ion-option value="Public">PUBLIC - Open to all</ion-option>
         </ion-select>
       </ion-item>
-      <div padding *ngIf="type?.invalid && type?.dirty">
-        <span class="global__input-error">Must Choose Type</span>
-      </div>
     </ion-card-content>
   </ion-card>
   <button ion-button block (click)="createCommunity()" outline

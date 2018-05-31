@@ -18,6 +18,7 @@
   <ion-card>
     <ion-card-header>Description: {{activity?.activity_description}}</ion-card-header>
     <ion-card-header>Date: {{ activity?.activity_date | convertDate}}</ion-card-header>
+    <ion-card-header>Recurrence: {{ activity?.recurring}}</ion-card-header>
     <ion-card-header>Created By: {{activity?.consumer?.name}}</ion-card-header>
     <ion-card-header *ngIf="activity?.provider && activity?.provider?.id">Provider: {{activity?.provider?.name}}
     </ion-card-header>
