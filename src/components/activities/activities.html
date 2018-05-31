@@ -7,9 +7,6 @@
   <hr>
   <ion-list *ngIf="showActivities">
     <ion-item *ngFor="let activity of activities"
-              paintAfterChange
-              [changer]="activity"
-              [activityLength]="activities?.length"
               (click)="openActivity(activity)">
       <strong>{{activity?.activity_name}}</strong>
       <p>Activity date: {{activity?.activity_date | convertDate}}</p>

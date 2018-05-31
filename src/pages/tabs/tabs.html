@@ -1,19 +1,15 @@
 <ion-tabs #tabs>
-  <ion-tab [tabsHideOnSubPages]="true"
-           [root]="tab1Root"
+  <ion-tab [root]="tab1Root"
            tabIcon="home"
            tabTitle="Home"></ion-tab>
-  <ion-tab [tabsHideOnSubPages]="true"
-           [root]="tab2Root"
+  <ion-tab [root]="tab2Root"
            tabIcon="notifications"
            [tabBadge]="notificationService?.notificationNumber"
            tabTitle="Notifications"></ion-tab>
-  <ion-tab [tabsHideOnSubPages]="true"
-           [root]="tab3Root"
+  <ion-tab [root]="tab3Root"
            tabIcon="walk"
            tabTitle="Activities"></ion-tab>
-  <ion-tab [tabsHideOnSubPages]="true"
-           [root]="tab4Root"
+  <ion-tab [root]="tab4Root"
            tabIcon="menu"
            tabTitle=""></ion-tab>
 </ion-tabs>
