@@ -40,7 +40,8 @@ $colors: (
   danger:     #f53d3d,
   lightDanger: lightcoral,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  almostwhite: #fdfdfb
 );
 
 ion-app .scroll-content {
@@ -115,6 +116,22 @@ ion-fab-list[side=left] {
 
 .scroll-content {
   background: #121212 !important;
+}
+
+
+.fab {
+  color: #fdfdfb !important;
+  //color: #121212 !important;
+  //background: #fdfdfb !important;
+  background: #2ab858 !important;
+}
+
+.back-button {
+  color: #fdfdfb !important;
+}
+
+.item-block:last-child{
+  border-bottom: none !important;
 }
 
 // App iOS Variables

@@ -6,16 +6,23 @@
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-card class="communityService?.thisSelectedCommunity-description">
-    <ion-item>
-      <p class="title">Description: <span>{{communityService?.thisSelectedCommunity?.communityDescription}}</span></p>
-      <p class="title">Type: <span>{{communityService?.thisSelectedCommunity?.type}}</span></p>
+    <ion-item class="communityDescription">
+      <ion-row>
+        <ion-col col-2 class="iconDescription">
+          <ion-icon name="clipboard"></ion-icon>
+        </ion-col>
+        <ion-col class="description">
+          <p class="title"><span>{{communityService?.thisSelectedCommunity?.communityDescription}}</span></p>
+          <p class="title"><span>{{communityService?.thisSelectedCommunity?.type}} Community</span></p>
+        </ion-col>
+      </ion-row>
     </ion-item>
   </ion-card>
   <members-component [community]="communityService?.thisSelectedCommunity" *ngIf="isJoined"></members-component>
-  <activities-component #child [currentCommunity]="communityService?.thisSelectedCommunity" *ngIf="isJoined"></activities-component>
+  <activities-component #child [currentCommunity]="communityService?.thisSelectedCommunity"
+                        *ngIf="isJoined"></activities-component>
   <ion-row>
     <button block outline ion-button color="primary" *ngIf="!isJoined && !isWaiting" (click)="joinCommunity()">
       {{communityService?.thisSelectedCommunity?.type?.toLocaleLowerCase() === 'private'? 'Ask to join':'Join'}}

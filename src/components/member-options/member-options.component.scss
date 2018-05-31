@@ -1,8 +1,17 @@
 member-options {
+  ion-item {
+    background: #212020 !important;
+    color: #fdfdfb !important;
+    p {
+      color: #808080 !important;
+      margin-bottom: 7px !important;
+    }
+    strong {
+      color: #fdfdfb !important;
+    }
+  }
   .pic-wrapper {
-
     text-align: center;
-
     .profile-pic {
       width: 150px;
       margin: 0 auto;
@@ -14,8 +23,26 @@ member-options {
     }
     .no-pic {
       font-size: 11em;
-      color: #9D9D9D;
+      color: #fdfdfb;
     }
   }
-
+  ion-list {
+    margin-left: 15px !important;
+  }
+  .greenButton {
+    font-weight: bold !important;
+    color: #fdfdfb !important;
+    background: #2ab858 !important;
+    border: none !important;
+  }
+  .redButton {
+    background: #f53d3d !important;
+    color: #fdfdfb !important;
+    border: none !important;
+  }
+  button {
+    margin: 2% auto 0 auto !important;
+    width: 94% !important;
+    display: block !important;
+  }
 }

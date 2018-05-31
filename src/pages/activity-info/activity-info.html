@@ -6,8 +6,7 @@
       <button ion-button icon-only
               *ngIf="userService?.thisProfile?.keyForFirebase == activity?.consumer?.id && activity?.status?.value==='open'"
               (click)="editActivity()">
-        <!--<ion-icon name="create" color="dark"></ion-icon>-->
-        <ion-icon name="construct" color="dark"></ion-icon>
+        <ion-icon name="construct" color="almostwhite"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -26,7 +25,8 @@
     <ion-card-header *ngIf="activity?.destination">Destination: {{activity?.destination}}</ion-card-header>
 
     <button ion-button block (click)="openSearchPage(activity?.status?.fullName)"
-            *ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == userService?.thisProfile?.keyForFirebase">Claimed
+            *ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == userService?.thisProfile?.keyForFirebase">
+      Claimed
       By: {{activity?.status?.fullName}}
     </button>
 
@@ -39,7 +39,7 @@
           *ngIf="activity?.consumer?.id === userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'claimed'"
           (click)="declineActivity()">Decline Activity
   </button>
-  <button ion-button block color="danger" outline
+  <button ion-button block color="danger" class="redButton"
           *ngIf="(userService?.thisProfile?.keyForFirebase == activity?.consumer.id || userService?.thisProfile?.keyForFirebase == community?.manager?.id) && (activity?.status?.value !== 'approved' && activity?.status?.value !== 'claimed')"
           (click)="deleteActivityPopUp()">Delete
   </button>

@@ -4,12 +4,24 @@ page-community-details {
     color: #8e9093;
     font-size: 14px;
   }
-  .community-description {
-    ion-item {
-      background-color: aliceblue;
+  .communityDescription {
+    background-color: #121212 !important;
+    color: #fdfdfb !important;
+    p {
+      color: #fdfdfb;
     }
+  }
+  .community-description {
     span {
       font-size: 14px;
     }
+  }
+  .iconDescription {
+    ion-icon {
+      font-size: 2.4em;
+    }
+  }
+  .description {
+    text-align: left;
   }
 }

@@ -8,7 +8,7 @@
         <h2 class="community-name">{{community?.communityName}}</h2>
         <p class="description" *ngIf="community?.description != ''">{{community?.communityDescription}}</p>
         <p>{{community?.type}}</p>
-        <p>{{community?.members?.length}} Members</p>
+        <p>{{community?.members?.length}} Member{{community?.members?.length >1 ? 's':''}}</p>
       </ion-col>
     </ion-row>
   </ion-item>

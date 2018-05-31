@@ -4,15 +4,19 @@ activities-component {
       margin: 2px 0;
     }
     ion-item {
-    background: aliceblue;
+      background: #212020 !important;
+      color: #fdfdfb !important;
       .title {
         font-weight: bold;
         color: #8e9093;
         font-size: 14px;
       }
     }
-    hr {
-     margin: 1px;
-    }
+  }
+  .activityDescription {
+    text-align: left;
+  }
+  .activityIcon {
+    font-size: 2.5em;
   }
 }

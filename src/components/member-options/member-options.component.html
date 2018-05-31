@@ -19,23 +19,20 @@
       </ion-list>
     </p>
     <span>
-      <button block ion-button outline
+      <button ion-button class="greenButton"
               (click)="talkToUser(member)">Talk to {{member?.fullName}}</button>
     </span>
   </ion-item>
 </ion-card>
 
-
 <span *ngIf="(loggedInUser?.keyForFirebase == community?.manager?.id) && isJoined">
-  <button block ion-button color="danger" outline *ngIf="loggedInUser?.keyForFirebase===community?.manager?.id"
-          (click)="removeUser()">Remove</button>
+  <button ion-button class="redButton" *ngIf="loggedInUser?.keyForFirebase===community?.manager?.id"
+          (click)="removeUser()">Remove From Community</button>
 </span>
 
 <span *ngIf="(loggedInUser?.keyForFirebase == community?.manager?.id) && !isJoined">
-  <button block ion-button outline (click)="addUser()">Add</button>
+  <button ion-button (click)="addUser()">Add</button>
 </span>
 
-<button *ngIf="fromNotification" ion-button block outline (click)="approve()">Approve</button>
-<button *ngIf="fromNotification" ion-button block outline (click)="decline()">Decline</button>
-
-
+<button *ngIf="fromNotification" class="greenButton" ion-button (click)="approve()">Approve</button>
+<button *ngIf="fromNotification" class="redButton" ion-button (click)="decline()">Decline</button>
