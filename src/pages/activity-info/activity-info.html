@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{activity?.activity_name}}</ion-title>
+    <ion-title>Activity Details</ion-title>
     <ion-buttons end>
       <button ion-button icon-only
               *ngIf="userService?.thisProfile?.keyForFirebase == activity?.consumer?.id && activity?.status?.value==='open'"
@@ -13,8 +13,8 @@
 
 </ion-header>
 
-
 <ion-content padding>
+  <ion-header>{{activity?.activity_name}}</ion-header>
   <ion-card>
     <ion-card-header>Description: {{activity?.activity_description}}</ion-card-header>
     <ion-card-header>Date: {{ activity?.activity_date | convertDate}}</ion-card-header>
@@ -31,23 +31,23 @@
     </button>
 
   </ion-card>
-  <button ion-button block color="primary" outline
+  <button ion-button block color="primary" class="greenButton"
           *ngIf="activity?.consumer?.id === userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'claimed'"
           (click)="approveActivity()">Approve Activity
   </button>
-  <button ion-button block color="danger" outline
+  <button ion-button block color="danger" class="redButton"
           *ngIf="activity?.consumer?.id === userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'claimed'"
           (click)="declineActivity()">Decline Activity
   </button>
   <button ion-button block color="danger" class="redButton"
           *ngIf="(userService?.thisProfile?.keyForFirebase == activity?.consumer.id || userService?.thisProfile?.keyForFirebase == community?.manager?.id) && (activity?.status?.value !== 'approved' && activity?.status?.value !== 'claimed')"
-          (click)="deleteActivityPopUp()">Delete
+          (click)="deleteActivityPopUp()">Delete Activity
   </button>
-  <button ion-button block color="primary" outline
+
+  <button ion-button block color="primary" class="greenButton"
           *ngIf="activity?.consumer?.id !== userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'open'"
           (click)="claimActivity()">Claim
   </button>
-
   <ion-card *ngIf="activity?.status?.user_id === userService?.thisProfile?.keyForFirebase" padding>
     <p>Pending to user approval</p>
   </ion-card>

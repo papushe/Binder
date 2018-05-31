@@ -37,7 +37,7 @@
                       [pickerOptions]="activity_date"
                       #activity_date="ngModel"
                       required>
-        <!--[ngModelOptions]="{standalone: true}"-->
+          <!--[ngModelOptions]="{standalone: true}"-->
         </ion-datetime>
       </ion-item>
       <div padding *ngIf="activity_date?.invalid && activity_date?.dirty">
@@ -90,10 +90,10 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
-  <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" outline
+  <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" class="greenButton"
           [disabled]="activityForm?.invalid" *ngIf='!currentActivity'>Create Activity
   </button>
-  <button ion-button class="create-new-activity-btn" (click)="createActivity('update')" outline
+  <button ion-button class="create-new-activity-btn" (click)="createActivity('update')" class="greenButton"
           [disabled]="activityForm?.invalid" *ngIf='currentActivity'>Update Activity
   </button>
 </form>

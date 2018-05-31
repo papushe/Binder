@@ -134,6 +134,39 @@ ion-fab-list[side=left] {
   border-bottom: none !important;
 }
 
+.greenButton {
+  font-weight: bold !important;
+  color: #fdfdfb !important;
+  background: #2ab858 !important;
+  border: none !important;
+}
+.redButton {
+  background: #f53d3d !important;
+  color: #fdfdfb !important;
+  border: none !important;
+}
+.redButton, .greenButton {
+  margin: 2% auto 0 auto !important;
+  width: 94% !important;
+  display: block !important;
+}
+
+
+ion-alert {
+  color: #fdfdfb !important;
+}
+
+.alert-head,
+.alert-message,
+.alert-button
+{
+  background: #808080 !important;
+}
+
+.alert-button {
+  color: #fdfdfb !important;
+}
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

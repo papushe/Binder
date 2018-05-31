@@ -3,12 +3,15 @@ page-activity-info {
     background: #212020 !important;
     color: #fdfdfb !important;
   }
-  .redButton {
-    background: #f53d3d !important;
-    color: #fdfdfb !important;
-    border: none !important;
-    margin: 2% auto 0 auto !important;
-    width: 94% !important;
-    display: block !important;
+  ion-content {
+    ion-header {
+      color: #fdfdfb;
+      font-weight: bold;
+      text-align: center;
+      font-size: 170%;
+    }
+    ion-card {
+      margin-top: 10% !important;
+    }
   }
 }

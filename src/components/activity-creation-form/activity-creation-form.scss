@@ -5,5 +5,16 @@ activity-creation-form {
     border-left: 0;
     border-right: 0;
   }
+  ion-card {
+    ion-item {
+      background: #212020 !important;
+    }
+    ion-label {
+      color: #fdfdfb !important;
+      font-weight: bold !important;
+    }
+    ion-input, ion-datetime, ion-select {
+      color: #808080 !important;
+    }
+  }
 }
-
