@@ -21,6 +21,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   activitiesSocketConnection: any;
   activityClaimedSocketConnection: any;
   activityApproveSocketConnection: any;
+  activityDeclineSocketConnection: any;
 
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
@@ -57,7 +58,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   onDeclineActivity() {
-    this.activityClaimedSocketConnection = this.socketService.onDeclineActivity()
+    this.activityDeclineSocketConnection = this.socketService.onDeclineActivity()
       .subscribe(data => {
         if (data) {
           this.handleActivitySocket(data);
@@ -133,5 +134,8 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.activitiesSocketConnection.unsubscribe();
+    this.activityApproveSocketConnection.unsubscribe();
+    this.activityClaimedSocketConnection.unsubscribe();
+    this.activityDeclineSocketConnection.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Content, IonicPage, NavParams} from 'ionic-angular';
 import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
@@ -13,7 +13,7 @@ import {MessageService} from "../../providers/message/message";
   selector: 'page-chat-room',
   templateUrl: 'chat-room.html',
 })
-export class ChatRoomPage implements OnInit {
+export class ChatRoomPage implements OnInit, OnDestroy {
 
   @ViewChild(Content) content: Content;
   messages = [];
@@ -66,13 +66,15 @@ export class ChatRoomPage implements OnInit {
   }
 
   handleSockets() {
-    this.messageSocketConnection = this.socketService.onGetMessages().subscribe(message => {
-      this.messages.push(message);
-    });
+    this.messageSocketConnection = this.socketService.onGetMessages()
+      .subscribe(message => {
+        this.messages.push(message);
+      });
 
-    this.joinLeaveSocketConnection = this.socketService.onJoinedLeaveFromChatRoomPrivate().subscribe(message => {
-      this.handleJoinToRoom(message);
-    });
+    this.joinLeaveSocketConnection = this.socketService.onJoinedLeaveFromChatRoomPrivate()
+      .subscribe(message => {
+        this.handleJoinToRoom(message);
+      });
   }
 
   handleJoinToRoom(message) {
@@ -90,8 +92,6 @@ export class ChatRoomPage implements OnInit {
       this.sharedService.createToast(`${message.from.fullName} left from chat room`);
 
     }
-
-
   }
 
   enterToChatRoom(roomNumber, userTalkTo, from) {
@@ -198,7 +198,7 @@ export class ChatRoomPage implements OnInit {
       })
   }
 
-  ionViewWillLeave() {
+  ngOnDestroy() {
     this.joinLeaveSocketConnection.unsubscribe();
     this.messageSocketConnection.unsubscribe();
     this.enterToChatRoomSocketConnection ? this.enterToChatRoomSocketConnection.unsubscribe() : '';

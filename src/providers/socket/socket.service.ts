@@ -186,129 +186,107 @@ export class SocketService {
   }
 
   onApproveActivity() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('on-approve-activity', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onNewNotification() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('notification', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
-  onApproveActivityPrivate() {
-    let observable = new Observable(observer => {
+  onApproveActivityPrivate() { //TODO check again
+    return new Observable(observer => {
       this.socket.on('on-approve-activity-private', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onClaimedActivity() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('on-claimed-activity', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onDeclineActivity() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('on-decline-activity', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onClaimedActivityPrivate() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('on-claimed-activity-private', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onDeleteCommunity() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('on-delete-community', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
-  // onUserAskToJoinPrivateRoom() {
-  //   let observable = new Observable(observer => {
-  //     this.socket.on('user-ask-to-join-private-room', (data) => {
-  //       observer.next(data);
-  //     });
-  //   });
-  //   return observable;
-  // }
-
   onGetMembersChangedEvents() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('members-changed', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onGetMembersChangedEventsPrivate() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('members-changed-private', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onCommunityChangeActivity() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('activities-change', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onEnterToChatRoomPrivate() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('chat-room', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onJoinedLeaveFromChatRoomPrivate() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('change-event-chat-room', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onGetMessages() {
-    let observable = new Observable(observer => {
+    return new Observable(observer => {
       this.socket.on('message', (data) => {
         observer.next(data);
       });
     });
-    return observable;
   }
 
   onDisconnect() {
