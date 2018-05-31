@@ -1,28 +1,17 @@
 <ion-header>
+
   <ion-navbar>
     <ion-title>Communities</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-card padding *ngIf="userService?.thisProfile">
-    <ion-row>
-      <ion-col>
-        Welcome to Binder {{userService?.thisProfile?.fullName}}
-      </ion-col>
-      <ion-col>
-        {{date|date:'short'}}
-      </ion-col>
 
-    </ion-row>
-    <p></p>
-  </ion-card>
   <communities-component #child (hasProfileEvent)="updateHasProfile($event)"></communities-component>
 
   <ion-fab bottom right #fab *ngIf="userService?.thisHasProfile">

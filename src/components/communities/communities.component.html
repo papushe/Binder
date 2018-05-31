@@ -1,13 +1,15 @@
 <ion-list>
   <ion-item *ngFor="let community of communityService?.thisCommunities" (click)="openCommunity(community)">
-    <h2 class="community-name">{{community?.communityName}}</h2>
-    <p class="description" *ngIf="community?.description != ''">{{community?.communityDescription}}</p>
-    <p>{{community?.type}}</p>
-    <p>
-        <span>
-            <ion-icon name="people"></ion-icon>
-        </span>
-      {{community?.members?.length}}
-    </p>
+    <ion-row>
+      <ion-col col-3 class="col3">
+        <ion-icon name="people"></ion-icon>
+      </ion-col>
+      <ion-col class="colDescription">
+        <h2 class="community-name">{{community?.communityName}}</h2>
+        <p class="description" *ngIf="community?.description != ''">{{community?.communityDescription}}</p>
+        <p>{{community?.type}}</p>
+        <p>{{community?.members?.length}} Members</p>
+      </ion-col>
+    </ion-row>
   </ion-item>
 </ion-list>

@@ -1,10 +1,22 @@
 communities-component {
   ion-item {
-    cursor: pointer;
+    padding-right: 16px !important;
+    background: #121212 !important;
+    color: #fdfdfb !important;
+    border: none !important;
     .community-name {
       font-weight: bold;
-      color: #2d2d2d;
     }
+    p {
+      color: #C0C0C0 !important;
+    }
+  }
+  ion-icon {
+    font-size: 3.2em !important;
+    margin-top: 11% !important;
+  }
+  .colDescription {
+    text-align: left !important;
   }
 }
 

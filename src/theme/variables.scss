@@ -56,7 +56,7 @@ ion-app .scroll-content {
 }
 
 .highLight {
-  background: #10FDFF !important;
+  background: #10FDFF !important; //TODO check
   //border: 5px solid yellow !important;
 }
 
@@ -96,6 +96,27 @@ ion-fab-list[side=left] {
 .createNewFab {
   //width: 50px !important;
 }
+
+.tabbar,
+.toolbar-background {
+  background: #212020 !important;
+}
+
+.tab-button-icon {
+  color: #808080 !important;
+}
+
+[aria-selected=true] .tab-button-icon,
+.tab-button[aria-selected=true],
+.toolbar-title {
+  color: #fdfdfb !important;
+  font-weight: bolder !important;
+}
+
+.scroll-content {
+  background: #121212 !important;
+}
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
