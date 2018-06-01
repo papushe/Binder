@@ -118,7 +118,7 @@ export class MyApp implements OnInit, OnDestroy {
 
           // addHere
           // notification.isAddToCalender = true;
-          this.activityService.getActivities(this.userService.thisProfile.keyForFirebase);
+          this.activityService.getActivities(this.userService.thisAuthenticatedUser);
         }
 
         this.notificationService.createNotification(<Notification>data)
