@@ -16,7 +16,6 @@ import {FormsModule} from "@angular/forms";
 import {ActivityService} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
 import { Calendar } from '@ionic-native/calendar';
-import { Push } from '@ionic-native/push';
 import {SharedService} from '../providers/shared/shared.service';
 import {ProfilePopoverComponent} from "../components/profile-popover/profile-popover.component";
 import {ProfilePopoverComponentModule} from "../components/profile-popover/profile-popover.component.module";
@@ -31,10 +30,9 @@ import {ChatService} from '../providers/chat-service/chat-service';
 import { NotificationService } from '../providers/notitfication/notification.service';
 import { MessageService } from '../providers/message/message';
 import { CalendarService } from '../providers/calendar-service/calendar-service';
-import { PushService } from '../providers/push-service/push-service';
 
-const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
-// const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
+// const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
+const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
 
 @NgModule({
   declarations: [
@@ -67,7 +65,6 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     ActivityService,
     Camera,
     Calendar,
-    Push,
     SharedService,
     SocketService,
     {
@@ -78,8 +75,7 @@ const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
     ChatService,
     NotificationService,
     MessageService,
-    CalendarService,
-    PushService
+    CalendarService
   ]
 })
 export class AppModule {
