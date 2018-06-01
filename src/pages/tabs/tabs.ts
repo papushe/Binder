@@ -5,6 +5,7 @@ import {SharedService} from "../../providers/shared/shared.service";
 import {Notification} from "../../models/notification/notification.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {LiveActivityPage} from "../live-activity/live-activity";
+import {CalendarService} from "../../providers/calendar-service/calendar-service";
 
 @IonicPage()
 @Component({
@@ -23,7 +24,8 @@ export class TabsPage implements OnInit, OnDestroy {
   constructor(private notificationService: NotificationService,
               private events: Events,
               private sharedService: SharedService,
-              private userService: UserService) {
+              private userService: UserService,
+              private calenderService: CalendarService) {
   }
 
   ngOnInit(): void {
@@ -68,6 +70,18 @@ export class TabsPage implements OnInit, OnDestroy {
               if (element.status !== 'done') {
                 this.notificationService.notificationNumber++;
               }
+              if((element.event === 'user-approve-activity' ||
+                element.event === 'you-approved-activity') && !element.isAddToCalender){
+                element.isAddToCalender = true;
+                let notification = <any>element;
+
+                this.calenderService.createEvent(notification.activity);
+
+                this.updateNotification(element,'tabsPage');
+
+              }
+
+
             })
           }
         }, (err) => {
@@ -85,4 +99,17 @@ export class TabsPage implements OnInit, OnDestroy {
   ngOnDestroy() {
 
   }
+
+  updateNotification(params, from){
+    this.notificationService.updateUserNotification(params, from)
+      .subscribe(data => {
+        console.log(data);
+      }, err => {
+        console.log(`Faild to save notification, ${err}`)
+      }, () => {
+        //done
+      });
+  }
+
+
 }
