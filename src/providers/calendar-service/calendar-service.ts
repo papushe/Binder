@@ -50,8 +50,7 @@ export class CalendarService {
       location: activity.source,
       notes: activity.notes || '',
       startDate: new Date(activity.activity_date ),
-      endDate: new Date(activity.activity_date + hour),
-      recurrenceEndDate: new Date(activityLocalDate.getFullYear(), activityLocalDate.getMonth() + 3, activityLocalDate.getDate(), activityLocalDate.getHours(), activityLocalDate.getMinutes())
+      endDate: new Date(activity.activity_date + hour)
     };
 
     this.calendar.createEventInteractivelyWithOptions(event.title, event.location, event.notes, event.startDate, event.endDate, options)
