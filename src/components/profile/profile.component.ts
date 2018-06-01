@@ -172,6 +172,8 @@ export class ProfileComponent implements OnDestroy {
   takePhoto() {
     const options: CameraOptions = {
       quality: 50,
+      targetWidth: 300,
+      targetHeight: 300,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.CAMERA,
       encodingType: this.camera.EncodingType.PNG,
@@ -191,6 +193,8 @@ export class ProfileComponent implements OnDestroy {
   selectPhoto() {
     const options: CameraOptions = {
       quality: 50,
+      targetWidth: 300,
+      targetHeight: 300,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       encodingType: this.camera.EncodingType.PNG,
