@@ -45,8 +45,6 @@ export class NotificationPage {
     } else if (message.event == 'activity-is-about-to-start') {
       this.navCtrl.push('LiveActivityPage');
       this.makeNotificationRead(message, from);
-    } else if (message.event == 'you-approved-activity') {
-      this.addToCalender(message, from);
     } else {
       this.makeNotificationRead(message, from);
     }
@@ -66,31 +64,6 @@ export class NotificationPage {
       });
   }
 
-
-  addToCalender(message, from) {
-    let alert = this.alertCtrl.create({
-      title: 'Add this activity to calender?',
-      message: `Do you want to add this activity ${message.activity.activity_name} to your calender?`,
-      buttons: [
-        {
-          text: 'Decline',
-          role: 'cancel',
-          handler: () => {
-            console.log('cancel')
-          }
-        },
-        {
-          text: 'Approve',
-          handler: () => {
-            this.calendarService.createEvent(message.activity);
-            this.makeNotificationRead(message, from);
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
   getCommunities() {
     this.communityService.getCommunities(this.userService.thisProfile.keyForFirebase)
       .subscribe(data => {
@@ -108,7 +81,7 @@ export class NotificationPage {
       keyForFirebase: message._id
     };
 
-    this.notificationService.updateUserNotification(params)
+    this.notificationService.updateUserNotification(params, 'notificationPage')
       .subscribe(data => {
         console.log(data);
         this.notificationService.notifications[from] = <Notification>data;

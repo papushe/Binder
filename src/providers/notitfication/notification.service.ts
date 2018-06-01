@@ -36,17 +36,29 @@ export class NotificationService {
       communityName: notification.communityName,
       status: notification.status,
       activity: notification.activity,
-      user: notification.user
+      user: notification.user,
+      isAddToCalender: notification.isAddToCalender
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/create`, obj)
   }
 
-  updateUserNotification(params) {
-    const obj = {
-      status: params.status,
-      keyForFirebase: params.keyForFirebase
-    };
+  updateUserNotification(params, from) {
+    let obj={};
+    if (from === 'notificationPage') {
+      obj = {
+        status: params.status,
+        keyForFirebase: params.keyForFirebase,
+        from: 'notificationPage'
+      };
+    } else {
+      obj = {
+        isAddToCalender: true,
+        keyForFirebase: params._id,
+        from: 'tabsPage'
+      };
+    }
+
     return this._http
       .post(`${this.baseUrl}/${this.context}/update`, obj)
   }

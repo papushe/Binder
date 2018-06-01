@@ -8,6 +8,7 @@ import {SocketService} from "../providers/socket/socket.service";
 import {Notification} from "../models/notification/notification.interface";
 import {NotificationService} from "../providers/notitfication/notification.service";
 import {ActivityService} from "../providers/activity-service/activity-service";
+import {CalendarService} from "../providers/calendar-service/calendar-service";
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +32,8 @@ export class MyApp implements OnInit, OnDestroy {
               private socketService: SocketService,
               private notificationService: NotificationService,
               private events: Events,
-              private activityService: ActivityService) {
+              private activityService: ActivityService,
+              private  calendarService:CalendarService) {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -112,16 +114,20 @@ export class MyApp implements OnInit, OnDestroy {
 
         let notification = <any>data;
 
-        if (notification.event === 'user-approved-activity' ||
-          notification.event === 'activity-is-about-to-start' ||
+        if (notification.event === 'user-approve-activity' ||
           notification.event === 'you-approved-activity') {
 
-          // addHere
-          // notification.isAddToCalender = true;
           this.activityService.getActivities(this.userService.thisAuthenticatedUser);
+
+          if (!notification.isAddToCalender) {
+            notification.isAddToCalender = true;
+
+            this.calendarService.createEvent(notification);
+          }
+
         }
 
-        this.notificationService.createNotification(<Notification>data)
+        this.notificationService.createNotification(<Notification>notification)
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {

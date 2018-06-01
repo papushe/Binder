@@ -122,7 +122,6 @@ export class ActivityInfoPage implements OnInit {
           this.activity = <Activity> data;
           this.sharedService.createToast(`Successfully approved ${this.activity.activity_name}`);
           this.socketService.approveActivity(this.userService.thisProfile, this.activity, this.communityService.thisSelectedCommunity, user);
-          this.calendarService.createEvent(this.activity);
         }
         else this.sharedService.createToast(`Failed to approve ${this.activity.activity_name}`);
       }, err => {

@@ -19,5 +19,6 @@ export interface Notification {
   creation_date: string,
   status: string,
   activity: Activity
-  user: Profile
+  user: Profile,
+  isAddToCalender: boolean
 }
