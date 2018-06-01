@@ -13,6 +13,8 @@ export class SearchCommunityPage {
 
   search: string = '';
   noCommunityFound: string = '';
+  searchCommunities: Community[] = [];
+  hasCommunity: boolean = false;
 
   constructor(public communityService: CommunityService,
               private navCtrl: NavController,
@@ -28,11 +30,11 @@ export class SearchCommunityPage {
           .subscribe(
             data => {
               if (!data || data == 0) {
-                this.communityService.thisHasCommunity = false;
+                this.hasCommunity= false;
                 this.noCommunityFound = 'No communities found, try again';
               } else {
-                this.communityService.thisCommunities  = <Community[]>data;
-                this.communityService.thisHasCommunity  = true;
+                this.searchCommunities = <Community[]>data;
+                this.hasCommunity = true;
                 this.noCommunityFound = '';
                 this.search = '';
               }
@@ -49,6 +51,6 @@ export class SearchCommunityPage {
   }
 
   openCommunity(community) {
-    this.navCtrl.push('CommunityDetailsPage', {community: community, from:'searchPage'})
+    this.navCtrl.push('CommunityDetailsPage', {community: community, from: 'searchPage'})
   }
 }

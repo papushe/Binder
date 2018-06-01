@@ -91,6 +91,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           console.log(`add user to waiting list success? : ${!!data}`);
           if (data) {
             this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} sent`);
+            this.socketService.askToJoinToPrivateRoom(this.userService.thisProfile, this.communityService.thisSelectedCommunity);
           }
           else {
             this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} failed`);
@@ -101,8 +102,6 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
         }, () => {
           this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
         });
-
-      this.socketService.askToJoinToPrivateRoom(this.userService.thisProfile, this.communityService.thisSelectedCommunity);
 
     }
   }

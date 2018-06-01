@@ -18,7 +18,6 @@ export class MyApp implements OnInit, OnDestroy {
 
   rootPage: string;
   tabsSocketEnterToChatRoomPrivate: any;
-  tabsSocketAskToJoinToPrivateRoom: any;
   tabsSocketClaimedActivityPrivateRoom: any;
   tabsSocketApproveActivityPrivateRoom: any;
   tabsSocketNewNotification: any;
@@ -113,7 +112,7 @@ export class MyApp implements OnInit, OnDestroy {
 
         let notification = <any>data;
 
-        if (notification.event === 'user-approve-activity' ||
+        if (notification.event === 'user-approved-activity' ||
           notification.event === 'activity-is-about-to-start' ||
           notification.event === 'you-approved-activity') {
 

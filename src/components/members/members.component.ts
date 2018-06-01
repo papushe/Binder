@@ -69,11 +69,7 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
-
-        if (this.navCtrl.getActive().name === 'CommunityDetailsPage') {
-          this.navCtrl.pop();
         }
-      }
 
     } else if (data.event == 'joined') {
 
@@ -92,6 +88,12 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
 
     }
+
+    if (data.event != 'left' && this.userService.thisProfile.keyForFirebase == (data.user || data.user.keyForFirebase )) {
+
+      this.events.publish('updateCommunities', true);
+    }
+
   }
 
   removeMemberFromMembersObject(user) {

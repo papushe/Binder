@@ -47,8 +47,8 @@ export class TabsPage implements OnInit, OnDestroy {
         this.notificationService.notificationNumber = data;
       } else {
         this.clearNumbers();
-        this.sharedService.createToast(`You got new notification`)
       }
+      this.sharedService.createToast(`You got new notification`)
     });
 
     this.events.subscribe('enterToNotificationPage', (data) => {

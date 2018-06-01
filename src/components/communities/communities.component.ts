@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from "../../providers/user-service/user.service";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
-import {NavController} from "ionic-angular";
+import {Events, NavController} from "ionic-angular";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {SocketService} from "../../providers/socket/socket.service";
@@ -22,7 +22,8 @@ export class CommunitiesComponent implements OnInit {
               public communityService: CommunityService,
               private navCtrl: NavController,
               private socketService: SocketService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private events: Events) {
     this.hasProfileEvent = new EventEmitter<boolean>();
   }
 
@@ -33,6 +34,10 @@ export class CommunitiesComponent implements OnInit {
     this.membersChangeEvent();
 
     this.deleteCommunity();
+
+    this.events.subscribe('updateCommunities', (data) => {
+      this.getProfile(this.userService.thisAuthenticatedUser);
+    });
   }
 
   checkGetProfile() {
