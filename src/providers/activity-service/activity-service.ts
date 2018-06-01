@@ -129,8 +129,9 @@ export class ActivityService {
       .post(`${this.baseUrl}/${this.context}/finish`, activityIdObj)
   }
 
-  cancel(activityId: string) {
+  cancel(activityId: string, providerId: string) {
     const activityIdObj = {
+      providerId: providerId,
       activityId: activityId
     };
     return this._http
