@@ -35,14 +35,14 @@
 }
 
 .takePicture{
-  color: red;
+  color: #fdfdfb !important;
   font-size: 35px;
   //float: left;
   margin-top: 45px;
   margin-right: 20px;
 }
 .uploadPicture{
-  color: blue;
+  color: #fdfdfb !important;
   font-size: 35px;
   //float: right;
   margin-top: 45px;
@@ -55,4 +55,13 @@ ion-col{
   margin: 0;
   border-left: 0;
   border-right: 0;
+}
+
+ion-item {
+  color: #808080 !important;
+  background: #212020 !important;
+  ion-label {
+    color: #fdfdfb !important;
+    font-weight: bolder !important;
+  }
 }

@@ -32,7 +32,7 @@
                    required
                    [disabled]="readOnly"></ion-input>
       </ion-item>
-      <div padding *ngIf="firstName?.invalid && firstName?.dirty">
+      <div class="inputMissing" *ngIf="firstName?.invalid && firstName?.dirty">
         <span class="global__input-error">Must enter First Name</span>
       </div>
       <ion-item>
@@ -46,7 +46,7 @@
                    [disabled]="readOnly"></ion-input>
       </ion-item>
       <div padding *ngIf="lastName?.invalid && lastName?.dirty">
-        <span class="global__input-error">Must enter Last Name</span>
+        <span class="inputMissing global__input-error">Must enter Last Name</span>
       </div>
       <ion-item>
         <ion-label floating>Location</ion-label>
@@ -68,7 +68,7 @@
                    [disabled]="readOnly"></ion-input>
       </ion-item>
       <div padding *ngIf="phoneNumber?.invalid && phoneNumber?.dirty">
-        <span class="global__input-error">Must enter Phone Number</span>
+        <span class="inputMissing global__input-error">Must enter Phone Number</span>
       </div>
       <ion-item>
         <ion-label floating>Description</ion-label>
