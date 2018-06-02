@@ -69,5 +69,4 @@ export class CalendarService {
         console.error(`failed to delete event with error: ${err}`);
       });
   }
-
 }
