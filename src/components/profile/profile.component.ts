@@ -17,7 +17,7 @@ export class ProfileComponent implements OnDestroy {
   hasProfile: boolean = false;
   @Output() fromLoginPageEvent: EventEmitter<boolean>;
   fromLoginPage: boolean;
-
+  readOnly: boolean;
   myPhotosRef: any;
   myPhoto: any;
   showLoader: boolean = false;
@@ -33,8 +33,14 @@ export class ProfileComponent implements OnDestroy {
       this.myPhotosRef = firebase.storage().ref(`/Photos/`);
     }
     this.hasProfile = this.userService.thisHasProfile;
+    this.readOnly = this.userService.thisHasProfile;
     this.fromLoginPageEvent = new EventEmitter<boolean>();
     this.fromLoginPage = this.navParams.get('where');
+  }
+
+
+  toggleReadOnlyState() {
+    this.readOnly = !this.readOnly;
   }
 
   getProfile(user) {

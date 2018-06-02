@@ -29,7 +29,8 @@
                    name="firstName"
                    #firstName="ngModel"
                    clearInput
-                   required></ion-input>
+                   required
+                   [disabled]="readOnly"></ion-input>
       </ion-item>
       <div padding *ngIf="firstName?.invalid && firstName?.dirty">
         <span class="global__input-error">Must enter First Name</span>
@@ -41,7 +42,8 @@
                    name="lastName"
                    #lastName="ngModel"
                    clearInput
-                   required></ion-input>
+                   required
+                   [disabled]="readOnly"></ion-input>
       </ion-item>
       <div padding *ngIf="lastName?.invalid && lastName?.dirty">
         <span class="global__input-error">Must enter Last Name</span>
@@ -52,7 +54,8 @@
                    (click)="showAddressModal()"
                    type="text"
                    name="location"
-                   #location="ngModel"></ion-input>
+                   #location="ngModel"
+                   [disabled]="readOnly"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Phone Number</ion-label>
@@ -61,7 +64,8 @@
                    min="0"
                    name="phoneNumber"
                    #phoneNumber="ngModel"
-                   required></ion-input>
+                   required
+                   [disabled]="readOnly"></ion-input>
       </ion-item>
       <div padding *ngIf="phoneNumber?.invalid && phoneNumber?.dirty">
         <span class="global__input-error">Must enter Phone Number</span>
@@ -71,7 +75,8 @@
         <ion-input [(ngModel)]="userService?.thisProfile.description"
                    type="text"
                    name="description"
-                   #description="ngModel"></ion-input>
+                   #description="ngModel"
+                   [disabled]="readOnly"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Date of Birth</ion-label>
@@ -79,22 +84,24 @@
                       [(ngModel)]="userService?.thisProfile.dateOfBirth"
                       [pickerOptions]="dateOfBirthOptions"
                       #dateOfBirth="ngModel"
-                      [ngModelOptions]="{standalone: true}"></ion-datetime>
+                      [ngModelOptions]="{standalone: true}"
+                      [disabled]="readOnly"></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label floating>Skills</ion-label>
         <ion-input [(ngModel)]="skill"
                    type="text"
-                   name="skill"></ion-input>
+                   name="skill"
+                   [disabled]="readOnly"></ion-input>
       </ion-item>
-      <button clear [disabled]="skill == ''" ion-button (click)="cancelNew()">Clear</button>
-      <button clear [disabled]="skill == ''" ion-button (click)="addItem(skill)">
+      <button clear [disabled]="skill == '' ||readOnly" ion-button (click)="cancelNew()">Clear</button>
+      <button clear [disabled]="skill == '' ||readOnly" ion-button (click)="addItem(skill)">
         <ion-icon name="add"> Add skill</ion-icon>
       </button>
       <ion-list>
         <ion-item *ngFor="let item of skills; let i = index">
             <span>
-              <button clear (click)="remove(i)">
+              <button clear [disabled]="readOnly" (click)="remove(i)">
                 <ion-icon class="removeRed" name="remove"></ion-icon>
               </button>
               {{item}}
@@ -107,6 +114,6 @@
           [disabled]="profileForm?.invalid">Save
   </button>
   <button *ngIf="hasProfile" class="saveUpdateButtons" outline ion-button (click)="updateProfile()"
-          [disabled]="profileForm?.invalid">Update
+          [disabled]="profileForm?.invalid ||readOnly">Update
   </button>
 </form>
