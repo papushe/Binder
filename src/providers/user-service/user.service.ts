@@ -21,6 +21,7 @@ export class UserService {
   thisHasProfile: boolean = false;
   thisFromCommunityDetails: boolean;
   context: string = 'user';
+  onlineUsers: any = [];
 
   constructor(private _http: HttpClient,
               private auth: AngularFireAuth,
@@ -155,5 +156,12 @@ export class UserService {
   searchUsers(query: string) {
     return this._http
       .get(`${this.baseUrl}/${this.context}/search/${query}`);
+  }
+
+  changeColor(userId) {
+    const updatedIndex = this.onlineUsers.map((member) => {
+      return member
+    }).indexOf(userId);
+    return updatedIndex;
   }
 }

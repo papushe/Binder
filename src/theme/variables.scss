@@ -5,15 +5,12 @@
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
-
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
 // http://ionicframework.com/docs/theming/rtl-support/
 $app-direction: ltr;
 
-
 @import "ionic.globals";
-
 
 // Shared Variables
 // --------------------------------------------------
@@ -21,9 +18,6 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
-
-
-
 
 // Named Color Variables
 // --------------------------------------------------
@@ -34,13 +28,13 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #488aff,
-  secondary:  #9D9D9D,
-  success:    #32db64,
-  danger:     #f53d3d,
+  primary: #488aff,
+  secondary: #9D9D9D,
+  success: #32db64,
+  danger: #f53d3d,
   lightDanger: lightcoral,
-  light:      #f4f4f4,
-  dark:       #222,
+  light: #f4f4f4,
+  dark: #222,
   almostwhite: #fdfdfb
 );
 
@@ -118,7 +112,6 @@ ion-fab-list[side=left] {
   background: #121212 !important;
 }
 
-
 .fab {
   color: #fdfdfb !important;
   //color: #121212 !important;
@@ -130,7 +123,7 @@ ion-fab-list[side=left] {
   color: #fdfdfb !important;
 }
 
-.item-block:last-child{
+.item-block:last-child {
   border-bottom: none !important;
 }
 
@@ -140,6 +133,7 @@ ion-fab-list[side=left] {
   background: #2ab858 !important;
   border: none !important;
 }
+
 .redButton {
   background: #f53d3d !important;
   color: #fdfdfb !important;
@@ -158,7 +152,6 @@ ion-fab-list[side=left] {
   width: 94% !important;
   display: block !important;
 }
-
 
 ion-alert {
   color: #fdfdfb !important;
@@ -205,26 +198,33 @@ ion-alert {
   padding: 10px !important;
 }
 
+.greenStatus {
+  border: 2px solid lime !important;
+}
+
+.redStatus {
+  border: 2px solid red !important;
+}
+
+.greenStatusNoPic {
+  color: lime !important;
+}
+
+.redStatusNoPic {
+  color: red !important;
+}
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
-
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-
-
-
 // App Windows Variables
 // --------------------------------------------------
 // Windows only Sass variables can go here
-
-
-
 
 // App Theme
 // --------------------------------------------------
@@ -235,14 +235,12 @@ ion-alert {
 
 @import "ionic.theme.default";
 
-
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
 // http://ionicframework.com/docs/ionicons/
 
 @import "ionic.ionicons";
-
 
 // Fonts
 // --------------------------------------------------

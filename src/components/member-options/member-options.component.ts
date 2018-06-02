@@ -26,7 +26,7 @@ export class MemberOptionsComponent implements OnInit {
   constructor(private navCtrl: NavController, private navParams: NavParams,
               private communityService: CommunityService,
               private sharedService: SharedService,
-              private userService: UserService,
+              public userService: UserService,
               private socketService: SocketService) {
   }
 

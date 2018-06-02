@@ -22,7 +22,7 @@ export class MembersComponent implements OnInit, OnDestroy {
 
   constructor(private navCtrl: NavController,
               private communityService: CommunityService,
-              private userService: UserService,
+              public userService: UserService,
               private socketService: SocketService,
               private sharedService: SharedService,
               private events: Events) {
@@ -69,7 +69,7 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
       if (this.userService.thisProfile.keyForFirebase == userFromServer) {
         this.userService.thisProfile = data.user;
-        }
+      }
 
     } else if (data.event == 'joined') {
 
@@ -89,7 +89,7 @@ export class MembersComponent implements OnInit, OnDestroy {
 
     }
 
-    if (data.event != 'left' && this.userService.thisProfile.keyForFirebase == (data.user || data.user.keyForFirebase )) {
+    if (data.event != 'left' && this.userService.thisProfile.keyForFirebase == (data.user || data.user.keyForFirebase)) {
 
       this.events.publish('updateCommunities', true);
     }

@@ -1,9 +1,11 @@
 <ion-card>
   <ion-item>
     <div class="pic-wrapper">
-      <img *ngIf="member?.profilePic" class="profile-pic" src="{{ member?.profilePic }}">
+      <img *ngIf="member?.profilePic" class="profile-pic" src="{{ member?.profilePic }}"
+           [ngClass]="userService.changeColor(member.keyForFirebase) !== -1 ? 'greenStatus' : 'redStatus'">
       <span *ngIf="!member?.profilePic" class="profilePic">
-            <ion-icon class="no-pic" name="contact"></ion-icon>
+            <ion-icon class="no-pic" name="contact"
+                      [ngClass]="userService.changeColor(member.keyForFirebase) !== -1 ? 'greenStatusNoPic' : 'redStatusNoPic'"></ion-icon>
           </span>
     </div>
     <p><strong>Name: </strong>{{member?.fullName}}</p>

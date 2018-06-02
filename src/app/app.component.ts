@@ -22,6 +22,7 @@ export class MyApp implements OnInit, OnDestroy {
   tabsSocketClaimedActivityPrivateRoom: any;
   tabsSocketApproveActivityPrivateRoom: any;
   tabsSocketNewNotification: any;
+  socketUsersChanged: any;
   @ViewChild('child') child;
 
   constructor(private userService: UserService,
@@ -57,6 +58,8 @@ export class MyApp implements OnInit, OnDestroy {
     this.approveActivityPrivate();
 
     this.newNotification();
+
+    this.userChanged();
 
   }
 
@@ -192,6 +195,25 @@ export class MyApp implements OnInit, OnDestroy {
           }, () => {
             //done
           })
+      });
+  }
+
+  userChanged() {
+    this.socketUsersChanged = this.socketService.onUserChanged()
+      .subscribe(data => {
+        let userChanged = <any>data,
+          key = userChanged.keyForFirebase;
+        if (userChanged.event == 'joined') {
+          this.userService.onlineUsers.push(key)
+        } else {
+          const updatedIndex = this.userService.onlineUsers.map(function (item) {
+            let key = <any>item;
+            return key;
+          }).indexOf(userChanged.keyForFirebase);
+          if (updatedIndex !== -1) {
+            this.userService.onlineUsers.splice(updatedIndex, 1);
+          }
+        }
       });
   }
 

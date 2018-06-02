@@ -299,6 +299,14 @@ export class SocketService {
     });
   }
 
+  onUserChanged() {
+    return new Observable(observer => {
+      this.socket.on('users-changed', (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
   onDisconnect() {
     this.socket.disconnect();
   }
