@@ -145,7 +145,15 @@ ion-fab-list[side=left] {
   color: #fdfdfb !important;
   border: none !important;
 }
-.redButton, .greenButton {
+
+.midGreenButton {
+  font-weight: bold !important;
+  border: 2px solid #2ab858 !important;
+  background: transparent !important;
+  //border: none !important;
+}
+
+.redButton, .greenButton, .midGreenButton {
   margin: 2% auto 0 auto !important;
   width: 94% !important;
   display: block !important;
@@ -158,18 +166,36 @@ ion-alert {
 
 .alert-head,
 .alert-message,
-.alert-button
-{
+.alert-button,
+.loading-wrapper,
+.alert-wrapper {
   background: #808080 !important;
 }
 
-.alert-button {
+.alert-button,
+.loading-wrapper,
+.alert-wrapper,
+.alert-radio-label {
   color: #fdfdfb !important;
 }
 
-.alert-wrapper{
+.alert-wrapper {
   max-width: 80% !important;
   width: 80% !important;
+}
+
+[aria-checked=true] .alert-radio-label {
+  color: #2ab858 !important;
+}
+
+[aria-checked=true] .alert-radio-inner {
+  border-color: #2ab858 !important;
+}
+
+.text-input-clear-icon {
+  //color: red !important;
+  //border-color: blue !important;
+  //background: green !important;
 }
 
 

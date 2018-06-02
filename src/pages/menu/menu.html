@@ -1,10 +1,10 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>menu</ion-title>
+    <ion-title>Menu</ion-title>
     <ion-buttons end>
-      <button [disabled]="!userService?.thisHasProfile" ion-button icon-only (click)="navigateTo('SearchUsersPage')">
-        <ion-icon name="search" color="dark"></ion-icon>
+      <button [disabled]="!userService?.thisHasProfile" ion-button icon-only  (click)="navigateTo('SearchUsersPage')">
+        <ion-icon name="search" class="searchBtn"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -14,7 +14,7 @@
 
 <ion-content padding class="menu-wrapper">
 
-  <ion-row (click)="navigateTo('ProfilePage')">
+  <ion-row class="firstRow" (click)="navigateTo('ProfilePage')">
     <ion-col class="profile" col-2>
       <img class="profilePic" src="{{ userService?.thisProfile?.profilePic}}">
       <ion-icon class="ionContact" *ngIf="!userService?.thisProfile?.profilePic" name="contact"></ion-icon>
@@ -34,18 +34,18 @@
       <ion-icon name="chatbubbles"></ion-icon>
     </ion-col>
     <ion-col class="menu-tab">
-      <span class="menu-title">Chat</span>
+      <span class="menu-title">Messages</span>
     </ion-col>
   </ion-row>
 
-  <ion-item class="activityLabel" *ngIf="userService?.thisHasProfile">Activities</ion-item>
+  <ion-item class="activityLabel" *ngIf="userService?.thisHasProfile">Activity Settings</ion-item>
 
   <ion-row (click)="navigateTo('UpcomingActivityPage')" *ngIf="userService?.thisHasProfile">
     <ion-col class="profile" col-2>
       <ion-icon name="briefcase"></ion-icon>
     </ion-col>
     <ion-col class="menu-tab">
-      <span class="menu-title">Upcoming</span>
+      <span class="menu-title">Upcoming Activities</span>
     </ion-col>
   </ion-row>
 
@@ -54,9 +54,11 @@
       <ion-icon name="archive"></ion-icon>
     </ion-col>
     <ion-col class="menu-tab">
-      <span class="menu-title">Accomplished</span>
+      <span class="menu-title">Past Activities</span>
     </ion-col>
   </ion-row>
+
+  <ion-item class="activityLabel" *ngIf="userService?.thisHasProfile">Account Settings</ion-item>
 
   <ion-row (click)="deleteProfilePopup()">
     <ion-col class="profile" col-2>

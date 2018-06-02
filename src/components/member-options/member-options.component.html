@@ -19,7 +19,7 @@
       </ion-list>
     </p>
     <span>
-      <button ion-button class="greenButton"
+      <button ion-button class="midGreenButton"
               (click)="talkToUser(member)">Talk to {{member?.fullName}}</button>
     </span>
   </ion-item>
@@ -31,7 +31,7 @@
 </span>
 
 <span *ngIf="(loggedInUser?.keyForFirebase == community?.manager?.id) && !isJoined">
-  <button ion-button (click)="addUser()">Add</button>
+  <button ion-button (click)="addUser()" class="greenButton">Add {{member.firstName}} to community</button>
 </span>
 
 <button *ngIf="fromNotification" class="greenButton" ion-button (click)="approve()">Approve</button>

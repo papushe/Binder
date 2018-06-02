@@ -16,16 +16,16 @@
           <ion-input [(ngModel)]="query"
                      type="text"
                      name="search"
-                     required></ion-input>
+                     required (input)="searchUsers()"></ion-input>
         </ion-item>
       </ion-card-content>
       <ion-row class="register-form__button">
-        <ion-col col-8>
-          <code>Search users by typing their name or a part of it </code>
-        </ion-col>
-        <ion-col col-4>
-          <button ion-button outline (click)="searchUsers()" [disabled]="searchUsersForm.invalid">Search</button>
-        </ion-col>
+        <!--<ion-col col-8>-->
+          <!--<code>Search users by typing their name or a part of it </code>-->
+        <!--</ion-col>-->
+        <!--<ion-col>-->
+          <!--<button ion-button class="midGreenButton" (click)="searchUsers()" [disabled]="searchUsersForm.invalid">Search</button>-->
+        <!--</ion-col>-->
       </ion-row>
     </ion-card>
   </form>
