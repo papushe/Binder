@@ -15,13 +15,13 @@ export class MenuPage {
   }
 
   signOut() {
-    this.userService.signOut();
+    this.signOutPopup();
   }
 
   deleteProfilePopup() {
     let alert = this.alertCtrl.create({
       title: 'Delete Account',
-      message: 'Do you Really want to delete your Account? Enter your password first',
+      message: 'Are you sure want to delete your Account? Enter your password first',
       inputs: [
         {
           name: 'password',
@@ -41,6 +41,29 @@ export class MenuPage {
           text: 'Delete',
           handler: data => {
             this.userService.deleteFromFirebase(this.userService.thisAuthenticatedUser, data.password);
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  signOutPopup() {
+    let alert = this.alertCtrl.create({
+      title: 'Signing Out',
+      message: 'Are you sure you want to sign out?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Im sure',
+          handler: data => {
+            this.userService.signOut();
           }
         }
       ]
