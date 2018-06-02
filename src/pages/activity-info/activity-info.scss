@@ -15,4 +15,32 @@ page-activity-info {
       margin-top: 10% !important;
     }
   }
+
+  .voteUp {
+    color: #2ab858;
+    background: none;
+    font-size: 2em;
+  }
+  .voteDown {
+    color: #f53d3d;
+    background: none;
+    font-size: 2em;
+  }
+  .voteWrapper {
+    margin-top: 20px;
+  }
+  .voteWrapper:nth-child(2) {
+    text-align: right;
+  }
+  .voteWrapper:nth-child(3) {
+    text-align: left;
+  }
+  .voteYourExperience {
+    text-align: center;
+    background: #212020 !important;
+    color: #808080 !important;
+  }
+  .voteYourExperience .item-inner {
+    border: none !important;
+  }
 }

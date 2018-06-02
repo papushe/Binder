@@ -21,7 +21,6 @@ export class ProfileComponent implements OnDestroy {
   myPhotosRef: any;
   myPhoto: any;
   showLoader: boolean = false;
-  hasProfilePicAbdUploadNew: boolean = false;
 
   constructor(public userService: UserService,
               private modalCtrl: ModalController,
@@ -172,8 +171,8 @@ export class ProfileComponent implements OnDestroy {
   takePhoto() {
     const options: CameraOptions = {
       quality: 50,
-      targetWidth: 300,
-      targetHeight: 300,
+      targetWidth: 100,
+      targetHeight: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.CAMERA,
       encodingType: this.camera.EncodingType.PNG,
@@ -193,8 +192,8 @@ export class ProfileComponent implements OnDestroy {
   selectPhoto() {
     const options: CameraOptions = {
       quality: 50,
-      targetWidth: 300,
-      targetHeight: 300,
+      targetWidth: 100,
+      targetHeight: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       encodingType: this.camera.EncodingType.PNG,
@@ -211,16 +210,12 @@ export class ProfileComponent implements OnDestroy {
   }
 
   uploadPhoto(): void {
-    if (this.userService.thisProfile.profilePic) {
-      this.hasProfilePicAbdUploadNew = true;
-    }
     this.showLoader = true;
     this.myPhotosRef.child(`${this.userService.thisAuthenticatedUser.uid}.png`)
       .putString(this.myPhoto, 'base64', {contentType: 'image/png'})
       .then((savedPicture) => {
-        this.hasProfilePicAbdUploadNew = false;
-        this.showLoader = false;
         this.userService.thisProfile.profilePic = savedPicture.downloadURL;
+        this.showLoader = false;
       });
   }
 }

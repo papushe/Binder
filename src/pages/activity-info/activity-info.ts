@@ -37,7 +37,8 @@ export class ActivityInfoPage implements OnInit {
 
   init() {
     this.community = this.navParams.get('community');
-    this.activity = this.navParams.get('activity');
+    let message = this.navParams.get('message');
+    this.activity = this.navParams.get('activity') || message.activity;
   }
 
   editActivity() {
@@ -188,6 +189,34 @@ export class ActivityInfoPage implements OnInit {
       });
       return tempUser;
     }
+  }
+
+
+
+  closeModal() {
+    this.navCtrl.pop();
+  }
+
+  vote(vote) {
+    let Vote = {
+      up: vote === 'up',
+      down: vote === 'down',
+    };
+    this.userService.vote(Vote)
+      .subscribe(
+        data => {
+          console.log(data)
+        },
+        err => {
+          console.log(`error: ${err.message}`);
+        },
+        () => {
+          //done
+          console.log('done');
+          this.closeModal();
+        }
+      );
+
   }
 
 }

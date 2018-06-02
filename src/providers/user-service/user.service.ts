@@ -106,8 +106,8 @@ export class UserService {
 
   vote(vote) {
     const obj = {
-      up: vote.up || false,
-      down: vote.down || false,
+      up: vote.up,
+      down: vote.down,
       userId: this.thisProfile.keyForFirebase
     };
     return this._http

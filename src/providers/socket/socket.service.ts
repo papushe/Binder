@@ -185,6 +185,16 @@ export class SocketService {
     this.socket.emit('approve-activity', params);
   }
 
+  finishActivity(activity) {
+    let params = {
+      from: this.userService.thisProfile,
+      activity: activity,
+      to: activity.consumer
+    };
+
+    this.socket.emit('finish-activity', params);
+  }
+
   onApproveActivity() {
     return new Observable(observer => {
       this.socket.on('on-approve-activity', (data) => {

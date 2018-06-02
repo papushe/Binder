@@ -33,7 +33,7 @@ export class MyApp implements OnInit, OnDestroy {
               private notificationService: NotificationService,
               private events: Events,
               private activityService: ActivityService,
-              private  calendarService:CalendarService) {
+              private  calendarService: CalendarService) {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -115,11 +115,12 @@ export class MyApp implements OnInit, OnDestroy {
         let notification = <any>data;
 
         if (notification.event === 'user-approve-activity' ||
-          notification.event === 'you-approved-activity') {
+          notification.event === 'you-approved-activity' ||
+          notification.event === 'activity-finish') {
 
           this.activityService.getActivities(this.userService.thisAuthenticatedUser);
 
-          if (!notification.isAddToCalender) {
+          if (!notification.isAddToCalender && notification.event !== 'activity-finish') {
             notification.isAddToCalender = true;
 
             this.calendarService.createEvent(notification);

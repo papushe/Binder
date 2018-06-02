@@ -4,13 +4,15 @@
 
       <ion-item>
         <ion-row>
-          <ion-col *ngIf="userService?.thisProfile?.profilePic && !hasProfilePicAbdUploadNew">
+          <ion-col *ngIf="showLoader">
             <ion-item>
-              <img class="profilePic" src="{{ userService?.thisProfile?.profilePic }}">
-            </ion-item>
-            <ion-item *ngIf="showLoader">
               <div class="loader"></div>
               <div class="pleaseComplete">Uploading..</div>
+            </ion-item>
+          </ion-col>
+          <ion-col *ngIf="!showLoader">
+            <ion-item>
+              <img class="profilePic" src="{{ userService?.thisProfile?.profilePic }}">
             </ion-item>
           </ion-col>
           <ion-col>

@@ -41,7 +41,7 @@
           (click)="declineActivity()">Decline Activity
   </button>
   <button ion-button block color="danger" class="redButton"
-          *ngIf="(userService?.thisProfile?.keyForFirebase == activity?.consumer.id || userService?.thisProfile?.keyForFirebase == community?.manager?.id) && (activity?.status?.value !== 'approved' && activity?.status?.value !== 'claimed')"
+          *ngIf="(userService?.thisProfile?.keyForFirebase == activity?.consumer.id || userService?.thisProfile?.keyForFirebase == community?.manager?.id) && (activity?.status?.value !== 'approved' && activity?.status?.value !== 'claimed' && activity?.status?.value !== 'done')"
           (click)="deleteActivityPopUp()">Delete Activity
   </button>
 
@@ -49,6 +49,22 @@
           *ngIf="activity?.consumer?.id !== userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'open'"
           (click)="claimActivity()">Claim
   </button>
+  <ion-row
+    *ngIf="activity?.status?.value === 'done' && activity?.consumer?.id === userService?.thisProfile?.keyForFirebase">
+    <ion-item class="voteYourExperience">Vote your experience</ion-item>
+
+    <ion-col col-6 class="voteWrapper">
+      <button icon-only (click)="vote('up')" class="voteUp">
+        <ion-icon name="thumbs-up"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-6 class="voteWrapper">
+      <button icon-only (click)="vote('down')" class="voteDown">
+        <ion-icon name="thumbs-down"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+
   <ion-card *ngIf="activity?.status?.user_id === userService?.thisProfile?.keyForFirebase" padding>
     <p>Pending to user approval</p>
   </ion-card>

@@ -25,6 +25,9 @@
     </ion-item>
   </ion-card>
 
-  <button ion-button block outline *ngIf="isLive=='live'" (click)="finish()">Finish Activity</button>
+  <button ion-button block outline
+          *ngIf="isLive=='live' &&  activity?.status?.value !=='done' && activity?.provider?.id === userService?.thisProfile?.keyForFirebase "
+          (click)="finish(activity)">Finish Activity
+  </button>
 
 </ion-content>

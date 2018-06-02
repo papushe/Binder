@@ -38,13 +38,15 @@ export class NotificationPage {
       this.navCtrl.push('ChatRoomPage', {message: message});
       this.makeNotificationRead(message, from);
     } else if (message.event == 'user-ask-to-join-private-room') {
-      this.openModal(message, from);
+      this.openModal('MemberOptionsPage', message, from);
     } else if (message.event == 'on-delete-community') {
       this.getCommunities();
       this.makeNotificationRead(message, from);
     } else if (message.event == 'activity-is-about-to-start') {
       this.navCtrl.push('LiveActivityPage');
       this.makeNotificationRead(message, from);
+    } else if (message.event == 'activity-finish') {
+      this.openModal('ActivityInfoPage', message, from);
     } else {
       this.makeNotificationRead(message, from);
     }
@@ -92,8 +94,8 @@ export class NotificationPage {
       });
   }
 
-  openModal(message, from) {
-    let profileModal = this.modalCtrl.create('MemberOptionsPage', {
+  openModal(page, message, from) {
+    let profileModal = this.modalCtrl.create(page, {
       message: message,
       fromNotification: true,
       from: from
