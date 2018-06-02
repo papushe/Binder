@@ -13,8 +13,8 @@ export class SharedService {
 
   constructor(private loading: LoadingController,
               private toast: ToastController) {
-    // this.baseUrl = 'http://localhost:4300';
-    this.baseUrl = 'https://appbinder.herokuapp.com';
+    this.baseUrl = 'http://localhost:4300';
+    // this.baseUrl = 'https://appbinder.herokuapp.com';
   }
 
   createLoader(massage) {
