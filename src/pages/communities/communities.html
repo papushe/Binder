@@ -38,7 +38,7 @@
     <p>Go to `View Your Profile` in order to complete your Registration</p>
   </ion-card>
   <ion-footer *ngIf="!userService?.thisHasProfile">
-    <ion-icon name="arrow-round-down"></ion-icon>
+    <ion-icon class="directionArrow" name="arrow-round-down"></ion-icon>
   </ion-footer>
   <ion-footer *ngIf="showArrow">
     <ion-icon class="noCommunities" name="arrow-round-down"></ion-icon>

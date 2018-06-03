@@ -1,7 +1,21 @@
-.login-form__buttons{
-  padding: 10px;
-  float: right;
-  div button:nth-child(1){
-    margin-right: 10px;
+ion-card {
+  //width: 100% !important;
+  background: #121212 !important;
+  .login-form__buttons{
+    //margin-top: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    //padding: 10px;
+    //float: right;
+
+    div button:nth-child(1){
+      //margin-right: 10px;
+    }
   }
+}
+
+.loginError {
+  font-weight: bolder;
+  padding: 10px 0 10px 16px !important;
+  background: #f53d3d !important;
 }

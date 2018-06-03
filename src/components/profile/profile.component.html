@@ -45,8 +45,8 @@
                    required
                    [disabled]="readOnly"></ion-input>
       </ion-item>
-      <div padding *ngIf="lastName?.invalid && lastName?.dirty">
-        <span class="inputMissing global__input-error">Must enter Last Name</span>
+      <div class="inputMissing" *ngIf="lastName?.invalid && lastName?.dirty">
+        <span class="global__input-error">Must enter Last Name</span>
       </div>
       <ion-item>
         <ion-label floating>Location</ion-label>
@@ -67,8 +67,8 @@
                    required
                    [disabled]="readOnly"></ion-input>
       </ion-item>
-      <div padding *ngIf="phoneNumber?.invalid && phoneNumber?.dirty">
-        <span class="inputMissing global__input-error">Must enter Phone Number</span>
+      <div class="inputMissing" *ngIf="phoneNumber?.invalid && phoneNumber?.dirty">
+        <span class="global__input-error">Must enter Phone Number</span>
       </div>
       <ion-item>
         <ion-label floating>Description</ion-label>
@@ -94,10 +94,14 @@
                    name="skill"
                    [disabled]="readOnly"></ion-input>
       </ion-item>
-      <button clear [disabled]="skill == '' ||readOnly" ion-button (click)="cancelNew()">Clear</button>
-      <button clear [disabled]="skill == '' ||readOnly" ion-button (click)="addItem(skill)">
-        <ion-icon name="add"> Add skill</ion-icon>
-      </button>
+      <ion-item>
+        <button [disabled]="skill == '' ||readOnly" ion-button (click)="cancelNew()">
+          <ion-icon class="skillBtn" name="remove-circle"></ion-icon>
+        </button>
+        <button class="skillBtn" [disabled]="skill == '' ||readOnly" ion-button (click)="addItem(skill)">
+          <ion-icon name="add-circle" class="skillBtn"></ion-icon>
+        </button>
+      </ion-item>
       <ion-list>
         <ion-item *ngFor="let item of skills; let i = index">
             <span>
@@ -110,10 +114,10 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <button *ngIf="!hasProfile" class="saveUpdateButtons" outline ion-button (click)="saveProfile()"
+  <button *ngIf="!hasProfile" class="greenButton" ion-button (click)="saveProfile()"
           [disabled]="profileForm?.invalid">Save
   </button>
-  <button *ngIf="hasProfile" class="saveUpdateButtons" outline ion-button (click)="updateProfile()"
+  <button *ngIf="hasProfile" class="greenButton" ion-button (click)="updateProfile()"
           [disabled]="profileForm?.invalid ||readOnly">Update
   </button>
 </form>

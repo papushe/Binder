@@ -177,6 +177,10 @@ ion-alert {
   width: 80% !important;
 }
 
+.alert-input {
+  color: #212020 !important;
+}
+
 [aria-checked=true] .alert-radio-label {
   color: #2ab858 !important;
 }
@@ -192,28 +196,55 @@ ion-alert {
 }
 
 .inputMissing {
-  color: #212020 !important;
+  //border: 1px solid darkred !important;
+  background: #212020 !important;
+  color: #f53d3d !important;
   font-weight: bolder !important;
   font-size: 15px !important;
-  padding: 10px !important;
+  padding: 5px 0 5px 15px !important;
 }
 
 .greenStatus {
-  border: 2px solid lime !important;
+  border: 2px solid #2ab858 !important;
 }
 
 .redStatus {
-  border: 2px solid red !important;
+  border: 2px solid #f53d3d !important;
 }
 
 .greenStatusNoPic {
-  color: lime !important;
+  color: #2ab858 !important;
 }
 
 .redStatusNoPic {
-  color: red !important;
+  color: #f53d3d !important;
 }
 
+.tab-badge {
+  background: #cc0000 !important;
+}
+
+.directionArrow {
+  color: #2ab858 !important;
+}
+
+.picker-toolbar {
+  color: brown !important;
+  background: #808080 !important;
+}
+
+.picker-wrapper {
+  color: red !important;
+  background: #808080 !important;
+}
+
+.picker-above-highlight {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%, #808080), to(rgba(255, 255, 255, 0.7))) !important;
+}
+
+.picker-below-highlight {
+  background: linear-gradient(to top, #808080 30%, rgba(255, 255, 255, 0.7) 100%) !important;
+}
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

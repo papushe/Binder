@@ -61,7 +61,7 @@ export class MenuPage {
           }
         },
         {
-          text: 'Im sure',
+          text: 'Sign Out',
           handler: data => {
             this.userService.signOut();
           }

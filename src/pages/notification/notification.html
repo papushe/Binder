@@ -11,19 +11,19 @@
     <p>No Notifications</p>
   </ion-card>
   <ion-card *ngFor="let notification of notificationService?.notifications; let i = index" class="notifications">
-    <ion-icon class="deleteNotification" name="close" (click)="deleteNotification(notification,i)"></ion-icon>
     <button class="notification" readonly (click)="handleNotificationEvent(notification,i)"
             [disabled]="notification?.status ==='done'">
       <ion-item>
+        <ion-icon class="deleteNotification" name="close" (click)="deleteNotification(notification,i)"></ion-icon>
         <ion-row>
           <ion-col col-9>
-            <p>From: {{notification?.from?.fullName}}</p>
+            <p>{{notification?.from?.fullName}}</p>
             <p *ngIf="notification?.content">{{notification?.content}}</p>
             <p>{{notification?.event}}</p>
-            <p>[{{i}}] - {{notification?.creation_date}}</p>
+            <p>{{notification?.creation_date}}</p>
           </ion-col>
           <ion-col>
-            <p>{{notification?.status ==='done' ? 'read':'unread'}}</p>
+            <!--<p>{{notification?.status ==='done' ? 'read':'unread'}}</p>-->
           </ion-col>
         </ion-row>
       </ion-item>

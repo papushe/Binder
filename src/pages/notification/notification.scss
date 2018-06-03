@@ -1,13 +1,32 @@
 page-notification {
   .notifications {
-    width: 100% !important;
-    margin: 0 !important;;
+    //width: 100% !important;
+    //margin: 0 !important;;
     padding: 0 !important;;
   }
-  ion-item {
-    padding: 1px 0 0 1px !important;
-    background: aliceblue !important;
+  ion-card {
+    margin-top: 14px !important;
+    border: 1px solid #808080 !important;
+    border-radius: 6px !important;
+    button {
+      background: #212020 !important;
+    }
+    color: red;
+    ion-item {
+      padding: 1px 0 0 1px !important;
+      background: #212020 !important;
+      p {
+        font-size: 17px !important;
+        color: #fdfdfb !important;
+        font-weight: normal;
+      }
+      p:first-child {
+        font-weight: bolder;
+      }
+    }
   }
+
+
   .notification {
     border: none;
     padding: 0;
@@ -21,11 +40,16 @@ page-notification {
     }
   }
   .deleteNotification {
-    font-size: 1.5em;
+    background: #212020 !important;
+    font-size: 2.2em;
     color: red;
     font-weight: bold;
     position: absolute;
-    left: 5px;
+    right: 10px;
+    top: 60px;
     z-index: 1;
+  }
+
+  .item-inner {
   }
 }

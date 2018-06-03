@@ -1,6 +1,5 @@
-.removeRed{
-  color: red;
-}
+
+
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -8,49 +7,61 @@
   width: 80px;
   height: 80px;
   animation: spin 2s linear infinite;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 /* Safari */
 @-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-.pleaseComplete{
+
+.pleaseComplete {
   margin-top: 10px;
   text-align: center;
   color: gray;
   font-size: 14px;
 }
 
-.profilePic{
+.profilePic {
   width: 100px;
   border-radius: 50%;
 
 }
 
-.takePicture{
+.takePicture {
   color: #fdfdfb !important;
   font-size: 35px;
   //float: left;
   margin-top: 45px;
   margin-right: 20px;
 }
-.uploadPicture{
+
+.uploadPicture {
   color: #fdfdfb !important;
   font-size: 35px;
   //float: right;
   margin-top: 45px;
 }
-ion-col{
+
+ion-col {
   text-align: center;
 }
-.saveUpdateButtons{
+
+.saveUpdateButtons {
   width: 100%;
   margin: 0;
   border-left: 0;
@@ -58,10 +69,35 @@ ion-col{
 }
 
 ion-item {
+  ion-label {
+    margin: 0 !important;
+  }
   color: #808080 !important;
   background: #212020 !important;
   ion-label {
     color: #fdfdfb !important;
     font-weight: bolder !important;
   }
+  button {
+    height: 35px !important;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 25px !important;
+    font-weight: bold;
+    background: None !important;
+    .skillBtn {
+      color: #fdfdfb !important;
+
+      //color: yellow !important;
+    }
+  }
+
+  .removeRed {
+    color: red;
+    font-weight: bolder;
+    background: #fdfdfb !important;
+  }
+
+}
+.button-inner {
+  color: #fdfdfb;
 }
