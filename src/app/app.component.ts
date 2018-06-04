@@ -207,8 +207,7 @@ export class MyApp implements OnInit, OnDestroy {
           this.userService.onlineUsers.push(key)
         } else {
           const updatedIndex = this.userService.onlineUsers.map(function (item) {
-            let key = <any>item;
-            return key;
+            return <any>item;
           }).indexOf(userChanged.keyForFirebase);
           if (updatedIndex !== -1) {
             this.userService.onlineUsers.splice(updatedIndex, 1);
