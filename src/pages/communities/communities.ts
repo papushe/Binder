@@ -10,9 +10,10 @@ import {UserService} from "../../providers/user-service/user.service";
 export class CommunitiesPage implements OnInit {
 
   @ViewChild('child') child;
-  showArrow: boolean;
+  showArrow: boolean = false;
   date = new Date();
   updateTime: any;
+  showDirection: boolean = false;
 
   constructor(private navCtrl: NavController,
               private navParams: NavParams,
