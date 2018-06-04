@@ -99,7 +99,7 @@ export class MyApp implements OnInit, OnDestroy {
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
-            console.log(`Faild to save notification, ${err}`)
+            console.log(`Failed to save notification, ${err}`)
           }, () => {
             //done
           })

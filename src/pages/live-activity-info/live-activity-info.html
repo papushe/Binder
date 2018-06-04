@@ -29,5 +29,8 @@
           *ngIf="isLive=='live' &&  activity?.status?.value !=='done' && activity?.provider?.id === userService?.thisProfile?.keyForFirebase "
           (click)="finish(activity)">Finish Activity
   </button>
+  <button ion-button block outline *ngIf="activity?.status?.value ==='approved'"
+          (click)="cancel(activity)">Cancel Activity
+  </button>
 
 </ion-content>

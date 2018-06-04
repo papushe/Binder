@@ -8,6 +8,7 @@ import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 import {Community} from "../../models/community/community.interface";
 import {CalendarService} from "../../providers/calendar-service/calendar-service";
+import {ActivityService} from "../../providers/activity-service/activity-service";
 
 @IonicPage()
 @Component({
@@ -25,7 +26,8 @@ export class NotificationPage {
               private calendarService: CalendarService,
               private userService: UserService,
               private socketService: SocketService,
-              private modalCtrl: ModalController) {
+              private modalCtrl: ModalController,
+              private activityService: ActivityService) {
   }
 
   ionViewDidEnter() {
@@ -47,6 +49,9 @@ export class NotificationPage {
       this.makeNotificationRead(message, from);
     } else if (message.event == 'activity-finish') {
       this.openModal('ActivityInfoPage', message, from);
+    } else if (message.event == 'activity-canceled') {
+      this.activityService.getActivities(this.userService.thisAuthenticatedUser);
+      this.makeNotificationRead(message, from);
     } else {
       this.makeNotificationRead(message, from);
     }

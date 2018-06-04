@@ -4,6 +4,7 @@ import {Activity} from "../../models/activity/activity.interface";
 import {ActivityService} from "../../providers/activity-service/activity-service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
+import {SharedService} from "../../providers/shared/shared.service";
 
 /**
  * Generated class for the LiveActivityInfoPage page.
@@ -26,7 +27,8 @@ export class LiveActivityInfoPage {
               private navParams: NavParams,
               private activityService: ActivityService,
               public userService: UserService,
-              private socketService: SocketService) {
+              private socketService: SocketService,
+              private sharedService: SharedService) {
     this.activity = this.navParams.get('activity');
     this.isLive = this.navParams.get('isLive');
   }
@@ -44,5 +46,24 @@ export class LiveActivityInfoPage {
         console.log('done finish')
       })
   }
+
+  cancel(activity) {
+    let Activity = activity;
+    this.activityService.cancel(activity._id, activity.provider.id)
+      .subscribe((data) => {
+        console.log(data);
+        this.sharedService.createToast(`You canceled ${Activity.activity_name} activity`);
+        this.activityService.getActivities(this.userService.thisAuthenticatedUser);
+        this.socketService.cancelActivity(<Activity>Activity);
+        this.navCtrl.pop().then(() => {
+          this.navCtrl.pop();
+        });
+      }, (err) => {
+        console.log(err)
+      }, () => {
+        console.log('done finish')
+      })
+  }
+
 
 }

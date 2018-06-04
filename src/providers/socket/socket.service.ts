@@ -195,6 +195,15 @@ export class SocketService {
     this.socket.emit('finish-activity', params);
   }
 
+  cancelActivity(activity) {
+    let params = {
+      from: this.userService.thisProfile,
+      activity: activity
+    };
+
+    this.socket.emit('cancel-activity', params);
+  }
+
   onApproveActivity() {
     return new Observable(observer => {
       this.socket.on('on-approve-activity', (data) => {
