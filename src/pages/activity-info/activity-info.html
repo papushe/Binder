@@ -25,8 +25,12 @@
     <ion-card-header>Source: {{activity?.source}}</ion-card-header>
     <ion-card-header *ngIf="activity?.destination">Destination: {{activity?.destination}}</ion-card-header>
 
-    <button ion-button block (click)="openSearchPage(activity?.status?.fullName)"
-            *ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == userService?.thisProfile?.keyForFirebase">
+    <!--<button ion-button block (click)="openSearchPage(activity?.status?.fullName)"-->
+            <!--*ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == userService?.thisProfile?.keyForFirebase">-->
+      <!--Claimed-->
+      <!--By: {{activity?.status?.fullName}}-->
+    <!--</button>-->
+    <button ion-button class="midGreenButton" block (click)="openSearchPage(activity?.status?.fullName)">
       Claimed
       By: {{activity?.status?.fullName}}
     </button>
@@ -66,10 +70,10 @@
   </ion-row>
 
   <ion-card *ngIf="activity?.status?.user_id === userService?.thisProfile?.keyForFirebase" padding>
-    <p>Pending to user approval</p>
+    <p class="extraInfo">Pending user's approval</p>
   </ion-card>
   <ion-card *ngIf="activity?.status?.value === 'approved'" padding>
-    <p>This activity was approved</p>
+    <p class="extraInfo">Activity successfully approved</p>
   </ion-card>
 </ion-content>
 

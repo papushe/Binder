@@ -29,4 +29,22 @@ member-options {
   ion-list {
     margin-left: 15px !important;
   }
+
+  .button-inner {
+    font-size: 0.8em !important;
+  }
+  ion-card {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+}
+
+ion-card {
+  .extraInfo {
+    font-size: 1.4em !important;
+    color: #fdfdfb !important;
+    font-weight: bolder !important;
+    text-align: center !important;
+  }
 }

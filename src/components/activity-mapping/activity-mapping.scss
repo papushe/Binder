@@ -1,7 +1,33 @@
 activity-mapping {
-  .addToCalenderButton {
-    border: none;
-    padding: 0;
-    width: 100%;
+  * {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  ion-card {
+    background: #212020 !important;
+    width: 98% !important;
+    //margin-top: 10px !important;
+    margin: 10px auto 0 auto !important;
+    border: 2px solid #2ab858 !important;
+    border-radius: 5px !important;
+    padding: 2px !important;
+    ion-item {
+      p {
+        color: #fdfdfb !important;
+        font-size: 0.9em !important;
+      }
+      p:nth-child(1) {
+        font-size: 1.3em !important;
+        text-align: center !important;
+      }
+      p:nth-child(2) {
+        //font-size: 1.2em !important;
+      }
+    }
+    .addToCalenderButton {
+      border: none;
+      padding: 0;
+      width: 100%;
+    }
   }
 }

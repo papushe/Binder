@@ -1,5 +1,5 @@
 <form #activityForm="ngForm" novalidate>
-  <ion-card>
+  <ion-item>
     <ion-card-content>
       <ion-item>
         <ion-label>Name:</ion-label>
@@ -48,10 +48,10 @@
                     #activityRecurring="ngModel"
                     name="activityRecurring"
                     required>
-          <ion-option value="once">Once</ion-option>
-          <ion-option value="daily">Daily</ion-option>
-          <ion-option value="weekly">Weekly</ion-option>
-          <ion-option value="monthly">Monthly</ion-option>
+          <ion-option value="Once">Once</ion-option>
+          <ion-option value="Daily">Daily</ion-option>
+          <ion-option value="Weekly">Weekly</ion-option>
+          <ion-option value="Monthly">Monthly</ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
@@ -88,7 +88,7 @@
         </ion-input>
       </ion-item>
     </ion-card-content>
-  </ion-card>
+  </ion-item>
   <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" class="greenButton"
           [disabled]="activityForm?.invalid" *ngIf='!currentActivity'>Create Activity
   </button>
