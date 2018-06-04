@@ -5,10 +5,12 @@
   <ion-tab [root]="tab2Root"
            tabIcon="notifications"
            [tabBadge]="notificationService?.notificationNumber"
-           tabTitle="Notifications"></ion-tab>
+           tabTitle="Notifications"
+           [enabled]="userService.thisHasProfile"></ion-tab>
   <ion-tab [root]="tab3Root"
            tabIcon="walk"
-           tabTitle="Activities"></ion-tab>
+           tabTitle="Activities"
+           [enabled]="userService.thisHasProfile"></ion-tab>
   <ion-tab [root]="tab4Root"
            tabIcon="menu"
            tabTitle=""></ion-tab>

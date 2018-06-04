@@ -24,7 +24,7 @@ export class TabsPage implements OnInit, OnDestroy {
   constructor(private notificationService: NotificationService,
               private events: Events,
               private sharedService: SharedService,
-              private userService: UserService,
+              public userService: UserService,
               private calenderService: CalendarService) {
   }
 
