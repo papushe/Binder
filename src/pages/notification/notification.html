@@ -18,7 +18,7 @@
           <ion-col col-9>
             <p>{{notification?.from?.fullName}}</p>
             <p *ngIf="notification?.content">{{notification?.content}}</p>
-            <p>{{notification?.creation_date}}</p>
+            <p>{{notification?.creation_date | convertDate}}</p>
           </ion-col>
           <ion-col>
           </ion-col>

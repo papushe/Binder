@@ -16,7 +16,7 @@ export interface Notification {
   room: string,
   event: string,
   content: string,
-  creation_date: string,
+  creation_date: number,
   status: string,
   activity: Activity
   user: Profile,
