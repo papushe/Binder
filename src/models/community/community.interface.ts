@@ -2,7 +2,7 @@ export interface Community {
   _id: string,
   communityName: string,
   communityDescription: string,
-  creationDate: string,
+  creationDate: number,
   manager: {
     id: string,
     name: string,
