@@ -1,5 +1,5 @@
 <form #activityForm="ngForm" novalidate>
-  <ion-item>
+  <ion-card>
     <ion-card-content>
       <ion-item>
         <ion-label>Name:</ion-label>
@@ -88,7 +88,7 @@
         </ion-input>
       </ion-item>
     </ion-card-content>
-  </ion-item>
+  </ion-card>
   <button ion-button class="create-new-activity-btn" (click)="createActivity('create')" class="greenButton"
           [disabled]="activityForm?.invalid" *ngIf='!currentActivity'>Create Activity
   </button>
