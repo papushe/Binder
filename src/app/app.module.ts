@@ -31,8 +31,8 @@ import { NotificationService } from '../providers/notitfication/notification.ser
 import { MessageService } from '../providers/message/message';
 import { CalendarService } from '../providers/calendar-service/calendar-service';
 
-// const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
-const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
+const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
+// const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
 
 @NgModule({
   declarations: [
