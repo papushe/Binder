@@ -36,6 +36,7 @@ export class ChatRoomPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
     this.init();
 
     this.handleSockets();
@@ -48,7 +49,9 @@ export class ChatRoomPage implements OnInit, OnDestroy {
 
   init() {
     this.paramsFromUserToTalk = this.navParams.get('message'); //from notification
+
     this.userToTalk = this.navParams.get('member'); //select from community
+
     this.chatWith = this.navParams.get('chat'); //from chats tab
 
     if (this.userToTalk) { //if userToTalk - check if chat with him
@@ -113,20 +116,34 @@ export class ChatRoomPage implements OnInit, OnDestroy {
 
   checkIfAlreadyChat(type) {
     if (type === 'enter') {
-      let flag: boolean = false;
+      let noChat: boolean = false,
+        haveChat: boolean = false;
       if (this.userService.thisProfile.chats && this.userService.thisProfile.chats.length > 0) { // if this user and i have chat
         this.userService.thisProfile.chats.map((chat) => {
           if (chat.talkedToName === this.userToTalk.fullName || chat.talkedFromName === this.userToTalk.fullName) {
             this.alreadyChat = chat;
             this.enterToChatRoom(chat.chatRoomId, this.userToTalk, this.userService.thisProfile);
+            haveChat = true;
           } else {
-            flag = true;
+            noChat = true;
           }
         })
       } else {
-        flag = true;
+        noChat = true;
       }
-      if (flag) {
+      if (!haveChat && this.userToTalk.chats && this.userToTalk.chats.length > 0) {
+        this.userToTalk.chats.map((chat) => {
+          if (chat.talkedToName === this.userToTalk.fullName || chat.talkedFromName === this.userToTalk.fullName) {
+            this.alreadyChat = chat;
+            this.enterToChatRoom(chat.chatRoomId, this.userToTalk, this.userService.thisProfile);
+            this.saveChat(chat.chatRoomId, this.userToTalk); // else save chat
+            noChat = false;
+          }
+        })
+      }
+
+
+      if (noChat) {
         this.saveChat(this.randomNumberRoom, this.userToTalk); // else save chat
         this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.userService.thisProfile);
       }

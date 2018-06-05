@@ -17,7 +17,7 @@
                [ngClass]="{'my_message': message?.from === userService?.thisProfile?.fullName, 'other_message': message?.from !== userService?.thisProfile?.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message?.from }}:</span>
-          <div col-6 class="time">{{message?.date | date:'dd.MM hh:MM'}}</div>
+          <div col-6 class="time">{{message?.date | date:'short'}}</div>
         </ion-row>
 
         <div class="chatText">{{ message?.text }}</div>
@@ -28,7 +28,7 @@
                [ngClass]="{'my_message': message?.from === userService?.thisProfile?.fullName, 'other_message': message?.from !== userService?.thisProfile?.fullName}">
         <ion-row>
           <span col-6 class="user_name">{{ message?.from }}:</span>
-          <div col-6 class="time">{{message?.date | date:'dd.MM hh:MM'}}</div>
+          <div col-6 class="time">{{message?.date | date:'short'}}</div>
         </ion-row>
 
         <div class="chatText">{{ message?.text }}</div>

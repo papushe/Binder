@@ -94,7 +94,8 @@ ion-item {
   .removeRed {
     color: red;
     font-weight: bolder;
-    background: #fdfdfb !important;
+    background: none !important;
+    vertical-align: sub;
   }
 
 }

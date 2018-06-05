@@ -32,6 +32,7 @@ page-chat-room {
     text-align: left;
     font-size: 17px;
     margin-left: 6px;
+    color: white;
   }
 
   ion-toolbar {
@@ -39,7 +40,10 @@ page-chat-room {
       background: #212020 !important;
     }
     ion-input {
-      background: #fdfdfb !important;
+      //background: #fdfdfb !important;
+      padding-left: 10px;
+      background: #808080 !important;
+      color: white !important;
     }
     .sendBtn {
       background: #2ab858 !important;

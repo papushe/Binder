@@ -15,8 +15,10 @@
     <ion-item *ngFor="let chat of userService?.thisProfile?.chats" (click)="chatWith(chat)">
       <ion-row>
         <ion-col class="profile" col-2>
-          <img class="profilePic" src="{{ chat?.profilePic}}">
-          <ion-icon *ngIf="!chat?.profilePic" name="contact"></ion-icon>
+          <img *ngIf="chat?.profilePic" class="profilePic" src="{{ chat?.profilePic}}"
+               [ngClass]="userService.changeColor(chat?.talkedToId) !== -1 ? 'greenStatus' : 'redStatus'">
+          <ion-icon *ngIf="!chat?.profilePic" name="contact"
+                    [ngClass]="userService.changeColor(chat?.talkedToId) !== -1 ? 'greenStatusNoPic' : 'redStatusNoPic'"></ion-icon>
         </ion-col>
         <ion-col class="chat-tab">
           <h2 class="chat-with">{{chat?.talkedToName}}</h2>

@@ -159,8 +159,10 @@ export class UserService {
   }
 
   changeColor(userId) {
-    return this.onlineUsers.map((member) => {
-      return member
-    }).indexOf(userId);
+    if (this.onlineUsers) {
+      return this.onlineUsers.map((member) => {
+        return member
+      }).indexOf(userId);
+    }
   }
 }
