@@ -6,6 +6,7 @@ export interface Profile {
   phoneNumber: string,
   description?: string,
   dateOfBirth: Date,
+  creationDate: number,
   $key: string,
   skills?: [string],
   keyForFirebase: string,
