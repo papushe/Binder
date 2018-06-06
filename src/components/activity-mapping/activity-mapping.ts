@@ -13,32 +13,6 @@ export class ActivityMappingComponent {
   constructor(private navCtrl: NavController) {
   }
 
-  // addToCalender(activity) {
-  //   let Activity: any = activity;
-  //   if (Activity.status.value === 'approved') {
-  //     let alert = this.alertCtrl.create({
-  //       title: 'Add this activity to calender?',
-  //       message: `Do you want to add this activity ${Activity.activity_name} to your calender?`,
-  //       buttons: [
-  //         {
-  //           text: 'Decline',
-  //           role: 'cancel',
-  //           handler: () => {
-  //             console.log('cancel')
-  //           }
-  //         },
-  //         {
-  //           text: 'Approve',
-  //           handler: () => {
-  //             //TODO @naor you can add here
-  //           }
-  //         }
-  //       ]
-  //     });
-  //     alert.present();
-  //   }
-  // }
-
   showData(activity) {
     this.navCtrl.push('LiveActivityInfoPage', {activity: activity, isLive: activity.status.value});
   }

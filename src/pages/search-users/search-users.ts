@@ -36,39 +36,34 @@ export class SearchUsersPage implements OnInit {
   }
 
   searchUsers() {
-    // this.sharedService.createLoader('Searching Users...');
-    // this.sharedService.loader.present().then(
-    //   () => {
-        if (this.query === '') {
-          this.noUsersFound = '';
-          this.users = [];
-        }
-        else {
-          this.userService.searchUsers(this.query)
-            .subscribe(
-              data => {
-                if (!data || data == 0) {
-                  this.foundResults = false;
-                  this.noUsersFound = 'No users found, try again';
-                  this.users = <Profile[]>data;
-                }
-                else {
-                  this.users = <Profile[]>data;
-                  this.foundResults = true;
-                  this.noUsersFound = '';
-                  // this.query = '';
-                }
-              },
-              err => {
-                console.log(`error: ${err.message}`);
-              },
-              () => {
-                //done
-                // this.sharedService.loader.dismiss();
-              }
-            );
-        }
-      // });
+    if (this.query === '') {
+      this.noUsersFound = '';
+      this.users = [];
+    }
+    else {
+      this.userService.searchUsers(this.query)
+        .subscribe(
+          data => {
+            if (!data || data == 0) {
+              this.foundResults = false;
+              this.noUsersFound = 'No users found, try again';
+              this.users = <Profile[]>data;
+            }
+            else {
+              this.users = <Profile[]>data;
+              this.foundResults = true;
+              this.noUsersFound = '';
+              // this.query = '';
+            }
+          },
+          err => {
+            console.log(`error: ${err.message}`);
+          },
+          () => {
+            //done
+          }
+        );
+    }
   }
 
   openOptions(user: Profile) {

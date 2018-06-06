@@ -1,7 +1,4 @@
 page-search-users {
-  .results {
-    margin-left: 15px;
-  }
   .profile {
     ion-icon {
       display: block;
@@ -19,9 +16,5 @@ page-search-users {
   ion-item, ion-card {
     background: #212020 !important;
     color: #808080 !important;
-  }
-
-  ion-col {
-      //color: red;
   }
 }

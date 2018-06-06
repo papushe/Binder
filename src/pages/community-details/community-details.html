@@ -36,7 +36,6 @@
     </button>
     <ion-fab-list side="top">
 
-      <!--<span  *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile.keyForFirebase" class="fabName">Search Users</span>-->
       <button ion-fab (click)="addMembers(fab)"
               *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile?.keyForFirebase">
         <ion-icon name="search"></ion-icon>
@@ -48,7 +47,6 @@
 
       </button>
 
-      <!--<span   *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile.keyForFirebase" class="fabName">Delete Community</span>-->
       <button ion-fab (click)="deletePopup(fab)"
               *ngIf="isJoined && communityService?.thisSelectedCommunity?.manager?.id == userService?.thisProfile?.keyForFirebase">
         <ion-icon name="trash"></ion-icon>

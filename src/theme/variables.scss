@@ -38,6 +38,10 @@ $colors: (
   almostwhite: #fdfdfb
 );
 
+.searchCommunityUser{
+  padding: 0 0 20px 10px !important;
+}
+
 ion-app .scroll-content {
   padding: 0 !important;
 }
@@ -51,8 +55,7 @@ ion-app .scroll-content {
 }
 
 .highLight {
-  background: #10FDFF !important; //TODO check
-  //border: 5px solid yellow !important;
+  background: #10FDFF !important;
 }
 
 .arrows {
@@ -62,6 +65,13 @@ ion-app .scroll-content {
 
 .pointer {
   cursor: pointer;
+  padding: 16px;
+}
+
+.results {
+  margin-left: 15px;
+  margin-bottom: 10px;
+  color:#fdfdfb ;
 }
 
 ion-fab {
@@ -114,8 +124,6 @@ ion-fab-list[side=left] {
 
 .fab {
   color: #fdfdfb !important;
-  //color: #121212 !important;
-  //background: #fdfdfb !important;
   background: #2ab858 !important;
 }
 
@@ -144,7 +152,6 @@ ion-fab-list[side=left] {
   font-weight: bold !important;
   border: 2px solid #2ab858 !important;
   background: transparent !important;
-  //border: none !important;
 }
 
 .redButton, .greenButton, .midGreenButton {
@@ -189,14 +196,7 @@ ion-alert {
   border-color: #2ab858 !important;
 }
 
-.text-input-clear-icon {
-  //color: red !important;
-  //border-color: blue !important;
-  //background: green !important;
-}
-
 .inputMissing {
-  //border: 1px solid darkred !important;
   background: #212020 !important;
   color: #f53d3d !important;
   font-weight: bolder !important;

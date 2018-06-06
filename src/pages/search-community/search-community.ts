@@ -23,31 +23,31 @@ export class SearchCommunityPage {
   }
 
   searchCommunity() {
-    this.sharedService.createLoader('Searching Communities...');
-    this.sharedService.loader.present().then(
-      () => {
-        this.communityService.searchCommunity(this.search)
-          .subscribe(
-            data => {
-              if (!data || data == 0) {
-                this.hasCommunity= false;
-                this.noCommunityFound = 'No communities found, try again';
-              } else {
-                this.searchCommunities = <Community[]>data;
-                this.hasCommunity = true;
-                this.noCommunityFound = '';
-                this.search = '';
-              }
-            },
-            err => {
-              console.log(`error: ${err.message}`);
-            },
-            () => {
-              //done
-              this.sharedService.loader.dismiss();
+    if (this.search === '') {
+      this.noCommunityFound = '';
+      this.searchCommunities = [];
+    } else {
+      this.communityService.searchCommunity(this.search)
+        .subscribe(
+          data => {
+            if (!data || data == 0) {
+              this.hasCommunity = false;
+              this.noCommunityFound = 'No communities found, try again';
+            } else {
+              this.searchCommunities = <Community[]>data;
+              this.hasCommunity = true;
+              this.noCommunityFound = '';
             }
-          );
-      });
+          },
+          err => {
+            console.log(`error: ${err.message}`);
+          },
+          () => {
+            //done
+            this.sharedService.loader.dismiss();
+          }
+        );
+    }
   }
 
   openCommunity(community) {

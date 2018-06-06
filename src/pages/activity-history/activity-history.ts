@@ -5,13 +5,6 @@ import {Activity} from "../../models/activity/activity.interface";
 import {Profile} from "../../models/profile/profile.interface";
 import {ActivityService} from "../../providers/activity-service/activity-service";
 
-/**
- * Generated class for the ActivityHistoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-activity-history',

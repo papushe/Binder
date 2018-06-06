@@ -11,28 +11,21 @@
   <form #searchCommunityForm="ngForm" novalidate>
     <ion-card>
       <ion-card-content>
-        <ion-item>
+        <ion-item class="searchCommunityUser">
           <ion-label floating>Search for community</ion-label>
           <ion-input [(ngModel)]="search"
                      type="text"
                      name="search"
-                     required></ion-input>
+                     required
+                     (input)="searchCommunity()"></ion-input>
         </ion-item>
       </ion-card-content>
-      <ion-row class="register-form__button">
-        <ion-col col-8>
-          <code>Search communities by typing their name or a part of it </code>
-        </ion-col>
-        <ion-col col-4>
-          <button ion-button outline (click)="searchCommunity()" [disabled]="searchCommunityForm.invalid">Search
-          </button>
-        </ion-col>
-      </ion-row>
     </ion-card>
   </form>
-  <hr>
   <ion-list *ngIf="hasCommunity">
-    <span class="results">Found {{searchCommunities?.length}} result(s)</span>
+    <ion-row>
+      <span class="results">Found {{searchCommunities?.length}} result(s)</span>
+    </ion-row>
     <ion-item class="pointer" *ngFor="let community of searchCommunities" (click)="openCommunity(community)">
       <h2>{{community?.communityName}}</h2>
       <p>{{community?.communityDescription}}</p>

@@ -11,9 +11,7 @@ page-chat-room {
     margin-bottom: 4px !important;
   }
   .my_message {
-    //background: color($colors, primary) !important;
     background: #2ab858 !important;
-    //color: #000 !important;
   }
   .other_message {
     background: #212020 !important;
@@ -23,7 +21,6 @@ page-chat-room {
     font-size: 14px;
     color: #fdfdfb;
     text-align: right;
-    //font-size: small;
   }
   .message_row {
     background-color: #fff;
@@ -40,7 +37,6 @@ page-chat-room {
       background: #212020 !important;
     }
     ion-input {
-      //background: #fdfdfb !important;
       padding-left: 10px;
       background: #808080 !important;
       color: white !important;

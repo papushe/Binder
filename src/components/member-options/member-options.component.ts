@@ -105,7 +105,6 @@ export class MemberOptionsComponent implements OnInit {
     this.communityService.removeUserFromWaitingList(message.room, message.from.keyForFirebase)
       .subscribe(data => {
         this.sendUserDeclineNotification(message);
-        // this.makeNotificationRead(message, from);
         console.log(data);
       }, err => {
         console.log(err.message);

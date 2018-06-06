@@ -11,25 +11,18 @@
   <form #searchUsersForm="ngForm" novalidate>
     <ion-card>
       <ion-card-content>
-        <ion-item>
+        <ion-item class="searchCommunityUser">
           <ion-label floating>Search Users</ion-label>
           <ion-input [(ngModel)]="query"
                      type="text"
                      name="search"
-                     required (input)="searchUsers()"></ion-input>
+                     required
+                     (input)="searchUsers()"></ion-input>
         </ion-item>
       </ion-card-content>
-      <ion-row class="register-form__button">
-        <!--<ion-col col-8>-->
-          <!--<code>Search users by typing their name or a part of it </code>-->
-        <!--</ion-col>-->
-        <!--<ion-col>-->
-          <!--<button ion-button class="midGreenButton" (click)="searchUsers()" [disabled]="searchUsersForm.invalid">Search</button>-->
-        <!--</ion-col>-->
-      </ion-row>
     </ion-card>
   </form>
-  <hr>
+
   <ion-list *ngIf="foundResults">
     <ion-row>
       <span class="results">Found {{users?.length}} result(s)</span>

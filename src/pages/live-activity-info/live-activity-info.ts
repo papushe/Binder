@@ -6,13 +6,6 @@ import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 import {SharedService} from "../../providers/shared/shared.service";
 
-/**
- * Generated class for the LiveActivityInfoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-live-activity-info',

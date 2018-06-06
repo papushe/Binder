@@ -2,16 +2,12 @@ page-menu {
   ion-content:first-child {
     margin-top: 3%;
   }
-  //font-size: 130%;
   ion-row {
     .menu-tab .menu-title {
       font-size: 16px !important;
     }
     border-bottom: 3px solid #212020;
-    //font-size: 20px;
-    //background: #212020 !important;
     color: #fdfdfb !important;
-    //border-bottom: 1px solid gainsboro;
     ion-icon {
       font-size: 2em;
     }
@@ -44,17 +40,11 @@ page-menu {
   .menu-wrapper .menu-title {
     margin-top: 6px !important;
   }
-
-  ion-row:nth-child(1), ion-row:nth-child(2), ion-row:nth-child(5) {
-    //border-bottom: 5px solid gainsboro;
-  }
-
   .activityLabel {
     .item-inner {
       border: none !important;
     }
     background: #212020;
-    //display: none;
     min-height: 20px;
     font-weight: bolder;
     font-size: 12px;
@@ -82,9 +72,5 @@ page-menu {
   ion-row:nth-child(1) {
     margin-top: 2%;
     margin-bottom: 8%;
-  }
-
-  ion-row:nth-child(7) {
-    //margin-top: 20%;
   }
 }
