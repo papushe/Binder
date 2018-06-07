@@ -46,7 +46,7 @@ export class LiveActivityInfoPage {
       .subscribe((data) => {
         console.log(data);
         this.sharedService.createToast(`You canceled ${Activity.activity_name} activity`);
-        this.activityService.getActivities(this.userService.thisAuthenticatedUser);
+        // this.activityService.getActivities(this.userService.thisAuthenticatedUser);
         this.socketService.cancelActivity(<Activity>Activity);
         this.navCtrl.pop().then(() => {
           this.navCtrl.pop();

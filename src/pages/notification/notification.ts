@@ -50,7 +50,6 @@ export class NotificationPage {
     } else if (message.event == 'activity-finish') {
       this.openModal('ActivityInfoPage', message, from);
     } else if (message.event == 'activity-canceled') {
-      this.activityService.getActivities(this.userService.thisAuthenticatedUser);
       this.makeNotificationRead(message, from);
     } else {
       this.makeNotificationRead(message, from);
