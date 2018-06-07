@@ -94,12 +94,14 @@
                    name="skill"
                    [disabled]="readOnly"></ion-input>
       </ion-item>
-      <ion-item>
-        <button [disabled]="skill == '' ||readOnly" ion-button (click)="cancelNew()">
-          <ion-icon class="skillBtn" name="remove-circle"></ion-icon>
-        </button>
-        <button class="skillBtn" [disabled]="skill == '' ||readOnly" ion-button (click)="addItem(skill)">
+      <ion-item *ngIf="skill !== ''">
+        <button ion-button (click)="addItem(skill)">
           <ion-icon name="add-circle" class="skillBtn"></ion-icon>
+          <span class="addClearSkills">Add</span>
+        </button>
+        <button ion-button (click)="cancelNew()">
+          <ion-icon class="skillBtn" name="remove-circle"></ion-icon>
+          <span class="addClearSkills">Clear</span>
         </button>
       </ion-item>
       <ion-list>

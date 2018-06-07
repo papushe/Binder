@@ -17,14 +17,14 @@ export class LoginFormComponent {
   }
 
   async login() {
-    const loginResponse = await this.userService.signInWithEmailAndPassword(this.userService.account);
+    const loginResponse = await this.userService.signInWithEmailAndPassword(this.userService.account)
+    this.loginStatus.emit(loginResponse);
 
     this.userService.thisAuthenticatedUser$ = this.userService.getAuthenticatedUser()
       .subscribe(
         auth => {
           if (auth) {
             this.userService.thisAuthenticatedUser = auth;
-            this.loginStatus.emit(loginResponse);
           } else {
             this.userService.thisAuthenticatedUser$.unsubscribe();
             this.navCtrl.setRoot('LoginPage')

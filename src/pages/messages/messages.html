@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <ion-card padding *ngIf="userService?.thisProfile?.chats?.length ==0">
+  <ion-card padding *ngIf="userService?.thisProfile?.chats == 0">
     <p>No chat room yet</p>
   </ion-card>
   <ion-list>

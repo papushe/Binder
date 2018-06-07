@@ -21,7 +21,7 @@ export class UserService {
   thisHasProfile: boolean = false;
   thisFromCommunityDetails: boolean;
   context: string = 'user';
-  onlineUsers: any = [];
+  onlineUsers = [];
 
   constructor(private _http: HttpClient,
               private auth: AngularFireAuth,
@@ -159,7 +159,7 @@ export class UserService {
   }
 
   changeColor(userId) {
-    if (this.onlineUsers) {
+    if (this.onlineUsers.length > 0) {
       return this.onlineUsers.map((member) => {
         return member
       }).indexOf(userId);

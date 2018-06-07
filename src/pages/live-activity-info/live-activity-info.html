@@ -12,8 +12,8 @@
     <ion-item>Provider Name: {{activity?.provider?.name}}</ion-item>
     <ion-item>Description: {{activity?.activity_description}}</ion-item>
     <ion-item>Date: {{activity?.activity_date|convertDate}}</ion-item>
-    <ion-item *ngIf="activity?.source">Source: {{activity?.source}}</ion-item>
-    <ion-item *ngIf="activity?.destination">Destination: {{activity?.destination}}</ion-item>
+    <ion-item *ngIf="activity?.source">Source address: {{activity?.source}}</ion-item>
+    <ion-item *ngIf="activity?.destination">Destination address: {{activity?.destination}}</ion-item>
     <ion-item *ngIf="activity?.notes">Notes: {{activity?.notes}}</ion-item>
     <ion-item>Status: <span [ngClass]="{'live':activity?.status?.value ==='live'}">{{activity?.status?.value}}</span>
     </ion-item>
