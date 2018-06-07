@@ -203,21 +203,7 @@ export class MyApp implements OnInit, OnDestroy {
     this.socketUsersChanged = this.socketService.onUserChanged()
       .subscribe(data => {
         let userChanged = <any>data;
-
-        this.userService.onlineUsers = userChanged.allUsersList;
-
-
-        //   key = userChanged.keyForFirebase;
-        // if (userChanged.event == 'joined') {
-        //   this.userService.onlineUsers.push(key)
-        // } else {
-        //   const updatedIndex = this.userService.onlineUsers.map(function (item) {
-        //     return <any>item;
-        //   }).indexOf(userChanged.keyForFirebase);
-        //   if (updatedIndex !== -1) {
-        //     this.userService.onlineUsers.splice(updatedIndex, 1);
-        //   }
-        // }
+        this.userService.onlineUsers = <any[]>userChanged.allUsersList;
       });
   }
 

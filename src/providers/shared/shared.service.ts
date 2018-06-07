@@ -27,7 +27,8 @@ export class SharedService {
   createToast(msg) {
     let toast = this.toast.create({
       message: msg,
-      duration: 2000
+      duration: 2000,
+      position: 'top'
     });
     toast.present();
   }
@@ -45,12 +46,12 @@ export class SharedService {
     return this.token;
   }
 
-  getCurrentLocalTime () {
+  getCurrentLocalTime() {
     return moment().format();
   }
 
   convertToEpoch(date: string) {
-    let dateUTC = date.toString().replace('Z','');
+    let dateUTC = date.toString().replace('Z', '');
     return new Date(dateUTC).getTime();
   }
 
@@ -62,13 +63,13 @@ export class SharedService {
   }
 
   convertToISO(date: number) {
-    let offsetInMS = new Date().getTimezoneOffset() * 60 *1000;
+    let offsetInMS = new Date().getTimezoneOffset() * 60 * 1000;
     let dateInMS = new Date(date).getTime();
     console.log(new Date(dateInMS - offsetInMS).toISOString().replace('Z', ''));
     return new Date(dateInMS - offsetInMS).toISOString().replace('Z', '');
   }
 
-  ISOToLocal (iso: string) {
+  ISOToLocal(iso: string) {
     let isoStr = iso.replace('Z', '');
     return new Date(isoStr).getTime();
   }

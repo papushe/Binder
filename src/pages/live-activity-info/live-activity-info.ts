@@ -33,6 +33,13 @@ export class LiveActivityInfoPage {
         this.activity = <Activity>data;
         this.activityService.getActivities(this.userService.thisAuthenticatedUser);
         this.socketService.finishActivity(<Activity>data);
+        if (this.navCtrl.getActive().name === 'LiveActivityInfoPage') {
+          this.navCtrl.pop();
+        } else {
+          this.navCtrl.pop().then(() => {
+            this.navCtrl.pop();
+          });
+        }
       }, (err) => {
         console.log(err)
       }, () => {
