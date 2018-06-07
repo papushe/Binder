@@ -44,7 +44,6 @@ export class SearchCommunityPage {
           },
           () => {
             //done
-            this.sharedService.loader.dismiss();
           }
         );
     }

@@ -29,10 +29,11 @@ export class CalendarService {
         this.permission = false;
       })
   }
+
   createEvent(activity: Activity) {
     this.activity = activity;
 
-    if(!this.permission) {
+    if (!this.permission) {
       this.askForPermission();
     }
 
@@ -40,7 +41,7 @@ export class CalendarService {
       id: activity._id,
       firstReminderMinutes: 120,
       secondReminderMinutes: 30,
-      recurrence: (activity.recurring !== 'once') ? activity.recurring : null
+      recurrence: (activity.recurring.toLowerCase() !== 'once') ? activity.recurring : null
     };
 
     let event = {

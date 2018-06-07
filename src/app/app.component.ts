@@ -127,7 +127,7 @@ export class MyApp implements OnInit, OnDestroy {
           if (!notification.isAddToCalender && notification.event !== 'activity-finish') {
             notification.isAddToCalender = true;
 
-            this.calendarService.createEvent(notification);
+            this.calendarService.createEvent(notification.activity);
           }
 
         }
