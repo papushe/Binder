@@ -1,11 +1,20 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Enter address</ion-title>
+    <ion-buttons>
+      <button icon-only (click)="goBack()" class="goBack">
+        <ion-icon name="arrow-back"></ion-icon>
+        <span>Back</span>
+      </button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="autocomplete.query" [showCancelButton]="true" (ionInput)="updateSearch()"
+  <ion-searchbar #messageInput
+                 [(ngModel)]="autocomplete.query"
+                 [showCancelButton]="true"
+                 (ionInput)="updateSearch()"
                  (ionCancel)="dismiss()"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">

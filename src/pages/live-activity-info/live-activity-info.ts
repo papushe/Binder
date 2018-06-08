@@ -33,13 +33,7 @@ export class LiveActivityInfoPage {
         this.activity = <Activity>data;
         this.activityService.getActivities(this.userService.thisAuthenticatedUser);
         this.socketService.finishActivity(<Activity>data);
-        if (this.navCtrl.getActive().name === 'LiveActivityInfoPage') {
-          this.navCtrl.pop();
-        } else {
-          this.navCtrl.pop().then(() => {
-            this.navCtrl.pop();
-          });
-        }
+        this.navCtrl.pop();
       }, (err) => {
         console.log(err)
       }, () => {
@@ -53,7 +47,7 @@ export class LiveActivityInfoPage {
       .subscribe((data) => {
         console.log(data);
         this.sharedService.createToast(`You canceled ${Activity.activity_name} activity`);
-        // this.activityService.getActivities(this.userService.thisAuthenticatedUser);
+        this.activityService.getActivities(this.userService.thisAuthenticatedUser);
         this.socketService.cancelActivity(<Activity>Activity);
         this.navCtrl.pop().then(() => {
           this.navCtrl.pop();

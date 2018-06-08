@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>Menu</ion-title>
     <ion-buttons end>
-      <button [disabled]="!userService?.thisHasProfile" ion-button icon-only  (click)="navigateTo('SearchUsersPage')">
+      <button [disabled]="!userService?.thisHasProfile" ion-button icon-only (click)="navigateTo('SearchUsersPage')">
         <ion-icon name="search" class="searchBtn"></ion-icon>
       </button>
     </ion-buttons>
@@ -45,7 +45,24 @@
       <ion-icon name="briefcase"></ion-icon>
     </ion-col>
     <ion-col class="menu-tab">
-      <span class="menu-title">Upcoming Activities</span>
+      <span class="menu-title">Upcoming Activities
+      </span>
+    </ion-col>
+    <ion-col col-2>
+      <ion-badge *ngIf="upcomingActivity?.length>0">{{upcomingActivity?.length}}</ion-badge>
+    </ion-col>
+  </ion-row>
+
+  <ion-row (click)="navigateTo('OngoingActivityPage')" *ngIf="userService?.thisHasProfile">
+    <ion-col class="profile" col-2>
+      <ion-icon name="alarm"></ion-icon>
+    </ion-col>
+    <ion-col class="menu-tab">
+      <span class="menu-title">Ongoing Activities
+      </span>
+    </ion-col>
+    <ion-col col-2>
+      <ion-badge *ngIf="ongoingActivity?.length>0">{{ongoingActivity?.length}}</ion-badge>
     </ion-col>
   </ion-row>
 
@@ -54,7 +71,11 @@
       <ion-icon name="archive"></ion-icon>
     </ion-col>
     <ion-col class="menu-tab">
-      <span class="menu-title">Past Activities</span>
+      <span class="menu-title">Past Activities
+      </span>
+    </ion-col>
+    <ion-col col-2>
+      <ion-badge *ngIf="pastActivity?.length>0">{{pastActivity?.length}}</ion-badge>
     </ion-col>
   </ion-row>
 

@@ -1,3 +1,16 @@
-page-autocomplete {
-
+.goBack {
+  background: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  ion-icon {
+    font-size: 3rem !important;
+    color: white !important;
+    padding: 0 !important;
+  }
+  span {
+    color: white !important;
+    font-size: 2rem !important;
+    vertical-align: 4px !important;
+    margin-left: 2px !important;
+  }
 }

@@ -1,5 +1,5 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {IonicPage, ViewController} from 'ionic-angular';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {IonicPage, NavController, Searchbar, ViewController} from 'ionic-angular';
 
 declare var google;
 
@@ -15,8 +15,11 @@ export class AutocompletePage implements OnInit {
   longitude: number = 0;
   geo: any;
   service = new google.maps.places.AutocompleteService();
+  @ViewChild("messageInput") messageInput: Searchbar;
 
-  constructor(private viewCtrl: ViewController, private zone: NgZone) {
+  constructor(private viewCtrl: ViewController,
+              private zone: NgZone,
+              private navCtrl: NavController) {
 
   }
 
@@ -24,11 +27,21 @@ export class AutocompletePage implements OnInit {
     this.init();
   }
 
+  ionViewDidEnter() {
+    setTimeout(() => {
+      this.messageInput.setFocus();
+    });
+  }
+
   init() {
     this.autocompleteItems = [];
     this.autocomplete = {
       query: ''
     };
+  }
+
+  goBack() {
+    this.navCtrl.pop();
   }
 
   dismiss() {
@@ -69,9 +82,6 @@ export class AutocompletePage implements OnInit {
       this.latitude = results[0].geometry.location.lat();
       this.longitude = results[0].geometry.location.lng();
     });
-  }
-
-  ionViewDidLoad() {
   }
 
 }

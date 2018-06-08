@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AlertController, IonicPage, NavController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
+import {ActivityService} from "../../providers/activity-service/activity-service";
 
 @IonicPage()
 @Component({
@@ -9,9 +10,20 @@ import {UserService} from "../../providers/user-service/user.service";
 })
 export class MenuPage {
 
+  pastActivity: any;
+  upcomingActivity: any;
+  ongoingActivity: any;
+
   constructor(private navCtrl: NavController,
               public userService: UserService,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private activityService: ActivityService) {
+  }
+
+  ionViewDidEnter() {
+    this.pastActivity = this.activityService.mapAs('done');
+    this.upcomingActivity = this.activityService.mapAs('approved');
+    this.ongoingActivity = this.activityService.mapAs('ongoing');
   }
 
   signOut() {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {Profile} from "../../models/profile/profile.interface";
@@ -18,6 +18,7 @@ export class SearchUsersPage implements OnInit {
   query: string;
   noUsersFound: string = '';
   users: Profile[] = [];
+  @ViewChild("messageInput") messageInput: ElementRef;
 
 
   constructor(private navParams: NavParams,
@@ -30,13 +31,22 @@ export class SearchUsersPage implements OnInit {
     this.init();
   }
 
+  setInputFocus() {
+    let elem: any = this.messageInput;
+    elem._native.nativeElement.focus(); // Keep the focus on input field.
+  }
+
+  ngAfterViewChecked() {
+    this.setInputFocus();
+  }
+
   init() {
     this.community = this.navParams.get('community');
     this.profile = this.navParams.get('profile');
   }
 
   searchUsers() {
-    if (this.query === '') {
+    if (this.query.trim() === '') {
       this.noUsersFound = '';
       this.users = [];
     }

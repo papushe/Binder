@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {IonicPage, NavController} from 'ionic-angular';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
@@ -15,6 +15,8 @@ export class SearchCommunityPage {
   noCommunityFound: string = '';
   searchCommunities: Community[] = [];
   hasCommunity: boolean = false;
+  @ViewChild("messageInput") messageInput: ElementRef;
+
 
   constructor(public communityService: CommunityService,
               private navCtrl: NavController,
@@ -22,8 +24,17 @@ export class SearchCommunityPage {
 
   }
 
+  setInputFocus() {
+    let elem: any = this.messageInput;
+    elem._native.nativeElement.focus(); // Keep the focus on input field.
+  }
+
+  ngAfterViewChecked() {
+    this.setInputFocus();
+  }
+
   searchCommunity() {
-    if (this.search === '') {
+    if (this.search.trim() === '') {
       this.noCommunityFound = '';
       this.searchCommunities = [];
     } else {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
@@ -12,18 +12,12 @@ export class CreateCommunityFormComponent {
 
   @Output() saveCommunityResult: EventEmitter<any>;
 
-  // @ViewChild('focusInput') focusInput;
-
   constructor(private userService: UserService,
               public communityService: CommunityService,
               private sharedService: SharedService) {
 
     this.saveCommunityResult = new EventEmitter<any>();
   }
-
-  // ngAfterViewChecked() {
-  //   this.focusInput.setFocus();
-  // }
 
   createCommunity() {
 

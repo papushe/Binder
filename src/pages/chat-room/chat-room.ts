@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Content, IonicPage, NavParams} from 'ionic-angular';
 import {Profile} from "../../models/profile/profile.interface";
 import {SocketService} from "../../providers/socket/socket.service";
@@ -26,6 +26,7 @@ export class ChatRoomPage implements OnInit, OnDestroy {
   enterToChatRoomSocketConnection: any;
   chatWith: any;
   alreadyChat: any;
+  @ViewChild("messageInput") messageInput: ElementRef;
 
   constructor(private navParams: NavParams,
               private socketService: SocketService,
@@ -41,6 +42,15 @@ export class ChatRoomPage implements OnInit, OnDestroy {
 
     this.handleSockets();
 
+  }
+
+  setInputFocus() {
+    let elem: any = this.messageInput;
+    elem._native.nativeElement.focus(); // Keep the focus on input field.
+  }
+
+  ngAfterViewChecked() {
+    this.setInputFocus();
   }
 
   scrollToBottom() {
