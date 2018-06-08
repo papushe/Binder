@@ -19,9 +19,10 @@
           <p>Owner: <strong>{{activity?.consumer?.name}}</strong></p>
         </ion-col>
         <ion-col>
-          <p>{{activity.status.value ==='claimed' ? 'Claimed' :
+          <p>{{activity.status.value ==='claimed' && sharedService.canClaimedApproveActivity(activity) ? 'Claimed' :
             activity.status.value ==='approved'?'Approved':
-            activity.status.value ==='open'?'Open':''}}</p>
+            activity.status.value ==='open' && sharedService.canClaimedApproveActivity(activity)?'Open':
+            !sharedService.canClaimedApproveActivity(activity) ? 'Expired':''}}</p>
         </ion-col>
       </ion-row>
     </ion-item>

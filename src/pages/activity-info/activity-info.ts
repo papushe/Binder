@@ -21,7 +21,7 @@ export class ActivityInfoPage implements OnInit {
 
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
-              private sharedService: SharedService,
+              public sharedService: SharedService,
               private calendarService: CalendarService,
               public userService: UserService,
               private alertCtrl: AlertController,
@@ -190,7 +190,6 @@ export class ActivityInfoPage implements OnInit {
       return tempUser;
     }
   }
-
 
 
   closeModal() {

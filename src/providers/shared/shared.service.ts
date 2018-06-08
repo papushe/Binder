@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Loading, LoadingController, ToastController} from "ionic-angular";
 import * as moment from "moment"
 import * as _ from 'lodash';
+import {Activity} from "../../models/activity/activity.interface";
 
 @Injectable()
 export class SharedService {
@@ -82,5 +83,11 @@ export class SharedService {
     }
     return text;
   };
+
+  canClaimedApproveActivity(activity: Activity) {
+    let date: Date = new Date();
+    return activity.activity_date > date.getTime();
+  }
+
 
 }

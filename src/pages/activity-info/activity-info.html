@@ -32,7 +32,7 @@
 
   </ion-card>
   <button ion-button block color="primary" class="greenButton"
-          *ngIf="activity?.consumer?.id === userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'claimed'"
+          *ngIf="activity?.consumer?.id === userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'claimed' && sharedService.canClaimedApproveActivity(activity)"
           (click)="approveActivity()">Approve Activity
   </button>
   <button ion-button block color="danger" class="redButton"
@@ -45,7 +45,7 @@
   </button>
 
   <button ion-button block color="primary" class="greenButton"
-          *ngIf="activity?.consumer?.id !== userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'open'"
+          *ngIf="activity?.consumer?.id !== userService?.thisProfile?.keyForFirebase && activity?.status?.value === 'open' && sharedService.canClaimedApproveActivity(activity)"
           (click)="claimActivity()">Claim
   </button>
   <ion-row
@@ -64,11 +64,14 @@
     </ion-col>
   </ion-row>
 
-  <ion-card *ngIf="activity?.status?.user_id === userService?.thisProfile?.keyForFirebase" padding>
+  <ion-card *ngIf="activity?.status?.user_id === userService?.thisProfile?.keyForFirebase  && sharedService.canClaimedApproveActivity(activity)" padding>
     <p class="extraInfo">Pending user's approval</p>
   </ion-card>
   <ion-card *ngIf="activity?.status?.value === 'approved'" padding>
     <p class="extraInfo">Activity successfully approved</p>
+  </ion-card>
+  <ion-card *ngIf="!sharedService.canClaimedApproveActivity(activity)" padding>
+    <p class="extraInfo">Activity Expired</p>
   </ion-card>
 </ion-content>
 
