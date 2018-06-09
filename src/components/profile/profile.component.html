@@ -116,10 +116,10 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <button *ngIf="!hasProfile" class="greenButton" ion-button (click)="saveProfile()"
+  <button *ngIf="!userService.thisHasProfile" class="greenButton" ion-button (click)="saveProfile()"
           [disabled]="profileForm?.invalid">Save
   </button>
-  <button *ngIf="hasProfile" class="greenButton" ion-button (click)="updateProfile()"
+  <button *ngIf="userService.thisHasProfile" class="greenButton" ion-button (click)="updateProfile()"
           [disabled]="profileForm?.invalid ||readOnly">Update
   </button>
 </form>

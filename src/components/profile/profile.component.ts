@@ -14,7 +14,6 @@ export class ProfileComponent implements OnDestroy {
 
   skill: string = "";
   skills: any = [];
-  hasProfile: boolean = false;
   @Output() fromLoginPageEvent: EventEmitter<boolean>;
   fromLoginPage: boolean;
   readOnly: boolean;
@@ -32,7 +31,6 @@ export class ProfileComponent implements OnDestroy {
       this.skills = this.userService.thisProfile.skills;
       this.myPhotosRef = firebase.storage().ref(`/Photos/`);
     }
-    this.hasProfile = this.userService.thisHasProfile;
     this.readOnly = this.userService.thisHasProfile;
     this.fromLoginPageEvent = new EventEmitter<boolean>();
     this.fromLoginPage = this.navParams.get('where');
@@ -55,17 +53,14 @@ export class ProfileComponent implements OnDestroy {
                   this.userService.thisProfile = <Profile>data;
                   this.skills = this.userService.thisProfile.skills;
                   this.userService.thisHasProfile = true;
-                  this.hasProfile = this.userService.thisHasProfile;
                   this.fromLoginPageEvent.emit(true);
                   this.fromLoginPage = this.navParams.get('where');
                 } else {
                   this.userService.thisHasProfile = false;
-                  this.hasProfile = this.userService.thisHasProfile;
                   this.fromLoginPageEvent.emit(false);
                 }
               } else {
                 this.userService.thisHasProfile = false;
-                this.hasProfile = this.userService.thisHasProfile;
                 this.fromLoginPageEvent.emit(false);
               }
             },
@@ -133,7 +128,6 @@ export class ProfileComponent implements OnDestroy {
             data => {
               if (data) {
                 this.userService.thisHasProfile = true;
-                this.hasProfile = this.userService.thisHasProfile;
                 this.userService.thisProfile = <Profile>data;
                 this.fromLoginPageEvent.emit(this.fromLoginPage);
               }
@@ -149,7 +143,7 @@ export class ProfileComponent implements OnDestroy {
           );
       });
     } else {
-      this.hasProfile = false;
+      this.userService.thisHasProfile = false;
     }
   }
 

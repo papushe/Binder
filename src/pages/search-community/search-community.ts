@@ -2,7 +2,6 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {IonicPage, NavController} from 'ionic-angular';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {Community} from "../../models/community/community.interface";
-import {SharedService} from "../../providers/shared/shared.service";
 
 @IonicPage()
 @Component({
@@ -19,8 +18,7 @@ export class SearchCommunityPage {
 
 
   constructor(public communityService: CommunityService,
-              private navCtrl: NavController,
-              private sharedService: SharedService) {
+              private navCtrl: NavController) {
 
   }
 
