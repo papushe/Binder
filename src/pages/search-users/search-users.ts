@@ -23,7 +23,7 @@ export class SearchUsersPage implements OnInit {
 
   constructor(private navParams: NavParams,
               private sharedService: SharedService,
-              private userService: UserService,
+              public userService: UserService,
               private navCtrl: NavController) {
   }
 
