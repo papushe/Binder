@@ -129,7 +129,7 @@ export class UserService {
         () => {
           this.sharedService.createToast(`Profile Deleted successfully`);
           let nav = this.app.getActiveNav();
-          nav.setRoot('LoginPage')
+          nav.setRoot('LoginPage');
         }
       );
   }
