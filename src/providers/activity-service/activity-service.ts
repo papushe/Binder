@@ -29,11 +29,12 @@ export class ActivityService {
 
   mapAs(type) {
     let activities: Activity[] = [];
-
-    this.thisUserActivities.map((activity) => {
-      activity.status.value === type ? activities.push(activity) : ''
-    });
-    return activities
+    if (this.thisUserActivities && this.thisUserActivities.length > 0) {
+      this.thisUserActivities.map((activity) => {
+        activity.status.value === type ? activities.push(activity) : ''
+      });
+      return activities
+    }
   }
 
 

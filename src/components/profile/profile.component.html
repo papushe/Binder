@@ -2,7 +2,7 @@
   <ion-card>
     <ion-card-content>
 
-      <ion-item>
+      <ion-item *ngIf="userService.thisHasProfile">
         <ion-row>
           <ion-col *ngIf="showLoader">
             <ion-item>

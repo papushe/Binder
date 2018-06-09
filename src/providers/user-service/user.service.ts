@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 import {Profile} from "../../models/profile/profile.interface";
 import {Subscription} from "rxjs/Subscription";
 import {SharedService} from "../shared/shared.service";
+import {App} from "ionic-angular";
 
 @Injectable()
 export class UserService {
@@ -25,7 +26,8 @@ export class UserService {
 
   constructor(private _http: HttpClient,
               private auth: AngularFireAuth,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private app: App) {
     this.baseUrl = this.sharedService.baseUrl;
 
   }
@@ -119,14 +121,15 @@ export class UserService {
     return this._http
       .get(`${this.baseUrl}/${this.context}/delete/${user.uid}`).subscribe(
         data => {
-          this.thisProfile = <Profile>data;
-          this.thisHasProfile = false;
+
         },
         err => {
           this.sharedService.createToast(`Error: ${err.message}`);
         },
         () => {
           this.sharedService.createToast(`Profile Deleted successfully`);
+          let nav = this.app.getActiveNav();
+          nav.setRoot('LoginPage')
         }
       );
   }
