@@ -15,19 +15,27 @@
 
 <ion-content padding>
   <ion-header>{{activity?.activity_name}}</ion-header>
-  <ion-card>
-    <ion-card-header>Description: {{activity?.activity_description}}</ion-card-header>
-    <ion-card-header>Date: {{ activity?.activity_date | convertDate}}</ion-card-header>
-    <ion-card-header>Recurrence: {{ activity?.recurring}}</ion-card-header>
-    <ion-card-header>Created By: {{activity?.consumer?.name}}</ion-card-header>
-    <ion-card-header *ngIf="activity?.provider && activity?.provider?.id">Provider: {{activity?.provider?.name}}
-    </ion-card-header>
-    <ion-card-header>Source address: {{activity?.source}}</ion-card-header>
-    <ion-card-header *ngIf="activity?.destination">Destination address: {{activity?.destination}}</ion-card-header>
+  <ion-card class="details">
+    <ion-item><span>Description</span>
+      <p>{{activity?.activity_description}}</p></ion-item>
+    <ion-item><span>Date</span>
+      <p>{{ activity?.activity_date | convertDate}}</p></ion-item>
+    <ion-item><span>Recurrence</span>
+      <p>{{ activity?.recurring}}</p></ion-item>
+    <ion-item><span>Created By</span>
+      <p>{{activity?.consumer?.name}}</p></ion-item>
+    <ion-item *ngIf="activity?.provider && activity?.provider?.id"><span>Provider</span>
+      <p>{{activity?.provider?.name}}</p>
+    </ion-item>
+    <ion-item><span>Source address</span>
+      <p>{{activity?.source}}</p></ion-item>
+    <ion-item *ngIf="activity?.destination"><span>Destination address</span>
+      <p>{{activity?.destination}}</p>
+    </ion-item>
     <button ion-button class="midGreenButton" block (click)="openSearchPage(activity?.status?.fullName)"
             *ngIf="activity?.status?.value ==='claimed' && activity?.consumer?.id == userService?.thisProfile?.keyForFirebase && sharedService.canClaimedApproveActivity(activity)">
       Claimed
-      By: {{activity?.status?.fullName}}
+      By {{activity?.status?.fullName}}
     </button>
 
   </ion-card>
@@ -64,7 +72,9 @@
     </ion-col>
   </ion-row>
 
-  <ion-card *ngIf="activity?.status?.user_id === userService?.thisProfile?.keyForFirebase  && sharedService.canClaimedApproveActivity(activity)" padding>
+  <ion-card
+    *ngIf="activity?.status?.user_id === userService?.thisProfile?.keyForFirebase  && sharedService.canClaimedApproveActivity(activity)"
+    padding>
     <p class="extraInfo">Pending user's approval</p>
   </ion-card>
   <ion-card *ngIf="activity?.status?.value === 'approved'" padding>
