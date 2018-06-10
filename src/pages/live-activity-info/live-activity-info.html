@@ -8,14 +8,20 @@
 
 
 <ion-content padding>
-  <ion-card>
-    <ion-item>Provider Name: {{activity?.provider?.name}}</ion-item>
-    <ion-item>Description: {{activity?.activity_description}}</ion-item>
-    <ion-item>Date: {{activity?.activity_date|convertDate}}</ion-item>
-    <ion-item *ngIf="activity?.source">Source address: {{activity?.source}}</ion-item>
-    <ion-item *ngIf="activity?.destination">Destination address: {{activity?.destination}}</ion-item>
-    <ion-item *ngIf="activity?.notes">Notes: {{activity?.notes}}</ion-item>
-    <ion-item>Status: <span [ngClass]="{'live':activity?.status?.value ==='live'}">{{activity?.status?.value}}</span>
+  <ion-card class="liveActivityInfo">
+    <ion-item><span>Provider Name</span>
+      <p>{{activity?.provider?.name}}</p></ion-item>
+    <ion-item><span>Description</span>
+      <p>{{activity?.activity_description}}</p></ion-item>
+    <ion-item><span>Date</span>
+      <p>{{activity?.activity_date|convertDate}}</p></ion-item>
+    <ion-item *ngIf="activity?.source"><span>Source address</span>
+      <p>{{activity?.source}}</p></ion-item>
+    <ion-item *ngIf="activity?.destination"><span>Destination address</span>
+      <p>{{activity?.destination}}</p></ion-item>
+    <ion-item *ngIf="activity?.notes"><span>Notes</span>
+      <p>{{activity?.notes}}</p></ion-item>
+    <ion-item><span>Status</span> <span [ngClass]="{'live':activity?.status?.value ==='live'}"><p>{{activity?.status?.value}}</p></span>
     </ion-item>
   </ion-card>
 

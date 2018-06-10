@@ -3,4 +3,14 @@ page-live-activity-info {
     color: green;
     font-weight: bolder;
   }
+  .liveActivityInfo {
+    span {
+      color: #808080 !important;
+      font-size: 14px !important;
+    }
+    p {
+      color: #fdfdfb !important;
+      font-size: 17px !important;
+    }
+  }
 }
