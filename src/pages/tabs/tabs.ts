@@ -1,10 +1,8 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Events, IonicPage} from 'ionic-angular';
 import {NotificationService} from "../../providers/notitfication/notification.service";
-import {SharedService} from "../../providers/shared/shared.service";
 import {Notification} from "../../models/notification/notification.interface";
 import {UserService} from "../../providers/user-service/user.service";
-import {LiveActivityPage} from "../live-activity/live-activity";
 import {CalendarService} from "../../providers/calendar-service/calendar-service";
 
 @IonicPage()
@@ -23,7 +21,6 @@ export class TabsPage implements OnInit, OnDestroy {
 
   constructor(private notificationService: NotificationService,
               private events: Events,
-              private sharedService: SharedService,
               public userService: UserService,
               private calenderService: CalendarService) {
   }

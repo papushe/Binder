@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 import {Activity} from "../../models/activity/activity.interface";
 import {Profile} from "../../models/profile/profile.interface";
@@ -14,9 +14,7 @@ export class ActivityHistoryPage {
   activities: Activity[] = [];
   profile: Profile;
 
-  constructor(private navCtrl: NavController,
-              private navParams: NavParams,
-              private userService: UserService,
+  constructor(private userService: UserService,
               private activityService: ActivityService) {
   }
 

@@ -7,7 +7,6 @@ import {ActivityService} from "../../providers/activity-service/activity-service
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
 import {CommunityService} from "../../providers/community-service/community.service";
-import {CalendarService} from "../../providers/calendar-service/calendar-service";
 
 @IonicPage()
 @Component({
@@ -22,7 +21,6 @@ export class ActivityInfoPage implements OnInit {
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
               public sharedService: SharedService,
-              private calendarService: CalendarService,
               public userService: UserService,
               private alertCtrl: AlertController,
               private navParams: NavParams,

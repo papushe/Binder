@@ -3,7 +3,6 @@ import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Community} from "../../models/community/community.interface";
 import {Profile} from "../../models/profile/profile.interface";
 import {UserService} from "../../providers/user-service/user.service";
-import {SharedService} from "../../providers/shared/shared.service";
 
 @IonicPage()
 @Component({
@@ -22,7 +21,6 @@ export class SearchUsersPage implements OnInit {
 
 
   constructor(private navParams: NavParams,
-              private sharedService: SharedService,
               public userService: UserService,
               private navCtrl: NavController) {
   }

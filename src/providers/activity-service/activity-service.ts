@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Activity} from '../../models/activity/activity.interface';
 import {SharedService} from "../shared/shared.service";
 

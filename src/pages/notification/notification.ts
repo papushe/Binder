@@ -1,34 +1,32 @@
-import {Component} from '@angular/core';
-import {AlertController, Events, IonicPage, ModalController, NavController} from 'ionic-angular';
+import {Component, OnInit} from '@angular/core';
+import {Events, IonicPage, ModalController, NavController} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
-import {SocketService} from "../../providers/socket/socket.service";
 import {Community} from "../../models/community/community.interface";
-import {CalendarService} from "../../providers/calendar-service/calendar-service";
-import {ActivityService} from "../../providers/activity-service/activity-service";
 
 @IonicPage()
 @Component({
   selector: 'page-notification',
   templateUrl: 'notification.html'
 })
-export class NotificationPage {
+export class NotificationPage implements OnInit {
 
   constructor(private navCtrl: NavController,
               private events: Events,
               public notificationService: NotificationService,
               private sharedService: SharedService,
-              private alertCtrl: AlertController,
               private communityService: CommunityService,
-              private calendarService: CalendarService,
               private userService: UserService,
-              private socketService: SocketService,
-              private modalCtrl: ModalController,
-              private activityService: ActivityService) {
+              private modalCtrl: ModalController) {
   }
+
+  ngOnInit(): void {
+    this.notificationService.notifications.reverse();
+  }
+
 
   ionViewDidEnter() {
     this.events.publish('enterToNotificationPage', true);

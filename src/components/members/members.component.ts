@@ -6,7 +6,6 @@ import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {SocketService} from "../../providers/socket/socket.service";
-import {CommunityDetailsPage} from "../../pages/community-details/community-details";
 
 @Component({
   selector: 'members-component',

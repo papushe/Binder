@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";

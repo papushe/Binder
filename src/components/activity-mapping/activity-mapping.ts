@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {AlertController, NavController} from "ionic-angular";
-import {LiveActivityInfoPage} from "../../pages/live-activity-info/live-activity-info";
+import {NavController} from "ionic-angular";
 
 @Component({
   selector: 'activity-mapping',
