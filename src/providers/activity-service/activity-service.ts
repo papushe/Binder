@@ -138,4 +138,11 @@ export class ActivityService {
     return this._http
       .post(`${this.baseUrl}/${this.context}/cancel`, activityIdObj)
   }
+  isVoteActivity(activityId){
+    const activityIdObj = {
+      activityId: activityId
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/vote`, activityIdObj)
+  }
 }

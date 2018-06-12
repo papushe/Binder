@@ -57,7 +57,7 @@
           (click)="claimActivity()">Claim
   </button>
   <ion-row
-    *ngIf="activity?.status?.value === 'done' && activity?.consumer?.id === userService?.thisProfile?.keyForFirebase">
+    *ngIf="!activity?.isVote && activity?.status?.value === 'done' && activity?.consumer?.id === userService?.thisProfile?.keyForFirebase">
     <ion-item class="voteYourExperience">Vote your experience</ion-item>
 
     <ion-col col-6 class="voteWrapper">

@@ -25,6 +25,23 @@
     </ion-item>
   </ion-card>
 
+  <ion-row
+    *ngIf="!activity?.isVote && activity?.status?.value === 'done' && activity?.consumer?.id === userService?.thisProfile?.keyForFirebase">
+    <ion-item class="voteYourExperience">Vote your experience</ion-item>
+
+    <ion-col col-6 class="voteWrapper">
+      <button icon-only (click)="vote('up')" class="voteUp">
+        <ion-icon name="thumbs-up"></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col col-6 class="voteWrapper">
+      <button icon-only (click)="vote('down')" class="voteDown">
+        <ion-icon name="thumbs-down"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+
+
   <button ion-button block class="greenButton"
           *ngIf="isLive=='live' &&  activity?.status?.value !=='done' && activity?.provider?.id === userService?.thisProfile?.keyForFirebase "
           (click)="finish(activity)">Finish Activity

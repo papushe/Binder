@@ -21,5 +21,6 @@ export interface Activity {
   }
   notes: string,
   source: string,
-  destination: string
+  destination: string,
+  isVote: boolean
 }

@@ -202,7 +202,8 @@ export class ActivityInfoPage implements OnInit {
     this.userService.vote(Vote)
       .subscribe(
         data => {
-          console.log(data)
+          console.log(data);
+          this.voteActivity();
         },
         err => {
           console.log(`error: ${err.message}`);
@@ -215,5 +216,23 @@ export class ActivityInfoPage implements OnInit {
       );
 
   }
+
+  voteActivity() {
+    this.activityService.isVoteActivity(this.activity._id)
+      .subscribe(
+        data => {
+          this.activity = <Activity>data
+        },
+        err => {
+          console.log(`error: ${err.message}`);
+        },
+        () => {
+          //done
+          console.log('done');
+          this.sharedService.createToast(`${this.activity.activity_name} voted successfully`);
+        }
+      );
+  }
+
 
 }

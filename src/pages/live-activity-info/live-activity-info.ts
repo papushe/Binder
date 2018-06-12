@@ -59,5 +59,41 @@ export class LiveActivityInfoPage {
       })
   }
 
+  vote(vote) {
+    let Vote = {
+      up: vote === 'up',
+      down: vote === 'down',
+    };
+    this.userService.vote(Vote)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.voteActivity();
+        },
+        err => {
+          console.log(`error: ${err.message}`);
+        },
+        () => {
+          //done
+          console.log('done');
+        }
+      );
+  }
 
+  voteActivity() {
+    this.activityService.isVoteActivity(this.activity._id)
+      .subscribe(
+        data => {
+          this.activity = <Activity>data
+        },
+        err => {
+          console.log(`error: ${err.message}`);
+        },
+        () => {
+          //done
+          console.log('done');
+          this.sharedService.createToast(`${this.activity.activity_name} voted successfully`);
+        }
+      );
+  }
 }

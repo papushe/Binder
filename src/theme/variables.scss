@@ -250,6 +250,37 @@ ion-alert {
 .picker-below-highlight {
   background: linear-gradient(to top, #808080 30%, rgba(255, 255, 255, 0.7) 100%) !important;
 }
+
+.voteYourExperience {
+  text-align: center !important;
+  background: #212020 !important;
+  color: #808080 !important;
+}
+.voteYourExperience .item-inner {
+  border: none !important;
+}
+
+.voteWrapper {
+  margin-top: 20px !important;
+}
+.voteWrapper:nth-child(2) {
+  text-align: right;
+}
+.voteWrapper:nth-child(3) {
+  text-align: left;
+}
+
+.voteUp {
+  color: #2ab858;
+  background: none;
+  font-size: 2em;
+}
+.voteDown {
+  color: #f53d3d;
+  background: none;
+  font-size: 2em;
+}
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
