@@ -14,13 +14,11 @@ import {SocketService} from "../../providers/socket/socket.service";
 export class MembersComponent implements OnInit, OnDestroy {
 
   @Input() community: Community;
-  members: Profile[] = [];
-  profile: Profile;
   showMembers: boolean = true;
   communitySocketConnection: any;
-
+  showSpinner:boolean;
   constructor(private navCtrl: NavController,
-              private communityService: CommunityService,
+              public communityService: CommunityService,
               public userService: UserService,
               private socketService: SocketService,
               private sharedService: SharedService,
@@ -28,7 +26,6 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.init();
     this.membersChangeEvent();
     this.updateMembersCommunityEvent();
   }
@@ -49,10 +46,6 @@ export class MembersComponent implements OnInit, OnDestroy {
             this.handleSocket(data);
           }
         });
-  }
-
-  init() {
-    this.profile = this.userService.thisProfile;
   }
 
   handleSocket(data) {
@@ -96,11 +89,11 @@ export class MembersComponent implements OnInit, OnDestroy {
   }
 
   removeMemberFromMembersObject(user) {
-    const removeIndex = this.members.map(function (item) {
+    const removeIndex = this.communityService.thisCommunityMembers.map(function (item) {
       return item.keyForFirebase;
     }).indexOf(user.keyForFirebase);
     if (removeIndex !== -1) {
-      this.members.splice(removeIndex, 1);
+      this.communityService.thisCommunityMembers.splice(removeIndex, 1);
     }
   }
 
@@ -145,16 +138,16 @@ export class MembersComponent implements OnInit, OnDestroy {
 
 
   getCommunityMembers() {
+    this.showSpinner = true;
     this.communityService.getCommunityMembers(this.community._id)
       .subscribe(
         res => {
           if (res) {
             console.log(`get community members success? : ${!!res}`);
             this.communityService.thisCommunityMembers = <Profile[]>res;
-            this.members = this.communityService.thisCommunityMembers
           }
           else {
-            this.members = [];
+            this.communityService.thisCommunityMembers = [];
           }
         },
         err => {
@@ -162,11 +155,12 @@ export class MembersComponent implements OnInit, OnDestroy {
         },
         () => {
           //done
+          this.showSpinner = false;
         });
   }
 
   openOptions(member: Profile) {
-    if (member.keyForFirebase != this.profile.keyForFirebase) {
+    if (member.keyForFirebase != this.userService.thisProfile.keyForFirebase) {
       this.navCtrl.push('MemberOptionsPage', {member: member, community: this.community, isJoined: true})
     }
   }

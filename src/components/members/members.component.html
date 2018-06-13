@@ -1,11 +1,12 @@
 <ion-card class="members">
   <ion-item (click)="showMembers = !showMembers">
-    <span class="title">{{showMembers ? '': 'Click to view'}} Community Members</span>
+    <span class="title">{{showMembers ? '': 'Click to view'}} Community Members
+      <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner></span>
     <ion-icon *ngIf="!showMembers" class="arrows" name="ios-arrow-down"></ion-icon>
     <ion-icon *ngIf="showMembers" class="arrows" name="ios-arrow-up"></ion-icon>
   </ion-item>
   <ion-list *ngIf="showMembers">
-    <ion-item *ngFor="let member of members" (click)="openOptions(member)">
+    <ion-item *ngFor="let member of communityService.thisCommunityMembers" (click)="openOptions(member)">
       <ion-row>
         <ion-col class="profile" col-2>
           <img *ngIf="member?.profilePic" class="profilePic" src="{{ member?.profilePic}}"

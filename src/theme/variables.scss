@@ -38,11 +38,19 @@ $colors: (
   almostwhite: #fdfdfb
 );
 
-.global__input-error{
-  color:#fdfdfb ;
+ion-spinner circle {
+  fill: white !important;
 }
 
-.searchCommunityUser{
+ion-spinner line {
+  stroke: white !important;
+}
+
+.global__input-error {
+  color: #fdfdfb;
+}
+
+.searchCommunityUser {
   padding: 0 0 20px 10px !important;
 }
 
@@ -75,7 +83,7 @@ ion-app .scroll-content {
 .results {
   margin-left: 15px;
   margin-bottom: 10px;
-  color:#fdfdfb ;
+  color: #fdfdfb;
 }
 
 ion-fab {
@@ -256,6 +264,7 @@ ion-alert {
   background: #212020 !important;
   color: #808080 !important;
 }
+
 .voteYourExperience .item-inner {
   border: none !important;
 }
@@ -263,9 +272,11 @@ ion-alert {
 .voteWrapper {
   margin-top: 20px !important;
 }
+
 .voteWrapper:nth-child(2) {
   text-align: right;
 }
+
 .voteWrapper:nth-child(3) {
   text-align: left;
 }
@@ -275,6 +286,7 @@ ion-alert {
   background: none;
   font-size: 2em;
 }
+
 .voteDown {
   color: #f53d3d;
   background: none;

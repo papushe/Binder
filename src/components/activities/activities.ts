@@ -22,6 +22,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   activityClaimedSocketConnection: any;
   activityApproveSocketConnection: any;
   activityDeclineSocketConnection: any;
+  showSpinner: boolean;
 
   constructor(private navCtrl: NavController,
               private activityService: ActivityService,
@@ -108,6 +109,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
   }
 
   getActivitiesByCommunityId(communityId: string) {
+    this.showSpinner = true;
     this.activityService.getActivitiesByCommunityId(communityId, ['open', 'claimed'])
       .subscribe(
         data => {
@@ -124,6 +126,7 @@ export class ActivitiesComponent implements OnInit, OnDestroy {
         },
         () => {
           //done
+          this.showSpinner = false;
         }
       )
   }
