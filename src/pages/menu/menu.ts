@@ -10,20 +10,10 @@ import {ActivityService} from "../../providers/activity-service/activity-service
 })
 export class MenuPage {
 
-  pastActivity: any;
-  upcomingActivity: any;
-  ongoingActivity: any;
-
   constructor(private navCtrl: NavController,
               public userService: UserService,
               private alertCtrl: AlertController,
-              private activityService: ActivityService) {
-  }
-
-  ionViewDidEnter() {
-    this.pastActivity = this.activityService.mapAs('done');
-    this.upcomingActivity = this.activityService.mapAs('approved');
-    this.ongoingActivity = this.activityService.mapAs('ongoing');
+              public activityService: ActivityService) {
   }
 
   signOut() {

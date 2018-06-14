@@ -74,7 +74,7 @@ export class MyApp implements OnInit, OnDestroy {
         auth.getIdToken(true)
           .then(token => {
             this.sharedService.storeToken(token);
-            this.activityService.getActivities(auth);
+            this.getActivity();
             if (!this.navCtrl.getActive() || this.navCtrl.getActive().name !== 'TabsPage') {
               this.rootPage = 'TabsPage';
             }
@@ -122,7 +122,7 @@ export class MyApp implements OnInit, OnDestroy {
           notification.event === 'activity-finish' ||
           notification.event === 'activity-canceled') {
 
-          this.activityService.getActivities(this.userService.thisAuthenticatedUser);
+          this.getActivity();
 
           if (!notification.isAddToCalender && notification.event !== 'activity-finish') {
             notification.isAddToCalender = true;
@@ -141,6 +141,10 @@ export class MyApp implements OnInit, OnDestroy {
             //done
           })
       });
+  }
+
+  getActivity() {
+    this.activityService.getActivities(this.userService.thisAuthenticatedUser);
   }
 
   claimedActivityPrivate() {

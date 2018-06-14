@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
 import {IonicPage} from 'ionic-angular';
-import {UserService} from "../../providers/user-service/user.service";
-import {Activity} from "../../models/activity/activity.interface";
-import {Profile} from "../../models/profile/profile.interface";
 import {ActivityService} from "../../providers/activity-service/activity-service";
 
 @IonicPage()
@@ -11,20 +8,8 @@ import {ActivityService} from "../../providers/activity-service/activity-service
   templateUrl: 'activity-history.html',
 })
 export class ActivityHistoryPage {
-  activities: Activity[] = [];
-  profile: Profile;
 
-  constructor(private userService: UserService,
-              private activityService: ActivityService) {
-  }
-
-
-  ngOnInit(): void {
-    this.profile = this.userService.thisProfile;
-  }
-
-  ionViewDidLoad() {
-    this.activities = this.activityService.mapAs('done');
+  constructor(public activityService: ActivityService) {
   }
 
 }

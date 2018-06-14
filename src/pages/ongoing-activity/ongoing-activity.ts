@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Profile} from "../../models/profile/profile.interface";
-import {Activity} from "../../models/activity/activity.interface";
-import {UserService} from "../../providers/user-service/user.service";
+import {IonicPage} from 'ionic-angular';
 import {ActivityService} from "../../providers/activity-service/activity-service";
 
 @IonicPage()
@@ -12,20 +9,7 @@ import {ActivityService} from "../../providers/activity-service/activity-service
 })
 export class OngoingActivityPage {
 
-  activities: Activity[] = [];
-  profile: Profile;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              private userService: UserService,
-              private activityService: ActivityService) {
-  }
-
-  ngOnInit(): void {
-    this.profile = this.userService.thisProfile;
-  }
-
-  ionViewDidLoad() {
-    this.activities = this.activityService.mapAs('ongoing');
+  constructor(public activityService: ActivityService) {
   }
 
 }

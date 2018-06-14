@@ -4,6 +4,7 @@ import {NotificationService} from "../../providers/notitfication/notification.se
 import {Notification} from "../../models/notification/notification.interface";
 import {UserService} from "../../providers/user-service/user.service";
 import {CalendarService} from "../../providers/calendar-service/calendar-service";
+import {ActivityService} from "../../providers/activity-service/activity-service";
 
 @IonicPage()
 @Component({
@@ -22,7 +23,8 @@ export class TabsPage implements OnInit, OnDestroy {
   constructor(private notificationService: NotificationService,
               private events: Events,
               public userService: UserService,
-              private calenderService: CalendarService) {
+              private calenderService: CalendarService,
+              public activityService: ActivityService) {
   }
 
   ngOnInit(): void {
@@ -47,7 +49,6 @@ export class TabsPage implements OnInit, OnDestroy {
       } else {
         this.clearNumbers();
       }
-      // this.sharedService.createToast(`You got new notification`)
     });
 
     this.events.subscribe('enterToNotificationPage', (data) => {
@@ -67,14 +68,14 @@ export class TabsPage implements OnInit, OnDestroy {
               if (element.status !== 'done') {
                 this.notificationService.notificationNumber++;
               }
-              if((element.event === 'user-approve-activity' ||
-                element.event === 'you-approved-activity') && !element.isAddToCalender){
+              if ((element.event === 'user-approve-activity' ||
+                element.event === 'you-approved-activity') && !element.isAddToCalender) {
                 element.isAddToCalender = true;
                 let notification = <any>element;
 
                 this.calenderService.createEvent(notification.activity);
 
-                this.updateNotification(element,'tabsPage');
+                this.updateNotification(element, 'tabsPage');
 
               }
 
@@ -97,7 +98,7 @@ export class TabsPage implements OnInit, OnDestroy {
 
   }
 
-  updateNotification(params, from){
+  updateNotification(params, from) {
     this.notificationService.updateUserNotification(params, from)
       .subscribe(data => {
         console.log(data);

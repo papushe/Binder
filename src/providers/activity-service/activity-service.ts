@@ -10,6 +10,10 @@ export class ActivityService {
   baseUrl: string = '';
   context: string = 'activity';
   thisUserActivities: Activity[];
+  thisLiveActivities: Activity[];
+  thisOngoingActivity: Activity[];
+  thisDoneActivity: Activity[];
+  thisApprovedActivity: Activity[];
 
   constructor(private _http: HttpClient,
               private sharedService: SharedService) {
@@ -20,6 +24,7 @@ export class ActivityService {
     this.getActivitiesByUserId(auth.uid)
       .subscribe((activities) => {
         this.thisUserActivities = <Activity[]>activities;
+        this.mapActivities();
       }, (err) => {
         console.log(err);
       }, () => {
@@ -35,6 +40,13 @@ export class ActivityService {
       });
       return activities
     }
+  }
+
+  mapActivities() {
+    this.thisLiveActivities = this.mapAs('live');
+    this.thisOngoingActivity = this.mapAs('ongoing');
+    this.thisDoneActivity = this.mapAs('done');
+    this.thisApprovedActivity = this.mapAs('approved');
   }
 
 
@@ -138,7 +150,8 @@ export class ActivityService {
     return this._http
       .post(`${this.baseUrl}/${this.context}/cancel`, activityIdObj)
   }
-  isVoteActivity(activityId){
+
+  isVoteActivity(activityId) {
     const activityIdObj = {
       activityId: activityId
     };

@@ -49,7 +49,7 @@
       </span>
     </ion-col>
     <ion-col col-2>
-      <ion-badge *ngIf="upcomingActivity?.length>0">{{upcomingActivity?.length}}</ion-badge>
+      <ion-badge *ngIf="activityService?.thisApprovedActivity?.length>0">{{activityService?.thisApprovedActivity?.length}}</ion-badge>
     </ion-col>
   </ion-row>
 
@@ -62,7 +62,7 @@
       </span>
     </ion-col>
     <ion-col col-2>
-      <ion-badge *ngIf="ongoingActivity?.length>0">{{ongoingActivity?.length}}</ion-badge>
+      <ion-badge *ngIf="activityService?.thisOngoingActivity?.length>0">{{activityService?.thisOngoingActivity?.length}}</ion-badge>
     </ion-col>
   </ion-row>
 
@@ -75,7 +75,7 @@
       </span>
     </ion-col>
     <ion-col col-2>
-      <ion-badge *ngIf="pastActivity?.length>0">{{pastActivity?.length}}</ion-badge>
+      <ion-badge *ngIf="activityService?.thisDoneActivity?.length>0">{{activityService?.thisDoneActivity?.length}}</ion-badge>
     </ion-col>
   </ion-row>
 

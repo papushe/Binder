@@ -10,6 +10,7 @@
   <ion-tab [root]="tab3Root"
            tabIcon="walk"
            tabTitle="Activities"
+           [tabBadge]="activityService?.thisLiveActivities?.length"
            [enabled]="userService.thisHasProfile"></ion-tab>
   <ion-tab [root]="tab4Root"
            tabIcon="menu"
