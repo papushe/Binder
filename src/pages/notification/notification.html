@@ -3,7 +3,7 @@
   <ion-navbar>
     <ion-title>Notifications</ion-title>
     <ion-buttons end>
-      <button [disabled]="notificationService?.notifications?.length === 0" ion-button icon-only (click)="deleteAllNotification()">
+      <button [disabled]="notificationService?.notifications?.length === 0" ion-button icon-only (click)="deleteAllActivityPopup()">
         <ion-icon name="trash" class="searchBtn"></ion-icon>
       </button>
     </ion-buttons>

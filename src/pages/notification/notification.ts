@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Events, IonicPage, ModalController, NavController} from 'ionic-angular';
+import {AlertController, Events, IonicPage, ModalController, NavController} from 'ionic-angular';
 import {Notification} from "../../models/notification/notification.interface";
 import {NotificationService} from "../../providers/notitfication/notification.service";
 import {SharedService} from "../../providers/shared/shared.service";
@@ -20,7 +20,8 @@ export class NotificationPage implements OnInit {
               private sharedService: SharedService,
               private communityService: CommunityService,
               private userService: UserService,
-              private modalCtrl: ModalController) {
+              private modalCtrl: ModalController,
+              private alertCtrl: AlertController) {
   }
 
   ngOnInit(): void {
@@ -67,6 +68,30 @@ export class NotificationPage implements OnInit {
         //done
       });
   }
+
+  deleteAllActivityPopup() {
+    let alert = this.alertCtrl.create({
+      title: 'Delete all notifications',
+      message: `Are you sure you want to delete all your Notifications?`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.debug('Cancel clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: data => {
+            this.deleteAllNotification();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   deleteAllNotification() {
     this.notificationService.deleteAllNotification(this.userService.thisProfile.keyForFirebase)
