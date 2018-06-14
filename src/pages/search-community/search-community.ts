@@ -14,6 +14,7 @@ export class SearchCommunityPage {
   noCommunityFound: string = '';
   searchCommunities: Community[] = [];
   hasCommunity: boolean = false;
+  showSpinner: boolean;
   @ViewChild("messageInput") messageInput: ElementRef;
 
 
@@ -36,6 +37,7 @@ export class SearchCommunityPage {
       this.noCommunityFound = '';
       this.searchCommunities = [];
     } else {
+      this.showSpinner = true;
       this.communityService.searchCommunity(this.search)
         .subscribe(
           data => {
@@ -53,6 +55,7 @@ export class SearchCommunityPage {
           },
           () => {
             //done
+            this.showSpinner = false;
           }
         );
     }

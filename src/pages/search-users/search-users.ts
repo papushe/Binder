@@ -14,6 +14,7 @@ export class SearchUsersPage implements OnInit {
   community: Community;
   profile: Profile;
   foundResults: boolean;
+  showSpinner: boolean;
   query: string;
   noUsersFound: string = '';
   users: Profile[] = [];
@@ -49,6 +50,7 @@ export class SearchUsersPage implements OnInit {
       this.users = [];
     }
     else {
+      this.showSpinner = true;
       this.userService.searchUsers(this.query)
         .subscribe(
           data => {
@@ -69,6 +71,7 @@ export class SearchUsersPage implements OnInit {
           },
           () => {
             //done
+            this.showSpinner = false;
           }
         );
     }

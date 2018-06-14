@@ -23,6 +23,9 @@
       </ion-card-content>
     </ion-card>
   </form>
+  <ion-row>
+    <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
+  </ion-row>
   <ion-list *ngIf="hasCommunity">
     <ion-row>
       <span class="results">Found {{searchCommunities?.length}} result(s)</span>

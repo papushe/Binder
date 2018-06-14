@@ -23,7 +23,9 @@
       </ion-card-content>
     </ion-card>
   </form>
-
+  <ion-row>
+    <ion-spinner name="bubbles" *ngIf="showSpinner"></ion-spinner>
+  </ion-row>
   <ion-list *ngIf="foundResults">
     <ion-row>
       <span class="results">Found {{users?.length}} result(s)</span>
