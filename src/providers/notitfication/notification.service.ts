@@ -44,7 +44,7 @@ export class NotificationService {
   }
 
   updateUserNotification(params, from) {
-    let obj={};
+    let obj = {};
     if (from === 'notificationPage') {
       obj = {
         status: params.status,
@@ -74,5 +74,13 @@ export class NotificationService {
     };
     return this._http
       .post(`${this.baseUrl}/${this.context}/delete`, obj)
+  }
+
+  deleteAllNotification(notification) {
+    const obj = {
+      keyForFirebase: notification
+    };
+    return this._http
+      .post(`${this.baseUrl}/${this.context}/delete-all`, obj)
   }
 }

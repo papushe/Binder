@@ -2,8 +2,12 @@
 
   <ion-navbar>
     <ion-title>Notifications</ion-title>
+    <ion-buttons end>
+      <button [disabled]="notificationService?.notifications?.length === 0" ion-button icon-only (click)="deleteAllNotification()">
+        <ion-icon name="trash" class="searchBtn"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 <ion-content padding>

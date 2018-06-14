@@ -68,6 +68,21 @@ export class NotificationPage implements OnInit {
       });
   }
 
+  deleteAllNotification() {
+    this.notificationService.deleteAllNotification(this.userService.thisProfile.keyForFirebase)
+      .subscribe(data => {
+        if (data == true) {
+          this.notificationService.notifications.splice(0, this.notificationService.notifications.length);
+          this.sharedService.createToast(`All notifications deleted successfully..`);
+        }
+      }, err => {
+        console.log(`Failed to delete notification, ${err}`);
+        this.sharedService.createToast(`Failed to delete notification, ${err}`);
+      }, () => {
+        //done
+      });
+  }
+
   getCommunities() {
     this.communityService.getCommunities(this.userService.thisProfile.keyForFirebase)
       .subscribe(data => {
