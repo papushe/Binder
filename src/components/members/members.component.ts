@@ -16,7 +16,8 @@ export class MembersComponent implements OnInit, OnDestroy {
   @Input() community: Community;
   showMembers: boolean = true;
   communitySocketConnection: any;
-  showSpinner:boolean;
+  showSpinner: boolean;
+
   constructor(private navCtrl: NavController,
               public communityService: CommunityService,
               public userService: UserService,
@@ -64,9 +65,9 @@ export class MembersComponent implements OnInit, OnDestroy {
       }
 
     } else if (data.event == 'joined') {
-
       if (thisUserName != data.from.fullName) {
         this.sharedService.createToast(`${data.user.fullName} has ${data.event} to ${data.communityName} community`);
+        this.getCommunity(this.userService.thisProfile.keyForFirebase);
       }
 
     } else if (data.event == 'left') {
