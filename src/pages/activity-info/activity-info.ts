@@ -23,7 +23,7 @@ export class ActivityInfoPage implements OnInit {
               public sharedService: SharedService,
               public userService: UserService,
               private alertCtrl: AlertController,
-              private navParams: NavParams,
+              private navParams: NavParams, 
               private socketService: SocketService,
               private communityService: CommunityService) {
 

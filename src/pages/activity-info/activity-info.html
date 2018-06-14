@@ -80,7 +80,7 @@
   <ion-card *ngIf="activity?.status?.value === 'approved'" padding>
     <p class="extraInfo">Activity successfully approved</p>
   </ion-card>
-  <ion-card *ngIf="!sharedService.canClaimedApproveActivity(activity)" padding>
+  <ion-card *ngIf="!sharedService.canClaimedApproveActivity(activity) && activity?.status?.value !== 'done'" padding>
     <p class="extraInfo">Activity Expired</p>
   </ion-card>
 </ion-content>

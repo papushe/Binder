@@ -120,11 +120,16 @@ export class MyApp implements OnInit, OnDestroy {
         if (notification.event === 'user-approve-activity' ||
           notification.event === 'you-approved-activity' ||
           notification.event === 'activity-finish' ||
-          notification.event === 'activity-canceled') {
+          notification.event === 'activity-canceled' ||
+          notification.event === 'activity-is-about-to-start') {
 
           this.getActivity();
 
-          if (!notification.isAddToCalender && notification.event !== 'activity-finish') {
+          if (!notification.isAddToCalender &&
+            notification.event !== 'activity-finish' &&
+            notification.event !== 'activity-is-about-to-start' &&
+            notification.event !== 'activity-canceled') {
+
             notification.isAddToCalender = true;
 
             this.calendarService.createEvent(notification.activity);
