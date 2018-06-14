@@ -9,7 +9,9 @@
 
 <ion-content padding>
   <ion-card class="liveActivityInfo">
-    <ion-item><span>Provider Name</span>
+    <ion-item><span>Owner</span>
+      <p>{{activity?.consumer?.name}}</p></ion-item>
+    <ion-item><span>Provider</span>
       <p>{{activity?.provider?.name}}</p></ion-item>
     <ion-item><span>Description</span>
       <p>{{activity?.activity_description}}</p></ion-item>

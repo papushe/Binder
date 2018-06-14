@@ -143,7 +143,7 @@ export class ChatRoomPage implements OnInit, OnDestroy {
       }
       if (!haveChat && this.userToTalk.chats && this.userToTalk.chats.length > 0) {
         this.userToTalk.chats.map((chat) => {
-          if (chat.talkedToName === this.userToTalk.fullName || chat.talkedFromName === this.userToTalk.fullName) {
+          if (chat.talkedToName === this.userService.thisProfile.fullName || chat.talkedFromName === this.userService.thisProfile.fullName) {
             this.alreadyChat = chat;
             this.enterToChatRoom(chat.chatRoomId, this.userToTalk, this.userService.thisProfile);
             this.saveChat(chat.chatRoomId, this.userToTalk); // else save chat
@@ -160,15 +160,22 @@ export class ChatRoomPage implements OnInit, OnDestroy {
     }
 
     else {
+      let hasChat: boolean;
       if (type === 'join') {
         if (this.userService.thisProfile.chats && this.userService.thisProfile.chats.length > 0) { // if this user and i have chat
           this.userService.thisProfile.chats.map((chat) => {
             if (chat.talkedToName === this.userToTalk.fullName || chat.talkedFromName === this.userToTalk.fullName) {
               this.alreadyChat = chat;
               this.joinToChatRoom(chat.chatRoomId, this.userToTalk, this.userService.thisProfile);
+              hasChat = true;
+            } else {
+              hasChat = false;
             }
           })
         } else {
+          hasChat = false;
+        }
+        if (!hasChat) {
           this.saveChat(this.paramsFromUserToTalk.room, this.paramsFromUserToTalk.from); // else save chat
           this.randomNumberRoom = this.paramsFromUserToTalk.room;
           this.userToTalk = this.paramsFromUserToTalk.from;

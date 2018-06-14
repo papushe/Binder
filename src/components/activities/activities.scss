@@ -1,4 +1,7 @@
 activities-component {
+  ion-spinner {
+    position: absolute !important;
+  }
   .activities {
     ion-item ion-label, ion-item .label-md {
       margin: 2px 0;
