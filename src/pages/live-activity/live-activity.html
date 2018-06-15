@@ -9,7 +9,7 @@
 
 <ion-content padding>
 
-  <ion-card padding *ngIf="!activityService?.thisLiveActivities || activityService?.thisLiveActivities?.length===0">
+  <ion-card padding *ngIf="activityService?.thisLiveActivities?.length===0">
     <p>No Activities</p>
   </ion-card>
 

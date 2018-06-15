@@ -43,10 +43,10 @@ export class ActivityService {
   }
 
   mapActivities() {
-    this.thisLiveActivities = this.mapAs('live');
-    this.thisOngoingActivity = this.mapAs('ongoing');
-    this.thisDoneActivity = this.mapAs('done');
-    this.thisApprovedActivity = this.mapAs('approved');
+    this.thisLiveActivities = this.mapAs('live') || [];
+    this.thisOngoingActivity = this.mapAs('ongoing') || [];
+    this.thisDoneActivity = this.mapAs('done') || [];
+    this.thisApprovedActivity = this.mapAs('approved') || [];
   }
 
 
