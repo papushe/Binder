@@ -1,30 +1,35 @@
-<ion-card>
-  <ion-item>
-    <div class="pic-wrapper">
-      <img *ngIf="member?.profilePic" class="profile-pic" src="{{ member?.profilePic }}"
-           [ngClass]="userService.changeColor(member.keyForFirebase) !== -1 ? 'greenStatus' : 'redStatus'">
-      <span *ngIf="!member?.profilePic" class="profilePic">
-            <ion-icon class="no-pic" name="contact"
-                      [ngClass]="userService.changeColor(member.keyForFirebase) !== -1 ? 'greenStatusNoPic' : 'redStatusNoPic'"></ion-icon>
-          </span>
-    </div>
-    <p><strong>Name: </strong>{{member?.fullName}}</p>
-    <p><strong>Description: </strong>{{member?.description}}</p>
-    <p><strong>Location: </strong>{{member?.location}}</p>
-    <p><strong>Rank: </strong>
+<ion-card class="details">
+  <div class="pic-wrapper">
+    <img *ngIf="member?.profilePic" class="profile-pic" src="{{ member?.profilePic }}"
+         [ngClass]="userService.changeColor(member.keyForFirebase) !== -1 ? 'greenStatus' : 'redStatus'">
+    <span *ngIf="!member?.profilePic" class="profilePic">
+      <ion-icon class="no-pic"
+                name="contact"
+                [ngClass]="userService.changeColor(member.keyForFirebase) !== -1 ? 'greenStatusNoPic' : 'redStatusNoPic'"></ion-icon>
+    </span>
+  </div>
+  <ion-item><span>Name</span>
+    <p>{{member?.fullName}}</p></ion-item>
+  <ion-item><span>Description</span>
+    <p>{{member?.description}}</p></ion-item>
+  <ion-item><span>Location</span>
+    <p>{{member?.location}}</p></ion-item>
+  <ion-item><span>Rank</span>
+    <p>
       <rank [rank]="member?.rank"></rank>
     </p>
-    <p><strong>Date of birth: </strong>{{member?.dateOfBirth}}</p>
-    <p *ngIf="member?.skills?.length>0"><strong>skills:</strong>
-      <ion-list *ngFor="let skill of member?.skills">
-        <span>{{skill}}</span>
-      </ion-list>
-    </p>
-    <span>
-      <button ion-button class="midGreenButton"
-              (click)="talkToUser(member)">Talk to {{member?.fullName}}</button>
-    </span>
   </ion-item>
+  <ion-item><span>Date of birth</span>
+    <p>{{member?.dateOfBirth}}</p></ion-item>
+  <ion-item *ngIf="member?.skills?.length>0"><span>skills</span>
+    <ion-list *ngFor="let skill of member?.skills">
+      <p>{{skill}}</p>
+    </ion-list>
+  </ion-item>
+  <button ion-button class="midGreenButton" (click)="talkToUser(member)">
+    <ion-icon name="chatboxes"></ion-icon>
+    {{member?.fullName}}
+  </button>
 </ion-card>
 
 <span *ngIf="(loggedInUser?.keyForFirebase == community?.manager?.id) && isJoined">
