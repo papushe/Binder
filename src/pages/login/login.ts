@@ -37,10 +37,9 @@ export class LoginPage {
           }, () => {
             //done
             if (this.userService.thisProfile) {
-              if (this.navCtrl.getActive().name == 'LoginPage' || this.navCtrl.getActive().name !== 'CommunitiesPage') {
+              if (this.navCtrl.getActive().name === 'LoginPage' || this.navCtrl.getActive().name !== 'TabsPage') {
 
-                //need to check again
-                // this.navCtrl.setRoot("CommunitiesPage");
+                this.navCtrl.setRoot("TabsPage");
               }
             } else {
               this.navCtrl.setRoot('ProfilePage', {where: true});
