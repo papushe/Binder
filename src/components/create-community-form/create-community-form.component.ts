@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {CommunityService} from "../../providers/community-service/community.service";
 import {UserService} from "../../providers/user-service/user.service";
 import {Profile} from "../../models/profile/profile.interface";
 import {SharedService} from "../../providers/shared/shared.service";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'create-community-form',
@@ -11,6 +12,7 @@ import {SharedService} from "../../providers/shared/shared.service";
 export class CreateCommunityFormComponent {
 
   @Output() saveCommunityResult: EventEmitter<any>;
+  @ViewChild('communityForm') form: NgForm;
 
   constructor(private userService: UserService,
               public communityService: CommunityService,
@@ -33,6 +35,7 @@ export class CreateCommunityFormComponent {
               this.userService.thisProfile = <Profile> data;
               this.sharedService.createToast('Community was created successfully');
               this.saveCommunityResult.emit(data);
+              this.resetInput();
             }
             else {
               this.sharedService.createToast('Failed to create community');
@@ -47,4 +50,10 @@ export class CreateCommunityFormComponent {
         );
     }
   }
+
+  resetInput() {
+    console.log('here');
+    this.form.resetForm();
+  }
+
 }
