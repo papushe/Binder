@@ -69,15 +69,9 @@ export class CommunitiesComponent implements OnInit {
 
   handleSocket(data) {
     let thisUserName = this.userService.thisProfile.fullName;
-
     if (data.event == 'deleted') {
-      let userFromServer = (data.user) ? data.user.keyForFirebase : '';
-
       if (thisUserName != data.from.fullName) {
-        this.sharedService.createToast(`You were ${data.event} from ${data.communityName} community by ${data.from.fullName}`);
-      }
-      if (this.userService.thisProfile.keyForFirebase == userFromServer) {
-        this.userService.thisProfile = data.user;
+        this.sharedService.createToast(`You were ${data.event} from ${data.community.communityName} community by ${data.from.fullName}`);
       }
     } else if (data.event == 'joined') {
       this.userService.thisProfile = data.user;
