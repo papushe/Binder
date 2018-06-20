@@ -20,7 +20,6 @@ export class UserService {
   thisAuthenticatedUser: User;
   thisAuthenticatedUser$: Subscription;
   thisHasProfile: boolean = false;
-  thisFromCommunityDetails: boolean;
   context: string = 'user';
   onlineUsers = [];
 

@@ -228,7 +228,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           this.sharedService.createToast(`Failed to delete ${this.communityService.thisSelectedCommunity.communityName}`);
         },
         () => {
-          this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
+          // this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
         });
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {FabContainer, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 
@@ -7,7 +7,7 @@ import {UserService} from "../../providers/user-service/user.service";
   selector: 'page-communities',
   templateUrl: 'communities.html',
 })
-export class CommunitiesPage implements OnInit {
+export class CommunitiesPage {
 
   @ViewChild('child') child;
   showArrow: boolean = false;
@@ -16,16 +16,7 @@ export class CommunitiesPage implements OnInit {
   showDirection: boolean = false;
 
   constructor(private navCtrl: NavController,
-              private navParams: NavParams,
               public userService: UserService) {
-  }
-
-  ngOnInit() {
-    this.init();
-  }
-
-  init() {
-    this.userService.thisFromCommunityDetails = this.navParams.get('fromCommunityDetails')
   }
 
   updateHasProfile(hasProfile) {

@@ -71,7 +71,7 @@ export class CommunitiesComponent implements OnInit {
     let thisUserName = this.userService.thisProfile.fullName;
     if (data.event == 'deleted') {
       if (thisUserName != data.from.fullName) {
-        this.sharedService.createToast(`You were ${data.event} from ${data.community.communityName} community by ${data.from.fullName}`);
+        this.sharedService.createToast(`You were ${data.event} from ${data.community ? data.community.communityName : data.communityName} community by ${data.from.fullName}`);
       }
     } else if (data.event == 'joined') {
       this.userService.thisProfile = data.user;
@@ -88,8 +88,7 @@ export class CommunitiesComponent implements OnInit {
   }
 
   getProfile(user) {
-    if ((Object.keys(this.userService.thisProfile) && Object.keys(this.userService.thisProfile).length === 0) || this.userService.thisFromCommunityDetails) {
-      this.userService.thisFromCommunityDetails = false;
+    if (Object.keys(this.userService.thisProfile) && Object.keys(this.userService.thisProfile).length === 0) {
       if (user) {
         this.userService.getProfile(user)
           .subscribe(
