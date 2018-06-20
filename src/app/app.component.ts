@@ -34,7 +34,7 @@ export class MyApp implements OnInit, OnDestroy {
               private notificationService: NotificationService,
               private events: Events,
               private activityService: ActivityService,
-              private  calendarService: CalendarService) {
+              private calendarService: CalendarService) {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

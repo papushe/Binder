@@ -1,8 +1,14 @@
 ion-card {
   background: #121212 !important;
-  .login-form__buttons{
+  .login-form__buttons {
     margin: 0 !important;
     padding: 0 !important;
+  }
+  .loginButton {
+    margin-bottom: 0 !important;
+  }
+  ion-item:first-child {
+    padding-top: 5px;
   }
 }
 

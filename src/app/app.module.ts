@@ -15,11 +15,8 @@ import {CommunityService} from '../providers/community-service/community.service
 import {FormsModule} from "@angular/forms";
 import {ActivityService} from '../providers/activity-service/activity-service';
 import {Camera} from '@ionic-native/camera';
-import { Calendar } from '@ionic-native/calendar';
+import {Calendar} from '@ionic-native/calendar';
 import {SharedService} from '../providers/shared/shared.service';
-import {ProfilePopoverComponent} from "../components/profile-popover/profile-popover.component";
-import {ProfilePopoverComponentModule} from "../components/profile-popover/profile-popover.component.module";
-import {CommunityPopoverComponentModule} from "../components/community-popover/community-popover.component.module";
 
 import {SocketIoModule, SocketIoConfig} from 'ng-socket-io';
 import {AuthInterceptor} from '../providers/interceptors-auth/interceptors-auth';
@@ -27,9 +24,9 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 
 import {SocketService} from '../providers/socket/socket.service';
 import {ChatService} from '../providers/chat-service/chat-service';
-import { NotificationService } from '../providers/notitfication/notification.service';
-import { MessageService } from '../providers/message/message';
-import { CalendarService } from '../providers/calendar-service/calendar-service';
+import {NotificationService} from '../providers/notitfication/notification.service';
+import {MessageService} from '../providers/message/message';
+import {CalendarService} from '../providers/calendar-service/calendar-service';
 
 // const config: SocketIoConfig = {url: 'http://localhost:4300', options: {}};
 const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options: {}};
@@ -46,14 +43,11 @@ const config: SocketIoConfig = {url: 'https://appbinder.herokuapp.com', options:
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    HttpClientModule,
-    ProfilePopoverComponentModule,
-    CommunityPopoverComponentModule
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    ProfilePopoverComponent
+    MyApp
   ],
   providers: [
     StatusBar,

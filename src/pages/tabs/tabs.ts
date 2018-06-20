@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Events, IonicPage} from 'ionic-angular';
 import {NotificationService} from "../../providers/notitfication/notification.service";
 import {Notification} from "../../models/notification/notification.interface";
@@ -11,7 +11,7 @@ import {ActivityService} from "../../providers/activity-service/activity-service
   selector: 'page-tabs',
   templateUrl: 'tabs.html',
 })
-export class TabsPage implements OnInit, OnDestroy {
+export class TabsPage implements OnInit {
 
   tab1Root: string;
   tab2Root: string;
@@ -92,10 +92,6 @@ export class TabsPage implements OnInit, OnDestroy {
 
   clearNumbers() {
     this.notificationService.notificationNumber = 0;
-  }
-
-  ngOnDestroy() {
-
   }
 
   updateNotification(params, from) {

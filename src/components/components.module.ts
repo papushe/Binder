@@ -9,7 +9,6 @@ import {MembersComponent} from "./members/members.component";
 import {ActivitiesComponent} from './activities/activities';
 import {ActivityCreationFormComponent} from './activity-creation-form/activity-creation-form';
 import {MemberOptionsComponent} from './member-options/member-options.component';
-import {DirectivesModule} from "../directives/directives.module";
 import {RankComponent} from './rank/rank';
 import {PipesModule} from "../pipes/pipes.module";
 import {ActivityMappingComponent} from './activity-mapping/activity-mapping';
@@ -29,7 +28,6 @@ import {ActivityMappingComponent} from './activity-mapping/activity-mapping';
     ActivityMappingComponent
   ],
   imports: [IonicModule,
-    DirectivesModule,
     PipesModule
   ],
   exports: [
