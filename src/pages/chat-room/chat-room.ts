@@ -153,7 +153,7 @@ export class ChatRoomPage implements OnInit, OnDestroy {
       }
 
 
-      if (noChat) {
+      if (noChat && !haveChat) {
         this.saveChat(this.randomNumberRoom, this.userToTalk); // else save chat
         this.enterToChatRoom(this.randomNumberRoom, this.userToTalk, this.userService.thisProfile);
       }

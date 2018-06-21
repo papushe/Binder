@@ -32,10 +32,10 @@
     </ion-fab-list>
   </ion-fab>
   <ion-card padding *ngIf="showArrow">
-    <p>Create new Community or join to one</p>
+    <p class="noNotificationActivity">Create new Community or join to one</p>
   </ion-card>
   <ion-card padding *ngIf="!userService?.thisHasProfile|| showDirection">
-    <p>Go to `View Your Profile` in order to complete your Registration</p>
+    <p class="noNotificationActivity">Go to `View Your Profile` in order to complete your Registration</p>
   </ion-card>
   <ion-footer *ngIf="!userService?.thisHasProfile|| showDirection">
     <ion-icon class="directionArrow" name="arrow-round-down"></ion-icon>

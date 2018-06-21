@@ -38,6 +38,10 @@ $colors: (
   almostwhite: #fdfdfb
 );
 
+.noNotificationActivity {
+  color: white !important;
+}
+
 ion-spinner circle {
   fill: white !important;
 }

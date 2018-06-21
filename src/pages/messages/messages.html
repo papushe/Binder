@@ -9,7 +9,7 @@
 
 <ion-content>
   <ion-card padding *ngIf="userService?.thisProfile?.chats == 0">
-    <p>No chat room yet</p>
+    <p class="noNotificationActivity">No chat room yet</p>
   </ion-card>
   <ion-list>
     <ion-item *ngFor="let chat of userService?.thisProfile?.chats" (click)="chatWith(chat)">
