@@ -36,7 +36,10 @@ export class SearchUsersPage implements OnInit {
   }
 
   ngAfterViewChecked() {
-    this.setInputFocus();
+    // console.log(this.navCtrl.getViews());
+    // if (this.navCtrl.getViews()[this.navCtrl.getViews().length - 1].id !== 'MemberOptionsComponent') {
+    this.setInputFocus()
+    // }
   }
 
   init() {

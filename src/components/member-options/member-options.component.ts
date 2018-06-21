@@ -74,7 +74,7 @@ export class MemberOptionsComponent implements OnInit {
           if (res) {
 
             this.socketService.joinToCommunityByManager(this.community, res, this.userService.thisProfile);
-            this.sharedService.createToast(`User joined ${this.community.communityName}`);
+            // this.sharedService.createToast(`User joined ${this.community.communityName}`);
           }
           else {
             this.sharedService.createToast(`Failed to join ${this.community.communityName}`);
@@ -85,9 +85,13 @@ export class MemberOptionsComponent implements OnInit {
           this.sharedService.createToast(`Failed to join  ${this.community.communityName}`);
         },
         () => {
-          this.navCtrl.pop().then(() => {
-            this.navCtrl.pop()
-          })
+
+          this.navCtrl.setRoot('CommunitiesPage').then(()=>{
+            this.navCtrl.push('CommunityDetailsPage', {community: this.community, from: 'communitiesComponent'})
+          });
+          // this.navCtrl.pop().then(() => {
+          //   this.navCtrl.pop()
+          // })
         });
   }
 

@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {FabContainer, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {FabContainer, IonicPage, NavController} from 'ionic-angular';
 import {UserService} from "../../providers/user-service/user.service";
 
 @IonicPage()
@@ -11,8 +11,6 @@ export class CommunitiesPage {
 
   @ViewChild('child') child;
   showArrow: boolean = false;
-  date = new Date();
-  updateTime: any;
   showDirection: boolean = false;
 
   constructor(private navCtrl: NavController,
@@ -29,13 +27,6 @@ export class CommunitiesPage {
     this.showArrow = false;
   }
 
-  refreshDate() {
-    this.updateTime = setInterval(() => {
-      this.date = new Date();
-    }, 1000)
-  }
-
-
   createCommunity(fab: FabContainer) {
     fab.close();
     this.navCtrl.push('CreateCommunityPage');
@@ -44,14 +35,6 @@ export class CommunitiesPage {
   searchCommunity(fab: FabContainer) {
     fab.close();
     this.navCtrl.push('SearchCommunityPage');
-  }
-
-  ionViewWillEnter() {
-    this.refreshDate();
-  }
-
-  ionViewDidLeave() {
-    clearInterval(this.updateTime);
   }
 
   doRefresh(refresher) {
