@@ -23,7 +23,8 @@
       <p>{{activity?.destination}}</p></ion-item>
     <ion-item *ngIf="activity?.notes"><span>Notes</span>
       <p>{{activity?.notes}}</p></ion-item>
-    <ion-item><span>Status</span> <span [ngClass]="{'live':activity?.status?.value ==='live'}"><p>{{activity?.status?.value}}</p></span>
+    <ion-item><span>Status</span>
+      <p [ngClass]="{'live':activity?.status?.value ==='live'}">{{activity?.status?.value}}</p>
     </ion-item>
   </ion-card>
 

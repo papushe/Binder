@@ -23,7 +23,7 @@ export class ActivityInfoPage implements OnInit {
               public sharedService: SharedService,
               public userService: UserService,
               private alertCtrl: AlertController,
-              private navParams: NavParams, 
+              private navParams: NavParams,
               private socketService: SocketService,
               private communityService: CommunityService) {
 
@@ -228,6 +228,7 @@ export class ActivityInfoPage implements OnInit {
         },
         () => {
           //done
+          this.activityService.getActivities(this.userService.thisAuthenticatedUser);
           console.log('done');
           this.sharedService.createToast(`${this.activity.activity_name} voted successfully`);
         }

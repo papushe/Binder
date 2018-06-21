@@ -91,6 +91,7 @@ export class LiveActivityInfoPage {
         },
         () => {
           //done
+          this.activityService.getActivities(this.userService.thisAuthenticatedUser);
           console.log('done');
           this.sharedService.createToast(`${this.activity.activity_name} voted successfully`);
         }
