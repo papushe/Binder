@@ -11,13 +11,14 @@ activity-mapping {
     border-radius: 5px !important;
     padding: 2px !important;
     ion-item {
+      padding-left: 10px !important;
       p {
         color: #fdfdfb !important;
-        font-size: 0.9em !important;
+        font-size: 1em !important;
+        margin-bottom: 5px !important;
       }
       p:nth-child(1) {
         font-size: 1.3em !important;
-        text-align: center !important;
       }
     }
     .addToCalenderButton {
@@ -25,5 +26,8 @@ activity-mapping {
       padding: 0;
       width: 100%;
     }
+  }
+  .activityTitle {
+    color: #808080 !important;
   }
 }
