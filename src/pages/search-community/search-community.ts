@@ -29,7 +29,7 @@ export class SearchCommunityPage {
   }
 
   ngAfterViewChecked() {
-    this.setInputFocus();
+    // this.setInputFocus();
   }
 
   searchCommunity() {

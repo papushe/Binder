@@ -2,9 +2,12 @@
   <button class="addToCalenderButton" readonly (click)="showData(activity)">
     <ion-item>
       <p><strong>{{activity?.activity_name}}</strong></p>
-      <p>Activity date: {{activity?.activity_date | convertDate}}</p>
-      <p>Location:</p>
+      <p class="activityTitle">Activity Date</p>
+      <p>{{activity?.activity_date | convertDate}}</p>
+      <p class="activityTitle">Location</p>
       <p>{{activity?.source}}</p>
+      <p class="activityTitle">{{userService.thisProfile.keyForFirebase === activity.consumer.id ? 'Provider':'Consumer'}}</p>
+      <p>{{userService.thisProfile.keyForFirebase === activity.consumer.id ? activity.provider.name:activity.consumer.name}}</p>
     </ion-item>
   </button>
 </ion-card>

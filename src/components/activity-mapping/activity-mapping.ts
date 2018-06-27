@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {NavController} from "ionic-angular";
+import {UserService} from "../../providers/user-service/user.service";
 
 @Component({
   selector: 'activity-mapping',
@@ -9,7 +10,8 @@ export class ActivityMappingComponent {
 
   @Input() activities;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController,
+              public userService: UserService) {
   }
 
   showData(activity) {
