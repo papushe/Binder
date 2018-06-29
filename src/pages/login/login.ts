@@ -32,7 +32,7 @@ export class LoginPage {
               this.userService.thisHasProfile = true;
             }
           }, err => {
-            console.log(`error: ${err.message}`);
+            //console.log(`error: ${err.message}`);
             this.userService.thisHasProfile = false;
           }, () => {
             //done

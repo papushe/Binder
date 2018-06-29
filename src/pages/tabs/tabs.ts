@@ -83,7 +83,7 @@ export class TabsPage implements OnInit {
             })
           }
         }, (err) => {
-          console.log(`Failed to get user notifications ${err.message}`)
+          //console.log(`Failed to get user notifications ${err.message}`)
         },
         () => {
           //done
@@ -97,9 +97,9 @@ export class TabsPage implements OnInit {
   updateNotification(params, from) {
     this.notificationService.updateUserNotification(params, from)
       .subscribe(data => {
-        console.log(data);
+        //console.log(data);
       }, err => {
-        console.log(`Faild to save notification, ${err}`)
+        //console.log(`Faild to save notification, ${err}`)
       }, () => {
         //done
       });

@@ -24,7 +24,7 @@ export class RegisterFormComponent {
           this.userService.createUserWithEmailAndPassword(this.userService.account);
         this.registerStatus.emit(result);
       } catch (e) {
-        console.error(e);
+        //console.error(e);
         this.registerStatus.emit(e);
       }
     } else {

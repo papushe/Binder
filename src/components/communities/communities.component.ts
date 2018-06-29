@@ -107,7 +107,7 @@ export class CommunitiesComponent implements OnInit {
               }
             },
             err => {
-              console.log(`error: ${err.message}`);
+              //console.log(`error: ${err.message}`);
             },
             () => {
               //done
@@ -128,10 +128,10 @@ export class CommunitiesComponent implements OnInit {
         .subscribe(
           data => {
             this.communityService.thisCommunities = <Community[]>data;
-            console.log(`get communities success? : ${data != null}`);
+            //console.log(`get communities success? : ${data != null}`);
           },
           err => {
-            console.log(`fail to get user communities: ${err.message}`);
+            //console.log(`fail to get user communities: ${err.message}`);
           },
           () => {
             //done

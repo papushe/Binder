@@ -38,10 +38,10 @@ export class CommunitiesPage {
   }
 
   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
+    //console.log('Begin async operation', refresher);
 
     setTimeout(() => {
-      console.log('Async operation has ended');
+      //console.log('Async operation has ended');
       this.child.getProfile(this.userService.thisAuthenticatedUser);
       refresher.complete();
     }, 1000);

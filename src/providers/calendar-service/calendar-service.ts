@@ -54,20 +54,20 @@ export class CalendarService {
 
     this.calendar.createEventInteractivelyWithOptions(event.title, event.location, event.notes, event.startDate, event.endDate, options)
       .then(data => {
-        console.log(`new event was saved in user calendar ${data}`);
+        //console.log(`new event was saved in user calendar ${data}`);
       })
       .catch(err => {
-        console.error(`failed to create a new event with error: ${err}`);
+        //console.error(`failed to create a new event with error: ${err}`);
       });
   }
 
   deleteEvent(activity: Activity) {
     this.calendar.deleteEvent(activity.activity_name, activity.source, activity.notes || '', new Date(activity.activity_date), new Date(activity.activity_date + this.hour))
       .then(data => {
-        console.log(`new event was removed from user calendar ${data}`);
+        //console.log(`new event was removed from user calendar ${data}`);
       })
       .catch(err => {
-        console.error(`failed to delete event with error: ${err}`);
+        // console.error(`failed to delete event with error: ${err}`);
       });
   }
 }

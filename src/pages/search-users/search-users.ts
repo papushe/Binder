@@ -70,7 +70,7 @@ export class SearchUsersPage implements OnInit {
             }
           },
           err => {
-            console.log(`error: ${err.message}`);
+            //console.log(`error: ${err.message}`);
           },
           () => {
             //done

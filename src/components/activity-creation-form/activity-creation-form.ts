@@ -52,7 +52,7 @@ export class ActivityCreationFormComponent implements OnInit {
         this.activityService.createActivity(this.activity)
           .subscribe(
             data => {
-              console.log(`create activity success? : ${!!data}`);
+              //console.log(`create activity success? : ${!!data}`);
               if (data) {
                 this.socketService.communityChangeActivity(data, this.activity.community_id, 'create', this.userService.thisProfile);
                 this.sharedService.createToast(`${this.activity.activity_name} was created successfully`);
@@ -74,7 +74,7 @@ export class ActivityCreationFormComponent implements OnInit {
         this.activityService.updateActivity(this.activity)
           .subscribe(
             data => {
-              console.log(`successfully updated activity? : ${!!data}`);
+              //console.log(`successfully updated activity? : ${!!data}`);
               if (data) {
                 this.socketService.communityChangeActivity(data, this.activity.community_id, 'update', this.userService.thisProfile);
                 this.sharedService.createToast(`${this.activity.activity_name} was updated successfully`);

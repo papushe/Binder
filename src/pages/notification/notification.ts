@@ -62,7 +62,7 @@ export class NotificationPage implements OnInit {
           this.notificationService.notifications.splice(from, 1);
         }
       }, err => {
-        console.log(`Failed to delete notification, ${err}`);
+        //console.log(`Failed to delete notification, ${err}`);
         this.sharedService.createToast(`Failed to delete notification, ${err}`);
       }, () => {
         //done
@@ -78,7 +78,7 @@ export class NotificationPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.debug('Cancel clicked');
+            //console.debug('Cancel clicked');
           }
         },
         {
@@ -101,7 +101,7 @@ export class NotificationPage implements OnInit {
           this.sharedService.createToast(`All notifications deleted successfully..`);
         }
       }, err => {
-        console.log(`Failed to delete notification, ${err}`);
+        //console.log(`Failed to delete notification, ${err}`);
         this.sharedService.createToast(`Failed to delete notification, ${err}`);
       }, () => {
         //done
@@ -113,9 +113,9 @@ export class NotificationPage implements OnInit {
       .subscribe(data => {
         this.communityService.thisCommunities = <Community[]>data;
       }, err => {
-        console.log(err)
+        //console.log(err)
       }, () => {
-        console.log('done')
+        //console.log('done')
       })
   }
 
@@ -127,10 +127,10 @@ export class NotificationPage implements OnInit {
 
     this.notificationService.updateUserNotification(params, 'notificationPage')
       .subscribe(data => {
-        console.log(data);
+        //console.log(data);
         this.notificationService.notifications[from] = <Notification>data;
       }, err => {
-        console.log(`Faild to save notification, ${err}`)
+        //console.log(`Faild to save notification, ${err}`)
       }, () => {
         //done
       });

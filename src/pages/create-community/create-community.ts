@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicPage, NavController} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -11,8 +11,8 @@ export class CreateCommunityPage {
   constructor(private navCtrl: NavController) {
   }
 
-  saveCommunityResult(event){
-    event ? this.navCtrl.setRoot('CommunitiesPage') : console.log("Not Community saved")
+  saveCommunityResult(event) {
+    event ? this.navCtrl.setRoot('CommunitiesPage') : '';
   }
 
 }

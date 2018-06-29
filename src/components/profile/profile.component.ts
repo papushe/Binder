@@ -65,7 +65,7 @@ export class ProfileComponent implements OnDestroy {
               }
             },
             err => {
-              console.log(`Error occurred when tried to get profile: ${err.message}`);
+              //console.log(`Error occurred when tried to get profile: ${err.message}`);
             },
             () => {
               //done
@@ -98,7 +98,7 @@ export class ProfileComponent implements OnDestroy {
           },
           err => {
             this.sharedService.createToast(`Error occurred when tried to update profile`);
-            console.log(`Error occurred when tried to update profile: ${err.message}`);
+            //console.log(`Error occurred when tried to update profile: ${err.message}`);
           },
           () => {
             this.sharedService.loader.dismiss();
@@ -185,7 +185,7 @@ export class ProfileComponent implements OnDestroy {
       this.myPhoto = imageData;
       this.uploadPhoto();
     }, error => {
-      console.log("ERROR -> " + JSON.stringify(error));
+      //console.log("ERROR -> " + JSON.stringify(error));
     });
   }
 
@@ -205,7 +205,7 @@ export class ProfileComponent implements OnDestroy {
         this.myPhoto = imageData;
         this.uploadPhoto();
       }, error => {
-        console.log("ERROR -> " + JSON.stringify(error));
+        //console.log("ERROR -> " + JSON.stringify(error));
       });
   }
 

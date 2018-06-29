@@ -105,7 +105,7 @@ export class MembersComponent implements OnInit, OnDestroy {
         community => {
           if (Object.keys(community) && Object.keys(community).length !== 0) {
 
-            console.log(`get community success? : ${!!community}`);
+            //console.log(`get community success? : ${!!community}`);
             if (!Object.is(this.communityService.thisSelectedCommunity, <Community>community)) {
 
               let key = this.checkCommunity(community);
@@ -121,7 +121,7 @@ export class MembersComponent implements OnInit, OnDestroy {
           }
         },
         err => {
-          console.debug(`Failed to get ${this.userService.thisProfile.keyForFirebase} community due to: ${err.message}`);
+          //console.debug(`Failed to get ${this.userService.thisProfile.keyForFirebase} community due to: ${err.message}`);
         },
         () => {
           //done
@@ -144,7 +144,7 @@ export class MembersComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           if (res) {
-            console.log(`get community members success? : ${!!res}`);
+            //console.log(`get community members success? : ${!!res}`);
             this.communityService.thisCommunityMembers = <Profile[]>res;
           }
           else {
@@ -152,7 +152,7 @@ export class MembersComponent implements OnInit, OnDestroy {
           }
         },
         err => {
-          console.debug(`Failed to get ${this.community._id} members due to: ${err.message}`);
+          // console.debug(`Failed to get ${this.community._id} members due to: ${err.message}`);
         },
         () => {
           //done
