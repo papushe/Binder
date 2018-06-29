@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Accomplished Activities</ion-title>
+    <ion-title>Past Activities</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <ion-card padding *ngIf="activityService?.thisDoneActivity?.length===0">
-    <p class="noNotificationActivity">Activities history not found</p>
+    <p class="noNotificationActivity">No activities history yet</p>
   </ion-card>
   <activity-mapping [activities]="activityService?.thisDoneActivity"></activity-mapping>
 </ion-content>
