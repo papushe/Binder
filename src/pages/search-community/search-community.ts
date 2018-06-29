@@ -51,7 +51,7 @@ export class SearchCommunityPage {
             }
           },
           err => {
-            console.log(`error: ${err.message}`);
+            //console.log(`error: ${err.message}`);
           },
           () => {
             //done

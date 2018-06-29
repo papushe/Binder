@@ -64,7 +64,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
       this.communityService.joinCommunity(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase, false)
         .subscribe(
           res => {
-            console.debug(`You joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${!!res}`);
+            //console.debug(`You joined community ${this.communityService.thisSelectedCommunity.communityName} success? : ${!!res}`);
             if (res) {
               this.userService.thisProfile = <Profile> res;
 
@@ -78,7 +78,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
             }
           },
           err => {
-            console.debug(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
+            //console.debug(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
             this.sharedService.createToast(`Failed to join to ${this.communityService.thisSelectedCommunity.communityName}`);
           },
           () => {
@@ -88,7 +88,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
 
       this.communityService.addUserToWaitingList(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase)
         .subscribe(data => {
-          console.log(`add user to waiting list success? : ${!!data}`);
+          //console.log(`add user to waiting list success? : ${!!data}`);
           if (data) {
             this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} sent`);
             this.socketService.askToJoinToPrivateRoom(this.userService.thisProfile, this.communityService.thisSelectedCommunity);
@@ -97,7 +97,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
             this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} failed`);
           }
         }, err => {
-          console.log(err.message);
+          //console.log(err.message);
           this.sharedService.createToast(`Your request to join ${this.communityService.thisSelectedCommunity.communityName} failed`);
         }, () => {
           this.navCtrl.setRoot('CommunitiesPage', {fromCommunityDetails: true});
@@ -145,7 +145,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.debug('Cancel clicked');
+            //console.debug('Cancel clicked');
           }
         },
         {
@@ -163,7 +163,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     this.communityService.leaveCommunity(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`user was removed from community success? : ${!!res}`);
+          //console.log(`user was removed from community success? : ${!!res}`);
           if (res) {
             this.userService.thisProfile = <Profile> res;
 
@@ -176,7 +176,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           }
         },
         err => {
-          console.debug(`Failed to leave ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
+          //console.debug(`Failed to leave ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
           this.sharedService.createToast(`Failed to leave ${this.communityService.thisSelectedCommunity.communityName}`);
         },
         () => {
@@ -195,7 +195,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           text: 'Cancel',
           role: 'cancel',
           handler: data => {
-            console.debug('Cancel clicked');
+            //console.debug('Cancel clicked');
           }
         },
         {
@@ -213,7 +213,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
     this.communityService.deleteCommunity(this.communityService.thisSelectedCommunity._id, this.userService.thisProfile.keyForFirebase)
       .subscribe(
         res => {
-          console.log(`community ${this.communityService.thisSelectedCommunity._id} was deleted success? : ${!!res}`);
+          //console.log(`community ${this.communityService.thisSelectedCommunity._id} was deleted success? : ${!!res}`);
           if (res) {
 
             this.socketService.deleteCommunity(this.userService.thisProfile, this.communityService.thisSelectedCommunity);
@@ -224,7 +224,7 @@ export class CommunityDetailsPage implements OnInit, OnDestroy {
           }
         },
         err => {
-          console.debug(`Failed to delete ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
+          // console.debug(`Failed to delete ${this.communityService.thisSelectedCommunity.communityName} due to: ${err.message}`);
           this.sharedService.createToast(`Failed to delete ${this.communityService.thisSelectedCommunity.communityName}`);
         },
         () => {

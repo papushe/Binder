@@ -193,9 +193,9 @@ export class ChatRoomPage implements OnInit, OnDestroy {
         this.userService.thisProfile = <Profile>data;
         this.chatService.roomNumberChat = this.userService.thisProfile.chats;
       }, (err) => {
-        console.log(err)
+        //console.log(err)
       }, () => {
-        console.log('done')
+        //console.log('done')
       })
   }
 
@@ -226,9 +226,9 @@ export class ChatRoomPage implements OnInit, OnDestroy {
       .subscribe(messages => {
         this.messages = <any[]>messages;
       }, err => {
-        console.log(err)
+        //console.log(err)
       }, () => {
-        console.log('done')
+        //console.log('done')
       })
   }
 

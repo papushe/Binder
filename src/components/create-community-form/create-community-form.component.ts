@@ -52,7 +52,7 @@ export class CreateCommunityFormComponent {
   }
 
   resetInput() {
-    console.log('here');
+    //console.log('here');
     this.form.resetForm();
   }
 

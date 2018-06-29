@@ -26,9 +26,9 @@ export class ActivityService {
         this.thisUserActivities = <Activity[]>activities;
         this.mapActivities();
       }, (err) => {
-        console.log(err);
+        //console.log(err);
       }, () => {
-        console.log('done');
+        //console.log('done');
       })
   };
 

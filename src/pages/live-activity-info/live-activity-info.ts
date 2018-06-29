@@ -29,15 +29,15 @@ export class LiveActivityInfoPage {
   finish(activity) {
     this.activityService.finish(activity._id)
       .subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.activity = <Activity>data;
         this.activityService.getActivities(this.userService.thisAuthenticatedUser);
         this.socketService.finishActivity(<Activity>data);
         this.navCtrl.pop();
       }, (err) => {
-        console.log(err)
+        //console.log(err)
       }, () => {
-        console.log('done finish')
+        //console.log('done finish')
       })
   }
 
@@ -45,7 +45,7 @@ export class LiveActivityInfoPage {
     let Activity = activity;
     this.activityService.cancel(activity._id, activity.provider.id)
       .subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         this.sharedService.createToast(`You canceled ${Activity.activity_name} activity`);
         this.activityService.getActivities(this.userService.thisAuthenticatedUser);
         this.socketService.cancelActivity(<Activity>Activity);
@@ -53,9 +53,9 @@ export class LiveActivityInfoPage {
           this.navCtrl.pop();
         });
       }, (err) => {
-        console.log(err)
+        //console.log(err)
       }, () => {
-        console.log('done finish')
+        //console.log('done finish')
       })
   }
 
@@ -67,15 +67,15 @@ export class LiveActivityInfoPage {
     this.userService.vote(Vote)
       .subscribe(
         data => {
-          console.log(data);
+          //console.log(data);
           this.voteActivity();
         },
         err => {
-          console.log(`error: ${err.message}`);
+          //console.log(`error: ${err.message}`);
         },
         () => {
           //done
-          console.log('done');
+          //console.log('done');
         }
       );
   }
@@ -87,12 +87,12 @@ export class LiveActivityInfoPage {
           this.activity = <Activity>data
         },
         err => {
-          console.log(`error: ${err.message}`);
+          //console.log(`error: ${err.message}`);
         },
         () => {
           //done
           this.activityService.getActivities(this.userService.thisAuthenticatedUser);
-          console.log('done');
+          //console.log('done');
           this.sharedService.createToast(`${this.activity.activity_name} voted successfully`);
         }
       );

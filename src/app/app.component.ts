@@ -80,7 +80,7 @@ export class MyApp implements OnInit, OnDestroy {
             }
           })
           .catch(err => {
-            console.log(`Initialization error: ${err.message}`);
+            //console.log(`Initialization error: ${err.message}`);
             this.rootPage = 'LoginPage';
           });
       }
@@ -99,7 +99,7 @@ export class MyApp implements OnInit, OnDestroy {
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
-            console.log(`Failed to save notification, ${err}`)
+            //console.log(`Failed to save notification, ${err}`)
           }, () => {
             //done
           })
@@ -141,7 +141,7 @@ export class MyApp implements OnInit, OnDestroy {
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
-            console.log(`Failed to save notification, ${err}`)
+            //console.log(`Failed to save notification, ${err}`)
           }, () => {
             //done
           })
@@ -173,7 +173,7 @@ export class MyApp implements OnInit, OnDestroy {
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
-            console.log(`Failed to save notification, ${err}`)
+            //console.log(`Failed to save notification, ${err}`)
           }, () => {
             //done
           })
@@ -201,7 +201,7 @@ export class MyApp implements OnInit, OnDestroy {
           .subscribe(data => {
             this.notificationService.notifications.push(<Notification>data);
           }, err => {
-            console.log(`Failed to save notification, ${err}`)
+            //console.log(`Failed to save notification, ${err}`)
           }, () => {
             //done
           })

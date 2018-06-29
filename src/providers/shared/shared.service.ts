@@ -66,7 +66,7 @@ export class SharedService {
   convertToISO(date: number) {
     let offsetInMS = new Date().getTimezoneOffset() * 60 * 1000;
     let dateInMS = new Date(date).getTime();
-    console.log(new Date(dateInMS - offsetInMS).toISOString().replace('Z', ''));
+    //console.log(new Date(dateInMS - offsetInMS).toISOString().replace('Z', ''));
     return new Date(dateInMS - offsetInMS).toISOString().replace('Z', '');
   }
 

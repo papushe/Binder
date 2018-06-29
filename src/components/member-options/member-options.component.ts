@@ -47,7 +47,7 @@ export class MemberOptionsComponent implements OnInit {
     this.communityService.leaveCommunity(this.community._id, this.member.keyForFirebase)
       .subscribe(
         userResponse => {
-          console.log(`user was removed from community success? : ${!!userResponse}`);
+          //console.log(`user was removed from community success? : ${!!userResponse}`);
           if (userResponse) {
             this.socketService.deleteFromCommunity(this.community, userResponse, this.userService.thisProfile);
             this.sharedService.createToast(`You removed ${this.member.fullName} from ${this.community.communityName}`);
@@ -57,7 +57,7 @@ export class MemberOptionsComponent implements OnInit {
           }
         },
         err => {
-          console.debug(`Failed to removed ${this.member.keyForFirebase}, due to: ${err.message}`);
+          //console.debug(`Failed to removed ${this.member.keyForFirebase}, due to: ${err.message}`);
           this.sharedService.createToast(`Failed to removed ${this.member.fullName}from ${this.community.communityName}, due to: ${err.message}`);
         },
         () => {
@@ -70,7 +70,7 @@ export class MemberOptionsComponent implements OnInit {
     this.communityService.joinCommunity(this.community._id, this.member.keyForFirebase, true)
       .subscribe(
         res => {
-          console.log(`user has joined community ${this.community.communityName} success? : ${!!res}`);
+          //console.log(`user has joined community ${this.community.communityName} success? : ${!!res}`);
           if (res) {
 
             this.socketService.joinToCommunityByManager(this.community, res, this.userService.thisProfile);
@@ -81,7 +81,7 @@ export class MemberOptionsComponent implements OnInit {
           }
         },
         err => {
-          console.debug(`Failed to join ${this.community.communityName} due to: ${err.message}`);
+          //console.debug(`Failed to join ${this.community.communityName} due to: ${err.message}`);
           this.sharedService.createToast(`Failed to join  ${this.community.communityName}`);
         },
         () => {
@@ -109,9 +109,9 @@ export class MemberOptionsComponent implements OnInit {
     this.communityService.removeUserFromWaitingList(message.room, message.from.keyForFirebase)
       .subscribe(data => {
         this.sendUserDeclineNotification(message);
-        console.log(data);
+        //console.log(data);
       }, err => {
-        console.log(err.message);
+        //console.log(err.message);
       }, () => {
         //done
         this.closeModal();
@@ -130,7 +130,7 @@ export class MemberOptionsComponent implements OnInit {
     this.communityService.joinCommunity(message.room, message.from.keyForFirebase, true)
       .subscribe(
         res => {
-          console.log(`user has joined to ${message.communityName} community  success? : ${!!res}`);
+          //console.log(`user has joined to ${message.communityName} community  success? : ${!!res}`);
           if (res) {
 
             this.socketService.joinToCommunityByManager(message, res, this.userService.thisProfile);
@@ -142,7 +142,7 @@ export class MemberOptionsComponent implements OnInit {
           }
         },
         err => {
-          console.debug(`Failed to join ${message.content} community due to: ${err.message}`);
+          // console.debug(`Failed to join ${message.content} community due to: ${err.message}`);
           this.sharedService.createToast(`Failed to join ${message.content} community`);
         },
         () => {
