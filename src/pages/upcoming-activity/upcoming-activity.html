@@ -10,7 +10,7 @@
 <ion-content padding>
 
   <ion-card padding *ngIf="activityService?.thisApprovedActivity?.length===0">
-    <p class="noNotificationActivity">No Activities</p>
+    <p class="noNotificationActivity">Upcoming activities not found</p>
   </ion-card>
 
   <activity-mapping [activities]="activityService?.thisApprovedActivity"></activity-mapping>

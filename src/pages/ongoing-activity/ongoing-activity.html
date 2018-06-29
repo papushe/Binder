@@ -8,7 +8,7 @@
 
 <ion-content padding>
   <ion-card padding *ngIf="activityService?.thisOngoingActivity?.length===0">
-    <p class="noNotificationActivity">No Activities</p>
+    <p class="noNotificationActivity">Ongoing activities not found</p>
   </ion-card>
   <activity-mapping [activities]="activityService?.thisOngoingActivity"></activity-mapping>
 </ion-content>

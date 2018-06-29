@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <ion-card padding *ngIf="notificationService?.notifications?.length ==0">
-    <p class="noNotificationActivity">No Notifications</p>
+    <p class="noNotificationActivity">No notifications</p>
   </ion-card>
   <ion-card *ngFor="let notification of notificationService?.notifications; let i = index" class="notifications">
     <button class="notification" readonly (click)="handleNotificationEvent(notification,i)"

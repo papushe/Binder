@@ -12,6 +12,10 @@
     </ion-refresher-content>
   </ion-refresher>
 
+  <ion-card padding *ngIf="userService?.thisProfile?.communities?.length ==0">
+    <p class="noCommunities">You have not joined any community yet</p>
+  </ion-card>
+
   <communities-component #child (hasProfileEvent)="updateHasProfile($event)"></communities-component>
 
   <ion-fab bottom right #fab *ngIf="userService?.thisHasProfile">
@@ -19,7 +23,6 @@
       <ion-icon class="moreOptions" name="more"></ion-icon>
     </button>
     <ion-fab-list side="top">
-      <!--<span class="fabName">Search Communities</span>-->
       <button ion-fab (click)="searchCommunity(fab)">
         <ion-icon name="search" color="dark"></ion-icon>
       </button>
@@ -28,19 +31,6 @@
       <button class="createNewFab" ion-fab (click)="createCommunity(fab)">
         <ion-icon name="add"></ion-icon>
       </button>
-      <!--<span class="fabName">Create New Community</span>-->
     </ion-fab-list>
   </ion-fab>
-  <!--<ion-card padding *ngIf="showArrow">-->
-    <!--<p class="noNotificationActivity">Create new Community or join to one</p>-->
-  <!--</ion-card>-->
-  <!--<ion-card padding *ngIf="!userService?.thisHasProfile|| showDirection">-->
-    <!--<p class="noNotificationActivity">Go to `View Your Profile` in order to complete your Registration</p>-->
-  <!--</ion-card>-->
-  <!--<ion-footer *ngIf="!userService?.thisHasProfile|| showDirection">-->
-    <!--<ion-icon class="directionArrow" name="arrow-round-down"></ion-icon>-->
-  <!--</ion-footer>-->
-  <!--<ion-footer *ngIf="showArrow">-->
-    <!--<ion-icon class="noCommunities" name="arrow-round-down"></ion-icon>-->
-  <!--</ion-footer>-->
 </ion-content>

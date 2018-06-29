@@ -1,6 +1,15 @@
 page-communities {
   ion-content {
     background: #212020 !important;
+    ion-card {
+      margin-top: 14px !important;
+      border: 1px solid #808080 !important;
+      border-radius: 6px !important;
+      position: relative;
+      .noCommunities {
+        color: #ffffff;
+      }
+    }
   }
   ion-icon {
     margin-right: 5px;
@@ -12,10 +21,6 @@ page-communities {
       font-size: 3em;
       color: red;
       font-weight: bolder;
-    }
-    .noCommunities {
-      margin-bottom: 63px;
-      margin-right: 30px;
     }
   }
 }
