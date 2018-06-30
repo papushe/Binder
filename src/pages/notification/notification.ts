@@ -98,7 +98,7 @@ export class NotificationPage implements OnInit {
       .subscribe(data => {
         if (data == true) {
           this.notificationService.notifications.splice(0, this.notificationService.notifications.length);
-          this.sharedService.createToast(`All notifications deleted successfully..`);
+          this.sharedService.createToast(`All notifications deleted successfully`);
         }
       }, err => {
         //console.log(`Failed to delete notification, ${err}`);
