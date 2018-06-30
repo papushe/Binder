@@ -13,3 +13,6 @@
     </ion-row>
   </ion-item>
 </ion-list>
+<ion-card padding *ngIf="communityService?.thisCommunities.length ==0">
+  <p class="noCommunities">You have not joined any community yet</p>
+</ion-card>

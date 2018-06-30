@@ -12,10 +12,6 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card padding *ngIf="userService?.thisProfile?.communities?.length ==0">
-    <p class="noCommunities">You have not joined any community yet</p>
-  </ion-card>
-
   <communities-component #child (hasProfileEvent)="updateHasProfile($event)"></communities-component>
 
   <ion-fab bottom right #fab *ngIf="userService?.thisHasProfile">
