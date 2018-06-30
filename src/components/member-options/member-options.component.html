@@ -17,6 +17,7 @@
   <ion-item><span>Rank</span>
     <p>
       <rank [rank]="member?.rank"></rank>
+      <span *ngIf="member?.rank !== -1">({{member?.votes.up + member?.votes.down }})</span>
     </p>
   </ion-item>
   <ion-item><span>Date of birth</span>
